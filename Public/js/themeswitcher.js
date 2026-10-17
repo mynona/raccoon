@@ -11,6 +11,7 @@ if (!window.__themeSwitcherLoaded) {
          const base = (window.createSimpleMenu ? window.createSimpleMenu() : {
             open: false,
             activeIndex: -1,
+            dropUp: false,
 
             menuItems() {
                return Array.from(this.$refs.panel ? this.$refs.panel.querySelectorAll('[role^="menuitem"], a, button') : []);
@@ -18,6 +19,28 @@ if (!window.__themeSwitcherLoaded) {
 
             items() {
                return this.menuItems();
+            },
+
+            updatePlacement() {
+               if (!this.$refs.button || !this.$refs.panel) return;
+               const btnRect = this.$refs.button.getBoundingClientRect();
+               const panelHeight = this.$refs.panel.offsetHeight || 200;
+               const spaceBelow = window.innerHeight - btnRect.bottom;
+               const spaceAbove = btnRect.top;
+               const shouldDropUp = spaceBelow < panelHeight + 16 && spaceAbove > spaceBelow;
+               this.dropUp = shouldDropUp;
+
+               if (shouldDropUp) {
+                  this.$refs.panel.style.bottom = '100%';
+                  this.$refs.panel.style.marginBottom = '0.5rem';
+                  this.$refs.panel.style.marginTop = '0';
+                  this.$refs.panel.style.top = 'auto';
+               } else {
+                  this.$refs.panel.style.bottom = '';
+                  this.$refs.panel.style.marginBottom = '';
+                  this.$refs.panel.style.marginTop = '';
+                  this.$refs.panel.style.top = '';
+               }
             },
 
             toggle() {
@@ -31,6 +54,7 @@ if (!window.__themeSwitcherLoaded) {
             openMenu(index = 0) {
                this.open = true;
                this.$nextTick(() => {
+                  this.updatePlacement();
                   const list = this.menuItems();
                   if (list.length > 0) {
                      const target = index === -1 ? list.length - 1 : Math.max(0, Math.min(index, list.length - 1));
@@ -43,6 +67,13 @@ if (!window.__themeSwitcherLoaded) {
             close(focusAfter) {
                this.open = false;
                this.activeIndex = -1;
+               this.dropUp = false;
+               if (this.$refs.panel) {
+                  this.$refs.panel.style.bottom = '';
+                  this.$refs.panel.style.marginBottom = '';
+                  this.$refs.panel.style.marginTop = '';
+                  this.$refs.panel.style.top = '';
+               }
                if (focusAfter) {
                   focusAfter.focus();
                }
