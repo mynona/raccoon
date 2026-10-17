@@ -98,123 +98,11 @@ http://127.0.0.1:8090
 
 The preview includes a toggle button in the top-right corner that mirrors the dark/light mode behaviour of the production site.
 
-## Styling with Tailwind CSS Themes
+## Theming & Alpine.js
 
-Raccoon components output semantic Tailwind CSS utility classes rather than shipping pre-compiled, rigid styles. Consuming applications define their visual theme, colors, typography, and dark mode via Tailwind CSS v4.
+Raccoon components output semantic Tailwind CSS utility classes and declarative Alpine.js attributes. Consuming applications define their visual theme, colors, typography, and dark mode via Tailwind CSS v4, and bundle Alpine.js with the required accessibility plugins.
 
-### 1. Configure Source Scanning
-
-In your application's Tailwind CSS entrypoint (`input.css`), configure `@source` to scan Raccoon's Swift files for class detection:
-
-```css
-@import "tailwindcss";
-
-/* Scan Raccoon Swift files in your SwiftPM package checkout */
-@source ".build/checkouts/raccoon/**/*.swift";
-
-/* Custom variant for class-based dark mode toggling */
-@custom-variant dark (&:where(.dark, .dark *));
-```
-
-### 2. Define Theme Tokens (`@theme`)
-
-Raccoon components consume semantic design tokens (surfaces, buttons, focus rings, status indicators) mapped via Tailwind's `@theme` directive:
-
-```css
-@theme {
-  /* Font Families */
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-serif: 'Merriweather', Georgia, serif;
-  --font-mono: 'SFMono-Regular', Menlo, Monaco, Consolas, monospace;
-
-  /* Surfaces & Backgrounds */
-  --color-surface: #ffffff;
-  --color-surface-dark: #1f2937;
-  --color-inverse-surface: #111827;
-  --color-scrim: rgba(0, 0, 0, 0.5);
-
-  /* Typography Colors */
-  --color-on-surface: #111827;
-  --color-on-surface-bright: #000000;
-  --color-on-surface-dim: #6b7280;
-  --color-on-inverse-surface: #ffffff;
-
-  /* Primary Button / Actions */
-  --color-primary: #111827;
-  --color-on-primary: #ffffff;
-
-  /* Secondary Button / Outlined */
-  --color-secondary: transparent;
-  --color-on-secondary: #111827;
-
-  /* Tertiary Button / Soft Background */
-  --color-tertiary: #f3f4f6;
-  --color-on-tertiary: #111827;
-
-  /* Disabled State */
-  --color-disabled: #f3f4f6;
-  --color-on-disabled: #9ca3af;
-
-  /* Focus & Hover Rings */
-  --color-focusring: #2563eb;
-  --color-hoverring: #111827;
-
-  /* Status Colors */
-  --color-on-theme: #2563eb;
-  --color-on-success: #16a34a;
-  --color-error: #dc2626;
-  --color-on-error: #ffffff;
-  --color-on-error-variant: #dc2626;
-}
-```
-
-### 3. Dark Mode Theme Overrides
-
-Override the theme variables inside `.dark` within `@layer base` to support dark mode:
-
-```css
-@layer base {
-  .dark {
-    /* Surfaces */
-    --color-surface: #111827;
-    --color-surface-dark: #0f172a;
-    --color-inverse-surface: #f9fafb;
-
-    /* Typography */
-    --color-on-surface: #f9fafb;
-    --color-on-surface-bright: #ffffff;
-    --color-on-surface-dim: #9ca3af;
-    --color-on-inverse-surface: #111827;
-
-    /* Buttons */
-    --color-primary: #3b82f6;
-    --color-on-primary: #111827;
-    --color-secondary: transparent;
-    --color-on-secondary: #60a5fa;
-    --color-tertiary: rgba(59, 130, 246, 0.1);
-    --color-on-tertiary: #93c5fd;
-    --color-disabled: #1f2937;
-    --color-on-disabled: #4b5563;
-
-    /* Focus & Hover Rings */
-    --color-hoverring: #ffffff;
-    --color-focusring: #60a5fa;
-
-    /* Status Colors */
-    --color-on-theme: #60a5fa;
-    --color-on-success: #4ade80;
-    --color-on-error-variant: #f87171;
-  }
-}
-```
-
-### 4. Build the Stylesheet
-
-Compile and minify your CSS bundle using the Tailwind CLI:
-
-```bash
-npx @tailwindcss/cli -i ./input.css -o ./Public/css/main.css --minify
-```
+All theming guides, build configurations, plugin requirements, and customization instructions are documented in **[`Theming/README.md`](./Theming/README.md)**.
 
 ## Running Tests
 
@@ -250,3 +138,10 @@ Sources/
 Tests/
   RaccoonTests/                 # Unit and integration tests for core Raccoon UI kit
 ```
+
+## Attribution & Copyright
+
+This project uses [Bootstrap Icons](https://github.com/twbs/icons).
+
+- **Bootstrap Icons**: Copyright (c) 2019–present The Bootstrap Authors. Licensed under the [MIT License](https://github.com/twbs/icons/blob/main/LICENSE). Sourced from [https://github.com/twbs/icons](https://github.com/twbs/icons).
+

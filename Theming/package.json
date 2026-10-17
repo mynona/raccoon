@@ -1,0 +1,40 @@
+{
+  "name": "raccoon-theming",
+  "version": "1.0.0",
+  "description": "CSS and JavaScript build configuration using Tailwind CSS v4 and Alpine.js for Raccoon UI components",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "build": "npm-run-all lint:css:fix --parallel build:css build:js",
+    "build:css": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/css/raccoon.min.css --minify",
+    "build:js": "npx esbuild index.js --outfile=./dist/js/bundle.min.js --bundle --minify --target=es2020",
+    "dev": "npm-run-all --parallel dev:css dev:js",
+    "dev:css": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/css/raccoon.css --watch",
+    "dev:js": "npx esbuild index.js --outfile=./dist/js/bundle.js --bundle --watch --target=es2020",
+    "lint:css": "stylelint \"src/**/*.css\"",
+    "lint:css:fix": "stylelint \"src/**/*.css\" --fix"
+  },
+  "devDependencies": {
+    "@alpinejs/focus": "^3.17.4",
+    "@alpinejs/sort": "^3.17.4",
+    "@alpinejs/ui": "^3.17.4",
+    "@tailwindcss/cli": "^4.3.3",
+    "@tailwindcss/forms": "^0.5.11",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@tailwindcss/typography": "^0.5.20",
+    "alpinejs": "^3.17.4",
+    "esbuild": "^0.28.2",
+    "npm-run-all2": "^9.0.3",
+    "postcss": "^8.5.30",
+    "prettier": "^3.9.10",
+    "stylelint": "^17.16.0",
+    "stylelint-config-standard": "^40.0.0",
+    "stylelint-config-tailwindcss": "^1.0.1",
+    "stylelint-prettier": "^5.0.3",
+    "tailwindcss": "^4.3.3"
+  }
+}

@@ -24,9 +24,9 @@ COPY Public ./Public
 RUN swift build -c release --product Preview --static-swift-stdlib
 
 # Stage binary and static assets
-WORKDIR /staging
-RUN cp "$(swift build -c release --show-bin-path)/Preview" ./Preview \
-    && [ -d "/build/Public" ] && cp -Ra /build/Public ./Public || true
+RUN mkdir -p /staging \
+    && cp "$(swift build -c release --show-bin-path)/Preview" /staging/Preview \
+    && if [ -d "/build/Public" ]; then cp -Ra /build/Public /staging/Public; fi
 
 # ================================
 # Run stage

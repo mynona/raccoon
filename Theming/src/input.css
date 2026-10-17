@@ -1,0 +1,937 @@
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* stylelint-disable */
+/* css-disable-entire-file */
+
+@import 'tailwindcss' source(none);
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Plugins for enhanced functionality */
+@plugin '@tailwindcss/typography';
+@plugin '@tailwindcss/forms'; 
+
+/* ========================================================
+   Content sources: Scan Swift files for class detection
+   ========================================================
+   Tailwind CSS scans Swift files to generate only the CSS classes
+   actually used by your templates and Raccoon component styles (*Styles.swift).
+
+   To build the theme properly, you MUST point Tailwind to:
+   1. Your own application source code:
+      @source '/link/to/your/sourcecode/';
+      (e.g., @source '../Sources/**/*.swift';)
+
+   2. The Raccoon package source files (required to scan Raccoon *Styles.swift):
+      - Via SwiftPM CLI / Vapor:
+        @source '../.build/checkouts/raccoon/**/*.swift';
+      - Via Xcode (DerivedData checkouts):
+        @source '~/Library/Developer/Xcode/DerivedData/**/SourcePackages/checkouts/raccoon/**/*.swift';
+      - Via local Swift package dependency:
+        @source '../../raccoon/**/*.swift';
+   ======================================================== */
+@source '/link/to/your/sourcecode/';
+
+@theme {
+
+/* Font Families */
+--font-sans: 'IBM Plex Sans', sans-serif;
+--font-serif: 'IBM Plex Serif', serif;
+--font-mono: 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+
+/* Font sizes and line heights */
+--text-xs: 12px;
+--text-xs--line-height: 18px;
+--text-sm: 14px;
+--text-sm--line-height: 21px;
+--text-base: 16px;
+--text-base--line-height: 24px;
+--text-lg: 18px;
+--text-lg--line-height: 27px;
+--text-xl: 20px;
+--text-xl--line-height: 30px;
+--text-2xl: 22.5px;
+--text-2xl--line-height: 33.8px;
+--text-3xl: 25px;
+--text-3xl--line-height: 37.5px;
+--text-4xl: 36px;
+--text-4xl--line-height: 54px;
+--text-5xl: 48px;
+--text-5xl--line-height: 72px;
+--text-6xl: 60px;
+--text-6xl--line-height: 65px;
+--text-7xl: 72px;
+--text-7xl--line-height: 78px;
+--text-8xl: 96px;
+--text-8xl--line-height: 104px;
+--text-9xl: 128px;
+--text-9xl--line-height: 192px;
+
+/* Breakpoints */
+--breakpoint-mobile-sm: 320px;
+--breakpoint-mobile-md: 375px;
+--breakpoint-mobile-xl: 414px;
+--breakpoint-mobile-2xl: 480px;
+--breakpoint-mobile-3xl: 520px;
+--breakpoint-sm: 576px;
+--breakpoint-md: 768px;
+--breakpoint-tablet: 992px;
+--breakpoint-lg: 1024px;
+--breakpoint-xl: 1280px;
+--breakpoint-2xl: 1536px;
+--breakpoint-3xl: 1920px;
+
+ /* Neutral gray color scale for any theme*/
+--color-gray-50: #fafafa;
+--color-gray-100: #f5f5f5;
+--color-gray-200: #e5e5e5;
+--color-gray-300: #d4d4d4;
+--color-gray-400: #a3a3a3;
+--color-gray-500: #737373;
+--color-gray-600: #525252;
+--color-gray-700: #404040;
+--color-gray-800: #1f2937;
+--color-gray-900: #111827;
+--color-gray-950: #0a0a0a;
+
+/* reusable tokens for the raumnebenan theme */
+--color-raumnebenan-theme-50: #cef1e2;
+--color-raumnebenan-theme-300: #74d8b3;
+--color-raumnebenan-theme-500: #40CDA0;
+--color-raumnebenan-theme-600: #36b28b;
+--color-raumnebenan-theme-700: #278466; 
+--color-raumnebenan-theme-900: #114132;
+--color-raumnebenan-theme-950: #0a251d;
+--color-raumnebenan-themedark-100: #cfe3dd; 
+--color-raumnebenan-themedark-700: #2a403c;
+--color-raumnebenan-themedark-800: #1d2e2a;
+--color-raumnebenan-themedark-950: #030b08;
+--color-raumnebenan-info-50: #e8f4fd;
+--color-raumnebenan-info-300: #9acff7;
+--color-raumnebenan-info-600: #0b72c2;
+--color-raumnebenan-error-50: #dfaabc;
+--color-raumnebenan-error-300: #c87693;
+--color-raumnebenan-error-500: #8e3556;
+--color-raumnebenan-warning-50: #FFF7E0;
+--color-raumnebenan-warning-300: #FFB74A;
+--color-raumnebenan-warning-600: #C67A00;
+--color-raumnebenan-success-50: var(--color-raumnebenan-theme-50);
+--color-raumnebenan-success-300: var(--color-raumnebenan-theme-300);
+--color-raumnebenan-success-600: var(--color-raumnebenan-theme-700);
+
+/* reusable tokens for the beacon blue theme */
+--color-beacon-blue-50: #f9f9f7;
+--color-beacon-blue-100: #f1f1ed;
+--color-beacon-blue-200: #e5e5df;
+--color-beacon-blue-300: #d1d1ca;
+--color-beacon-blue-400: #9f9f98;
+--color-beacon-blue-500: #5b6075;
+--color-beacon-blue-600: #464c63;
+--color-beacon-blue-700: #2b3350;
+--color-beacon-blue-800: #141b34;
+--color-beacon-blue-900: #0e1327;
+--color-beacon-blue-950: #080b18;
+--color-beacon-blue-dark-100: #dde1ee;
+--color-beacon-blue-dark-700: #2a3150;
+--color-beacon-blue-dark-800: #1f2542;
+--color-beacon-blue-dark-900: #141a33;
+--color-beacon-blue-dark-950: #0b0f22;
+--color-beacon-blue-accent: #1f4bb0;
+--color-beacon-blue-accent-light: #86a6ff;
+--color-beacon-blue-accent-dark: #163683;
+--color-beacon-blue-highlight: #e8570b;
+--color-beacon-blue-highlight-light: #ff8a3d;
+--color-beacon-blue-info-50: #e9f2fb;
+--color-beacon-blue-info-600: #1d5fa3;
+--color-beacon-blue-info-light: #86bdf0;
+--color-beacon-blue-error-50: #fbe8ec;
+--color-beacon-blue-error-600: #b52a45;
+--color-beacon-blue-error-light: #f5929f;
+--color-beacon-blue-warning-50: #fbf1d9;
+--color-beacon-blue-warning-600: #845000;
+--color-beacon-blue-warning-light: #e8b04f;
+--color-beacon-blue-success-50: #e3f3ea;
+--color-beacon-blue-success-600: #1c6b4b;
+--color-beacon-blue-success-light: #6fcf9f;
+
+/* ========================================================
+   Primary
+   ======================================================== */
+
+--color-primary: var(--color-gray-950);
+--color-primary-dim: var(--color-gray-950);
+--color-on-primary: var(--color-white);
+
+/* ========================================================
+   Secondary
+   ======================================================== */
+
+--color-secondary: transparent;
+--color-on-secondary: var(--color-gray-950);
+
+/* ========================================================
+   Tertiary
+   ======================================================== */
+
+--color-tertiary: var(--color-gray-100);
+--color-on-tertiary: var(--color-gray-950);
+
+/* ========================================================
+   Icon
+   ======================================================== */
+
+--color-icon: transparent;
+--color-on-icon: var(--color-gray-950);
+
+/* ========================================================
+   Disabled
+   ======================================================== */
+
+--color-disabled: var(--color-gray-50);
+--color-on-disabled: var(--color-gray-400);
+
+/* ========================================================
+   Accent
+   ======================================================== */
+
+--color-on-success: var(--color-raumnebenan-theme-700);
+--color-on-theme: var(--color-raumnebenan-theme-700);
+
+/* Success */
+--color-on-surface-success: var(--color-raumnebenan-success-600);
+--color-surface-success: color-mix(in srgb, var(--color-raumnebenan-success-50) 50%, transparent);
+
+/* Info */
+--color-on-surface-info: var(--color-raumnebenan-info-600);
+--color-surface-info: var(--color-raumnebenan-info-50);
+
+/* Warning */
+--color-on-surface-warning: var(--color-raumnebenan-warning-600);
+--color-surface-warning: var(--color-raumnebenan-warning-50);
+
+/* rating */
+--color-surface-rating: var(--color-raumnebenan-themedark-100);
+
+/* ========================================================
+   Hover and focus rings
+   ======================================================== */
+
+--color-hoverring: var(--color-gray-950);
+--color-focusring: var(--color-raumnebenan-theme-700);
+
+/* ========================================================
+   Hyperlinks
+   ======================================================== */
+
+--color-link-active: var(--color-gray-950);
+--color-link-hover: var(--color-raumnebenan-theme-700);
+--color-link-visited: var(--color-gray-500);
+
+
+/* ========================================================
+   Error
+   ======================================================== */
+
+--color-error: var(--color-raumnebenan-error-500);
+--color-on-error: var(--color-white);
+--color-on-error-variant: var(--color-raumnebenan-error-500);
+--color-on-surface-error: var(--color-raumnebenan-error-500);
+--color-surface-error: color-mix(in srgb, var(--color-raumnebenan-error-50) 30%, transparent);
+
+/* ========================================================
+   Progress bar
+   ======================================================== */
+
+--color-progressactive: var(--color-raumnebenan-theme-700);
+--color-progressinactive: color-mix(in srgb, var(--color-raumnebenan-theme-50) 80%, transparent);
+
+
+
+/* ========================================================
+   Surface
+   ======================================================== */
+
+--color-surface: var(--color-white);
+--color-surface-dark: var(--color-raumnebenan-themedark-800);
+--color-on-surface: var(--color-gray-950);
+--color-on-surface-variant: var(--color-raumnebenan-theme-700);
+--color-on-surface-dim: var(--color-gray-500);
+--color-on-surface-bright: var(--color-gray-950);
+--color-inverse-surface: var(--color-gray-800);
+--color-on-inverse-surface: var(--color-white);
+
+/* ========================================================
+   Outline
+   ======================================================== */
+
+--color-outline: var(--color-gray-500);
+
+/* ========================================================
+   Utility
+   ======================================================== */
+
+--color-shadow: #ffffff;
+--color-scrim: color-mix(in srgb, var(--color-raumnebenan-themedark-950) 70%, transparent);
+
+}
+
+@layer base {
+
+   .dark {
+
+--color-primary: var(--color-raumnebenan-theme-500);
+--color-primary-dim: var(--color-raumnebenan-theme-700);
+--color-on-primary: var(--color-gray-950);
+--color-secondary: transparent;
+--color-on-secondary: var(--color-raumnebenan-theme-500);
+--color-tertiary: color-mix(in srgb, var(--color-raumnebenan-theme-500) 10%, transparent);
+--color-on-tertiary: var(--color-raumnebenan-theme-500);
+--color-icon: transparent;
+--color-on-icon: var(--color-white);
+--color-error: var(--color-raumnebenan-error-500);
+--color-on-error: var(--color-white);
+--color-on-error-variant: var(--color-raumnebenan-error-50);
+--color-on-surface-error: var(--color-raumnebenan-error-300);
+--color-surface-error: color-mix(in srgb, var(--color-raumnebenan-error-50) 10%, transparent);
+--color-disabled: var(--color-gray-700);
+--color-on-disabled: var(--color-gray-500);
+--color-on-success: var(--color-raumnebenan-theme-500);
+--color-on-theme: var(--color-raumnebenan-theme-500);
+--color-on-surface-success: var(--color-raumnebenan-success-300);
+--color-surface-success: color-mix(in srgb, var(--color-raumnebenan-success-50) 10%, transparent);
+--color-on-surface-info: var(--color-raumnebenan-info-300);
+--color-surface-info: color-mix(in srgb, var(--color-raumnebenan-info-50) 10%, transparent);
+--color-on-surface-warning: var(--color-raumnebenan-warning-300);
+--color-surface-warning: color-mix(in srgb, var(--color-raumnebenan-warning-50) 10%, transparent);
+--color-surface-rating: var(--color-raumnebenan-themedark-700);
+--color-hoverring: var(--color-white);
+--color-focusring: var(--color-raumnebenan-theme-500);
+--color-link-active: var(--color-white);
+--color-link-hover: var(--color-raumnebenan-theme-500);
+--color-link-visited: var(--color-gray-400);
+--color-progressinactive: var(--color-raumnebenan-theme-900);
+--color-progressactive: var(--color-raumnebenan-theme-500);
+--color-surface: var(--color-raumnebenan-theme-950);
+--color-surface-dark: var(--color-raumnebenan-themedark-950);
+--color-on-surface: var(--color-gray-400);
+--color-on-surface-variant: var(--color-white);
+--color-on-surface-dim: var(--color-gray-500);
+--color-on-surface-bright: var(--color-white);
+--color-inverse-surface: var(--color-gray-600);
+--color-on-inverse-surface: var(--color-white);
+--color-outline: var(--color-gray-500);
+--color-outline-variant: #ffffff;
+--color-shadow: #ffffff;
+--color-scrim: color-mix(in srgb, var(--color-raumnebenan-theme-50) 30%, transparent);
+
+   }
+
+  [data-theme="black-and-white"] {
+
+--color-primary: var(--color-gray-950);
+--color-primary-dim: var(--color-gray-950);
+--color-on-primary: var(--color-white);
+--color-secondary: transparent;
+--color-on-secondary: var(--color-gray-950);
+--color-tertiary: var(--color-gray-100);
+--color-on-tertiary: var(--color-gray-950);
+--color-icon: transparent;
+--color-on-icon: var(--color-gray-950);
+--color-disabled: var(--color-gray-50);
+--color-on-disabled: var(--color-gray-400);
+--color-on-success: var(--color-gray-700);
+--color-on-theme: var(--color-gray-950);
+--color-hoverring: var(--color-gray-950);
+--color-focusring: var(--color-gray-950);
+--color-link-active: var(--color-gray-950);
+--color-link-hover: var(--color-gray-700);
+--color-link-visited: var(--color-gray-500);
+--color-error: var(--color-gray-950);
+--color-on-error: var(--color-white);
+--color-on-error-variant: var(--color-gray-950);
+--color-on-error-surface: var(--color-gray-950);
+--color-on-surface-error: var(--color-gray-950);
+--color-surface-error: var(--color-gray-100);
+--color-on-surface-success: var(--color-gray-950);
+--color-surface-success: var(--color-gray-100);
+--color-on-surface-info: var(--color-gray-950);
+--color-surface-info: var(--color-gray-100);
+--color-on-surface-warning: var(--color-gray-950);
+--color-surface-warning: var(--color-gray-100);
+--color-surface-rating: var(--color-gray-300);
+--color-progressactive: var(--color-gray-950);
+--color-progressinactive: color-mix(in srgb, var(--color-gray-200) 80%, transparent);
+--color-surface: var(--color-white);
+--color-surface-dark: var(--color-gray-900);
+--color-on-surface: var(--color-gray-950);
+--color-on-surface-variant: var(--color-gray-700);
+--color-on-surface-dim: var(--color-gray-500);
+--color-on-surface-bright: var(--color-gray-950);
+--color-inverse-surface: var(--color-gray-900);
+--color-on-inverse-surface: var(--color-white);
+--color-outline: var(--color-gray-500);
+--color-outline-variant: var(--color-gray-200);
+--color-shadow: var(--color-white);
+--color-scrim: color-mix(in srgb, var(--color-gray-950) 70%, transparent);
+
+  }
+
+  [data-theme="black-and-white"].dark {
+
+--color-primary: var(--color-white);
+--color-primary-dim: var(--color-gray-300);
+--color-on-primary: var(--color-gray-950);
+--color-secondary: transparent;
+--color-on-secondary: var(--color-white);
+--color-tertiary: color-mix(in srgb, var(--color-white) 10%, transparent);
+--color-on-tertiary: var(--color-white);
+--color-icon: transparent;
+--color-on-icon: var(--color-white);
+--color-error: var(--color-white);
+--color-on-error: var(--color-gray-950);
+--color-on-error-variant: var(--color-white);
+--color-on-error-surface: var(--color-gray-200);
+--color-on-surface-error: var(--color-white);
+--color-surface-error: color-mix(in srgb, var(--color-white) 10%, transparent);
+--color-disabled: var(--color-gray-700);
+--color-on-disabled: var(--color-gray-500);
+--color-on-success: var(--color-white);
+--color-on-surface-success: var(--color-white);
+--color-surface-success: color-mix(in srgb, var(--color-white) 10%, transparent);
+--color-on-surface-info: var(--color-white);
+--color-surface-info: color-mix(in srgb, var(--color-white) 10%, transparent);
+--color-on-surface-warning: var(--color-white);
+--color-surface-warning: color-mix(in srgb, var(--color-white) 10%, transparent);
+--color-surface-rating: var(--color-gray-700);
+--color-on-theme: var(--color-white);
+--color-hoverring: var(--color-white);
+--color-focusring: var(--color-white);
+--color-link-active: var(--color-white);
+--color-link-hover: var(--color-gray-300);
+--color-link-visited: var(--color-gray-400);
+--color-progressinactive: var(--color-gray-800);
+--color-progressactive: var(--color-white);
+--color-surface: var(--color-gray-950);
+--color-surface-dark: var(--color-black);
+--color-on-surface: var(--color-gray-400);
+--color-on-surface-variant: var(--color-white);
+--color-on-surface-dim: var(--color-gray-500);
+--color-on-surface-bright: var(--color-white);
+--color-inverse-surface: var(--color-gray-700);
+--color-on-inverse-surface: var(--color-white);
+--color-outline: var(--color-gray-500);
+--color-outline-variant: var(--color-white);
+--color-shadow: var(--color-white);
+--color-scrim: color-mix(in srgb, var(--color-gray-50) 30%, transparent);
+
+  }
+
+  [data-theme="beacon-blue"] {
+
+--color-primary: var(--color-beacon-blue-800);
+--color-primary-dim: var(--color-beacon-blue-800);
+--color-on-primary: var(--color-beacon-blue-50);
+--color-secondary: transparent;
+--color-on-secondary: var(--color-beacon-blue-800);
+--color-tertiary: var(--color-beacon-blue-100);
+--color-on-tertiary: var(--color-beacon-blue-800);
+--color-icon: transparent;
+--color-on-icon: var(--color-beacon-blue-800);
+--color-disabled: var(--color-beacon-blue-100);
+--color-on-disabled: var(--color-beacon-blue-400);
+--color-on-success: var(--color-beacon-blue-success-600);
+--color-on-theme: var(--color-beacon-blue-accent);
+--color-hoverring: var(--color-beacon-blue-highlight);
+--color-focusring: var(--color-beacon-blue-accent);
+--color-link-active: var(--color-beacon-blue-accent-dark);
+--color-link-hover: var(--color-beacon-blue-accent);
+--color-link-visited: var(--color-beacon-blue-600);
+--color-error: var(--color-beacon-blue-error-600);
+--color-on-error: var(--color-beacon-blue-50);
+--color-on-error-variant: var(--color-beacon-blue-error-600);
+--color-on-error-surface: var(--color-beacon-blue-error-600);
+--color-on-surface-error: var(--color-beacon-blue-error-600);
+--color-surface-error: color-mix(in srgb, var(--color-beacon-blue-error-50) 60%, var(--color-beacon-blue-50));
+--color-on-surface-success: var(--color-beacon-blue-success-600);
+--color-surface-success: color-mix(in srgb, var(--color-beacon-blue-success-50) 60%, var(--color-beacon-blue-50));
+--color-on-surface-info: var(--color-beacon-blue-info-600);
+--color-surface-info: color-mix(in srgb, var(--color-beacon-blue-info-50) 60%, var(--color-beacon-blue-50));
+--color-on-surface-warning: var(--color-beacon-blue-warning-600);
+--color-surface-warning: color-mix(in srgb, var(--color-beacon-blue-warning-50) 60%, var(--color-beacon-blue-50));
+--color-surface-rating: var(--color-beacon-blue-200);
+--color-progressactive: var(--color-beacon-blue-highlight);
+--color-progressinactive: color-mix(in srgb, var(--color-beacon-blue-200) 80%, transparent);
+--color-surface: var(--color-beacon-blue-50);
+--color-surface-dark: var(--color-beacon-blue-100);
+--color-on-surface: var(--color-beacon-blue-800);
+--color-on-surface-variant: var(--color-beacon-blue-900);
+--color-on-surface-dim: var(--color-beacon-blue-500);
+--color-on-surface-bright: var(--color-beacon-blue-950);
+--color-inverse-surface: var(--color-beacon-blue-800);
+--color-on-inverse-surface: var(--color-beacon-blue-50);
+--color-outline: var(--color-beacon-blue-300);
+--color-outline-variant: var(--color-beacon-blue-200);
+--color-shadow: var(--color-beacon-blue-800);
+--color-scrim: color-mix(in srgb, var(--color-beacon-blue-900) 50%, transparent);
+
+  }
+
+  [data-theme="beacon-blue"].dark {
+
+--color-primary: var(--color-beacon-blue-100);
+--color-primary-dim: var(--color-beacon-blue-dark-100);
+--color-on-primary: var(--color-beacon-blue-dark-900);
+--color-secondary: transparent;
+--color-on-secondary: var(--color-beacon-blue-100);
+--color-tertiary: color-mix(in srgb, var(--color-beacon-blue-100) 10%, transparent);
+--color-on-tertiary: var(--color-beacon-blue-100);
+--color-icon: transparent;
+--color-on-icon: var(--color-beacon-blue-100);
+--color-error: var(--color-beacon-blue-error-600);
+--color-on-error: var(--color-white);
+--color-on-error-variant: var(--color-beacon-blue-error-light);
+--color-on-error-surface: var(--color-beacon-blue-error-light);
+--color-on-surface-error: var(--color-beacon-blue-error-light);
+--color-surface-error: color-mix(in srgb, var(--color-beacon-blue-error-600) 15%, transparent);
+--color-disabled: var(--color-beacon-blue-dark-700);
+--color-on-disabled: var(--color-beacon-blue-600);
+--color-on-success: var(--color-beacon-blue-success-light);
+--color-on-surface-success: var(--color-beacon-blue-success-light);
+--color-surface-success: color-mix(in srgb, var(--color-beacon-blue-success-light) 15%, transparent);
+--color-on-surface-info: var(--color-beacon-blue-info-light);
+--color-surface-info: color-mix(in srgb, var(--color-beacon-blue-info-light) 15%, transparent);
+--color-on-surface-warning: var(--color-beacon-blue-warning-light);
+--color-surface-warning: color-mix(in srgb, var(--color-beacon-blue-warning-light) 15%, transparent);
+--color-surface-rating: var(--color-beacon-blue-dark-700);
+--color-on-theme: var(--color-beacon-blue-accent-light);
+--color-hoverring: var(--color-beacon-blue-highlight-light);
+--color-focusring: var(--color-beacon-blue-accent-light);
+--color-link-active: var(--color-beacon-blue-100);
+--color-link-hover: var(--color-beacon-blue-accent-light);
+--color-link-visited: var(--color-beacon-blue-dark-100);
+--color-progressinactive: var(--color-beacon-blue-dark-800);
+--color-progressactive: var(--color-beacon-blue-highlight-light);
+--color-surface: var(--color-beacon-blue-dark-900);
+--color-surface-dark: var(--color-beacon-blue-dark-950);
+--color-on-surface: var(--color-beacon-blue-dark-100);
+--color-on-surface-variant: var(--color-beacon-blue-100);
+--color-on-surface-dim: var(--color-beacon-blue-400);
+--color-on-surface-bright: var(--color-beacon-blue-50);
+--color-inverse-surface: var(--color-beacon-blue-dark-700);
+--color-on-inverse-surface: var(--color-beacon-blue-50);
+--color-outline: var(--color-beacon-blue-dark-700);
+--color-outline-variant: var(--color-beacon-blue-dark-800);
+--color-shadow: var(--color-beacon-blue-dark-950);
+--color-scrim: color-mix(in srgb, var(--color-beacon-blue-dark-950) 65%, transparent);
+
+  }
+
+.mermaid-target svg {
+    width: 100% !important;
+    height: auto !important;
+}
+
+.mermaid-target {
+    overflow: hidden;
+    max-width: 100%;
+}
+
+
+    /* Remove all indentation for task list containers and items */
+    ul:has(li input[type="checkbox"]) {
+      padding-left: 0 !important;
+      margin-left: 0 !important;
+    }
+    ul li:has(input[type="checkbox"]) {
+      list-style: none;
+      padding-left: 0 !important;
+      margin-left: 0 !important;
+      display: flex;
+      align-items: center;
+    }
+  /* Hide bullets for task list items */
+  ul li:has(input[type="checkbox"]) {
+    list-style: none;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Custom checkmark for checked checkboxes */
+  ul li input[type="checkbox"] {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    background: transparent;
+    border: 1.5px solid var(--color-gray-600);
+    box-shadow: none;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  ul li input[type="checkbox"]:checked {
+    background: #000;
+    border-color: #000;
+  }
+  ul li input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0.35em;
+    height: 0.7em;
+    border: solid #fff;
+    border-width: 0 0.18em 0.18em 0;
+    transform: translate(-50%, -60%) rotate(45deg);
+    pointer-events: none;
+  }
+
+  /* Task list checkbox styling for Markdown-generated lists */
+  ul li input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 1rem;
+    height: 1rem;
+    border: 1.5px solid var(--color-gray-600);
+    border-radius: 0.2rem;
+    background: #fff;
+    margin-right: 0.75em;
+    vertical-align: middle;
+    position: relative;
+    cursor: not-allowed;
+    accent-color: var(--color-primary);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  ul li input[type="checkbox"]:checked {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+  ul li input[type="checkbox"]:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  ul li label {
+    font-weight: 400;
+    color: var(--color-gray-950);
+  }
+
+  /* Print styles - ensure black text when printing */
+  .print, .print > * {
+    color: #000 !important;
+  }
+
+    /* Preformatted text - light mode color */
+    /* Inline code - match pre styling */
+      /* Remove quotes for code inside pre */
+      .prose pre code::before,
+      .prose pre code::after {
+        content: none !important;
+      }
+    .prose code::before {
+      content: '‘' !important;
+    }
+    .prose code::after {
+      content: '’' !important;
+    }
+  .prose code {
+    color: #0a0a0a !important;
+    font-family: var(--font-mono), monospace !important;
+    font-weight: 400 !important;
+  }
+  .dark .prose code {
+    color: #e5e5e5 !important;
+  }
+  .prose pre {
+    color: #0a0a0a !important;
+  }
+
+  /* ========================================================
+     PROSE - Typography Plugin Customizations
+     ======================================================== */
+  .prose {
+    line-height: 1.8em !important;
+    font-family: 'IBM Plex Serif', serif;
+  }
+
+  /* Heading 1 - Main titles */
+  .prose > h1, .prose > * > h1 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 1.5em !important;
+  }
+
+  /* Headings 2 & 3 - Subheadings with underline accent */
+  .prose > h2, .prose > * > h2, .prose > h3, .prose > * > h3 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    text-decoration: underline;
+    text-underline-offset: 0.28em;
+    margin-bottom: 0.6em !important;
+  }
+
+  .prose h2 {
+    margin-top: 1em !important;
+  }
+
+  /* Heading 4 - Lighter weight subheading */
+  .prose > h4, .prose > * > h4 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    margin-bottom: 0.6em !important;
+  }
+
+  /* Definition list items */
+  .prose > dd, .prose > * > dd {
+    padding-left: 0px !important;
+  }
+
+  /* Block quotes - prominent spacing */
+  .prose > blockquote, .prose > * > blockquote {
+    font-style: normal !important;
+    font-family: var(--font-serif), serif !important;
+    font-weight: 400 !important;
+    color: #0a0a0a !important;
+    border-left: 0.25rem solid #40CDA0 !important;
+    padding-left: 1.25em !important;
+    margin-bottom: 4.0rem !important;
+    margin-top: 4.0rem !important;
+  }
+  .dark .prose > blockquote,
+  .dark .prose > * > blockquote {
+    border-left-color: #40CDA0 !important;
+  }
+  .dark .prose > blockquote, .dark .prose > * > blockquote {
+    color: #a3a3a3 !important;
+  }
+
+  /* Links - consistent fonts */
+  .prose > a, .prose > * > a, p > a {
+    font-family: 'IBM Plex Sans' !important, 'sans-serif' !important;
+    font-weight: 400 !important;
+    font-style: normal;
+  }
+  
+  /* List items - removes default spacing */
+  .prose li, .prose > * > li {                 
+    margin-top: 0px !important;                
+    margin-bottom: 0px !important;        
+  }  
+
+  .prose :where(ul):not(:where([class~="not-prose"] *)),
+  .prose :where(ol):not(:where([class~="not-prose"] *)) {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  
+  .prose :where(ul > li):not(:where([class~="not-prose"] *)),
+  .prose :where(ol > li):not(:where([class~="not-prose"] *)) {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Restore spacing after the entire list */
+  .prose :where(ul):not(:where([class~="not-prose"] *)),
+  .prose :where(ol):not(:where([class~="not-prose"] *)) {
+    margin-bottom: 1.25rem !important; /* same as paragraph spacing */
+  }
+
+  .prose sup {
+   font-size: 0.75em;
+   vertical-align: super;
+  }
+
+  .prose sub {
+   font-size: 0.75em;
+   vertical-align: sub;
+  }
+
+  /* Paragraphs - controlled vertical rhythm */
+  .prose > p, .prose > * > p {
+    margin-top: 0px !important; 
+    margin-bottom: 1.25rem !important; 
+  }
+
+  /* ========================================================
+     BROWSER-SPECIFIC - iOS Safari Support
+     Allows pointermove events to continue outside elements
+     ======================================================== */
+  @supports (-webkit-touch-callout: none) { 
+    [data-column-popover] [data-draggable-row] { 
+      touch-action: none !important; 
+      -webkit-user-select: none !important; 
+      -webkit-touch-callout: none !important; 
+    } 
+  }
+
+pre {
+  counter-reset: line;
+}
+
+pre code {
+  display: block;
+  width: calc(100% - 0.75rem);
+}
+
+pre code span {
+  counter-increment: line;
+  display: block;
+}
+
+/* Line numbers for code blocks */
+pre code span::before {
+  content: counter(line);
+  display: inline-block;
+  width: 0.5rem;
+  color: var(--color-on-disabled);
+  margin-right: 1rem;
+  text-align: right;
+  font-size: 0.75rem;
+}
+
+pre code span:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+.dark pre code span:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+pre code span {
+  white-space: pre-wrap; /* preserves line breaks AND allows wrapping */
+  word-break: break-word;
+}
+
+pre code span::after {
+  content: "";
+  display: inline-block;
+  width: 0;
+}
+
+pre {
+  background:
+    linear-gradient(to right, rgba(0,0,0,0.1), transparent),
+    linear-gradient(to left, rgba(0,0,0,0.1), transparent),
+    var(--code-bg);
+  background-repeat: no-repeat;
+  background-size: 20px 100%, 20px 100%, 100% 100%;
+  background-position: left top, right top, left top;
+}
+
+pre,
+pre code,
+pre code span {
+  outline: none !important;
+}
+
+pre,
+pre code,
+pre code span {
+  -webkit-tap-highlight-color: transparent;
+}
+
+pre:focus,
+pre code:focus,
+pre code span:focus {
+  outline: none !important;
+}
+
+}
+
+  @media (prefers-color-scheme: dark) {
+    ul li input[type="checkbox"] {
+      background: transparent;
+      border-color: var(--color-gray-400);
+      accent-color: var(--color-primary);
+    }
+    ul li input[type="checkbox"]:checked {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+    ul li label {
+      color: var(--color-gray-400);
+    }
+  }
+
+/* ============================================================
+   CUSTOM UTILITY - Skip Link
+   Accessibility helper: hidden by default, shows on focus
+   ============================================================ */
+@utility skip-link {
+  clip: rect(1px, 1px, 1px, 1px);
+  display: block;
+  height: 1px;
+  overflow: hidden;
+  padding: 20px;
+  position: fixed;
+  text-decoration: underline;
+  top: 1rem;
+  left: 1rem;
+  width: 1px;
+  z-index: 100000;
+
+  &:focus {
+    clip: auto;
+    height: auto;
+    overflow: visible;
+    width: auto;
+  }
+
+}
+
+
+@layer utilities {
+
+    /* Spacing */
+
+    /* ========================================================
+       FORM AUTOFILL - Browser-specific adjustments
+       Prevents browser autofill background color flash
+       ======================================================== */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus {
+        -webkit-box-shadow: 0 0 0px 1000px #000/10 inset;
+        transition: background-color 0s 600000s, color 0s 600000s !important;
+    }
+
+    /* ========================================================
+       DETAILS/SUMMARY - Custom interactive elements
+       Hides default browser markers and adds styling
+       ======================================================== */
+    
+    /* Base cursor for summary elements */
+    details summary { 
+        cursor: pointer;
+    }
+
+    /* Remove default list-style marker */
+    details > summary {
+        list-style: none;
+    }
+    
+    /* Ensure inline display for summary content */
+    details summary > * { 
+        display: inline;
+    }
+
+    /* Remove WebKit default disclosure triangle marker */
+    details summary::-webkit-details-marker {
+        display: none;
+    }
+
+    /* Alternative selector for marker removal */
+    summary::-webkit-details-marker {
+        display: none;
+    }
+
+}
+
+
+
+
+
+
