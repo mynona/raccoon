@@ -2,6 +2,9 @@
 
 Swift package providing reusable UI components for raumnebenan.de, built with [swift-web-standards](https://github.com/binarybirds/swift-web-standards) and Tailwind CSS.
 
+> **Live Preview:** [https://raccoon-preview.onrender.com](https://raccoon-preview.onrender.com)  
+> Hosted on Render's free tier: if the instance has spun down due to inactivity, it may take up to 50 seconds to boot on the first request.
+
 ## Requirements
 
 - Swift 6.2+
@@ -9,7 +12,8 @@ Swift package providing reusable UI components for raumnebenan.de, built with [s
 
 ## Preview Server
 
-The package includes a `Preview` executable target — a local Vapor server that renders all components in isolation.
+- **Live:** [https://raccoon-preview.onrender.com](https://raccoon-preview.onrender.com) (hosted on a free tier; initial spin-up can take up to 50 seconds)
+- **Local:** Run `docker compose up` or `swift run Preview` and open `http://localhost:8090`.
 
 ## Components
 
