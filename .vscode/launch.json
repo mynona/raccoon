@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:raccoon}",
+            "name": "Debug Preview",
+            "target": "Preview",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug Preview"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:raccoon}",
+            "name": "Release Preview",
+            "target": "Preview",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release Preview"
+        }
+    ]
+}

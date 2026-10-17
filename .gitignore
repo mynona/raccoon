@@ -1,0 +1,16 @@
+.build/
+.swiftpm/
+*.o
+*.d
+.env
+.env.*
+Public/*
+!Public/css
+!Public/fonts
+!Public/js
+!Public/images/
+!Public/images/**
+/Package.resolved
+/md/
+.playwright-mcp/
+

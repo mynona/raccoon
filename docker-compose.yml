@@ -1,0 +1,15 @@
+services:
+  preview:
+    container_name: raccoon-preview
+    image: raccoon-preview:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8090:8090"
+    environment:
+      LOG_LEVEL: ${LOG_LEVEL:-debug}
+      ENVIRONMENT: ${ENVIRONMENT:-production}
+      PORT: 8090
+      HOST: 0.0.0.0
+    restart: unless-stopped
