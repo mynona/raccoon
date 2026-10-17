@@ -33,7 +33,7 @@ struct TablePaginatorView: TemplateRepresentable {
             """,
             TablePaginatorData(
                 mode: .link(basePath: "/preview/table-paginator"),
-                info: TablePaginationInfo(page: 1, per: 10, total: 95),
+                info: TablePaginatorInfo(page: 1, per: 10, total: 95),
                 pageSizeOptions: [5, 10, 20, 50, 100]
             )
         ),
@@ -46,7 +46,7 @@ struct TablePaginatorView: TemplateRepresentable {
                     basePath: "/preview/table-paginator",
                     queryParams: ["filter": "active"]
                 ),
-                info: TablePaginationInfo(page: 5, per: 10, total: 95),
+                info: TablePaginatorInfo(page: 5, per: 10, total: 95),
                 pageSizeOptions: [5, 10, 20, 50, 100]
             )
         ),
@@ -56,7 +56,7 @@ struct TablePaginatorView: TemplateRepresentable {
             """,
             TablePaginatorData(
                 mode: .link(basePath: "/preview/table-paginator"),
-                info: TablePaginationInfo(page: 10, per: 10, total: 95),
+                info: TablePaginatorInfo(page: 10, per: 10, total: 95),
                 pageSizeOptions: [5, 10, 20, 50, 100]
             )
         ),

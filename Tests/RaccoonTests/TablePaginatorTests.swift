@@ -15,7 +15,7 @@ struct TablePaginatorTests {
 
     @Test("TablePaginationInfo computes page totals and boundaries correctly")
     func paginationInfoCalculations() async throws {
-        let info = TablePaginationInfo(page: 1, per: 10, total: 95)
+        let info = TablePaginatorInfo(page: 1, per: 10, total: 95)
         #expect(info.totalPages == 10)
         #expect(!info.hasPrevious)
         #expect(info.hasNext)
@@ -23,21 +23,21 @@ struct TablePaginatorTests {
         #expect(info.endItem == 10)
         #expect(info.rangeLabel == "1 – 10 of 95")
 
-        let middle = TablePaginationInfo(page: 5, per: 10, total: 95)
+        let middle = TablePaginatorInfo(page: 5, per: 10, total: 95)
         #expect(middle.hasPrevious)
         #expect(middle.hasNext)
         #expect(middle.startItem == 41)
         #expect(middle.endItem == 50)
         #expect(middle.rangeLabel == "41 – 50 of 95")
 
-        let last = TablePaginationInfo(page: 10, per: 10, total: 95)
+        let last = TablePaginatorInfo(page: 10, per: 10, total: 95)
         #expect(last.hasPrevious)
         #expect(!last.hasNext)
         #expect(last.startItem == 91)
         #expect(last.endItem == 95)
         #expect(last.rangeLabel == "91 – 95 of 95")
 
-        let empty = TablePaginationInfo(page: 1, per: 10, total: 0)
+        let empty = TablePaginatorInfo(page: 1, per: 10, total: 0)
         #expect(empty.startItem == 0)
         #expect(empty.endItem == 0)
         #expect(empty.rangeLabel == "0 of 0")
@@ -47,7 +47,7 @@ struct TablePaginatorTests {
 
     @Test("TablePaginationInfo handles nil and out-of-bounds parameters safely")
     func paginationInfoSafeguards() async throws {
-        let info = TablePaginationInfo(
+        let info = TablePaginatorInfo(
             page: nil,
             per: nil,
             total: 50,
@@ -57,7 +57,7 @@ struct TablePaginatorTests {
         #expect(info.per == 25)
         #expect(info.totalPages == 2)
 
-        let negative = TablePaginationInfo(
+        let negative = TablePaginatorInfo(
             page: -3,
             per: -10,
             total: 50,
@@ -147,7 +147,7 @@ struct TablePaginatorTests {
 
     @Test("renders table paginator in link mode on first page")
     func rendersLinkModeFirstPage() async throws {
-        let info = TablePaginationInfo(page: 1, per: 10, total: 50)
+        let info = TablePaginatorInfo(page: 1, per: 10, total: 50)
         let data = TablePaginatorData(
             mode: .link(basePath: "/users", queryParams: ["role": "admin"]),
             info: info,
@@ -203,7 +203,7 @@ struct TablePaginatorTests {
         "renders table paginator in link mode on middle page with all buttons active"
     )
     func rendersLinkModeMiddlePage() async throws {
-        let info = TablePaginationInfo(page: 3, per: 10, total: 50)
+        let info = TablePaginatorInfo(page: 3, per: 10, total: 50)
         let data = TablePaginatorData(
             mode: .link(basePath: "/items"),
             info: info
@@ -235,7 +235,7 @@ struct TablePaginatorTests {
 
     @Test("renders table paginator in link mode on last page")
     func rendersLinkModeLastPage() async throws {
-        let info = TablePaginationInfo(page: 5, per: 10, total: 50)
+        let info = TablePaginatorInfo(page: 5, per: 10, total: 50)
         let data = TablePaginatorData(
             mode: .link(basePath: "/items"),
             info: info

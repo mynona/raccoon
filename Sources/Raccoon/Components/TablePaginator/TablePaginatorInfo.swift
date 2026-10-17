@@ -1,7 +1,7 @@
 import Foundation
 
 /// Pagination metadata and calculated state for table pagination.
-public struct TablePaginationInfo: Sendable {
+public struct TablePaginatorInfo: Sendable {
     /// 1-based current page index.
     public let page: Int
 

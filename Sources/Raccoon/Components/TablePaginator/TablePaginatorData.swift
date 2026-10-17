@@ -82,7 +82,7 @@ public struct TablePaginatorData: Sendable {
     public let mode: TablePaginatorMode
 
     /// Static pagination information used in `.link` (SSR) mode.
-    public let info: TablePaginationInfo?
+    public let info: TablePaginatorInfo?
 
     /// Available page size options (e.g. `[5, 10, 20, 50, 100]`).
     public let pageSizeOptions: [Int]
@@ -156,7 +156,7 @@ public struct TablePaginatorData: Sendable {
 
         // 3. Value & Options
         mode: TablePaginatorMode = .alpine,
-        info: TablePaginationInfo? = nil,
+        info: TablePaginatorInfo? = nil,
         pageSizeOptions: [Int] = [5, 10, 20, 50, 100],
 
         // 6. Analytics & Tracking
