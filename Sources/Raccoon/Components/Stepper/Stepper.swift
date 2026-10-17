@@ -79,7 +79,7 @@ public struct Stepper: TemplateRepresentable {
         case .complete:
             // Once a step is completed it always shows the tick
             Svg.icon(
-                .check,
+                .check_lg,
                 width: 20,
                 height: 20,
                 role: .presentation
@@ -88,8 +88,8 @@ public struct Stepper: TemplateRepresentable {
             if let icon = step.icon {
                 Svg.icon(
                     icon,
-                    width: 18,
-                    height: 18,
+                    width: 20,
+                    height: 20,
                     role: .presentation
                 )
                 .class(styles.iconCurrent)
@@ -110,8 +110,8 @@ public struct Stepper: TemplateRepresentable {
             if let icon = step.icon {
                 Svg.icon(
                     icon,
-                    width: 18,
-                    height: 18,
+                    width: 20,
+                    height: 20,
                     role: .presentation
                 )
                 .class(styles.iconUpcoming)
@@ -431,8 +431,8 @@ public struct Stepper: TemplateRepresentable {
         tooltipId: String?
     ) -> [Element] {
         if let href = step.href, step.state == .enabled {
-            A {
-                Div {
+            Div {
+                A {
                     renderVerticalCircle(step, index: index)
                     if let tooltipId {
                         showTooltip(
@@ -441,12 +441,14 @@ public struct Stepper: TemplateRepresentable {
                         )
                     }
                 }
-                .class(styles.iconWrapper)
+                .href(href)
+                .if(step.hreflang != nil) { $0.hrefLang(step.hreflang!) }
+                //.class(styles.iconWrapper)
+                .addClass(CommonStyles.cursorPointer)
+                .addClass(CommonStyles.focusDefault)
 
                 renderVerticalLabels(step)
             }
-            .href(href)
-            .if(step.hreflang != nil) { $0.hrefLang(step.hreflang!) }
             .if(step.target != nil) {
                 $0.setAttribute(name: "target", value: step.target!)
             }
@@ -535,7 +537,7 @@ public struct Stepper: TemplateRepresentable {
                 .class(styles.iconWrapper)
                 .if(tooltipId != nil && step.state != .disabled) {
                     $0
-                        .tabIndex(0)
+                        //.tabIndex(0)
                         .setAttribute(name: "x-ref", value: tooltipId!)
                         .setAttribute(
                             name: "aria-describedby",

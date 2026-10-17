@@ -245,7 +245,7 @@ struct StepperView: TemplateRepresentable {
                         tooltip: "Step 3: Send email invite",
                         href: "#",
                         status: .upcoming,
-                        icon: .envelope
+                        icon: .envelope_fill
                     ),
                 ],
                 orientation: .horizontal
@@ -281,7 +281,7 @@ struct StepperView: TemplateRepresentable {
                         tooltip: "Step 3: Send email invite",
                         href: "#",
                         status: .upcoming,
-                        icon: .envelope
+                        icon: .envelope_fill
                     ),
                 ],
                 orientation: .horizontal

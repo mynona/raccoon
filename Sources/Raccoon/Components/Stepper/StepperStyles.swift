@@ -23,7 +23,7 @@ public struct StepperStyles {
 
     // MARK: - Connecting Lines (Vertical)
     public static let lineVerticalBase: String =
-        "absolute top-4 left-4 mt-0.5 -ml-px h-full w-0.5"
+        "absolute top-4 left-6 mt-0.5 -ml-px h-full w-1"
     public static let lineVerticalComplete: String = [
         lineVerticalBase,
         CommonStyles.progressBarActive,
@@ -39,12 +39,12 @@ public struct StepperStyles {
     public static let lineHorizontalContainer: String =
         "absolute inset-0 flex items-center"
     public static let lineHorizontalComplete: String = [
-        "h-0.5 w-full",
+        "h-1 w-full",
         CommonStyles.progressBarActive,
     ]
     .joined(separator: " ")
     public static let lineHorizontalUpcoming: String = [
-        "h-0.5 w-full",
+        "h-1 w-full",
         CommonStyles.progressBarInactive,
     ]
     .joined(separator: " ")
@@ -52,8 +52,6 @@ public struct StepperStyles {
     // MARK: - Step Containers & Triggers (Vertical)
     public static let stepTriggerVertical: String = [
         "group relative flex items-start",
-        CommonStyles.cursorPointer,
-        CommonStyles.focusDefault,
     ]
     .joined(separator: " ")
     public static let stepStaticVertical: String =
@@ -61,13 +59,13 @@ public struct StepperStyles {
 
     // MARK: - Step Containers & Triggers (Horizontal)
     public static let stepTriggerHorizontal: String = [
-        "group relative flex size-8 items-center justify-center rounded-full",
+        "group relative flex size-10 items-center justify-center rounded-full",
         CommonStyles.cursorPointer,
         CommonStyles.focusDefault,
     ]
     .joined(separator: " ")
     public static let stepStaticHorizontal: String =
-        "group relative flex size-8 items-center justify-center rounded-full"
+        "group relative flex size-10 items-center justify-center rounded-full"
     public static let interactiveFocus: String = [
         CommonStyles.cursorPointer,
         CommonStyles.focusDefault,
@@ -75,10 +73,10 @@ public struct StepperStyles {
     .joined(separator: " ")
 
     // MARK: - Circle Wrappers & Base
-    public static let circleWrapperVertical: String = "flex h-9 items-center"
+    public static let circleWrapperVertical: String = "flex h-14 items-center"
     public static let iconWrapper: String = "relative inline-flex"
     public static let circleBase: String =
-        "relative z-10 flex size-8 items-center justify-center rounded-full"
+        "relative z-10 flex size-12 items-center justify-center rounded-full"
 
     // Completed: filled with progress active color, white/black text/icon
     public static let circleComplete: String = [
@@ -104,7 +102,7 @@ public struct StepperStyles {
         "border-2",
         CommonStyles.borderColorDefault,
         CommonStyles.backgroundLight,
-        "group-hover:border-on-surface-bright transition",
+        "group-hover:border-on-surface transition",
     ]
     .joined(separator: " ")
 
@@ -116,14 +114,14 @@ public struct StepperStyles {
     .joined(separator: " ")
 
     public static let dotUpcoming: String = [
-        "size-2.5 rounded-full bg-transparent group-hover:bg-on-surface/20 transition"
+        "size-2.5 rounded-full bg-on-surface group-hover:bg-on-surface transition"
     ]
     .joined(separator: " ")
 
     // MARK: - Circle Text & Numbers
     public static let circleTextCurrent: String = [
         CommonStyles.fontSans,
-        CommonStyles.textSizeSmall,
+        CommonStyles.textSizeLarge,
         CommonStyles.fontWeightBold,
         CommonStyles.textColorSuccess,
     ]
@@ -131,15 +129,15 @@ public struct StepperStyles {
 
     public static let circleTextUpcoming: String = [
         CommonStyles.fontSans,
-        CommonStyles.textSizeSmall,
+        CommonStyles.textSizeLarge,
         CommonStyles.fontWeightMedium,
-        CommonStyles.textColorDisabled,
+        "text-on-surface",
     ]
     .joined(separator: " ")
 
     // MARK: - Circle Custom Icons
     public static let iconCurrent: String = CommonStyles.textColorSuccess
-    public static let iconUpcoming: String = CommonStyles.textColorDisabled
+    public static let iconUpcoming: String = "text-on-surface"
 
     // MARK: - Text Content (Vertical)
     public static let textContainerVertical: String =
