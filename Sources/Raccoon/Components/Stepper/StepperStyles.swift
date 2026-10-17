@@ -5,7 +5,7 @@ import Foundation
 public struct StepperStyles {
 
     // MARK: - Navigation Container
-    public static let nav: String = "w-full"
+    public static let nav: String = "w-auto"
 
     // MARK: - Lists
     public static let listVertical: String = "overflow-hidden"
