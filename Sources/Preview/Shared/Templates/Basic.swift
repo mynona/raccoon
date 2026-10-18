@@ -129,7 +129,7 @@ public struct Basic: TemplateRepresentable {
                                                 isOpenInNewTab: item
                                                     .isOpenInNewTab
                                             )
-                                        }
+                                        }.class("py-2")
                                     }
                                 }
                                 .class(styles.navList)

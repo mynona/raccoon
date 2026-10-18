@@ -1,29 +1,53 @@
-# swift-web-components
+# raccoon
 
-Swift package providing reusable UI components for raumnebenan.de, built with [swift-web-standards](https://github.com/binarybirds/swift-web-standards) and Tailwind CSS.
-
-> **Live Preview:** [https://raccoon-preview.onrender.com](https://raccoon-preview.onrender.com)  
-> Hosted on Render's free tier: if the instance has spun down due to inactivity, it may take up to 50 seconds to boot on the first request.
+UI web components built with [swift-web-standards](https://github.com/binarybirds/swift-web-standards), Tailwind CSS and Alpine.js
 
 ## Requirements
 
 - Swift 6.2+
 - macOS 15+
 
-## Preview Server
+## Preview 
 
-- **Live:** [https://raccoon-preview.onrender.com](https://raccoon-preview.onrender.com) (hosted on a free tier; initial spin-up can take up to 50 seconds)
-- **Local:** Run `docker compose up` or `swift run Preview` and open `http://localhost:8090`.
+### Live
 
-## Components
+> [https://raccoon-preview.onrender.com](https://raccoon-preview.onrender.com) 
+>
+> Hosted on a free tier; initial spin-up can take up to 50 seconds
 
-The library is the domain-agnostic UI kit **`Raccoon`**. The domain-specific components and site templates for raumnebenan.de live in the separate package [raccoon-raumnebenan](https://github.com/mynona/raccoon-raumnebenan), which depends on this one.
 
-Components render without a web framework: `TemplateRepresentable.render()` returns the element tree and `renderString()` produces a complete document string. Wrap that string in your framework's response type (Vapor, Hummingbird, ...).
+### Local preview
 
-### Core UI Components (`Sources/Raccoon/Components`)
+Build the local preview
 
-57 domain-agnostic UI components:
+```bash
+swift run Preview
+```
+
+The server starts on:
+
+```
+http://127.0.0.1:8090
+```
+
+## UI Kit
+
+### Usage
+
+Example: generate the html code for an accordion.
+
+```
+let html = renderHTML(
+            Accordion(
+                AccordionData(
+                    label: "What is Vapor?",
+                    content: .html("A Swift web framework.")
+                )
+            )
+            .render()
+```
+
+### Components
 
 | Component | Description |
 |---|---|
@@ -86,21 +110,6 @@ Components render without a web framework: `TemplateRepresentable.render()` retu
 | `Tooltip` | Hover- and focus-activated contextual tooltip |
 | `ViewMaskedSecret` | Revealable secret / masked credential viewer |
 
-### Start the preview
-
-```bash
-swift run Preview
-```
-
-The server starts on:
-
-```
-http://127.0.0.1:8090
-```
-
-### Dark / light mode
-
-The preview includes a toggle button in the top-right corner that mirrors the dark/light mode behaviour of the production site.
 
 ## Theming & Alpine.js
 
@@ -144,6 +153,8 @@ Tests/
 ```
 
 ## Attribution & Copyright
+
+### Boostrap icons
 
 This project uses [Bootstrap Icons](https://github.com/twbs/icons).
 
