@@ -37,6 +37,8 @@ http://127.0.0.1:8090
 Example: generate the html code for an accordion.
 
 ```
+import Raccoon
+
 let html = renderHTML(
             Accordion(
                 AccordionData(
@@ -110,6 +112,11 @@ let html = renderHTML(
 | `Tooltip` | Hover- and focus-activated contextual tooltip |
 | `ViewMaskedSecret` | Revealable secret / masked credential viewer |
 
+## Matomo (optional)
+
+Each component has integrated Matomo for analytics to track component usage.
+
+If not deliberately requested via the component configuration, no Matomo classes are generated.
 
 ## Theming & Alpine.js
 
@@ -134,7 +141,7 @@ swift test --filter "AccordionTests"
 ```
 Sources/
   Raccoon/                      # Core domain-agnostic UI kit
-    Components/                 # 57 reusable UI components
+    Components/                 # Reusable UI components
     Enums/                      # Shared enumerations (ComponentSize, ComponentState, etc.)
     LittleHelpers/              # Utility functions, SEO, and Matomo tracking
     Svg/                        # SVG icon rendering (Svg, SvgIcon)
