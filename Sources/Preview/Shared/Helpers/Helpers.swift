@@ -65,7 +65,7 @@ func previewPage(
           <meta charset="utf-8">
           <title>Preview – \(title)</title>
           <link rel="stylesheet" href="/css/ibm-plex.css">
-          <link rel="stylesheet" href="/css/raumnebenan-min.css">
+          <link rel="stylesheet" href="/css/raccoon-min.css">
           <script src="/js/bundle-min.js" defer></script>
           <script type="text/javascript">
             document.addEventListener('alpine:init', () => {

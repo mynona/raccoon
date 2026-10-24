@@ -213,7 +213,7 @@ public struct Basic: TemplateRepresentable {
                 Link(rel: .icon).href("/images/favicon.ico")
                     .type("image/x-icon")
                 Link(rel: .stylesheet).href("/css/ibm-plex.css")
-                Link(rel: .stylesheet).href("/css/raumnebenan-min.css")
+                Link(rel: .stylesheet).href("/css/raccoon-min.css")
                 Script(DarkLightModeToggle.detectModeScript)
                     .setAttribute(name: "type", value: "text/javascript")
                 Script(ThemeSwitcher.detectThemeScript)

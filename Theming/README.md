@@ -20,7 +20,7 @@ Raccoon components are decoupled from pre-compiled CSS and monolithic JavaScript
 If your application uses the built-in themes (`raumnebenan`, `black-and-white`, or `beacon-blue`), **you do not need to build CSS or JavaScript from scratch**.
 
 Raccoon ships with pre-rendered, production-ready assets in its [`Public/`](../Public) folder:
-- **`Public/css/raumnebenan-min.css`**: Pre-rendered Tailwind CSS v4 stylesheet covering all 57 Raccoon components and all predefined themes (including dark mode).
+- **`Public/css/raccoon-min.css`**: Pre-rendered Tailwind CSS v4 stylesheet covering all 57 Raccoon components and all predefined themes (including dark mode).
 - **`Public/js/bundle-min.js`**: Pre-bundled Alpine.js runtime including the required `@alpinejs/focus`, `@alpinejs/sort`, and `@alpinejs/ui` plugins.
 - **`Public/js/*.js`**: Standalone component scripts (e.g. `agentic-mermaid-component-lazy.js`, `dropdown.js`, `datepicker.js`, `simple-menu.js`, `modal.js`).
 
@@ -36,7 +36,7 @@ Your consumer web application **must serve these CSS and JS files** at the paths
 3. **HTML Document Inclusions**: Ensure your base HTML layout includes:
    ```html
    <!-- Pre-rendered Tailwind CSS for defined themes -->
-   <link rel="stylesheet" href="/css/raumnebenan-min.css">
+   <link rel="stylesheet" href="/css/raccoon-min.css">
 
    <!-- Pre-rendered Alpine.js bundle with required plugins -->
    <script defer src="/js/bundle-min.js"></script>

@@ -16,7 +16,7 @@ if (!window.__beautifulMermaidComponentLoaded) {
     if (DEBUG) console.debug("[beautiful-mermaid-lazy]", ...args);
   }
 
-  // Theme token palettes matching Raccoon AppTheme and raumnebenan-min.css
+  // Theme token palettes matching Raccoon AppTheme and raccoon-min.css
   const THEME_PALETTES = {
     // 1. Raumnebenan (default green theme) — preserved exactly unchanged
     raumnebenan: {

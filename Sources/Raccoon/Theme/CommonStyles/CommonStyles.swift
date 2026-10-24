@@ -9,7 +9,7 @@
 /// - Every colour constant declares light, `dark:` and `print:` together, so a consumer
 ///   can never style one render mode in isolation.
 /// - Focus and hover rings are defined here only.
-/// - Values are Tailwind utility classes; colour tokens come from Public/css/raumnebenan-min.css.
+/// - Values are Tailwind utility classes; colour tokens come from Public/css/raccoon-min.css.
 ///
 public struct CommonStyles {
 
