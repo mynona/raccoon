@@ -10,7 +10,7 @@ struct SimpleTableView: TemplateRepresentable {
     let variants: [(String, SimpleTableData)] = [
         (
             """
-            // Growth Loops (raumnebenan.de)
+            // Growth Loops
             SimpleTableData(meta: meta, rows: rows, caption: \"Types of Growth Loops\")
             """,
             SimpleTableData(

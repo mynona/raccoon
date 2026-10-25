@@ -14,7 +14,7 @@ public struct TablePaginatorStyles {
         "flex flex-row items-center gap-2"
 
     public static let navigationButtonGroup: String =
-        "flex flex-row items-center gap-1"
+        "flex flex-row items-center gap-3"
 
     // MARK: - Typography & Labels
     public static let labelFont: String = ActionButtonStyles.font

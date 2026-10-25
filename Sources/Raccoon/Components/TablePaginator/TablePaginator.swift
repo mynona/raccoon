@@ -189,7 +189,7 @@ public struct TablePaginator: TemplateRepresentable {
         case .alpine:
             Div {
                 showNavigationButton(
-                    icon: .chevron_double_left,
+                    icon: .skip_start,
                     label: data.firstPageAriaLabel,
                     click: data.onFirstPage,
                     disabled:
@@ -209,7 +209,7 @@ public struct TablePaginator: TemplateRepresentable {
                     disabled: "!(\(data.bindHasNext)) || \(data.bindIsLoading)"
                 )
                 showNavigationButton(
-                    icon: .chevron_double_right,
+                    icon: .skip_end,
                     label: data.lastPageAriaLabel,
                     click: data.onLastPage,
                     disabled: "!(\(data.bindHasNext)) || \(data.bindIsLoading)"
@@ -246,7 +246,7 @@ public struct TablePaginator: TemplateRepresentable {
 
                 Div {
                     showLinkNavigationButton(
-                        icon: .chevron_double_left,
+                        icon: .skip_start,
                         label: data.firstPageAriaLabel,
                         url: firstUrl,
                         isEnabled: info.hasPrevious
@@ -264,7 +264,7 @@ public struct TablePaginator: TemplateRepresentable {
                         isEnabled: info.hasNext
                     )
                     showLinkNavigationButton(
-                        icon: .chevron_double_right,
+                        icon: .skip_end,
                         label: data.lastPageAriaLabel,
                         url: lastUrl,
                         isEnabled: info.hasNext

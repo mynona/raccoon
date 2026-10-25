@@ -59,7 +59,7 @@ public struct Basic: TemplateRepresentable {
         Aside {
             // Header: Title + DarkLightModeToggle & ThemeSwitcher
             Div {
-                A("Raccoon Preview")
+                A("Raccoon")
                     .href("/")
                     .class(styles.sidebarTitle)
 
