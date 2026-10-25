@@ -21,7 +21,7 @@ public struct MatomoTrackerData: Sendable {
     ///   - canonicalPath: Canonical path used for no-JavaScript pixel fallback.
     ///   - userState: User authorization and role state for custom dimensions.
     public init(
-        siteId: String = "1",
+        siteId: String,
         trackerUrl: String,
         siteBaseUrl: String,
         status: MatomoStatus = .BANNER,
