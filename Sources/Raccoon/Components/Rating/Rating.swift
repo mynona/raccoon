@@ -501,8 +501,7 @@ public struct Rating: TemplateRepresentable {
         }
         .class(styles.panel)
         .if(data.isFloating) {
-            $0.addClass(styles.containerFloating)
-                .setAttribute(
+            $0.setAttribute(
                     name: ":class",
                     value:
                         "isFloating ? '\(styles.containerFloating)' : '\(styles.containerDefault)'"

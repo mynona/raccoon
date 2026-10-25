@@ -30,7 +30,36 @@ if (!window.__ratingLoaded) {
     error: '',
     showSuccess: false,
     showError: false,
+    // A fixed element is positioned relative to the viewport, so center it on its container instead
+    // (same position as the docked widget) rather than on the viewport.
+    alignFloating() {
+      const el = this.$el;
+      const container = el && el.parentElement;
+      if (!container) return;
+      if (!this.isFloating) {
+        el.style.removeProperty('left');
+        return;
+      }
+      const rect = container.getBoundingClientRect();
+      el.style.left = `${rect.left + rect.width / 2}px`;
+    },
+
+    setupFloatingAlignment() {
+      if (!this.isFloating) return;
+      this.alignFloating();
+      this.onResize = () => this.alignFloating();
+      window.addEventListener('resize', this.onResize);
+      if (typeof ResizeObserver !== 'undefined' && this.$el.parentElement) {
+        this.resizeObserver = new ResizeObserver(this.onResize);
+        this.resizeObserver.observe(this.$el.parentElement);
+      }
+      this.$watch('isFloating', () => this.alignFloating());
+      this.$watch('visible', () => this.alignFloating());
+    },
+
     init() {
+      this.setupFloatingAlignment();
+
       if (!this.uuid || typeof window === 'undefined' || !window.localStorage) {
         return;
       }
@@ -92,6 +121,8 @@ if (!window.__ratingLoaded) {
 
     destroy() {
       if (this.cookieCheck) clearInterval(this.cookieCheck);
+      if (this.onResize) window.removeEventListener('resize', this.onResize);
+      if (this.resizeObserver) this.resizeObserver.disconnect();
       if (this.onScroll) {
         window.removeEventListener('scroll', this.onScroll);
         document.removeEventListener('scroll', this.onScroll);
