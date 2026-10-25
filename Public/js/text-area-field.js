@@ -44,10 +44,47 @@ if (!window.__textAreaFieldLoaded) {
                 this.isValid = this.regex.test(this.value);
                 this.hasError = !this.isValid;
             },
-            // Grows the textarea to fit its content
+            // Grows the textarea to fit its content while respecting the rows minimum floor
             autoResize(el) {
+                if (!el) return;
+                // If element is hidden/unmeasured, do not zero out its height
+                if (el.scrollHeight === 0 && (el.offsetHeight === 0 || el.offsetParent === null)) {
+                    // Recalculate once element becomes visible/measured
+                    if (!el.__resizeObserverAttached && typeof ResizeObserver !== 'undefined') {
+                        el.__resizeObserverAttached = true;
+                        const ro = new ResizeObserver((entries) => {
+                            for (const entry of entries) {
+                                if (entry.contentRect.height > 0 || el.scrollHeight > 0) {
+                                    ro.disconnect();
+                                    el.__resizeObserverAttached = false;
+                                    this.autoResize(el);
+                                }
+                            }
+                        });
+                        ro.observe(el);
+                    }
+                    return;
+                }
+
+                const prevHeight = el.style.height;
                 el.style.height = 'auto';
-                el.style.height = el.scrollHeight + 'px';
+                const contentHeight = el.scrollHeight;
+
+                if (contentHeight === 0) {
+                    el.style.height = prevHeight || '';
+                    return;
+                }
+
+                // Determine row floor based on rows attribute and computed line-height
+                const rowsAttr = parseInt(el.getAttribute('rows') || '1', 10);
+                const computed = window.getComputedStyle(el);
+                const lineHeight = parseFloat(computed.lineHeight) || (parseFloat(computed.fontSize) || 16) * 1.5;
+                const paddingTop = parseFloat(computed.paddingTop) || 0;
+                const paddingBottom = parseFloat(computed.paddingBottom) || 0;
+                const minRowHeight = (rowsAttr * lineHeight) + paddingTop + paddingBottom;
+
+                const targetHeight = Math.max(minRowHeight, contentHeight);
+                el.style.height = targetHeight + 'px';
             }
         };
     };

@@ -79,10 +79,7 @@ public struct TextAreaField: TemplateRepresentable {
     @Builder<Element>
     func showLabel() -> [Element] {
         if let label = data.label {
-            Div {
-                Label(label).render()
-            }
-            .class("pl-3")
+            Label(label).render()
         }
     }
 
@@ -101,6 +98,10 @@ public struct TextAreaField: TemplateRepresentable {
         let hasInitialValue = data.value != nil && !data.value!.isEmpty
         let hasServerError = data.errorMessages?.errorMessages != nil
         let monospaced = data.isMonospaced ? "font-mono" : "font-sans"
+
+        let maxRows = max(data.rows, 8)
+        let minHeightStyle = "calc(\(data.rows) * 1.5em)"
+        let maxHeightStyle = "calc(\(maxRows) * 1.5em)"
 
         let valueBase64 = (data.value ?? "")
             .data(using: .utf8)!
@@ -139,10 +140,10 @@ public struct TextAreaField: TemplateRepresentable {
                     .setAttribute(
                         name: "style",
                         value:
-                            "overflow-x:hidden;overflow-y:auto;resize:none;min-height:0;max-height:calc(8*1.5em);"
+                            "overflow-x:hidden;overflow-y:auto;resize:none;min-height:\(minHeightStyle);max-height:\(maxHeightStyle);"
                     )
                     .class(
-                        "block w-full resize-none sm:text-sm sm:leading-6 min-h-0 overflow-y-auto"
+                        "block w-full p-0 resize-none sm:text-sm sm:leading-6 overflow-y-auto"
                     )
                     .addClass(styles.inputReset)
                     .addClass(styles.textColorInput)
@@ -176,7 +177,7 @@ public struct TextAreaField: TemplateRepresentable {
                 )
             }
             .class(
-                "relative rounded-md pr-3 pb-1.5 pt-2.5 \(monospaced)"
+                "relative rounded-md px-3 pb-1.5 pt-2.5 \(monospaced)"
             )
             .addClass(styles.inputContainerBorder)
             .addClass(styles.inputContainerHover)

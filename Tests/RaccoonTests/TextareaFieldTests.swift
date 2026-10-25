@@ -212,4 +212,34 @@ struct TextAreaFieldTests {
         )
         #expect(html.contains("required"))
     }
+
+    @Test("renders min-height and max-height inline styles based on rows")
+    func rendersMinMaxHeightStyles() async throws {
+
+        let htmlDefault = renderHTML(
+            TextAreaField(
+                TextAreaFieldData(
+                    id: "default-rows",
+                    rows: 4
+                )
+            )
+            .render()
+        )
+        #expect(htmlDefault.contains("min-height:calc(4 * 1.5em)"))
+        #expect(htmlDefault.contains("max-height:calc(8 * 1.5em)"))
+        #expect(htmlDefault.contains("p-0"))
+        #expect(htmlDefault.contains("px-3"))
+
+        let htmlLarge = renderHTML(
+            TextAreaField(
+                TextAreaFieldData(
+                    id: "large-rows",
+                    rows: 10
+                )
+            )
+            .render()
+        )
+        #expect(htmlLarge.contains("min-height:calc(10 * 1.5em)"))
+        #expect(htmlLarge.contains("max-height:calc(10 * 1.5em)"))
+    }
 }
