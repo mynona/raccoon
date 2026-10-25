@@ -10,7 +10,7 @@ struct AccordionView: TemplateRepresentable {
     let variants: [(String, AccordionData)] = [
         (
             """
-            // Border
+            // Border 
             """,
             AccordionData(
                 label: "What is product thinking?",

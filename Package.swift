@@ -35,7 +35,7 @@ let package = Package(
             url: "https://github.com/apple/swift-collections.git",
             "1.1.0"..<"1.7.0"
         ),
-    ],
+    ], 
     targets: [
         .target(
             name: "Raccoon",
