@@ -1,11 +1,11 @@
 ---
 name: skill-component-testing
-description: Guides testing strategies, package architecture, and test execution for the raccoon workspace. Always use this skill when running, writing, reviewing, or debugging tests in this repo, or when working with the boundary between the pure Raccoon UI kit and the separate raccoon-raumnebenan package.
+description: Guides testing strategies, package architecture, and test execution for the raccoon workspace. Always use this skill when running, writing, reviewing, or debugging tests in this repo.
 ---
 
 # Testing & Package Architecture Guide (Raccoon)
 
-This repository contains the core, framework-neutral UI kit `Raccoon`. The domain-specific components and site templates (`RaccoonRaumnebenan`) live in the separate repository `raccoon-raumnebenan`, which depends on this package.
+This repository contains the core, framework-neutral UI kit `Raccoon`. 
 
 ---
 
@@ -35,8 +35,8 @@ Tests/
      ! grep -rnE 'import (Vapor|NIO)' Sources/Raccoon
      ! grep -rn 'raumnebenan_api_dto' Sources/Raccoon Tests/RaccoonTests
      ```
-2. **`raccoon-raumnebenan` depends on `Raccoon`, never the reverse.** Domain components and their tests are added to that repository.
-3. **Rendering is request-free**: `TemplateRepresentable.render()` takes no arguments. Apps wrap `renderString()` in their own response type.
+
+2. **Rendering is request-free**: `TemplateRepresentable.render()` takes no arguments. Apps wrap `renderString()` in their own response type.
 
 ---
 
@@ -71,4 +71,4 @@ All tests use Apple's **Swift Testing** framework (`import Testing`):
    Do not add `import Vapor` to a test in `RaccoonTests`.
 4. **Full documents**: `SomeTemplate().renderString()` returns a complete document string or `nil`.
 5. **Foundation**: files that use `Date`, `UUID` or `DateFormatter` need `import Foundation` themselves.
-6. **Placing new tests**: add UI kit tests to `Tests/RaccoonTests/`. Tests for domain components or templates belong in the `raccoon-raumnebenan` repository.
+6. **Placing new tests**: add UI kit tests to `Tests/RaccoonTests/`. 

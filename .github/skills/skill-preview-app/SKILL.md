@@ -11,9 +11,7 @@ This guide establishes the architectural boundaries, folder structure, template 
 
 ## 1. Architectural Mission & Repository Separation
 
-`Raccoon` (the core, domain-agnostic UI kit) lives in this repository. `RaccoonRaumnebenan` (domain-specific components and templates) lives in the separate repository `raccoon-raumnebenan`, which depends on `raccoon`.
-
-Both repositories ship their own `Preview` app (option C of the preview split: the small shared shell is duplicated, not extracted, because a shared package would create a dependency cycle). This repository's preview contains:
+This repository's preview contains:
 
 ```text
 Sources/Preview/
@@ -33,15 +31,12 @@ Sources/Preview/
     └── Views/                       # All core UI component views (AccordionView, BadgeView, SearchFieldView, etc.)
 ```
 
-The `raccoon-raumnebenan` repository has the same `Shared/` shell (with its own navigation, home page and domain `DemoData`) plus `Sources/Preview/RaccoonRaumnebenan/` (previews and `TemplatePreviewController`), and listens on port 8091. When you change the shell (`Basic`, helpers, `TemplateRenderer`), consider applying the same change there.
-
 ---
 
 ## 2. Decoupling Rules & Boundaries
 
 1. **The Raccoon preview must stay domain-agnostic**:
    - Views in `Sources/Preview/Raccoon/Views/` and `RaccoonPreviewController` only import `Raccoon`, `Vapor`, `HTML`, `SGML`, `SVG`, `WebBuilders`.
-   - This package has no `raumnebenan_api_dto`, `raumnebenan_library` or `OAuthHelpers` dependency. Never add one; domain demo data and previews belong in `raccoon-raumnebenan`.
    - Views must stay minimal: don't carry unused properties, constructor parameters, or imports left over from a previous design. Every view's shape should be exactly what `render()` actually needs.
 2. **`Shared/` is pure Raccoon**:
    - The `Basic` template, its styles, navigation data, and preview helpers must remain 100% pure Raccoon.
@@ -99,8 +94,6 @@ All preview views render inside the standalone `Basic` template (`Sources/Previe
 3. **Add Navigation Entry**:
    - In `Sources/Preview/Shared/Templates/PreviewNavigation.swift`:
      - Add `PreviewNavItem(title: "<ComponentName>", url: "/preview/<route-slug>")` under the `Raccoon` group.
-
-Domain components and templates are previewed in the `raccoon-raumnebenan` repository (`Sources/Preview/RaccoonRaumnebenan/`), not here.
 
 ---
 

@@ -48,7 +48,7 @@ public struct Seo: Codable, Sendable {
         type: OgType = .website,
         image: String? = nil,
         card: String? = nil,
-        domain: String? = "https://www.raumnebenan.de/",
+        domain: String,
         published_time: Date? = nil,
         modified_time: Date? = nil,
         tags: [String]? = nil,
