@@ -458,6 +458,7 @@ public struct Rating: TemplateRepresentable {
                 )
                 .render()
             }
+            .setAttribute(name: "x-show", value: "isFloating")
         }
     }
 
@@ -501,6 +502,11 @@ public struct Rating: TemplateRepresentable {
         .class(styles.panel)
         .if(data.isFloating) {
             $0.addClass(styles.containerFloating)
+                .setAttribute(
+                    name: ":class",
+                    value:
+                        "isFloating ? '\(styles.containerFloating)' : '\(styles.containerDefault)'"
+                )
         } else: {
             $0.addClass(styles.containerDefault)
         }

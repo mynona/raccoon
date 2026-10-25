@@ -90,9 +90,11 @@ struct RatingTests {
             .render()
         )
 
-        #expect(html.contains("fixed bottom-6 left-1/2"))
+        #expect(html.contains(RatingStyles.containerFloating))
         #expect(html.contains("id=\"rating-floating-panel-uuid-floating\""))
         #expect(html.contains("aria-label=\"Close feedback widget\""))
+        #expect(html.contains("x-show=\"isFloating\""))
+        #expect(html.contains(":class=\"isFloating ?"))
     }
 
     @Test("renders floating rating only after scrolling 80% of the page")
@@ -137,6 +139,31 @@ struct RatingTests {
                 "x-data=\"ratingWidget('uuid-inline', false, 'raumnebenan-matomo', false)\""
             )
         )
+        #expect(!html.contains("aria-label=\"Close feedback widget\""))
+        #expect(!html.contains(":class=\"isFloating ?"))
+    }
+
+    @Test("renders dynamic docking container and close button visibility guard when floating")
+    func rendersDynamicDockingContainerWhenFloating() async throws {
+
+        let html = renderHTML(
+            Rating(
+                RatingData(
+                    id: "uuid-docking",
+                    url: "/api/rating",
+                    isFloating: true,
+                    isShownOnScroll: true
+                )
+            )
+            .render()
+        )
+
+        #expect(
+            html.contains(
+                ":class=\"isFloating ? '\(RatingStyles.containerFloating)' : '\(RatingStyles.containerDefault)'\""
+            )
+        )
+        #expect(html.contains("x-show=\"isFloating\""))
     }
 
     @Test("renders configurable cookie name")

@@ -31,9 +31,7 @@ struct BreadcrumbTests {
         let html = renderHTML(Breadcrumb(ctx).render())
         #expect(html.contains("<nav"))
         #expect(html.contains("aria-label=\"Breadcrumb\""))
-        #expect(html.contains("overflow-x-auto"))
-        #expect(html.contains("overflow-y-hidden"))
-        #expect(html.contains("overscroll-x-contain"))
+        #expect(html.contains(BreadcrumbStyles.list))
         #expect(html.contains("whitespace-nowrap"))
     }
 

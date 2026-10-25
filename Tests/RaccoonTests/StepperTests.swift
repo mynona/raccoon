@@ -58,8 +58,8 @@ struct StepperTests {
         )
         let html = renderHTML(Stepper(data).render())
 
-        // Check list classes
-        #expect(html.contains("overflow-hidden"))
+        // List does not have overflow-hidden so tooltips and focus rings are not clipped
+        #expect(!html.contains("overflow-hidden"))
 
         // Check titles and descriptions
         #expect(html.contains("Account Setup"))
@@ -76,15 +76,15 @@ struct StepperTests {
         #expect(html.contains("<svg"))
 
         // Non-last steps have pb-10 and vertical connecting line
-        #expect(html.contains("pb-10"))
+        #expect(html.contains(StepperStyles.itemVertical))
         #expect(
-            html.contains("absolute top-4 left-4 mt-0.5 -ml-px h-full w-0.5")
+            html.contains(StepperStyles.lineVerticalBase)
         )
 
         // Active line uses progressactive
-        #expect(html.contains("bg-progressactive"))
+        #expect(html.contains(StepperStyles.lineVerticalComplete))
         // Inactive line uses progressinactive
-        #expect(html.contains("bg-progressinactive"))
+        #expect(html.contains(StepperStyles.lineVerticalUpcoming))
     }
 
     @Test(
@@ -103,22 +103,35 @@ struct StepperTests {
         let html = renderHTML(Stepper(data).render())
 
         // Check horizontal list class
-        #expect(html.contains("flex items-center"))
+        #expect(html.contains(StepperStyles.listHorizontal))
 
         // Screen-reader labels are rendered with sr-only
-        #expect(html.contains("<span class=\"sr-only\">Step 1: Account</span>"))
-        #expect(html.contains("<span class=\"sr-only\">Step 2: Profile</span>"))
-        #expect(html.contains("<span class=\"sr-only\">Step 3: Finish</span>"))
+        #expect(
+            html.contains(
+                "<span class=\"\(StepperStyles.srOnly)\">Step 1: Account</span>"
+            )
+        )
+        #expect(
+            html.contains(
+                "<span class=\"\(StepperStyles.srOnly)\">Step 2: Profile</span>"
+            )
+        )
+        #expect(
+            html.contains(
+                "<span class=\"\(StepperStyles.srOnly)\">Step 3: Finish</span>"
+            )
+        )
 
         // Current step semantics
         #expect(html.contains("aria-current=\"step\""))
 
         // Horizontal connecting lines
-        #expect(html.contains("absolute inset-0 flex items-center"))
-        #expect(html.contains("h-0.5 w-full"))
+        #expect(html.contains(StepperStyles.lineHorizontalContainer))
+        #expect(html.contains(StepperStyles.lineHorizontalComplete))
+        #expect(html.contains(StepperStyles.lineHorizontalUpcoming))
 
         // Padding between steps
-        #expect(html.contains("pr-8 sm:pr-20"))
+        #expect(html.contains(StepperStyles.itemHorizontal))
     }
 
     @Test("Renders horizontal stepper with full width styling")
@@ -135,7 +148,7 @@ struct StepperTests {
         )
         let html = renderHTML(Stepper(data).render())
 
-        #expect(html.contains("flex-1 pr-8 sm:pr-20"))
+        #expect(html.contains(StepperStyles.itemHorizontalFullWidth))
     }
 
     @Test("Renders interactive links when href is provided")
@@ -191,7 +204,7 @@ struct StepperTests {
         let html = renderHTML(Stepper(data).render())
 
         #expect(html.contains("aria-disabled=\"true\""))
-        #expect(html.contains("pointer-events-none"))
+        #expect(html.contains(StepperStyles.stepDisabled))
     }
 
     @Test("Renders custom icon override when provided")
@@ -235,6 +248,65 @@ struct StepperTests {
         #expect(html.contains("data-content-target=\"/checkout\""))
     }
 
+    @Test(
+        "Does not render Matomo tracking attributes when step has no href or is disabled"
+    )
+    func doesNotRenderMatomoTrackingWhenNotClickable() async throws {
+
+        let dataStatic = StepperData(
+            steps: [
+                StepperStepData(
+                    id: "static-step",
+                    title: "Static Step",
+                    status: .current,
+                    matomoStatus: .ACCEPTED
+                )
+            ],
+            orientation: .horizontal
+        )
+        let htmlStatic = renderHTML(Stepper(dataStatic).render())
+        #expect(!htmlStatic.contains("data-track-content"))
+
+        let dataDisabled = StepperData(
+            steps: [
+                StepperStepData(
+                    id: "disabled-step",
+                    title: "Disabled Step",
+                    href: "/disabled",
+                    status: .current,
+                    state: .disabled,
+                    matomoStatus: .ACCEPTED
+                )
+            ],
+            orientation: .horizontal
+        )
+        let htmlDisabled = renderHTML(Stepper(dataDisabled).render())
+        #expect(!htmlDisabled.contains("data-track-content"))
+    }
+
+    @Test("Renders Matomo tracking attributes on vertical stepper when clickable")
+    func rendersMatomoTrackingOnVerticalStepper() async throws {
+
+        let data = StepperData(
+            steps: [
+                StepperStepData(
+                    id: "vertical-step",
+                    title: "Vertical Step",
+                    href: "/vertical-step",
+                    status: .current,
+                    matomoStatus: .ACCEPTED
+                )
+            ],
+            orientation: .vertical
+        )
+        let html = renderHTML(Stepper(data).render())
+
+        #expect(html.contains("data-track-content"))
+        #expect(html.contains("data-content-name=\"stepper\""))
+        #expect(html.contains("data-content-piece=\"vertical-step\""))
+        #expect(html.contains("data-content-target=\"/vertical-step\""))
+    }
+
     @Test("Renders empty when steps collection is empty")
     func rendersEmptyWhenNoSteps() async throws {
 
@@ -257,13 +329,13 @@ struct StepperTests {
         let html = renderHTML(Stepper(data).render())
 
         // First item has pb-10; last item has class="relative" without pb-10
-        #expect(html.contains("class=\"relative pb-10\""))
-        #expect(html.contains("class=\"relative\""))
+        #expect(html.contains("class=\"\(StepperStyles.itemVertical)\""))
+        #expect(html.contains("class=\"\(StepperStyles.itemVerticalLast)\""))
 
         // Only 1 connecting line rendered for 2 items
         let matches =
             html.components(
-                separatedBy: "absolute top-4 left-4 mt-0.5 -ml-px h-full w-0.5"
+                separatedBy: StepperStyles.lineVerticalBase
             )
             .count - 1
         #expect(matches == 1)
@@ -284,12 +356,14 @@ struct StepperTests {
         let html = renderHTML(Stepper(data).render())
 
         // First item has pr-8 sm:pr-20; last item has class="relative" without pr-8 sm:pr-20
-        #expect(html.contains("class=\"relative pr-8 sm:pr-20\""))
-        #expect(html.contains("class=\"relative\""))
+        #expect(html.contains("class=\"\(StepperStyles.itemHorizontal)\""))
+        #expect(html.contains("class=\"\(StepperStyles.itemHorizontalLast)\""))
 
         // Only 1 connecting line rendered for 2 items
         let lineMatches =
-            html.components(separatedBy: "absolute inset-0 flex items-center")
+            html.components(
+                separatedBy: StepperStyles.lineHorizontalContainer
+            )
             .count - 1
         #expect(lineMatches == 1)
     }
@@ -413,8 +487,8 @@ struct StepperTests {
         #expect(html.contains("Step 2"))
     }
 
-    @Test("Static step with tooltip is keyboard focusable via tabindex")
-    func staticStepWithTooltipHasTabIndex() async throws {
+    @Test("Static step with tooltip is not keyboard focusable via tabindex")
+    func staticStepWithTooltipDoesNotHaveTabIndex() async throws {
 
         let data = StepperData(
             steps: [
@@ -424,7 +498,51 @@ struct StepperTests {
         )
         let html = renderHTML(Stepper(data).render())
 
-        #expect(html.contains("tabindex=\"0\""))
+        #expect(!html.contains("tabindex=\"0\""))
+    }
+
+    @Test("Vertical static step with tooltip is not keyboard focusable via tabindex")
+    func verticalStaticStepWithTooltipDoesNotHaveTabIndex() async throws {
+
+        let data = StepperData(
+            steps: [
+                StepperStepData(title: "Static Step", status: .current)
+            ],
+            orientation: .vertical
+        )
+        let html = renderHTML(Stepper(data).render())
+
+        #expect(!html.contains("tabindex=\"0\""))
+    }
+
+    @Test(
+        "Vertical interactive step renders link with circleClass, interactiveFocus, and sr-only label"
+    )
+    func verticalInteractiveStepRendersCircleLink() async throws {
+
+        let data = StepperData(
+            steps: [
+                StepperStepData(
+                    title: "Step 1",
+                    href: "/step-1",
+                    status: .complete
+                ),
+                StepperStepData(
+                    title: "Step 2",
+                    href: "/step-2",
+                    status: .current
+                ),
+            ],
+            orientation: .vertical
+        )
+        let html = renderHTML(Stepper(data).render())
+
+        // Link renders with circle classes and interactiveFocus
+        #expect(html.contains("<a href=\"/step-1\""))
+        #expect(html.contains(StepperStyles.circleComplete))
+        #expect(html.contains(StepperStyles.interactiveFocus))
+        #expect(html.contains("<span class=\"\(StepperStyles.srOnly)\">Step 1</span>"))
+        #expect(html.contains("<span class=\"\(StepperStyles.circleWrapperVertical)\">"))
     }
 
     @Test(
@@ -447,7 +565,7 @@ struct StepperTests {
         // Check icon path is present (checkmark)
         #expect(html.contains("<svg"))
         let checkIconHtml = renderHTML([
-            Svg.icon(.check, width: 20, height: 20, role: .presentation)
+            Svg.icon(.check_lg, width: 20, height: 20, role: .presentation)
         ])
         #expect(html.contains(checkIconHtml))
 
@@ -478,11 +596,11 @@ struct StepperTests {
         let html = renderHTML(Stepper(data).render())
 
         let envelopeIconHtml = renderHTML([
-            Svg.icon(.envelope, width: 18, height: 18, role: .presentation)
+            Svg.icon(.envelope, width: 20, height: 20, role: .presentation)
                 .class(StepperStyles.iconCurrent)
         ])
         let heartIconHtml = renderHTML([
-            Svg.icon(.heart, width: 18, height: 18, role: .presentation)
+            Svg.icon(.heart, width: 20, height: 20, role: .presentation)
                 .class(StepperStyles.iconUpcoming)
         ])
 
@@ -517,7 +635,7 @@ struct StepperTests {
 
         // Step 1 is completed -> shows checkmark tick
         let checkIconHtml = renderHTML([
-            Svg.icon(.check, width: 20, height: 20, role: .presentation)
+            Svg.icon(.check_lg, width: 20, height: 20, role: .presentation)
         ])
         #expect(html.contains(checkIconHtml))
 
@@ -526,7 +644,7 @@ struct StepperTests {
 
         // Step 3 is upcoming with icon -> shows envelope icon with upcoming styling
         let envelopeIconHtml = renderHTML([
-            Svg.icon(.envelope, width: 18, height: 18, role: .presentation)
+            Svg.icon(.envelope, width: 20, height: 20, role: .presentation)
                 .class(StepperStyles.iconUpcoming)
         ])
         #expect(html.contains(envelopeIconHtml))

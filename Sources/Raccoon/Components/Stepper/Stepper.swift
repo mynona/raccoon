@@ -19,7 +19,8 @@ public struct Stepper: TemplateRepresentable {
     }
 
     private func shouldTrackMatomo(for step: StepperStepData) -> Bool {
-        step.matomoStatus == .ACCEPTED
+        guard step.href != nil, step.state == .enabled else { return false }
+        return step.matomoStatus == .ACCEPTED
             || step.matomoStatus == .BANNER
             || data.matomoStatus == .ACCEPTED
             || data.matomoStatus == .BANNER
@@ -266,7 +267,6 @@ public struct Stepper: TemplateRepresentable {
             }
             .if(tooltipId != nil && step.state != .disabled) {
                 $0
-                    .tabIndex(0)
                     .setAttribute(name: "x-ref", value: tooltipId!)
                     .setAttribute(name: "aria-describedby", value: tooltipId!)
                     .setAttribute(
@@ -291,40 +291,6 @@ public struct Stepper: TemplateRepresentable {
                     )
             }
             .class(circleClass)
-            .if(shouldTrackMatomo(for: step)) {
-                guard let tracker = step.contentTracker ?? data.contentTracker
-                else {
-                    let piece = step.id ?? "step-\(index + 1)"
-                    let target = step.href ?? step.title
-                    return
-                        $0
-                        .flagAttribute("data-track-content")
-                        .setAttribute(
-                            name: "data-content-name",
-                            value: "stepper"
-                        )
-                        .setAttribute(name: "data-content-piece", value: piece)
-                        .setAttribute(
-                            name: "data-content-target",
-                            value: target
-                        )
-                }
-                return
-                    $0
-                    .flagAttribute("data-track-content")
-                    .setAttribute(
-                        name: "data-content-name",
-                        value: tracker.name
-                    )
-                    .setAttribute(
-                        name: "data-content-piece",
-                        value: tracker.piece
-                    )
-                    .setAttribute(
-                        name: "data-content-target",
-                        value: tracker.target
-                    )
-            }
         }
     }
 
@@ -430,10 +396,104 @@ public struct Stepper: TemplateRepresentable {
         index: Int,
         tooltipId: String?
     ) -> [Element] {
+        let circleClass: String = {
+            switch step.status {
+            case .complete: return styles.circleComplete
+            case .current: return styles.circleCurrent
+            case .upcoming: return styles.circleUpcoming
+            }
+        }()
+
+        let accessibleLabel = step.ariaLabel ?? step.title
+
         if let href = step.href, step.state == .enabled {
             Div {
-                A {
-                    renderVerticalCircle(step, index: index)
+                Div {
+                    Span {
+                        A {
+                            renderCircleIndicator(for: step, index: index)
+                            Span(accessibleLabel)
+                                .class(styles.srOnly)
+                        }
+                        .href(href)
+                        .if(step.hreflang != nil) { $0.hrefLang(step.hreflang!) }
+                        .if(step.target != nil) {
+                            $0.setAttribute(name: "target", value: step.target!)
+                        }
+                        .if(step.rel != nil) {
+                            $0.setAttribute(name: "rel", value: step.rel!)
+                        }
+                        .if(step.status == .current) {
+                            $0.setAttribute(name: "aria-current", value: "step")
+                        }
+                        .if(step.id != nil) { $0.id(step.id!) }
+                        .if(step.bindId != nil) {
+                            $0.setAttribute(name: "x-bind:id", value: step.bindId!)
+                        }
+                        .if(tooltipId != nil) {
+                            $0
+                                .setAttribute(name: "x-ref", value: tooltipId!)
+                                .setAttribute(name: "aria-describedby", value: tooltipId!)
+                                .setAttribute(
+                                    name: "x-on:mouseenter",
+                                    value:
+                                        "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: '\(tooltipId!)' } }))"
+                                )
+                                .setAttribute(
+                                    name: "x-on:mouseleave",
+                                    value:
+                                        "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: '\(tooltipId!)' } }))"
+                                )
+                                .setAttribute(
+                                    name: "x-on:focus",
+                                    value:
+                                        "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: '\(tooltipId!)' } }))"
+                                )
+                                .setAttribute(
+                                    name: "x-on:blur",
+                                    value:
+                                        "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: '\(tooltipId!)' } }))"
+                                )
+                        }
+                        .class(circleClass)
+                        .addClass(styles.interactiveFocus)
+                        .if(shouldTrackMatomo(for: step)) {
+                            guard let tracker = step.contentTracker ?? data.contentTracker
+                            else {
+                                let piece = step.id ?? "step-\(index + 1)"
+                                let target = step.href ?? step.title
+                                return
+                                    $0
+                                    .flagAttribute("data-track-content")
+                                    .setAttribute(
+                                        name: "data-content-name",
+                                        value: "stepper"
+                                    )
+                                    .setAttribute(name: "data-content-piece", value: piece)
+                                    .setAttribute(
+                                        name: "data-content-target",
+                                        value: target
+                                    )
+                            }
+                            return
+                                $0
+                                .flagAttribute("data-track-content")
+                                .setAttribute(
+                                    name: "data-content-name",
+                                    value: tracker.name
+                                )
+                                .setAttribute(
+                                    name: "data-content-piece",
+                                    value: tracker.piece
+                                )
+                                .setAttribute(
+                                    name: "data-content-target",
+                                    value: tracker.target
+                                )
+                        }
+                    }
+                    .class(styles.circleWrapperVertical)
+
                     if let tooltipId {
                         showTooltip(
                             for: step,
@@ -441,87 +501,11 @@ public struct Stepper: TemplateRepresentable {
                         )
                     }
                 }
-                .href(href)
-                .if(step.hreflang != nil) { $0.hrefLang(step.hreflang!) }
-                //.class(styles.iconWrapper)
-                .addClass(CommonStyles.cursorPointer)
-                .addClass(CommonStyles.focusDefault)
+                .class(styles.iconWrapper)
 
                 renderVerticalLabels(step)
             }
-            .if(step.target != nil) {
-                $0.setAttribute(name: "target", value: step.target!)
-            }
-            .if(step.rel != nil) {
-                $0.setAttribute(name: "rel", value: step.rel!)
-            }
-            .if(step.status == .current) {
-                $0.setAttribute(name: "aria-current", value: "step")
-            }
-            .if(step.id != nil) { $0.id(step.id!) }
-            .if(step.bindId != nil) {
-                $0.setAttribute(name: "x-bind:id", value: step.bindId!)
-            }
-            .if(tooltipId != nil) {
-                $0
-                    .setAttribute(name: "x-ref", value: tooltipId!)
-                    .setAttribute(name: "aria-describedby", value: tooltipId!)
-                    .setAttribute(
-                        name: "x-on:mouseenter",
-                        value:
-                            "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: '\(tooltipId!)' } }))"
-                    )
-                    .setAttribute(
-                        name: "x-on:mouseleave",
-                        value:
-                            "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: '\(tooltipId!)' } }))"
-                    )
-                    .setAttribute(
-                        name: "x-on:focus",
-                        value:
-                            "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: '\(tooltipId!)' } }))"
-                    )
-                    .setAttribute(
-                        name: "x-on:blur",
-                        value:
-                            "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: '\(tooltipId!)' } }))"
-                    )
-            }
             .class(styles.stepTriggerVertical)
-            .if(shouldTrackMatomo(for: step)) {
-                guard let tracker = step.contentTracker ?? data.contentTracker
-                else {
-                    let piece = step.id ?? "step-\(index + 1)"
-                    let target = step.href ?? step.title
-                    return
-                        $0
-                        .flagAttribute("data-track-content")
-                        .setAttribute(
-                            name: "data-content-name",
-                            value: "stepper"
-                        )
-                        .setAttribute(name: "data-content-piece", value: piece)
-                        .setAttribute(
-                            name: "data-content-target",
-                            value: target
-                        )
-                }
-                return
-                    $0
-                    .flagAttribute("data-track-content")
-                    .setAttribute(
-                        name: "data-content-name",
-                        value: tracker.name
-                    )
-                    .setAttribute(
-                        name: "data-content-piece",
-                        value: tracker.piece
-                    )
-                    .setAttribute(
-                        name: "data-content-target",
-                        value: tracker.target
-                    )
-            }
         }
         else {
             Div {
@@ -537,7 +521,6 @@ public struct Stepper: TemplateRepresentable {
                 .class(styles.iconWrapper)
                 .if(tooltipId != nil && step.state != .disabled) {
                     $0
-                        //.tabIndex(0)
                         .setAttribute(name: "x-ref", value: tooltipId!)
                         .setAttribute(
                             name: "aria-describedby",
@@ -579,40 +562,6 @@ public struct Stepper: TemplateRepresentable {
                 $0.setAttribute(name: "x-bind:id", value: step.bindId!)
             }
             .class(styles.stepStaticVertical)
-            .if(shouldTrackMatomo(for: step)) {
-                guard let tracker = step.contentTracker ?? data.contentTracker
-                else {
-                    let piece = step.id ?? "step-\(index + 1)"
-                    let target = step.href ?? step.title
-                    return
-                        $0
-                        .flagAttribute("data-track-content")
-                        .setAttribute(
-                            name: "data-content-name",
-                            value: "stepper"
-                        )
-                        .setAttribute(name: "data-content-piece", value: piece)
-                        .setAttribute(
-                            name: "data-content-target",
-                            value: target
-                        )
-                }
-                return
-                    $0
-                    .flagAttribute("data-track-content")
-                    .setAttribute(
-                        name: "data-content-name",
-                        value: tracker.name
-                    )
-                    .setAttribute(
-                        name: "data-content-piece",
-                        value: tracker.piece
-                    )
-                    .setAttribute(
-                        name: "data-content-target",
-                        value: tracker.target
-                    )
-            }
         }
     }
 
@@ -674,10 +623,12 @@ public struct Stepper: TemplateRepresentable {
                     }
                 }
                 .setAttribute(name: "role", value: "list")
-                .class(
-                    data.orientation == .vertical
-                        ? styles.listVertical : styles.listHorizontal
-                )
+                .if(data.orientation == .horizontal) {
+                    $0.class(styles.listHorizontal)
+                }
+                .if(data.orientation == .vertical && !styles.listVertical.isEmpty) {
+                    $0.class(styles.listVertical)
+                }
             }
             .setAttribute(name: "aria-label", value: data.ariaLabel)
             .if(data.id != nil) { $0.id(data.id!) }

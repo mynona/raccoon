@@ -8,7 +8,7 @@ public struct StepperStyles {
     public static let nav: String = "w-auto"
 
     // MARK: - Lists
-    public static let listVertical: String = "overflow-hidden"
+    public static let listVertical: String = ""
     public static let listHorizontal: String = "flex items-center"
 
     // MARK: - Items (Vertical)

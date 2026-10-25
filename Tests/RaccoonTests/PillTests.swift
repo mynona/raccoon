@@ -16,8 +16,8 @@ struct PillTests {
     func rendersNumericCounter() {
         let html = renderHTML(Pill(PillData(42)).render())
         #expect(html.contains("42"))
-        #expect(html.contains("bg-on-surface/10"))
-        #expect(html.contains("rounded-full"))
+        #expect(html.contains(PillStyles.neutral))
+        #expect(html.contains(CommonStyles.cornerRadiusFull))
     }
 
     @Test("Renders text label with theme variant and custom size")
@@ -33,9 +33,8 @@ struct PillTests {
             .render()
         )
         #expect(html.contains("New"))
-        #expect(html.contains("bg-on-theme/15"))
-        #expect(html.contains("text-on-theme"))
-        #expect(html.contains("text-xs px-2 py-0.5"))
+        #expect(html.contains(PillStyles.theme))
+        #expect(html.contains(PillStyles.sizeSm))
     }
 
     @Test("Renders success and error variants")
@@ -43,12 +42,12 @@ struct PillTests {
         let successHtml = renderHTML(
             Pill(PillData(count: 5, variant: .success)).render()
         )
-        #expect(successHtml.contains("bg-on-success/15"))
+        #expect(successHtml.contains(PillStyles.success))
 
         let errorHtml = renderHTML(
             Pill(PillData(count: 1, variant: .error)).render()
         )
-        #expect(errorHtml.contains("bg-on-error-variant/15"))
+        #expect(errorHtml.contains(PillStyles.error))
     }
 
     @Test("Supports dynamic Alpine bindings and accessibility attributes")

@@ -1,6 +1,6 @@
-// v1.2
+// v1.3
 
-/* Alpine component: thumbs/star rating widget with scroll-triggered display and dismissal memory. */
+/* Alpine component: thumbs/star rating widget with scroll-triggered display, dismissal memory, and in-page docking. */
 
 // Guard against double registration if the script is included twice
 if (!window.__ratingLoaded) {
@@ -59,29 +59,32 @@ if (!window.__ratingLoaded) {
       if (this.showOnScroll) {
         this.visible = false;
 
-        // Don't display the widget if the cookie banner is shown
-        if (getCookie(this.cookieName) === null) return;
-
         // Reveal the widget once the user has scrolled through most of the page
         this.onScroll = () => {
           if (this.closed) return;
 
-          const scrollEl = document.querySelector('main');
-          const currentScroll = Math.max(window.scrollY, scrollEl ? scrollEl.scrollTop : 0);
-          const totalHeight = Math.max(document.documentElement.scrollHeight, scrollEl ? scrollEl.scrollHeight : 0);
-          const viewHeight = scrollEl && scrollEl.clientHeight ? scrollEl.clientHeight : window.innerHeight;
+          // Don't display the widget if the cookie banner is shown
+          if (getCookie(this.cookieName) === null) return;
 
-          if (currentScroll + viewHeight >= totalHeight * 0.85) {
+          const scrollEl = document.querySelector('main');
+          const isMainScrollable = scrollEl && scrollEl.scrollHeight > scrollEl.clientHeight;
+          const currentScroll = isMainScrollable ? scrollEl.scrollTop : window.scrollY;
+          const totalHeight = isMainScrollable ? scrollEl.scrollHeight : Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+          const viewHeight = isMainScrollable ? scrollEl.clientHeight : window.innerHeight;
+
+          if (currentScroll + viewHeight >= totalHeight * 0.80) {
 
             // Don't display the widget if the cookie banner is shown
             if (getCookie(this.cookieName) === null) return;
 
             this.visible = true;
             window.removeEventListener('scroll', this.onScroll);
+            document.removeEventListener('scroll', this.onScroll);
             if (scrollEl) scrollEl.removeEventListener('scroll', this.onScroll);
           }
         };
         window.addEventListener('scroll', this.onScroll);
+        document.addEventListener('scroll', this.onScroll);
         const mainEl = document.querySelector('main');
         if (mainEl) mainEl.addEventListener('scroll', this.onScroll);
       }
@@ -91,6 +94,7 @@ if (!window.__ratingLoaded) {
       if (this.cookieCheck) clearInterval(this.cookieCheck);
       if (this.onScroll) {
         window.removeEventListener('scroll', this.onScroll);
+        document.removeEventListener('scroll', this.onScroll);
         const mainEl = document.querySelector('main');
         if (mainEl) mainEl.removeEventListener('scroll', this.onScroll);
       }
@@ -98,10 +102,22 @@ if (!window.__ratingLoaded) {
 
     close() {
       this.closed = true;
-      this.visible = false;
+      if (this.isFloating) {
+        this.isFloating = false;
+        this.visible = true;
+        this.thumb = null;
+        this.rating = 0;
+        this.textarea = '';
+        this.error = '';
+        this.showSuccess = false;
+        this.showError = false;
+      } else {
+        this.visible = false;
+      }
       if (this.cookieCheck) clearInterval(this.cookieCheck);
       if (this.onScroll) {
         window.removeEventListener('scroll', this.onScroll);
+        document.removeEventListener('scroll', this.onScroll);
         const mainEl = document.querySelector('main');
         if (mainEl) mainEl.removeEventListener('scroll', this.onScroll);
       }

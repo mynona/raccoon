@@ -146,10 +146,10 @@ struct ToggleSwitchTests {
         )
         #expect(html.contains("Access"))
         #expect(html.contains("pr-3"))
-        #expect(html.contains("text-lg"))
+        #expect(html.contains(ToggleSwitchStyles.textSizeLarge))
         #expect(html.contains("disabled"))
         #expect(html.contains("w-14"))
-        #expect(html.contains("cursor-not-allowed"))
+        #expect(html.contains(ToggleSwitchStyles.cursorNotAllowed))
     }
 
     @Test("renders small size toggle switch classes")

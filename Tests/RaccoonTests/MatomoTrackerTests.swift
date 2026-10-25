@@ -11,6 +11,26 @@ private func renderHTML(_ elements: [any Element]) -> String {
 @Suite("MatomoTracker")
 struct MatomoTrackerTests {
 
+    private func makeData(
+        status: MatomoStatus = .BANNER,
+        pageType: MatomoPageType = .trackPageView,
+        canonicalPath: String? = nil,
+        userState: MatomoUserState? = nil,
+        siteId: String = "1",
+        trackerUrl: String = "https://statistics.raumnebenan.de/",
+        siteBaseUrl: String = "https://www.raumnebenan.de"
+    ) -> MatomoTrackerData {
+        MatomoTrackerData(
+            siteId: siteId,
+            trackerUrl: trackerUrl,
+            siteBaseUrl: siteBaseUrl,
+            status: status,
+            pageType: pageType,
+            canonicalPath: canonicalPath,
+            userState: userState
+        )
+    }
+
     private func render(_ data: MatomoTrackerData) async throws -> String {
         var html = ""
         html = renderHTML(MatomoTracker(data).render())
@@ -20,7 +40,7 @@ struct MatomoTrackerTests {
     @Test("renders nothing when tracking is declined")
     func rendersNothingWhenDeclined() async throws {
         let html = try await render(
-            MatomoTrackerData(status: .DECLINED, pageType: .trackPageView)
+            makeData(status: .DECLINED, pageType: .trackPageView)
         )
 
         #expect(html.isEmpty)
@@ -29,7 +49,7 @@ struct MatomoTrackerTests {
     @Test("renders the tracking script when accepted")
     func rendersTrackingScriptWhenAccepted() async throws {
         let html = try await render(
-            MatomoTrackerData(status: .ACCEPTED, pageType: .trackPageView)
+            makeData(status: .ACCEPTED, pageType: .trackPageView)
         )
 
         #expect(html.contains("var _paq = window._paq"))
@@ -40,7 +60,7 @@ struct MatomoTrackerTests {
     @Test("loads the form tracking script deferred")
     func loadsFormTrackingDeferred() async throws {
         let html = try await render(
-            MatomoTrackerData(status: .ACCEPTED, pageType: .trackPageView)
+            makeData(status: .ACCEPTED, pageType: .trackPageView)
         )
 
         #expect(html.contains("src=\"/js/formtracking.js\""))
@@ -50,7 +70,7 @@ struct MatomoTrackerTests {
     @Test("disables cookies while the banner is still showing")
     func disablesCookiesWhileBannerShows() async throws {
         let html = try await render(
-            MatomoTrackerData(status: .BANNER, pageType: .trackPageView)
+            makeData(status: .BANNER, pageType: .trackPageView)
         )
 
         #expect(html.contains("_paq.push(['disableCookies']);"))
@@ -60,7 +80,7 @@ struct MatomoTrackerTests {
     @Test("keeps cookies once tracking is accepted")
     func keepsCookiesOnceAccepted() async throws {
         let html = try await render(
-            MatomoTrackerData(status: .ACCEPTED, pageType: .trackPageView)
+            makeData(status: .ACCEPTED, pageType: .trackPageView)
         )
 
         #expect(!html.contains("disableCookies"))
@@ -70,7 +90,7 @@ struct MatomoTrackerTests {
     @Test("sends the user id for a signed in visitor")
     func sendsUserIdForSignedInVisitor() async throws {
         let html = try await render(
-            MatomoTrackerData(
+            makeData(
                 status: .ACCEPTED,
                 pageType: .trackPageView,
                 userState: .signedIn(userID: "user-42")
@@ -86,7 +106,7 @@ struct MatomoTrackerTests {
     @Test("marks a visitor without a session as not signed in")
     func marksVisitorWithoutSessionAsNotSignedIn() async throws {
         let html = try await render(
-            MatomoTrackerData(
+            makeData(
                 status: .ACCEPTED,
                 pageType: .trackPageView,
                 userState: .signedOut
@@ -104,7 +124,7 @@ struct MatomoTrackerTests {
     @Test("omits the user dimension when no user state is given")
     func omitsUserDimensionWithoutUserState() async throws {
         let html = try await render(
-            MatomoTrackerData(status: .ACCEPTED, pageType: .trackPageView)
+            makeData(status: .ACCEPTED, pageType: .trackPageView)
         )
 
         #expect(!html.contains("setUserId"))
@@ -114,7 +134,7 @@ struct MatomoTrackerTests {
     @Test("tracks a site search instead of a page view")
     func tracksSiteSearch() async throws {
         let html = try await render(
-            MatomoTrackerData(status: .ACCEPTED, pageType: .trackSiteSearch)
+            makeData(status: .ACCEPTED, pageType: .trackSiteSearch)
         )
 
         #expect(html.contains("_paq.push(['trackSiteSearch','',false,false]);"))
@@ -124,7 +144,7 @@ struct MatomoTrackerTests {
     @Test("points the fallback pixel at the canonical path")
     func fallbackPixelUsesCanonicalPath() async throws {
         let html = try await render(
-            MatomoTrackerData(
+            makeData(
                 status: .ACCEPTED,
                 pageType: .trackPageView,
                 canonicalPath: "/artikel/test"
@@ -143,7 +163,7 @@ struct MatomoTrackerTests {
     @Test("falls back to the site root without a canonical path")
     func fallbackPixelUsesSiteRoot() async throws {
         let html = try await render(
-            MatomoTrackerData(status: .ACCEPTED, pageType: .trackPageView)
+            makeData(status: .ACCEPTED, pageType: .trackPageView)
         )
 
         #expect(html.contains("url=https://www.raumnebenan.de\""))

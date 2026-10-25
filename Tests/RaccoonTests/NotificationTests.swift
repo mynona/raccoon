@@ -19,7 +19,7 @@ struct NotificationTests {
             )
             .render()
         )
-        #expect(html.contains("border-on-surface-warning"))
+        #expect(html.contains(NotificationStyles.borderWarning))
     }
 
     @Test("applies info border class for .info type")
@@ -30,7 +30,7 @@ struct NotificationTests {
             )
             .render()
         )
-        #expect(html.contains("border-on-surface-info"))
+        #expect(html.contains(NotificationStyles.borderInfo))
     }
 
     @Test("renders markdown in text")
@@ -68,7 +68,9 @@ struct NotificationTests {
             )
             .render()
         )
-        #expect(html.contains("<p class=\"font-semibold\">Hello</p>"))
+        #expect(
+            html.contains("<p class=\"\(NotificationStyles.titleFont)\">Hello</p>")
+        )
     }
 
     @Test("renders optional text when provided")
@@ -97,7 +99,7 @@ struct NotificationTests {
             .render()
         )
         // Only the title <p class="font-semibold">, no second <p> for body text
-        #expect(html.contains("font-semibold"))
+        #expect(html.contains(NotificationStyles.titleFont))
         #expect(!html.contains("pt-2"))
     }
 
@@ -110,7 +112,7 @@ struct NotificationTests {
             )
             .render()
         )
-        #expect(html.contains("border-on-surface-error"))
+        #expect(html.contains(NotificationStyles.borderError))
     }
 
     @Test("applies success border class for .success type")
@@ -122,6 +124,6 @@ struct NotificationTests {
             )
             .render()
         )
-        #expect(html.contains("border-on-surface-success"))
+        #expect(html.contains(NotificationStyles.borderSuccess))
     }
 }

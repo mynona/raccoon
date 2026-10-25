@@ -108,13 +108,13 @@ struct AvatarTests {
             Avatar(AvatarData(firstName: "A", size: .sm)).render()
         )
         #expect(small.contains("size-8"))
-        #expect(small.contains("text-sm"))
+        #expect(small.contains(AvatarStyles.textSizeSmall))
 
         let large = renderHTML(
             Avatar(AvatarData(firstName: "A", size: .xl)).render()
         )
         #expect(large.contains("size-12"))
-        #expect(large.contains("text-lg"))
+        #expect(large.contains(AvatarStyles.textSizeLarge))
     }
 
     @Test("renders single initial when only lastName is given")

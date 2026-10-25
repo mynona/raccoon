@@ -270,7 +270,8 @@ struct ActionButtonTests {
             .render()
         )
         #expect(
-            html.contains("bg-error") || html.contains("border-error")
+            html.contains(ActionButtonStyles.backgroundColorWarning)
+                || html.contains(ActionButtonStyles.borderWarning)
         )
     }
 
@@ -299,8 +300,8 @@ struct ActionButtonTests {
             )
             .render()
         )
-        #expect(smHtml.contains("text-sm"))
-        #expect(xlHtml.contains("text-lg"))
+        #expect(smHtml.contains(ActionButtonStyles.textSizeSmall))
+        #expect(xlHtml.contains(ActionButtonStyles.textSizeLarge))
     }
 
     @Test("renders clickAction attribute")
