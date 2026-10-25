@@ -22,8 +22,8 @@ public struct MatomoTrackerData: Sendable {
     ///   - userState: User authorization and role state for custom dimensions.
     public init(
         siteId: String = "1",
-        trackerUrl: String = "https://statistics.raumnebenan.de/",
-        siteBaseUrl: String = "https://www.raumnebenan.de",
+        trackerUrl: String,
+        siteBaseUrl: String,
         status: MatomoStatus = .BANNER,
         pageType: MatomoPageType = .trackPageView,
         canonicalPath: String? = nil,

@@ -41,7 +41,7 @@ extension ImageSourcesData {
     /// `{baseUrl}{folder}/{imageId}-{width}w.{format}`
     ///
     /// - Parameters:
-    ///   - baseUrl: Base AWS public URL (e.g. `https://raumnebenan-images.s3.eu-central-1.amazonaws.com/`).
+    ///   - baseUrl: Base AWS public URL.
     ///   - folder: S3 subpath/prefix where processed images reside (defaults to `"processed/blog"`).
     ///   - imageId: UUID or identifier string for the image.
     ///   - widths: Array of widths in pixels (defaults to `[576, 768, 1280, 2560]`).
