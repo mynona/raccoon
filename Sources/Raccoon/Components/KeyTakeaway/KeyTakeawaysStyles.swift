@@ -5,7 +5,7 @@ public struct KeyTakeawaysStyles {
 
     // MARK: label
     public static let textLabel: String = [
-        "!no-underline text-black dark:text-white ",
+        "!no-underline text-on-surface-bright ",
         CommonStyles.fontSans,
         CommonStyles.textSizeLarge,
         "sm:text-xl xl:text-2xl",

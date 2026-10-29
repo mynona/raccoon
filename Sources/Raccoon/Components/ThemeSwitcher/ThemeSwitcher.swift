@@ -6,7 +6,7 @@ import WebBuilders
 /// ThemeSwitcher
 ///
 /// An accessible dropdown menu component allowing users to switch between color themes
-/// (e.g. "Raumnebenan" default and "Black and White").
+/// (e.g. "Emerald mine" default and "Black and White").
 ///
 /// Self-contained: owns its Alpine state via `/js/themeswitcher.js`.
 /// Theme preference is persisted in `localStorage` under `theme` and sets the `data-theme`
@@ -25,7 +25,12 @@ public struct ThemeSwitcher: TemplateRepresentable {
             let explicitlyPreferredTheme = null;
             try {
                 if (window.localStorage) {
-                    const stored = localStorage.getItem('theme');
+                    let stored = localStorage.getItem('theme');
+                    // 'raumnebenan' was the former name of the 'emerald-mine' theme
+                    if (stored === 'raumnebenan') {
+                        stored = 'emerald-mine';
+                        localStorage.setItem('theme', stored);
+                    }
                     if (stored) {
                         document.documentElement.setAttribute('data-theme', stored);
                         explicitlyPreferredTheme = stored;
@@ -34,10 +39,10 @@ public struct ThemeSwitcher: TemplateRepresentable {
             } catch (e) {}
 
             if (explicitlyPreferredTheme === null) {
-                document.documentElement.setAttribute('data-theme', 'raumnebenan');
+                document.documentElement.setAttribute('data-theme', 'emerald-mine');
                 try {
                     if (window.localStorage) {
-                        localStorage.setItem('theme', 'raumnebenan');
+                        localStorage.setItem('theme', 'emerald-mine');
                     }
                 } catch (e) {}
             }

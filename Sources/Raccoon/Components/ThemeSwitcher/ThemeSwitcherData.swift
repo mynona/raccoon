@@ -2,8 +2,8 @@ import Foundation
 
 /// Available color themes defined in the application stylesheet.
 public enum AppTheme: String, CaseIterable, Sendable {
-    /// Default green theme (Raumnebenan).
-    case raumnebenan = "raumnebenan"
+    /// Default green theme (Emerald mine).
+    case emeraldMine = "emerald-mine"
     /// High-contrast black and white theme.
     case blackAndWhite = "black-and-white"
     /// Beacon blue theme.
@@ -12,8 +12,8 @@ public enum AppTheme: String, CaseIterable, Sendable {
     /// The human-readable label shown in the dropdown menu.
     public var displayName: String {
         switch self {
-        case .raumnebenan:
-            return "raumnebenan"
+        case .emeraldMine:
+            return "emerald mine"
         case .blackAndWhite:
             return "black and white"
         case .beaconBlue:
@@ -72,7 +72,7 @@ public struct ThemeSwitcherData: Sendable {
     public init(
         id: String? = nil,
         ariaLabel: String = "Select color theme",
-        defaultTheme: AppTheme = .raumnebenan,
+        defaultTheme: AppTheme = .emeraldMine,
         themes: [AppTheme] = AppTheme.allCases,
         align: ComponentPosition = .left,
         matomoStatus: MatomoStatus = .DECLINED

@@ -10,7 +10,7 @@ public struct TableStyles {
     public static let thTextFont: String = CommonStyles.fontWeightSemibold
     public static let thTextSize: String = "text-sm lg:text-base 2xl:text-lg"
     public static let thTextColor: String = CommonStyles.textColorDefault
-    public static let thHover: String = "hover:text-black dark:hover:text-white"
+    public static let thHover: String = "hover:text-on-surface-bright"
     // Tbody
     public static let tbodyDivide: String =
         "divide-y divide-gray-300 dark:divide-gray-600"
@@ -27,7 +27,7 @@ public struct TableStyles {
     public static let trBodyHoverBackground: String =
         "hover:bg-black/12 dark:hover:bg-white/14"
     public static let trBodyHoverBorder: String =
-        "hover:border-b border-gray-950 dark:border-white"
+        "hover:border-b border-on-surface-bright"
     // Tfoot
     public static let tdFooterPadding: String = "px-3 py-2"
     public static let tdFooterTextFont: String = CommonStyles.fontWeightSemibold

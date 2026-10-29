@@ -50,12 +50,12 @@ struct ThemeSwitcherTests {
             ThemeSwitcher(ThemeSwitcherData()).render()
         )
         #expect(html.contains("role=\"menuitemradio\""))
-        #expect(html.contains("raumnebenan"))
+        #expect(html.contains("emerald mine"))
         #expect(html.contains("black and white"))
         #expect(html.contains("beacon blue"))
         #expect(
             html.contains(
-                ":aria-checked=\"currentTheme === 'raumnebenan'\""
+                ":aria-checked=\"currentTheme === 'emerald-mine'\""
             )
         )
         #expect(
@@ -68,10 +68,10 @@ struct ThemeSwitcherTests {
                 ":aria-checked=\"currentTheme === 'beacon-blue'\""
             )
         )
-        #expect(html.contains("@click=\"setTheme('raumnebenan')\""))
+        #expect(html.contains("@click=\"setTheme('emerald-mine')\""))
         #expect(html.contains("@click=\"setTheme('black-and-white')\""))
         #expect(html.contains("@click=\"setTheme('beacon-blue')\""))
-        #expect(html.contains("x-show=\"currentTheme === 'raumnebenan'\""))
+        #expect(html.contains("x-show=\"currentTheme === 'emerald-mine'\""))
         #expect(
             html.contains("x-show=\"currentTheme === 'black-and-white'\"")
         )
@@ -124,7 +124,7 @@ struct ThemeSwitcherTests {
         )
         #expect(
             tracked.contains(
-                "x-data=\"themeSwitcher('raumnebenan', true)\""
+                "x-data=\"themeSwitcher('emerald-mine', true)\""
             )
         )
 
@@ -136,7 +136,7 @@ struct ThemeSwitcherTests {
         )
         #expect(
             untracked.contains(
-                "x-data=\"themeSwitcher('raumnebenan', false)\""
+                "x-data=\"themeSwitcher('emerald-mine', false)\""
             )
         )
     }
@@ -159,7 +159,7 @@ struct ThemeSwitcherTests {
             )
         )
         #expect(custom.contains("black and white"))
-        #expect(!custom.contains("setTheme('raumnebenan')"))
+        #expect(!custom.contains("setTheme('emerald-mine')"))
     }
 
     @Test("detect-theme script sets data-theme before paint")
@@ -171,8 +171,8 @@ struct ThemeSwitcherTests {
             )
         )
         #expect(script.contains("localStorage.getItem('theme')"))
-        #expect(script.contains("localStorage.setItem('theme', 'raumnebenan')"))
-        #expect(script.contains("raumnebenan"))
+        #expect(script.contains("localStorage.setItem('theme', 'emerald-mine')"))
+        #expect(script.contains("stored === 'raumnebenan'"))
     }
 
     @Test("applies the shared icon button styling")

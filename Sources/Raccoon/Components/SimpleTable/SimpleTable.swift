@@ -337,7 +337,7 @@ public struct SimpleTable: TemplateRepresentable {
                                 Svg.icon(.info_circle)
                                     .class("w-5 h-5")
                             }
-                            .class("text-black dark:text-gray-400")
+                            .class("text-on-surface")
 
                             P("No results found")
 

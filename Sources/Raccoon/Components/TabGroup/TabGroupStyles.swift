@@ -25,7 +25,7 @@ public struct TabGroupStyles {
 
     // MARK: - Text Colors
     public static let textColorActive: String = [
-        "text-on-theme print:text-black",
+        "text-on-theme print:text-print",
         "forced-colors:text-[Highlight]",
     ]
     .joined(separator: " ")

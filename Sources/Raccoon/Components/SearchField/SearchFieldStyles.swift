@@ -4,7 +4,7 @@ public struct SearchFieldStyles {
 
     // Text styles
     public static let textColorIcon: String =
-        "text-black dark:text-gray-400 print:text-black"
+        "text-on-surface print:text-print"
     public static let textColorInput: String = CommonStyles.textColorInput
     public static let textColorNoResults: String = CommonStyles.textColorDefault
 

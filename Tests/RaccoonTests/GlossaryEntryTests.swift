@@ -150,8 +150,8 @@ struct GlossaryEntryTests {
             .render()
         )
         #expect(html.contains("print:bg-white"))
-        #expect(html.contains("bg-black/5"))
-        #expect(html.contains("dark:bg-white/5"))
+        #expect(html.contains("bg-overlay-hover"))
+        #expect(!html.contains("dark:bg-white/5"))
     }
 
     @Test("renders comment for accessibility")

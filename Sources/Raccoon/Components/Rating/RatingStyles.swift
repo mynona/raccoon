@@ -20,11 +20,11 @@ public struct RatingStyles {
         "text-center",
         CommonStyles.textSizeLarge,
         CommonStyles.fontWeightSemibold,
-        "text-black dark:text-white",
+        "text-on-surface-bright",
     ]
     .joined(separator: " ")
     public static let thankYouMessage =
-        "text-lg md:text-xl text-center text-black dark:text-white"
+        "text-lg md:text-xl text-center text-on-surface-bright"
     public static let closeButton =
         "absolute top-2 right-2 p-2 text-gray-600 hover:text-gray-900 z-50"
 

@@ -9,7 +9,7 @@ public struct DefinitionStyles {
     ].joined(separator: " ")
 
     public static let container: String =
-        "bg-black/5 dark:bg-white/5"
+        "bg-overlay-hover"
 
     // MARK: CommonStyles
     public static let prose = CommonStyles.prose

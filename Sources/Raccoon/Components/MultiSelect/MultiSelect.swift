@@ -230,7 +230,7 @@ public struct MultiSelect: TemplateRepresentable {
                         value: """
                             {
                                'bg-tertiary text-on-surface-bright': $comboboxOption.isActive,
-                               'text-gray-950 dark:text-gray-400 dark:print:!text-black': ! $comboboxOption.isActive,
+                               'text-on-surface dark:print:!text-print': ! $comboboxOption.isActive,
                                'opacity-50 cursor-not-allowed': $comboboxOption.isDisabled,
                             }
                             """

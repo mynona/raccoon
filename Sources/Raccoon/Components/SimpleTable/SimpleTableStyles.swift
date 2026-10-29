@@ -11,7 +11,7 @@ public struct SimpleTableStyles {
     public static let columnSelectorOption: String = textColorNeutral
 
     // MARK: textColor
-    public static let textColorNeutral: String = "text-black dark:text-gray-400"
+    public static let textColorNeutral: String = "text-on-surface"
     public static let emptyStateTextColor: String =
         "text-gray-500 dark:text-gray-400"
 

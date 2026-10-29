@@ -7,7 +7,7 @@ if (!window.__themeSwitcherLoaded) {
    window.__themeSwitcherLoaded = true;
 
    const registerThemeSwitcher = () => {
-      Alpine.data('themeSwitcher', (defaultTheme = 'raumnebenan', isTracking = false) => {
+      Alpine.data('themeSwitcher', (defaultTheme = 'emerald-mine', isTracking = false) => {
          const base = (window.createSimpleMenu ? window.createSimpleMenu() : {
             open: false,
             activeIndex: -1,
@@ -115,7 +115,12 @@ if (!window.__themeSwitcherLoaded) {
             init() {
                try {
                   if (window.localStorage) {
-                     const stored = localStorage.getItem('theme');
+                     let stored = localStorage.getItem('theme');
+                     // 'raumnebenan' was the former name of the 'emerald-mine' theme
+                     if (stored === 'raumnebenan') {
+                        stored = 'emerald-mine';
+                        localStorage.setItem('theme', stored);
+                     }
                      this.currentTheme = stored || defaultTheme;
                   } else {
                      this.currentTheme = defaultTheme;

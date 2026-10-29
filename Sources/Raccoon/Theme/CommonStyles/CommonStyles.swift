@@ -42,25 +42,25 @@ public struct CommonStyles {
     // MARK: textColor
     public static let textColorWhite: String = "text-white"
     public static let textColorDefault: String =
-        "text-on-surface print:text-black"
+        "text-on-surface print:text-print"
     public static let textColorInverse: String =
         "text-on-inverse-surface"
     public static let textColorEmphasized: String =
-        "text-on-surface-bright print:text-black"
+        "text-on-surface-bright print:text-print"
     public static let textColorInput: String =
-        "text-on-surface-bright print:text-black"
+        "text-on-surface-bright print:text-print"
     public static let textColorPlaceholder: String =
-        "placeholder:text-on-surface-dim print:placeholder:text-black"
+        "placeholder:text-on-surface-dim print:placeholder:text-print"
     public static let textColorError: String =
-        "text-on-error-variant print:text-black"
+        "text-on-error-variant print:text-print"
     public static let textColorSuccess: String =
-        "text-on-success print:text-black"
+        "text-on-success print:text-print"
     public static let textColorDisabled: String =
-        "text-on-disabled print:text-black"
+        "text-on-disabled print:text-print"
 
     // MARK: prose
     public static let prose: String =
-        "prose prose-stone font-serif prose-base sm:prose-lg xl:prose-xl prose-a:underline prose-a:underline-offset-8 prose-a:decoration-on-theme prose-a:decoration-1 prose-a:decoration-solid prose-a:text-on-surface-bright prose-h2:font-medium prose-h2:text-on-surface-variant prose-h4:text-on-surface-variant prose-h2:pt-4 prose-h3:font-medium prose-h3:font-light prose-h3:text-on-surface-variant prose-h3:pt-6 prose-h4:pt-4 prose-h4:font-medium prose-ul:marker:text-on-surface prose-ol:marker:text-on-surface max-w-none dark:prose-invert prose-h1:text-on-surface-variant text-on-surface prose-strong:text-on-surface print:text-black"
+        "prose prose-stone font-serif prose-base sm:prose-lg xl:prose-xl prose-a:underline prose-a:underline-offset-8 prose-a:decoration-on-theme prose-a:decoration-1 prose-a:decoration-solid prose-a:text-on-surface-bright prose-h2:font-medium prose-h2:text-on-surface-variant prose-h4:text-on-surface-variant prose-h2:pt-4 prose-h3:font-medium prose-h3:font-light prose-h3:text-on-surface-variant prose-h3:pt-6 prose-h4:pt-4 prose-h4:font-medium prose-ul:marker:text-on-surface prose-ol:marker:text-on-surface max-w-none dark:prose-invert prose-h1:text-on-surface-variant text-on-surface prose-strong:text-on-surface print:text-print"
     public static let proseNon: String = "not-prose"
 
     // MARK: border
@@ -127,34 +127,34 @@ public struct CommonStyles {
 
     // Button primary
     public static let buttonTextColorPrimary: String =
-    "text-on-primary print:text-black"
+    "text-on-primary print:text-print"
     public static let buttonBackgroundColorPrimary: String =
     "bg-primary print:bg-white"
     public static let buttonBorderPrimary: String =
-        "rounded-md border border-primary print:border-black"
+        "rounded-md border border-primary print:border-print"
     public static let buttonPaddingPrimary: String = "px-4 py-1.5 transition"
 
     // Button secondary
     public static let buttonTextColorSecondary: String =
-        "text-on-secondary print:text-black"
+        "text-on-secondary print:text-print"
     public static let buttonBackgroundColorSecondary: String =
         "bg-secondary print:bg-white"
     public static let buttonBorderSecondary: String =
-        "rounded-md border border-on-secondary print:border-black"
+        "rounded-md border border-on-secondary print:border-print"
     public static let buttonPaddingSecondary: String = "px-4 py-1.5 transition"
 
     // Button tertiary
     public static let buttonTextColorTertiary: String =
-        "text-on-tertiary print:text-black"
+        "text-on-tertiary print:text-print"
     public static let buttonBackgroundColorTertiary: String =
         "bg-tertiary print:bg-white"
     public static let buttonBorderTertiary: String =
-        "rounded-md border border-tertiary print:border-black"
+        "rounded-md border border-tertiary print:border-print"
     public static let buttonPaddingTertiary: String = "px-4 py-1.5 transition"
 
     // Button warning
     public static let buttonTextColorWarning: String =
-        "text-on-error print:text-black"
+        "text-on-error print:text-print"
     public static let buttonBackgroundColorWarning: String =
         "bg-error print:bg-white"
     public static let buttonBorderWarning: String =
@@ -163,7 +163,7 @@ public struct CommonStyles {
 
     // Icon button
     public static let buttonTextColorIcon: String =
-        "text-on-icon print:text-black"
+        "text-on-icon print:text-print"
     public static let buttonBackgroundColorIcon: String =
         "bg-icon print:bg-white"
     public static let buttonBorderIcon: String = "rounded-md border-0"
@@ -171,7 +171,7 @@ public struct CommonStyles {
 
     // Button disabled
     public static let buttonTextColorDisabled: String =
-        "disabled:text-on-disabled print:text-black"
+        "disabled:text-on-disabled print:text-print"
     public static let buttonBackgroundColorDisabled: String =
         "disabled:bg-disabled print:bg-white"
     public static let buttonBorderDisabled: String =
@@ -186,7 +186,7 @@ public struct CommonStyles {
 
     // MARK: progressBar
     public static let progressBarActive: String =
-        "bg-progressactive print:bg-black"
+        "bg-progressactive print:bg-print"
     public static let progressBarInactive: String =
         "bg-progressinactive print:bg-white"
 

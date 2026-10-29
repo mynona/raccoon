@@ -13,7 +13,7 @@ public struct ReferencesStyles {
 
     public static let referencesContainer: String = [
         CommonStyles.cornerRadiusMedium,
-        "max-w-none bg-black/5 dark:bg-white/5 print:!bg-white print:text-black",
+        "max-w-none bg-overlay-hover print:!bg-white print:text-print",
     ]
     .joined(separator: " ")
 

@@ -27,22 +27,22 @@ public struct PillStyles {
 
     // MARK: - Variants
     public static let neutral: String = [
-        "bg-on-surface/10 text-on-surface print:text-black"
+        "bg-on-surface/10 text-on-surface print:text-print"
     ]
     .joined(separator: " ")
 
     public static let theme: String = [
-        "bg-on-theme/15 text-on-theme print:text-black forced-colors:text-[Highlight]"
+        "bg-on-theme/15 text-on-theme print:text-print forced-colors:text-[Highlight]"
     ]
     .joined(separator: " ")
 
     public static let success: String = [
-        "bg-on-success/15 text-on-success print:text-black"
+        "bg-on-success/15 text-on-success print:text-print"
     ]
     .joined(separator: " ")
 
     public static let error: String = [
-        "bg-on-error-variant/15 text-on-error-variant print:text-black"
+        "bg-on-error-variant/15 text-on-error-variant print:text-print"
     ]
     .joined(separator: " ")
 

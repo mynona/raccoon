@@ -29,7 +29,7 @@ struct ThemeSwitcherView: TemplateRepresentable {
             """,
             ThemeSwitcherData(
                 defaultTheme: .blackAndWhite,
-                themes: [.blackAndWhite, .raumnebenan]
+                themes: [.blackAndWhite, .emeraldMine]
             )
         ),
     ]
