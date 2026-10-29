@@ -846,6 +846,60 @@ pre code span:focus {
   }
 
 /* ============================================================
+   RADIO INPUT (Radio / RadioGroup)
+   Round counterpart of the checkbox. Colours come from theme
+   tokens; the checked colour is `currentColor`, set by the
+   `text-primary-dim` utility on the input.
+   ============================================================ */
+@layer components {
+  .radio-input {
+    appearance: none;
+    display: inline-block;
+    position: relative;
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    border: 1.5px solid var(--color-on-surface-dim);
+    border-radius: 9999px;
+    background-color: var(--color-surface);
+    background-image: none;
+    vertical-align: middle;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+  input.radio-input:checked,
+  input.radio-input:checked:hover,
+  input.radio-input:checked:focus {
+    background-color: currentColor;
+    background-image: none;
+    border-color: currentColor;
+  }
+  .radio-input:checked::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 9999px;
+    background-color: var(--color-on-primary-dim);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .radio-input:disabled {
+    cursor: not-allowed;
+  }
+  @media (forced-colors: active) {
+    input.radio-input:checked {
+      background-color: Highlight;
+      border-color: Highlight;
+    }
+    .radio-input:checked::after {
+      background-color: HighlightText;
+    }
+  }
+}
+
+/* ============================================================
    CUSTOM UTILITY - Skip Link
    Accessibility helper: hidden by default, shows on focus
    ============================================================ */

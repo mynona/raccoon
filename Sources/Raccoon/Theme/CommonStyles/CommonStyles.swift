@@ -112,6 +112,8 @@ public struct CommonStyles {
         "hover:ring-2 hover:ring-offset-4 hover:ring-offset-white dark:hover:ring-offset-black hover:ring-hoverring hover:rounded-md hover:!no-underline"
     public static let hoverDefaultCheckbox =
         "hover:ring-2 hover:ring-offset-2 hover:ring-offset-white dark:hover:ring-offset-black hover:ring-hoverring hover:rounded-xs"
+    public static let hoverDefaultRadio =
+        "hover:ring-2 hover:ring-offset-2 hover:ring-offset-white dark:hover:ring-offset-black hover:ring-hoverring hover:rounded-full"
     public static let hoverError: String =
         "hover:ring-2 hover:ring-offset-4 hover:ring-offset-white dark:hover:ring-offset-black hover:ring-error hover:rounded-md"
 
@@ -120,6 +122,8 @@ public struct CommonStyles {
         "focus:outline-none focus-within:ring-2 focus-within:ring-offset-4 ring-offset-white dark:ring-offset-black focus-within:ring-focusring focus-within:rounded-md focus:!no-underline"
     public static let focusDefaultCheckbox =
         "focus:outline-none focus-within:ring-2 focus-within:ring-offset-2 ring-offset-white dark:ring-offset-black focus-within:ring-focusring focus-within:rounded-xs"
+    public static let focusDefaultRadio =
+        "focus:outline-none focus-within:ring-2 focus-within:ring-offset-2 ring-offset-white dark:ring-offset-black focus-within:ring-focusring focus-within:rounded-full"
     public static let focusError: String =
         "focus:outline-none focus-within:ring-2 focus-within:ring-offset-4 ring-offset-white dark:ring-offset-black focus-within:ring-error focus-within:rounded-md"
 

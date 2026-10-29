@@ -45,6 +45,8 @@ public struct RaccoonPreviewController: RouteCollection, Sendable {
         preview.get("password-input", use: getPasswordInput)
         preview.get("pill", use: getPill)
         preview.get("quote", use: getQuote)
+        preview.get("radio", use: getRadio)
+        preview.get("radio-group", use: getRadioGroup)
         preview.get("rating", use: getRating)
         preview.get("rating-floating", use: getRatingFloating)
         preview.get("references", use: getReferences)
@@ -282,6 +284,18 @@ public struct RaccoonPreviewController: RouteCollection, Sendable {
     @Sendable
     func getQuote(_ request: Request) async throws -> Response {
         let view = request.templates.renderHtml(QuoteView())
+        return view
+    }
+
+    @Sendable
+    func getRadio(_ request: Request) async throws -> Response {
+        let view = request.templates.renderHtml(RadioView())
+        return view
+    }
+
+    @Sendable
+    func getRadioGroup(_ request: Request) async throws -> Response {
+        let view = request.templates.renderHtml(RadioGroupView())
         return view
     }
 
