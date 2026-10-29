@@ -19,7 +19,7 @@ func showComponentPreview(
         TabGroup(
             TabGroupData(
                 id: tabGroupId,
-                ariaLabel: "Preview, Data, and HTML code",
+                ariaLabel: "Preview, API, and HTML code",
                 tabs: [
                     TabItemData(
                         id: "\(tabGroupId)-preview",
@@ -34,7 +34,7 @@ func showComponentPreview(
                     ),
                     TabItemData(
                         id: "\(tabGroupId)-data",
-                        label: "Data",
+                        label: "API",
                         content: .element {
                             Div {
                                 showCopyableData(data)

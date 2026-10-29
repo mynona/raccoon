@@ -13,4 +13,4 @@ Public/*
 /Package.resolved
 /md/
 .playwright-mcp/
-
+.DS_Store
