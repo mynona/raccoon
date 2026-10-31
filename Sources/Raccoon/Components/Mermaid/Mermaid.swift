@@ -21,7 +21,7 @@ public struct Mermaid: TemplateRepresentable {
 
         DebugComment("Mermaid diagram")
 
-        // https://www.npmjs.com/package/agentic-mermaid
+        // https://app.unpkg.com/agentic-mermaid
         // https://github.com/adewale/agentic-mermaid/blob/main/docs/browser.md
         // Lazy-loaded ESM bundle (fetches only the diagram families used on the page instead of the 2.9MB classic bundle).
         Script()

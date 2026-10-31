@@ -10,7 +10,7 @@ struct SimpleMenuView: TemplateRepresentable {
     let variants: [(String, SimpleMenuData)] = [
         (
             """
-            // Action Menu with Text & Chevron Trigger
+            // Action Menu with text
             """,
             SimpleMenuData(
                 ariaLabel: "Actions",
@@ -67,22 +67,22 @@ struct SimpleMenuView: TemplateRepresentable {
         ),
         (
             """
-            // Icon-Only Trigger Button (ThemeSwitcher pattern)
+            // Icon-Only Trigger Button
             """,
             SimpleMenuData(
                 ariaLabel: "Color theme",
                 options: [
                     SimpleMenuOption(
                         id: "theme-default",
-                        title: "Raumnebenan",
+                        title: "emerald-mine",
                         isSelected: true,
-                        clickAction: "alert('Raumnebenan theme')"
+                        clickAction: "alert('emerald-mine theme')"
                     ),
                     SimpleMenuOption(
                         id: "theme-bw",
                         title: "Black & White",
                         isSelected: false,
-                        clickAction: "alert('B&W theme')"
+                        clickAction: "alert('black-and-white theme')"
                     ),
                 ],
                 width: "w-48",

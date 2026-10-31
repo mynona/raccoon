@@ -3,7 +3,6 @@ public struct MatomoTrackerData: Sendable {
 
     public let status: MatomoStatus
     public let pageType: MatomoPageType
-    /// `Seo.url` — the canonical path, used for the no-JavaScript fallback pixel.
     public let canonicalPath: String?
     public let userState: MatomoUserState?
     public let siteId: String

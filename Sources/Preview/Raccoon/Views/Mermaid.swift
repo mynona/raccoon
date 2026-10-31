@@ -333,6 +333,106 @@ struct MermaidView: TemplateRepresentable {
                 isCentered: true
             )
         ),
+
+        (
+            """
+            // Sankey
+            """,
+            MermaidData(
+                diagram:
+                    """
+                    sankey-beta
+                      Coal,Electricity,60
+                      Gas,Electricity,80
+                      Solar,Electricity,40
+                      Electricity,Homes,120
+                      Electricity,Industry,60
+                    """,
+                widthInPercent: 80,
+                isCentered: true
+            )
+        ),
+
+        (
+            """
+            // Paket
+            """,
+            MermaidData(
+                diagram:
+                    """
+                    packet
+                    title UDP datagram
+                    +16: "Source port"
+                    +16: "Destination port"
+                    +16: "Length"
+                    +16: "Checksum"
+                    +32: "Payload"
+                    """,
+                widthInPercent: 80,
+                isCentered: true
+            )
+        ),
+
+        (
+            """
+            // Kanban board
+            """,
+            MermaidData(
+                diagram:
+                    """
+                    kanban
+                      todo[To do]
+                        packet[Packet family]@{ assigned: "Maya", priority: "High" }
+                      doing[In progress]
+                        kanban[Kanban family]@{ assigned: "Alex", ticket: "AM-409" }
+                      done[Done]
+                        research[Community research]
+                    """,
+                widthInPercent: 80,
+                isCentered: true
+            )
+        ),
+
+        (
+            """
+            // Treemap
+            """,
+            MermaidData(
+                diagram:
+                    """
+                    treemap
+                    title Product investment
+                    "Build"
+                      "Engineering": 60
+                      "Design": 25
+                    "Learn"
+                      "Research": 30
+                      "Analytics": 15
+                    """,
+                widthInPercent: 80,
+                isCentered: true
+            )
+        ),
+
+        (
+            """
+            // Event modeling
+            """,
+            MermaidData(
+                diagram:
+                    """
+                    eventmodeling
+                    tf 01 ui CartUI
+                    tf 02 cmd AddItem
+                    tf 03 evt ItemAdded
+                    tf 04 rmo CartItems
+                    tf 05 ui CartUI
+                    """,
+                widthInPercent: 80,
+                isCentered: true
+            )
+        ),
+
     ]
 
     func makeHtml(ctx: MermaidData) -> String {

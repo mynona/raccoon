@@ -8,7 +8,7 @@ if (!window.__beautifulMermaidComponentLoaded) {
 
   // Starts fetching the small lazy entry once; family chunks are fetched on first use and cached by the browser
   const rendererPromise = import(
-    "https://unpkg.com/agentic-mermaid@0.4.1/dist/browser-lazy/index.js"
+    "https://unpkg.com/agentic-mermaid@0.5.4/dist/browser-lazy/index.js"
   );
 
   const DEBUG = false;
@@ -18,16 +18,15 @@ if (!window.__beautifulMermaidComponentLoaded) {
 
   // Theme token palettes matching Raccoon AppTheme and raccoon-min.css
   const THEME_PALETTES = {
-    // 1. Raumnebenan (default green theme) — preserved exactly unchanged
-    raumnebenan: {
+    "emerald-mine": {
       dark: {
         colors: {
-          bg: "#0a251d", // --color-raumnebenan-theme-950
+          bg: "#0a251d", // --color-emerald-mine-theme-950
           fg: "#a3a3a3", // --color-gray-400
-          accent: "#40CDA0", // --color-raumnebenan-theme-500
-          line: "#40CDA0", // --color-raumnebenan-theme-500
+          accent: "#40CDA0", // --color-emerald-mine-theme-500
+          line: "#40CDA0", // --color-emerald-mine-theme-500
           muted: "#a3a3a3", // --color-gray-400
-          surface: "#114132", // --color-raumnebenan-theme-900
+          surface: "#114132", // --color-emerald-mine-theme-900
           border: "#a3a3a3", // --color-gray-400
         },
         font: "IBM Plex Sans, sans-serif",
@@ -37,12 +36,12 @@ if (!window.__beautifulMermaidComponentLoaded) {
       light: {
         colors: {
           bg: "#ffffff",
-          fg: "#114132", // --color-raumnebenan-theme-900
-          accent: "#40CDA0", // --color-raumnebenan-theme-500
-          line: "#40CDA0", // --color-raumnebenan-theme-500
-          muted: "#114132", // --color-raumnebenan-theme-900
+          fg: "#114132", // --color-emerald-mine-theme-900
+          accent: "#40CDA0", // --color-emerald-mine-theme-500
+          line: "#40CDA0", // --color-emerald-mine-theme-500
+          muted: "#114132", // --color-emerald-mine-theme-900
           surface: "#ffffff",
-          border: "#114132", // --color-raumnebenan-theme-900
+          border: "#114132", // --color-emerald-mine-theme-900
         },
         font: "IBM Plex Sans, sans-serif",
         stroke: "crisp",
@@ -50,7 +49,6 @@ if (!window.__beautifulMermaidComponentLoaded) {
       },
     },
 
-    // 2. High-contrast Black and White
     "black-and-white": {
       dark: {
         colors: {
@@ -82,7 +80,6 @@ if (!window.__beautifulMermaidComponentLoaded) {
       },
     },
 
-    // 3. Beacon Blue
     "beacon-blue": {
       dark: {
         colors: {
