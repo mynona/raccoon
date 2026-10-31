@@ -83,18 +83,22 @@ let html = renderHTML(
 | `KeyboardKey` | Visual keyboard key representation (`<kbd>`) |
 | `KeyTakeaways` | Highlighted key takeaways box for articles and summaries |
 | `Label` | Accessible form field label with required marker support |
+| `LanguageSwitcher` | Accessible dropdown for selecting page language with native language names and globe icon |
 | `LinkButton` | Anchor link styled as an action button |
 | `LinkList` | Curated list of hyperlinks with optional icons and descriptions |
 | `Logo` | Brand logo renderer with size and theme variants |
 | `MarkdownBlock` | Markdown-rendered content block converted to accessible HTML |
 | `MatomoTracker` | Consent-aware Matomo analytics tags with no-JavaScript fallback |
 | `Mermaid` | Interactive client-side Mermaid diagram rendering component |
-| `MultiSelect` | Select input allowing multiple concurrent selections with tags |
 | `MultipleFileUpload` | Drag-and-drop multiple file upload zone with preview list |
+| `MultiSelect` | Select input allowing multiple concurrent selections with tags |
 | `Notification` | Floating or banner alert notifications (info, success, warning, error) |
 | `Pagination` | Page navigation bar with next, previous, and page numbers |
 | `PasswordInput` | Masked password input field with reveal/hide toggle |
+| `Pill` | Rounded pill badge displaying a counter or text label |
 | `Quote` | Blockquote element for quotations and citations |
+| `Radio` | Standalone radio button input with label, helper text, and validation states |
+| `RadioGroup` | Accessible group of related radio buttons rendered as a fieldset with keyboard arrow navigation |
 | `Rating` | Star rating component supporting inline and floating display modes |
 | `References` | Scholarly and external reference list for articles |
 | `SearchField` | Standardized search field component with leading icon, Alpine bindings, and focus-restoring clear button |
@@ -108,6 +112,7 @@ let html = renderHTML(
 | `TabGroup` | Tabbed navigation and content container supporting pills and underlined variants |
 | `TablePaginator` | Standardized data table paginator supporting client-side Alpine.js and SSR navigation modes |
 | `TextAreaField` | Multi-line text input field with optional counter |
+| `ThemeSwitcher` | Accessible color theme dropdown switcher with localStorage persistence |
 | `ToggleSwitch` | Accessible binary toggle switch control |
 | `Tooltip` | Hover- and focus-activated contextual tooltip |
 | `ViewMaskedSecret` | Revealable secret / masked credential viewer |
