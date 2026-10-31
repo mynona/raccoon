@@ -50,6 +50,9 @@ public struct DropdownData: Sendable {
     /// Optional background color for the dropdown container.
     public let backgroundColor: String?
 
+    /// Optional icon rendered in front of the trigger text.
+    public let icon: SvgIcon?
+
     /// Creates a configuration instance for `Dropdown`.
     ///
     /// - Parameters:
@@ -65,6 +68,7 @@ public struct DropdownData: Sendable {
     ///   - helperText: Helper text to display below the dropdown.
     ///   - state: State of the component (enabled, disabled, hidden, info).
     ///   - backgroundColor: Optional background color for the dropdown container.
+    ///   - icon: Optional icon rendered in front of the trigger text.
     public init(
         id: String,
         name: String? = nil,
@@ -77,8 +81,10 @@ public struct DropdownData: Sendable {
         errorMessages: ErrorMessageData? = nil,
         helperText: HelperTextData? = nil,
         state: ComponentState = .enabled,
-        backgroundColor: String? = nil
+        backgroundColor: String? = nil,
+        icon: SvgIcon? = nil
     ) {
+        self.icon = icon
         self.id = id
         self.name = name
         self.label = label

@@ -151,6 +151,10 @@ public enum PreviewNavigation {
                         ),
                         PreviewNavItem(title: "Label", url: "/preview/label"),
                         PreviewNavItem(
+                            title: "LanguageSwitcher",
+                            url: "/preview/language-switcher"
+                        ),
+                        PreviewNavItem(
                             title: "LinkButton",
                             url: "/preview/link-button"
                         ),

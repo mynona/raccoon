@@ -37,6 +37,7 @@ public struct RaccoonPreviewController: RouteCollection, Sendable {
         preview.get("label", use: getLabel)
         preview.get("skip-link", use: getSkipLink)
         preview.get("hyperlink", use: getLink)
+        preview.get("language-switcher", use: getLanguageSwitcher)
         preview.get("link-button", use: getLinkButton)
         preview.get("link-list", use: getLinkList)
         preview.get("markdown-block", use: getMarkdownBlock)
@@ -440,6 +441,12 @@ public struct RaccoonPreviewController: RouteCollection, Sendable {
     @Sendable
     func getTabGroup(_ request: Request) async throws -> Response {
         let view = request.templates.renderHtml(TabGroupView())
+        return view
+    }
+
+    @Sendable
+    func getLanguageSwitcher(_ request: Request) async throws -> Response {
+        let view = request.templates.renderHtml(LanguageSwitcherView())
         return view
     }
 

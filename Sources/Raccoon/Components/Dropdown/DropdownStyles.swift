@@ -26,6 +26,11 @@ public struct DropdownStyles {
     ]
     .joined(separator: " ")
 
+    // MARK: - Trigger Icon (same colour as the SearchField icon)
+    public static let triggerGap: String = "gap-2"
+    public static let triggerContent: String = "flex items-center gap-2"
+    public static let triggerIcon: String = SearchFieldStyles.textColorIcon
+
     // MARK: - Dropdown Panel
     public static let dropdownPanel: String = [
         "absolute left-0 mt-2 w-full z-50 p-1 border shadow-md",

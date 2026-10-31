@@ -43,6 +43,25 @@ public struct Dropdown: TemplateRepresentable {
     }
 
     @Builder<Element>
+    private func showTriggerText(bound: Bool) -> [Element] {
+        let text =
+            bound
+            ? Span("").setAttribute(name: "x-text", value: "selectedTitle")
+            : Span(initialTitle)
+        if let icon = data.icon {
+            Div {
+                Svg.icon(icon, width: 16, height: 16)
+                    .class(styles.triggerIcon)
+                text
+            }
+            .class(styles.triggerContent)
+        }
+        else {
+            text
+        }
+    }
+
+    @Builder<Element>
     private func showInfo() -> [Element] {
         Div {
             if let label = data.label {
@@ -85,12 +104,13 @@ public struct Dropdown: TemplateRepresentable {
                 .value(data.value ?? "")
 
             Button {
-                Span(initialTitle)
+                showTriggerText(bound: false)
                 Svg.icon(.chevron_down, width: 14, height: 14)
             }
             .type(.button)
             .disabled()
             .class(styles.triggerButtonDisabled)
+            .if(data.icon != nil) { $0.addClass(styles.triggerGap) }
 
             if let helper = data.helperText {
                 HelperText(helper).render()
@@ -132,6 +152,10 @@ public struct Dropdown: TemplateRepresentable {
             name: "@click",
             value: "select('\(optVal)', '\(optTitle)')"
         )
+        .if(option.lang != nil) {
+            guard let lang = option.lang else { return $0 }
+            return $0.setAttribute(name: "lang", value: lang)
+        }
         .class(styles.menuItem)
     }
 
@@ -170,8 +194,7 @@ public struct Dropdown: TemplateRepresentable {
             Div {
                 // Trigger Button
                 Button {
-                    Span("")
-                        .setAttribute(name: "x-text", value: "selectedTitle")
+                    showTriggerText(bound: true)
                     Svg.icon(.chevron_down, width: 14, height: 14)
                         .setAttribute(
                             name: ":class",
@@ -201,6 +224,7 @@ public struct Dropdown: TemplateRepresentable {
                     value: "$id('dropdown-panel')"
                 )
                 .class(styles.triggerButton)
+                .if(data.icon != nil) { $0.addClass(styles.triggerGap) }
 
                 // Floating Panel
                 Div {

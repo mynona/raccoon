@@ -81,6 +81,7 @@ if (!window.__dropdownLoaded) {
                 this.selectedTitle = title;
                 this.close(this.$refs.button);
                 this.hasServerError = false;
+                this.$dispatch('dropdown-change', { value: val, title });
             },
 
             nextItem() {
