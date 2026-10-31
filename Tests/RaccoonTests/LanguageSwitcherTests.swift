@@ -25,7 +25,6 @@ struct LanguageSwitcherTests {
         #expect(html.contains("src=\"/js/languageswitcher.js\""))
         #expect(html.contains("src=\"/js/dropdown.js\""))
         #expect(html.contains("languageSwitcher({ fallback: 'en'"))
-        #expect(html.contains("@dropdown-change"))
         #expect(html.contains("Deutsch"))
         #expect(html.contains("lang=\"de\""))
         #expect(!html.contains("de-AT"))

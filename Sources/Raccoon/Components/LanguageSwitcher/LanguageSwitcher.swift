@@ -52,10 +52,6 @@ public struct LanguageSwitcher: TemplateRepresentable {
             value:
                 "languageSwitcher({ fallback: '\(fallback)', ariaLabel: '\(label)' })"
         )
-        .setAttribute(
-            name: "@dropdown-change",
-            value: "setLanguage($event.detail.value)"
-        )
         .class(styles.container)
     }
 }

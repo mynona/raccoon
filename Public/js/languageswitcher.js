@@ -22,6 +22,18 @@ if (!window.__languageSwitcherLoaded) {
                     }
                     this.show(code);
 
+                    // Follow the dropdown selection, independent of how it was changed.
+                    let first = true;
+                    Alpine.effect(() => {
+                        const dd = this.dropdown();
+                        const selected = dd ? dd.selectedValue : null;
+                        if (first) {
+                            first = false;
+                            return;
+                        }
+                        if (selected) this.setLanguage(selected);
+                    });
+
                     // Keep several switchers on one page in sync.
                     new MutationObserver(() => {
                         const current = primary(root.getAttribute('lang'));
