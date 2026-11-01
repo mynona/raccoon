@@ -63,7 +63,7 @@ public struct Basic: TemplateRepresentable {
         let currentPath = normalizedPath(PreviewRequest.path)
 
         Aside {
-            // Header: DarkLightModeToggle, ThemeSwitcher & LanguageSwitcher
+            // Header: DarkLightModeToggle & ThemeSwitcher on left, LanguageSwitcher on right
             Div {
                 Div {
                     DarkLightModeToggle(
@@ -73,21 +73,21 @@ public struct Basic: TemplateRepresentable {
 
                     ThemeSwitcher(
                         ThemeSwitcherData(
-                            align: .right,
+                            align: .left,
                             matomoStatus: .DEACTIVATED
-                        )
-                    )
-                    .render()
-
-                    LanguageSwitcher(
-                        LanguageSwitcherData(
-                            languages: LanguageOption.builtIn,
-                            fallbackLanguage: PreviewRequest.lang
                         )
                     )
                     .render()
                 }
                 .class(styles.sidebarControls)
+
+                LanguageSwitcher(
+                    LanguageSwitcherData(
+                        languages: LanguageOption.builtIn,
+                        fallbackLanguage: PreviewRequest.lang
+                    )
+                )
+                .render()
             }
             .class(styles.sidebarHeader)
 

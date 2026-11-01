@@ -103,7 +103,7 @@ struct LanguageSwitcherView: TemplateRepresentable {
                         html: makeHtml(ctx: variant.data)
                     ) {
                         Div { LanguageSwitcher(variant.data).render() }
-                            .class("mb-28 mt-4")
+                            .class("mb-28 mt-4 flex justify-end")
                     }
 
                 }

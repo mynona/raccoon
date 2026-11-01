@@ -58,7 +58,7 @@ All preview views render inside the standalone `Basic` template (`Sources/Previe
 - **Minimal Metadata**: No SEO meta tags, no OpenGraph, no Matomo tracker scripts.
 - **Dark / Light Mode & Theme Switcher**:
   - Embeds `DarkLightModeToggle.detectModeScript` and `ThemeSwitcher.detectThemeScript` inline in `<head>` to prevent theme and mode flashing on first paint.
-  - Renders `DarkLightModeToggle(DarkLightModeToggleData(matomoStatus: .DEACTIVATED))` and `ThemeSwitcher(ThemeSwitcherData(align: .right, matomoStatus: .DEACTIVATED))` directly in the sidebar header without any artificial background color or wrapper frame.
+  - Renders `DarkLightModeToggle(DarkLightModeToggleData(matomoStatus: .DEACTIVATED))` and `ThemeSwitcher(ThemeSwitcherData(align: .left, matomoStatus: .DEACTIVATED))` directly in the sidebar header without any artificial background color or wrapper frame.
   - Global `<kbd>Alt+M</kbd>` toggles modes from anywhere on the page.
 - **Skip Link**:
   - Renders `SkipLink().render()` at the very top of `<body>`.
