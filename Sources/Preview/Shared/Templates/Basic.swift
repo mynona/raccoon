@@ -81,13 +81,9 @@ public struct Basic: TemplateRepresentable {
 
                     LanguageSwitcher(
                         LanguageSwitcherData(
-                            languages: [
-                                LanguageOption(code: "en", name: "English"),
-                                LanguageOption(code: "de", name: "Deutsch"),
-                                LanguageOption(code: "fr", name: "Français"),
-                                LanguageOption(code: "es", name: "Español"),
-                                LanguageOption(code: "it", name: "Italiano"),
-                            ],
+                            languages: PreviewRequest.languages.map {
+                                LanguageOption(code: $0.code, name: $0.name)
+                            },
                             fallbackLanguage: PreviewRequest.lang
                         )
                     )

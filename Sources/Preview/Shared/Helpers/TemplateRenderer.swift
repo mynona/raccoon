@@ -8,7 +8,18 @@ enum PreviewRequest {
     @TaskLocal static var path: String = "/"
     @TaskLocal static var lang: String = "en"
 
-    static let supportedLanguages = ["en", "de", "fr", "es", "it"]
+    /// Language codes with the name of each language written in that language.
+    static let languages: [(code: String, name: String)] = [
+        ("en", "English"), ("de", "Deutsch"), ("fr", "Français"),
+        ("es", "Español"), ("it", "Italiano"), ("pt", "Português"),
+        ("nl", "Nederlands"), ("lb", "Lëtzebuergesch"), ("da", "Dansk"),
+        ("sv", "Svenska"), ("nb", "Norsk bokmål"), ("fi", "Suomi"),
+        ("is", "Íslenska"), ("el", "Ελληνικά"), ("tr", "Türkçe"),
+        ("hu", "Magyar"), ("hr", "Hrvatski"), ("pl", "Polski"),
+        ("sk", "Slovenčina"), ("cs", "Čeština"),
+    ]
+
+    static let supportedLanguages = languages.map(\.code)
 }
 
 struct TemplateRenderer {

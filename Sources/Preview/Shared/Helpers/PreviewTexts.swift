@@ -1,3 +1,4 @@
+import Foundation
 import Raccoon
 
 /// The texts of the Preview app that no Raccoon component renders (see `Translations+Preview.swift`).
@@ -110,6 +111,8 @@ enum PreviewTexts {
 
 /// A demo text with all languages of the Preview. Every text that a variant passes into a component
 /// uses it, so that nothing is missed (`Translations` for the built-in texts do not apply to demo content).
+/// `de`, `fr`, `es` and `it` are written next to the English text. The other languages come from
+/// `PreviewDemoTranslations`, found by the English text.
 func tr(
     _ en: String,
     de: String,
@@ -117,8 +120,24 @@ func tr(
     es: String,
     it: String
 ) -> LocalizedText {
-    LocalizedText(
-        en: en,
-        translations: ["de": de, "fr": fr, "es": es, "it": it]
-    )
+    var translations = PreviewDemoTranslations.extra[en] ?? [:]
+    translations["de"] = de
+    translations["fr"] = fr
+    translations["es"] = es
+    translations["it"] = it
+    return LocalizedText(en: en, translations: translations)
+}
+
+/// Translations of the demo texts for the languages beyond `de`, `fr`, `es` and `it`.
+/// The data is generated (`PreviewDemoTranslationData.swift`) and decoded once.
+enum PreviewDemoTranslations {
+    static let extra: [String: [String: String]] = {
+        guard let data = PreviewDemoTranslationData.json.data(using: .utf8),
+            let decoded = try? JSONDecoder().decode(
+                [String: [String: String]].self,
+                from: data
+            )
+        else { return [:] }
+        return decoded
+    }()
 }
