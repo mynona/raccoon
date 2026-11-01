@@ -124,6 +124,7 @@ public enum Translations {
         "copytoclipboard": copytoclipboard,
         "bymeacoffee": bymeacoffee,
         "darklightmodetoggle": darklightmodetoggle,
+        "passwordinput": passwordinput,
         "skiplink": skiplink,
         "stepper": stepper,
         "tabgroup": tabgroup,

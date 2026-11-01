@@ -59,7 +59,7 @@ public struct PasswordInputData: Sendable {
         passwordId: String = "password",
         passwordLabel: LabelData = LabelData(
             id: "password",
-            title: "Password",
+            title: LocalizedText("passwordinput.password", "Password"),
             isRequired: true
         ),
         passwordErrorMessages: ErrorMessageData? = nil,
@@ -68,7 +68,10 @@ public struct PasswordInputData: Sendable {
         confirmId: String? = "confirmPassword",
         confirmLabel: LabelData = LabelData(
             id: "confirmPassword",
-            title: "Confirm password",
+            title: LocalizedText(
+                "passwordinput.confirmPassword",
+                "Confirm password"
+            ),
             isRequired: true
         ),
         confirmErrorMessages: ErrorMessageData? = nil,

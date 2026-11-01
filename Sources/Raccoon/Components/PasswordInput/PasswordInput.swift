@@ -9,15 +9,57 @@ public struct PasswordInput: TemplateRepresentable {
     typealias inputFieldStyles = InputFieldStyles
     typealias buttonStyles = ActionButtonStyles
 
-    // Validation errors are intentionally only provided in English languages.
-    let items = [
-        ("hasUppercase", "At least one uppercase letter"),
-        ("hasSpecial", "At least one special character"),
-        ("hasMinLength", "Minimum of 12 characters"),
-        ("hasDigit", "At least one digit"),
-        ("hasLowercase", "At least one lowercase letter"),
-        ("hasNoCommonWords", "Does not contain common words"),
+    /// The password rules: the name of the client-side criterion and its built-in, translated text.
+    let items: [(String, LocalizedText)] = [
+        (
+            "hasUppercase",
+            LocalizedText(
+                "passwordinput.hasUppercase",
+                "At least one uppercase letter"
+            )
+        ),
+        (
+            "hasSpecial",
+            LocalizedText(
+                "passwordinput.hasSpecial",
+                "At least one special character"
+            )
+        ),
+        (
+            "hasMinLength",
+            LocalizedText(
+                "passwordinput.hasMinLength",
+                "Minimum of 12 characters"
+            )
+        ),
+        (
+            "hasDigit",
+            LocalizedText("passwordinput.hasDigit", "At least one digit")
+        ),
+        (
+            "hasLowercase",
+            LocalizedText(
+                "passwordinput.hasLowercase",
+                "At least one lowercase letter"
+            )
+        ),
+        (
+            "hasNoCommonWords",
+            LocalizedText(
+                "passwordinput.hasNoCommonWords",
+                "Does not contain common words"
+            )
+        ),
     ]
+
+    private static let mismatch = LocalizedText(
+        "passwordinput.mismatch",
+        "Passwords don't match"
+    )
+    private static let generate = LocalizedText(
+        "passwordinput.generate",
+        "Generate password"
+    )
 
     public init(
         _ data: PasswordInputData
@@ -187,7 +229,8 @@ public struct PasswordInput: TemplateRepresentable {
             )
 
             Div {
-                Span("Passwords don't match")
+                Span(Self.mismatch.resolved)
+                    .localized(Self.mismatch)
             }
             .class("text-sm mt-1")
             .addClass(inputFieldStyles.textColorError)
@@ -241,7 +284,7 @@ public struct PasswordInput: TemplateRepresentable {
             Svg.icon(.magic, width: 16, height: 16)
         }
         .type(.button)
-        .ariaLabel("Generate password")
+        .localized(.ariaLabel, Self.generate)
         .setAttribute(
             name: "@click",
             value: "generatePassword()"
@@ -468,7 +511,8 @@ public struct PasswordInput: TemplateRepresentable {
                                 "!criteria.\(rule) ? '\(inputFieldStyles.textColorError)' : 'hidden'"
                         )
                         .class("w-4 h-4 mr-2")
-                    Span(label)
+                    Span(label.resolved)
+                        .localized(label)
                 }
                 .class("flex items-center")
                 .addClass(inputFieldStyles.textColorDefault)

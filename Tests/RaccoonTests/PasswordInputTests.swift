@@ -212,4 +212,35 @@ struct PasswordInputTests {
         #expect(html.contains("Generate password"))
         #expect(html.contains("showPassword = !showPassword"))
     }
+
+    // MARK: localization
+
+    @Test("rules, messages and default titles are built in and translated")
+    func localizedTexts() {
+        let data = PasswordInputData()
+        let english = renderHTML(PasswordInput(data).render())
+        for key in [
+            "hasUppercase", "hasSpecial", "hasMinLength", "hasDigit",
+            "hasLowercase", "hasNoCommonWords", "mismatch",
+        ] {
+            #expect(
+                english.contains("data-i18n=\"passwordinput.\(key)\""),
+                "\(key)"
+            )
+        }
+        #expect(
+            english.contains("data-i18n-aria-label=\"passwordinput.generate\"")
+        )
+        #expect(english.contains("data-i18n=\"passwordinput.password\""))
+        #expect(english.contains("data-i18n=\"passwordinput.confirmPassword\""))
+
+        let german = I18n.render(language: "de") {
+            renderHTML(PasswordInput(data).render())
+        }
+        #expect(german.contains(">Mindestens ein Großbuchstabe</span>"))
+        #expect(german.contains(">Die Passwörter stimmen nicht überein</span>"))
+        #expect(german.contains("aria-label=\"Passwort generieren\""))
+        #expect(german.contains(">Passwort</span>"))
+        #expect(german.contains(">Passwort bestätigen</span>"))
+    }
 }
