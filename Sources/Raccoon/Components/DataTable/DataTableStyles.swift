@@ -19,7 +19,7 @@ public struct DataTableStyles {
 
     // MARK: - Filter bar (proposal A)
     public static let filterBar: String = [
-        "flex flex-row items-center justify-between w-full px-3 py-1",
+        "flex flex-row items-center justify-between w-full px-3 py-4",
         TableStyles.tableBorder,
         TableStyles.tableBorderColor,
     ]
@@ -32,7 +32,7 @@ public struct DataTableStyles {
         CommonStyles.cursorPointer,
         ActionButtonStyles.font,
         CommonStyles.textSizeSmall,
-        "inline-flex flex-row items-center space-x-2 py-1.5 px-2 rounded",
+        "inline-flex flex-row items-center space-x-2 py-1 px-2 rounded",
         "hover:bg-tertiary",
         CommonStyles.focusDefault,
     ]
@@ -57,7 +57,7 @@ public struct DataTableStyles {
 
     // MARK: - Filter panel
     public static let filterPanel: String = [
-        "grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-3 py-5 border-b",
+        "grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-3 pt-4 pb-6 border-b",
         TableStyles.tableBorderColor,
     ]
     .joined(separator: " ")
@@ -122,7 +122,7 @@ public struct DataTableStyles {
         SimpleTableStyles.emptyStateTextColor,
     ]
     .joined(separator: " ")
-    public static let errorBanner: String = "mb-4"
+    public static let errorBanner: String = "mt-4 mb-4"
     public static let linkButton: String = [
         "underline cursor-pointer",
         CommonStyles.focusDefault,
