@@ -1089,7 +1089,7 @@ public struct DatePicker: TemplateRepresentable {
                     .setAttribute(name: "x-ref", value: "date")
                     .setAttribute(
                         name: "data-matomo-name",
-                        value: "\(data.label?.title ?? "input")"
+                        value: "\(data.label?.title?.english ?? "input")"
                     )
                     .class(styles.inputFieldReset)
                     .addClass(styles.textColorInput)

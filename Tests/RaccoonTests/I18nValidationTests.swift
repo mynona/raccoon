@@ -13,10 +13,7 @@ enum I18nValidator {
 
     /// Keys that are only used in hand-written Alpine expressions (invisible to the Swift scan).
     /// Add a Swift comment next to the usage when adding a key here.
-    /// `label.required` is used by `Label` from Phase 2 on; remove it from this list there.
-    static let allowedUnusedKeys: Set<String> = [
-        "carousel.slide", "label.required",
-    ]
+    static let allowedUnusedKeys: Set<String> = ["carousel.slide"]
 
     private static func matches(_ pattern: String, in text: String)
         -> [NSTextCheckingResult]

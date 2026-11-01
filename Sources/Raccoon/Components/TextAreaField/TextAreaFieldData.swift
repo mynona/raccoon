@@ -18,7 +18,7 @@ public struct TextAreaFieldData: Sendable {
     }
 
     public var validationMessage: String? {
-        validation?.errorMessage(labelTitle: label?.title)
+        validation?.errorMessage(labelTitle: label?.title?.english)
     }
 
     /// Creates a new configuration instance for `TextAreaField`.

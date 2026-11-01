@@ -219,7 +219,7 @@ public struct Rating: TemplateRepresentable {
         Label(
             LabelData(
                 id: textAreaId,
-                title: title,
+                title: LocalizedText(verbatim: title),  // i18n-todo
                 size: .sm,
                 isRequired: true
             )

@@ -83,7 +83,7 @@ func rendersAllValidationTypes() async throws {
     for (id, type, validation, placeholder) in cases {
         let data = InputFieldData(
             id: id,
-            label: LabelData(id: id, title: id.capitalized),
+            label: LabelData(id: id, title: LocalizedText(verbatim: id.capitalized)),
             placeholder: placeholder,
             validation: validation,
             type: type

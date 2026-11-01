@@ -258,4 +258,19 @@ struct RadioGroupTests {
         #expect(html.contains("<fieldset"))
         #expect(!html.contains("<input"))
     }
+
+    @Test("legend shows the required marker in the page language")
+    func legendRequiredMarkerLocalized() {
+        let data = RadioGroupData(
+            id: "plan",
+            name: "plan",
+            label: LabelData(id: "plan", title: "Plan", isRequired: true),
+            options: plans
+        )
+        let html = I18n.render(language: "de") {
+            renderHTML(RadioGroup(data).render())
+        }
+        #expect(html.contains("data-i18n=\"label.required\">(erforderlich)</span>"))
+        #expect(html.contains(">Plan</span>"))
+    }
 }

@@ -75,7 +75,8 @@ struct LabelTests {
             Label(LabelData(id: "e", title: "")).render()
         )
         let htmlLong = renderHTML(
-            Label(LabelData(id: "l", title: longTitle)).render()
+            Label(LabelData(id: "l", title: LocalizedText(verbatim: longTitle)))
+                .render()
         )
         #expect(htmlEmpty.contains("<label"))
         #expect(htmlLong.contains(longTitle))
@@ -113,6 +114,109 @@ struct LabelTests {
             Label(LabelData(id: "apiToken", title: nil)).render()
         )
         #expect(html.contains("Apitoken"))
+    }
+
+    // MARK: localization
+
+    @Test(
+        "renders the required marker and the English text with the key marker"
+    )
+    func requiredMarkerEnglish() {
+        let html = renderHTML(
+            Label(LabelData(id: "a", title: "A", isRequired: true)).render()
+        )
+        #expect(
+            html.contains(
+                "<span class=\"sr-only\" data-i18n=\"label.required\">(required)</span>"
+            )
+        )
+    }
+
+    @Test("renders the required marker in the page language")
+    func requiredMarkerGerman() {
+        let html = I18n.render(language: "de") {
+            renderHTML(
+                Label(LabelData(id: "a", title: "A", isRequired: true)).render()
+            )
+        }
+        #expect(
+            html.contains("data-i18n=\"label.required\">(erforderlich)</span>")
+        )
+        #expect(!html.contains("(required)"))
+    }
+
+    @Test("an unsupported page language falls back to English")
+    func requiredMarkerFallback() {
+        let html = I18n.render(language: "ja") {
+            renderHTML(
+                Label(LabelData(id: "a", title: "A", isRequired: true)).render()
+            )
+        }
+        #expect(html.contains(">(required)</span>"))
+    }
+
+    @Test("a literal title is a plain text without marker")
+    func literalTitleHasNoMarker() {
+        let html = I18n.render(language: "de") {
+            renderHTML(
+                Label(LabelData(id: "a", title: "Name", isRequired: false))
+                    .render()
+            )
+        }
+        #expect(html.contains(">Name</span>"))
+        #expect(!html.contains("data-i18n"))
+    }
+
+    @Test("a consumer title is translated and carries its values")
+    func consumerTitle() {
+        let title = LocalizedText(en: "Save", translations: ["de": "Speichern"])
+        let html = I18n.render(language: "de") {
+            renderHTML(
+                Label(LabelData(id: "a", title: title, isRequired: false))
+                    .render()
+            )
+        }
+        #expect(html.contains("data-i18n-values="))
+        #expect(html.contains(">Speichern</span>"))
+    }
+
+    @Test("an x-html title gets no translation marker")
+    func xhtmlTitleHasNoMarker() {
+        let title = LocalizedText(en: "Save", translations: ["de": "Speichern"])
+        let html = renderHTML(
+            Label(
+                LabelData(
+                    id: "a",
+                    title: title,
+                    isRequired: false,
+                    xhtml: "newText"
+                )
+            )
+            .render()
+        )
+        #expect(html.contains("x-html=\"newText\""))
+        #expect(!html.contains("data-i18n-values"))
+    }
+
+    @Test("the fallback title from the id is a plain text")
+    func idFallbackTitle() {
+        let html = I18n.render(language: "de") {
+            renderHTML(
+                Label(LabelData(id: "email", isRequired: false)).render()
+            )
+        }
+        #expect(html.contains(">Email</span>"))
+        #expect(!html.contains("data-i18n"))
+    }
+
+    @Test("the used required key is collected once")
+    func requiredKeyCollected() {
+        let keys = I18n.render(language: "de", collectsUsedKeys: true) {
+            _ = renderHTML(Label(LabelData(id: "a", title: "A")).render())
+            _ = renderHTML(Label(LabelData(id: "b", title: "B")).render())
+            return I18n.context.usedKeys
+        }
+        #expect(keys == ["label.required"])
     }
 
 }

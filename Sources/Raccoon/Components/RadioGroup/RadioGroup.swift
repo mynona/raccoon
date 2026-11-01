@@ -15,16 +15,24 @@ public struct RadioGroup: TemplateRepresentable {
         self.data = data
     }
 
+    private static let required = LocalizedText(
+        "label.required",
+        "(required)"
+    )
+
     @Builder<Element>
     func showLegend(isEnabled: Bool) -> [Element] {
         if let label = data.label {
             Legend {
-                Span(label.title ?? data.id.capitalized)
+                let title =
+                    label.title ?? LocalizedText(verbatim: data.id.capitalized)
+                Span(title.resolved).localized(title)
                 if label.isRequired {
                     Span { Svg.icon(.asterisk, width: 8, height: 8) }
                         .ariaHidden("true")
-                    Span("(required)")
+                    Span(Self.required.resolved)
                         .class(styles.legendRequired)
+                        .localized(Self.required)
                 }
             }
             .class(styles.legend(size: label.size, isDisabled: label.isDisabled || !isEnabled))

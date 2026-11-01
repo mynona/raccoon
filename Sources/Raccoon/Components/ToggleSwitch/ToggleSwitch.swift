@@ -16,7 +16,7 @@ public struct ToggleSwitch: TemplateRepresentable {
     @Builder<Element>
     func showLabel() -> [Element] {
         if let label = data.label {
-            let title = label.title ?? ""
+            let title = label.title?.resolved ?? ""
             let position = label.position
             HTML.Label(title)
                 .for("\(data.id)-button")
@@ -148,7 +148,7 @@ public struct ToggleSwitch: TemplateRepresentable {
         }
         .if(labelTitle != nil) {
             if let labelTitle {
-                return $0.ariaLabel(labelTitle)
+                return $0.localized(.ariaLabel, labelTitle)
             }
             return $0
         } else: {

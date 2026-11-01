@@ -6,7 +6,7 @@ public struct LabelData: Sendable {
     }
 
     public let id: String
-    public let title: String?
+    public let title: LocalizedText?
     public let position: Position?
     public let size: ComponentSize
     public let isRequired: Bool
@@ -18,7 +18,8 @@ public struct LabelData: Sendable {
     ///
     /// - Parameters:
     ///   - id: Identifier referencing the associated form control (`for` attribute).
-    ///   - title: Visible label text.
+    ///   - title: Visible label text. A string literal is shown as given in every language; pass a
+    ///     `LocalizedText(en:translations:)` to provide translations.
     ///   - position: Layout position (`left` or `right`).
     ///   - size: Text size of the label.
     ///   - isRequired: Whether to display a required field indicator.
@@ -26,7 +27,7 @@ public struct LabelData: Sendable {
     ///   - xhtml: Optional raw HTML string or dynamic Alpine text replacement expression.
     public init(
         id: String,
-        title: String? = nil,
+        title: LocalizedText? = nil,
         position: Position = .left,
         size: ComponentSize = .sm,
         isRequired: Bool = true,

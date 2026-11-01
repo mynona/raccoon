@@ -12,6 +12,33 @@ public struct Label: TemplateRepresentable {
         self.data = data
     }
 
+    private static let required = LocalizedText(
+        "label.required",
+        "(required)"
+    )
+
+    private static func requiredMarkup(_ text: String) -> String {
+        #"<span class="sr-only" data-i18n="label.required">"#
+            + JavaScriptEscaper.htmlAttributeEscape(text) + "</span>"
+    }
+
+    /// Constant markup per language, built once. A language without translation uses English.
+    private static let requiredMarkupByLanguage: [String: String] = {
+        var result = ["en": requiredMarkup(required.english)]
+        for (language, text) in Translations.label["required"] ?? [:] {
+            result[language] = requiredMarkup(text)
+        }
+        return result
+    }()
+
+    /// Markup for the language of the page that is rendered.
+    private static func requiredMarkupForPage() -> String {
+        let context = I18n.context
+        context.record(required.key)
+        return requiredMarkupByLanguage[context.language]
+            ?? requiredMarkupByLanguage["en"]!
+    }
+
     @Builder<Element>
     func showRequired() -> [Element] {
         if data.isRequired {
@@ -20,25 +47,29 @@ public struct Label: TemplateRepresentable {
                     name: "aria-hidden",
                     value: "true"
                 )
-            Span("(required)")
-                .class("sr-only")
+            InlineText(Self.requiredMarkupForPage(), isRaw: true)
         }
     }
 
     @Builder<Element>
     public func render() -> [Element] {
 
+        let title = data.title ?? LocalizedText(verbatim: data.id.capitalized)
+
         DebugComment("Label")
         Div {
 
             HTML.Label {
 
-                Span("\(data.title ?? data.id.capitalized)")
+                // An x-html span is controlled by Alpine, so it gets no translation marker
+                Span(title.resolved)
                     .if(data.xhtml != nil) {
                         $0.setAttribute(
                             name: "x-html",
                             value: "\(data.xhtml!)"
                         )
+                    } else: {
+                        $0.localized(title)
                     }
 
                 showRequired()

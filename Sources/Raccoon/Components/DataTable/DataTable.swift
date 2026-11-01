@@ -186,7 +186,7 @@ public struct DataTable: TemplateRepresentable {
     }
 
     private func label(_ id: String, _ title: String) -> LabelData {
-        LabelData(id: id, title: title, isRequired: false)
+        LabelData(id: id, title: LocalizedText(verbatim: title), isRequired: false)
     }
 
     private func dropdownOptions(

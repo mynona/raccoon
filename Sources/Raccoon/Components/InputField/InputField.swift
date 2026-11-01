@@ -106,7 +106,7 @@ public struct InputField: TemplateRepresentable {
                     // Matomo
                     .setAttribute(
                         name: "data-matomo-name",
-                        value: "\(data.label?.title ?? "input")"
+                        value: "\(data.label?.title?.english ?? "input")"
                     )
                     .flagAttribute(maskedInMatomo)
 
