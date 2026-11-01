@@ -143,7 +143,9 @@ struct RatingTests {
         #expect(!html.contains(":class=\"isFloating ?"))
     }
 
-    @Test("renders dynamic docking container and close button visibility guard when floating")
+    @Test(
+        "renders dynamic docking container and close button visibility guard when floating"
+    )
     func rendersDynamicDockingContainerWhenFloating() async throws {
 
         let html = renderHTML(
@@ -259,5 +261,55 @@ struct RatingTests {
 
         #expect(html.contains("What worked well?"))
         #expect(html.contains("What should change?"))
+    }
+
+    // MARK: localization
+
+    @Test("all texts are built in and translated, for thumbs and for stars")
+    func localizedTexts() {
+        for type in [RatingData.RatingType.thumbsUpDown, .fiveStars] {
+            let data = RatingData(
+                id: "r",
+                url: "/r",
+                ratingType: type,
+                isFloating: true
+            )
+            let english = renderHTML(Rating(data).render())
+            for key in [
+                "question", "positiveFollowUp", "negativeFollowUp", "clear",
+                "clearSelection", "yourFeedback", "placeholder", "tooShort",
+                "submit", "thankYou", "closeWidget",
+            ] {
+                #expect(english.contains("rating.\(key)"), "\(type) \(key)")
+            }
+            let german = I18n.render(language: "de") {
+                renderHTML(Rating(data).render())
+            }
+            #expect(german.contains(">Wie gefällt dir dieser Artikel?</p>"))
+            #expect(german.contains(">Absenden</button>"))
+            #expect(german.contains("Danke für dein Feedback!"))
+            #expect(
+                german.contains("aria-label=\"Feedback-Fenster schließen\"")
+            )
+            #expect(
+                german.contains("Dein Feedback konnte nicht gesendet werden.")
+            )
+        }
+    }
+
+    @Test("a consumer question replaces the default and is translated")
+    func consumerQuestion() {
+        let data = RatingData(
+            id: "r",
+            url: "/r",
+            question: LocalizedText(
+                en: "Helpful?",
+                translations: ["de": "Hilfreich?"]
+            )
+        )
+        let html = I18n.render(language: "de") {
+            renderHTML(Rating(data).render())
+        }
+        #expect(html.contains(">Hilfreich?</p>"))
     }
 }

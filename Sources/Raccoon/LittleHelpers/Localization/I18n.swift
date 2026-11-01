@@ -129,6 +129,7 @@ public enum Translations {
         "audioplayer": audioplayer,
         "carousel": carousel,
         "darklightmodetoggle": darklightmodetoggle,
+        "rating": rating,
         "deletemodal": deletemodal,
         "fieldvalidation": fieldvalidation,
         "datepicker": datepicker,

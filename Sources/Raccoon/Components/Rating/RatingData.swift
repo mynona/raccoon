@@ -7,11 +7,11 @@ public struct RatingData: Sendable {
 
     public let id: String
     public let url: String
-    public let ErrorMessageInvalidFeedback: String
+    public let ErrorMessageInvalidFeedback: LocalizedText?
     public let ratingType: RatingType
-    public let question: String?
-    public let positiveFollowUpQuestion: String?
-    public let negativeFollowUpQuestion: String?
+    public let question: LocalizedText?
+    public let positiveFollowUpQuestion: LocalizedText?
+    public let negativeFollowUpQuestion: LocalizedText?
     public let isFloating: Bool
     public let isShownOnScroll: Bool
     public let cookieName: String
@@ -33,11 +33,10 @@ public struct RatingData: Sendable {
         id: String,
         url: String,
         ratingType: RatingType = .thumbsUpDown,
-        question: String? = nil,
-        positiveFollowUpQuestion: String? = nil,
-        negativeFollowUpQuestion: String? = nil,
-        ErrorMessageInvalidFeedback: String =
-            "Feedback is less than minimum of 5 characters.",
+        question: LocalizedText? = nil,
+        positiveFollowUpQuestion: LocalizedText? = nil,
+        negativeFollowUpQuestion: LocalizedText? = nil,
+        ErrorMessageInvalidFeedback: LocalizedText? = nil,
         cookieName: String = "raumnebenan-matomo",
         isFloating: Bool = false,
         isShownOnScroll: Bool = false

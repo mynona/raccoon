@@ -11,6 +11,69 @@ public struct Rating: TemplateRepresentable {
     let textAreaId: String
 
     typealias styles = RatingStyles
+
+    private static let question = LocalizedText(
+        "rating.question",
+        "How do you like this article?"
+    )
+    private static let positiveFollowUp = LocalizedText(
+        "rating.positiveFollowUp",
+        "What do you like about it?"
+    )
+    private static let negativeFollowUp = LocalizedText(
+        "rating.negativeFollowUp",
+        "What shall be improved?"
+    )
+    private static let thumbsUp = LocalizedText(
+        "rating.thumbsUp",
+        "Thumbs up"
+    )
+    private static let thumbsDown = LocalizedText(
+        "rating.thumbsDown",
+        "Thumbs down"
+    )
+    private static let thumbsRating = LocalizedText(
+        "rating.thumbsRating",
+        "Thumbs rating"
+    )
+    private static let starRating = LocalizedText(
+        "rating.starRating",
+        "Star rating"
+    )
+    private static let clear = LocalizedText("rating.clear", "Clear")
+    private static let clearSelection = LocalizedText(
+        "rating.clearSelection",
+        "Clear selection"
+    )
+    private static let yourFeedback = LocalizedText(
+        "rating.yourFeedback",
+        "Your feedback"
+    )
+    private static let placeholder = LocalizedText(
+        "rating.placeholder",
+        "Your feedback helps to improve this page"
+    )
+    private static let tooShort = LocalizedText(
+        "rating.tooShort",
+        "Feedback must be at least 5 characters long."
+    )
+    private static let submit = LocalizedText("rating.submit", "Submit")
+    private static let wentWrong = LocalizedText(
+        "rating.wentWrong",
+        "Something went wrong"
+    )
+    private static let couldNotSubmit = LocalizedText(
+        "rating.couldNotSubmit",
+        "Your feedback could not be submitted. Please try again."
+    )
+    private static let thankYou = LocalizedText(
+        "rating.thankYou",
+        "Thank you for your feedback!"
+    )
+    private static let closeWidget = LocalizedText(
+        "rating.closeWidget",
+        "Close feedback widget"
+    )
     typealias buttonStyles = ActionButtonStyles
     typealias inputFieldStyles = InputFieldStyles
 
@@ -34,8 +97,9 @@ public struct Rating: TemplateRepresentable {
 
     @Builder<Element>
     func heading() -> [Element] {
-        let title = data.question ?? "How do you like this article?"
-        P(title)
+        let title = data.question ?? Self.question
+        P(title.resolved)
+            .localized(title)
             .class("text-center pt-1")
             .addClass(styles.question)
             .setAttribute(name: "x-show", value: "!showSuccess")
@@ -104,7 +168,7 @@ public struct Rating: TemplateRepresentable {
                 .role("radio")
                 .setAttribute(name: ":aria-checked", value: "thumb === 'up'")
                 .class(buttonStyles.iconButton)
-                .setAttribute(name: "aria-label", value: "Thumbs up")
+                .localized(.ariaLabel, Self.thumbsUp)
                 .setAttribute(name: "x-ref", value: "thumbUp")
                 .setAttribute(name: "@click", value: "selectThumb('up')")
                 .setAttribute(
@@ -118,7 +182,7 @@ public struct Rating: TemplateRepresentable {
                 .role("radio")
                 .setAttribute(name: ":aria-checked", value: "thumb === 'down'")
                 .class(buttonStyles.iconButton)
-                .setAttribute(name: "aria-label", value: "Thumbs down")
+                .localized(.ariaLabel, Self.thumbsDown)
                 .setAttribute(name: "x-ref", value: "thumbDown")
                 .setAttribute(name: "@click", value: "selectThumb('down')")
                 .setAttribute(
@@ -131,8 +195,8 @@ public struct Rating: TemplateRepresentable {
                     ActionButtonData(
                         id: "btn-reset-thumb",
                         clickAction: "resetThumb()",
-                        label: "Clear",
-                        ariaLabel: "Clear selection",
+                        label: Self.clear,
+                        ariaLabel: Self.clearSelection,
                         htmlType: .button,
                         buttonType: .tertiary,
                         state: .enabled,
@@ -151,7 +215,7 @@ public struct Rating: TemplateRepresentable {
 
         }
         .role("radiogroup")
-        .setAttribute(name: "aria-label", value: "Thumbs rating")
+        .localized(.ariaLabel, Self.thumbsRating)
         .class("flex flex-wrap items-center justify-center gap-4 mb-8")
         .setAttribute(name: "x-show", value: "!showSuccess")
     }
@@ -168,7 +232,14 @@ public struct Rating: TemplateRepresentable {
                         value: "rating === \(i)"
                     )
                     .class(buttonStyles.iconButton)
-                    .setAttribute(name: "aria-label", value: "Rate \(i) star")
+                    .localized(
+                        .ariaLabel,
+                        LocalizedText(
+                            "rating.rateStar",
+                            "Rate {{number}} star",
+                            variables: ["number": "\(i)"]
+                        )
+                    )
                     .setAttribute(name: "x-ref", value: "star\(i)")
                     .setAttribute(
                         name: "@keydown.left",
@@ -186,8 +257,8 @@ public struct Rating: TemplateRepresentable {
                     ActionButtonData(
                         id: "btn-reset-star",
                         clickAction: "resetStar()",
-                        label: "Clear",
-                        ariaLabel: "Clear selection",
+                        label: Self.clear,
+                        ariaLabel: Self.clearSelection,
                         htmlType: .button,
                         buttonType: .tertiary,
                         state: .enabled,
@@ -206,20 +277,20 @@ public struct Rating: TemplateRepresentable {
 
         }
         .role("radiogroup")
-        .setAttribute(name: "aria-label", value: "Star rating")
+        .localized(.ariaLabel, Self.starRating)
         .class("flex flex-wrap items-center justify-center gap-4 mb-8")
         .setAttribute(name: "x-show", value: "!showSuccess")
     }
 
     @Builder<Element>
-    func showLabel(title: String) -> [Element] {
+    func showLabel(title: LocalizedText) -> [Element] {
         // Rendered inside mutually exclusive Alpine <template x-if> blocks: that content is inert,
         // so the repeated id must not be reported as a duplicate.
 
         Label(
             LabelData(
                 id: textAreaId,
-                title: LocalizedText(verbatim: title),  // i18n-todo
+                title: title,
                 size: .sm,
                 isRequired: true
             )
@@ -234,7 +305,7 @@ public struct Rating: TemplateRepresentable {
                 ErrorMessageData(
                     id: "error-\(textAreaId)",
                     errorMessages: [
-                        "Feedback must be at least 5 characters long."
+                        data.ErrorMessageInvalidFeedback ?? Self.tooShort
                     ],
                     hasIcon: false
                 )
@@ -273,9 +344,9 @@ public struct Rating: TemplateRepresentable {
 
             // Dynamic label based on rating type and value
             let positiveFollowUpQuestion =
-                data.positiveFollowUpQuestion ?? "What do you like about it?"
+                data.positiveFollowUpQuestion ?? Self.positiveFollowUp
             let negativeFollowUpQuestion =
-                data.negativeFollowUpQuestion ?? "What shall be improved?"
+                data.negativeFollowUpQuestion ?? Self.negativeFollowUp
 
             Div {
 
@@ -327,14 +398,10 @@ public struct Rating: TemplateRepresentable {
                 Textarea("")
                     .id(textAreaId)
                     .name("feedback")
-                    .ariaLabel("Your feedback")
+                    .localized(.ariaLabel, Self.yourFeedback)
                     .rows(1)
                     .setAttribute(name: "x-model", value: "textarea")
-                    .setAttribute(
-                        name: "placeholder",
-                        value:
-                            "Your feedback helps to improve this page"
-                    )
+                    .localized(.placeholder, Self.placeholder)
                     .setAttribute(name: "x-ref", value: "textarea")
                     .setAttribute(name: "@input", value: "autoResize($el)")
                     .class(
@@ -382,7 +449,8 @@ public struct Rating: TemplateRepresentable {
 
             showError()
 
-            Button("Submit")
+            Button(Self.submit.resolved)
+                .localized(Self.submit)
                 .type(.submit)
                 .id("thumb-submit")
                 .setAttribute(
@@ -406,9 +474,9 @@ public struct Rating: TemplateRepresentable {
             Div {
                 Notification(
                     NotificationData(
-                        title: "Something went wrong",
-                        text:
-                            "Your feedback could not be submitted. \nPlease try again.",
+                        // The notification renders plain strings: the text is in the language of the render
+                        title: Self.wentWrong.resolved,
+                        text: Self.couldNotSubmit.resolved,
                         type: .error
                     )
                 )
@@ -427,7 +495,8 @@ public struct Rating: TemplateRepresentable {
 
     @Builder<Element>
     func thankYouMessage() -> [Element] {
-        P("Thank you for your feedback!")
+        P(Self.thankYou.resolved)
+            .localized(Self.thankYou)
             .setAttribute(name: "x-show", value: "showSuccess")
             .class(styles.thankYouMessage)
     }
@@ -441,7 +510,7 @@ public struct Rating: TemplateRepresentable {
                         id: "btn-close",
                         clickAction: "close()",
                         label: nil,
-                        ariaLabel: "Close feedback widget",
+                        ariaLabel: Self.closeWidget,
                         htmlType: .button,
                         buttonType: .icon,
                         state: .enabled,
@@ -502,10 +571,10 @@ public struct Rating: TemplateRepresentable {
         .class(styles.panel)
         .if(data.isFloating) {
             $0.setAttribute(
-                    name: ":class",
-                    value:
-                        "isFloating ? '\(styles.containerFloating)' : '\(styles.containerDefault)'"
-                )
+                name: ":class",
+                value:
+                    "isFloating ? '\(styles.containerFloating)' : '\(styles.containerDefault)'"
+            )
         } else: {
             $0.addClass(styles.containerDefault)
         }
