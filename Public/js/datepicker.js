@@ -1,4 +1,4 @@
-// V1.7
+// V2.0
 
 // Guard against double registration if the script is included twice
 if (!window.__datePickerLoaded) {
@@ -8,7 +8,7 @@ if (!window.__datePickerLoaded) {
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
-  const DEFAULT_DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const DEFAULT_DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   const LOCALES = {
     'DD.MM.YYYY': {
@@ -43,7 +43,16 @@ if (!window.__datePickerLoaded) {
   function registerDatePicker() {
     if (typeof Alpine === 'undefined') return;
 
-    Alpine.data('datePickerWidget', ({ value = '', format = 'DD.MM.YYYY', hasServerError = false } = {}) => {
+    Alpine.data('datePickerWidget', ({
+      value = '',
+      endValue = '',
+      format = 'DD.MM.YYYY',
+      hasServerError = false,
+      isRange = false,
+      isEmpty = false,
+      minYear = null,
+      maxYear = null
+    } = {}) => {
       const activeFormat = normalizeFormat(format);
 
       return {
@@ -61,11 +70,21 @@ if (!window.__datePickerLoaded) {
         year: 0,
         no_of_days: [],
         blankdays: [],
+        calendarRows: [],
+        calendarRows2: [],
         DAYS: DEFAULT_DAYS,
         MONTH_NAMES: DEFAULT_MONTH_NAMES,
         selectedDate: null,
         // Day number of the currently tab-reachable cell (roving tabindex)
         focusedDate: null,
+        // Date range extension
+        isRange,
+        rangeStart: null,
+        rangeEnd: null,
+        hoverDate: null,
+        openMonthDropdown: false,
+        openWeekDropdown: false,
+        openYearDropdown: false,
 
       // Auto-masks digits into date format (e.g. DD.MM.YYYY or DD/MM/YYYY) so user doesn't need to type delimiters
       applyMask(raw) {
@@ -108,6 +127,257 @@ if (!window.__datePickerLoaded) {
           return (limited.length === 4 && !this.isDeleting) ? p1 + p2 + delim : p1 + p2;
         }
         return limited.slice(0, 2) + delim + limited.slice(2, 4) + delim + limited.slice(4, 8);
+      },
+
+      // ISO-8601 calendar week calculation
+      getISOWeekNumber(d) {
+        if (!d || isNaN(d.getTime())) return 1;
+        const target = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+        const dayNr = target.getUTCDay() === 0 ? 7 : target.getUTCDay();
+        target.setUTCDate(target.getUTCDate() + 4 - dayNr);
+        const yearStart = new Date(Date.UTC(target.getUTCFullYear(), 0, 1));
+        return Math.ceil((((target - yearStart) / 86400000) + 1) / 7);
+      },
+
+      formatWeek(d) {
+        return 'W' + String(this.getISOWeekNumber(d)).padStart(2, '0');
+      },
+
+      get currentWeekNum() {
+        const d = this.selectedDate || new Date();
+        return this.getISOWeekNumber(d);
+      },
+
+      get currentWeekText() {
+        const d = this.selectedDate || new Date();
+        if (this.isRange && this.rangeStart) {
+          const w1 = this.formatWeek(this.rangeStart);
+          if (!this.rangeEnd) return w1;
+          const w2 = this.formatWeek(this.rangeEnd);
+          return w1 === w2 ? w1 : `${w1}–${w2}`;
+        }
+        return this.formatWeek(d);
+      },
+
+      get month2() {
+        return Number(this.month) === 11 ? 0 : Number(this.month) + 1;
+      },
+
+      get year2() {
+        return Number(this.month) === 11 ? Number(this.year) + 1 : Number(this.year);
+      },
+
+      formatDateStr(d) {
+        if (!d || isNaN(d.getTime())) return '';
+        const day = String(d.getDate()).padStart(2, '0');
+        const mon = String(d.getMonth() + 1).padStart(2, '0');
+        const yr = d.getFullYear();
+        if (this.format === 'YYYY-MM-DD') return `${yr}-${mon}-${day}`;
+        if (this.format === 'MM/DD/YYYY') return `${mon}/${day}/${yr}`;
+        if (this.format === 'DD/MM/YYYY') return `${day}/${mon}/${yr}`;
+        return `${day}.${mon}.${yr}`;
+      },
+
+      // Step month back via quick arrow
+      prevMonth() {
+        let cur = this.selectedDate ? new Date(this.selectedDate) : new Date();
+        let m = cur.getMonth() - 1;
+        let y = cur.getFullYear();
+        if (m < 0) {
+          m = 11;
+          y--;
+        }
+        const maxDays = this.getMaxDays(y, m + 1);
+        const day = Math.min(cur.getDate(), maxDays);
+        const target = new Date(2000, 0, 1);
+        target.setFullYear(y, m, day);
+        this.applyDate(target);
+        this.syncInputsFromDate(target);
+        this.hasError = false;
+        this.hasServerError = false;
+        this.errorMessage = '';
+      },
+
+      // Step month forward via quick arrow
+      nextMonth() {
+        let cur = this.selectedDate ? new Date(this.selectedDate) : new Date();
+        let m = cur.getMonth() + 1;
+        let y = cur.getFullYear();
+        if (m > 11) {
+          m = 0;
+          y++;
+        }
+        const maxDays = this.getMaxDays(y, m + 1);
+        const day = Math.min(cur.getDate(), maxDays);
+        const target = new Date(2000, 0, 1);
+        target.setFullYear(y, m, day);
+        this.applyDate(target);
+        this.syncInputsFromDate(target);
+        this.hasError = false;
+        this.hasServerError = false;
+        this.errorMessage = '';
+      },
+
+      selectToday() {
+        const today = new Date();
+        this.applyDate(today);
+        this.syncInputsFromDate(today);
+        if (this.isRange) {
+          this.rangeStart = today;
+          this.rangeEnd = today;
+          if (this.$refs.date) this.$refs.date.value = today.toDateString();
+          if (this.$refs.endDate) this.$refs.endDate.value = today.toDateString();
+        }
+        this.hasError = false;
+        this.hasServerError = false;
+        this.errorMessage = '';
+        this.showDatepicker = false;
+      },
+
+      selectYesterday() {
+        const d = new Date();
+        d.setDate(d.getDate() - 1);
+        this.applyDate(d);
+        this.syncInputsFromDate(d);
+        if (this.isRange) {
+          this.rangeStart = d;
+          this.rangeEnd = d;
+          if (this.$refs.date) this.$refs.date.value = d.toDateString();
+          if (this.$refs.endDate) this.$refs.endDate.value = d.toDateString();
+        }
+        this.hasError = false;
+        this.hasServerError = false;
+        this.errorMessage = '';
+        this.showDatepicker = false;
+      },
+
+      selectThisMonth() {
+        const now = new Date();
+        const d = new Date(2000, 0, 1);
+        d.setFullYear(now.getFullYear(), now.getMonth(), 1);
+        this.applyDate(d);
+        this.syncInputsFromDate(d);
+        if (this.isRange) {
+          this.rangeStart = d;
+          this.rangeEnd = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+          if (this.$refs.date) this.$refs.date.value = this.rangeStart.toDateString();
+          if (this.$refs.endDate) this.$refs.endDate.value = this.rangeEnd.toDateString();
+        }
+        this.hasError = false;
+        this.hasServerError = false;
+        this.errorMessage = '';
+        this.showDatepicker = false;
+      },
+
+      selectThisWeek() {
+        const now = new Date();
+        const day = now.getDay() || 7;
+        const start = new Date(now);
+        start.setDate(now.getDate() - day + 1);
+        this.applyDate(start);
+        this.syncInputsFromDate(start);
+        if (this.isRange) {
+          this.rangeStart = start;
+          const end = new Date(start);
+          end.setDate(start.getDate() + 6);
+          this.rangeEnd = end;
+          if (this.$refs.date) this.$refs.date.value = start.toDateString();
+          if (this.$refs.endDate) this.$refs.endDate.value = end.toDateString();
+        }
+        this.hasError = false;
+        this.hasServerError = false;
+        this.errorMessage = '';
+        this.showDatepicker = false;
+      },
+
+      setPreset(preset) {
+        const now = new Date();
+        let start = new Date();
+        let end = new Date();
+        if (preset === 'today') {
+          start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+          end = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        } else if (preset === 'this-week') {
+          const day = now.getDay() || 7;
+          start = new Date(now);
+          start.setDate(now.getDate() - day + 1);
+          end = new Date(start);
+          end.setDate(start.getDate() + 6);
+        } else if (preset === 'last-7-days') {
+          start = new Date(now);
+          start.setDate(now.getDate() - 6);
+          end = now;
+        } else if (preset === 'this-month') {
+          start = new Date(now.getFullYear(), now.getMonth(), 1);
+          end = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+        } else if (preset === 'last-month') {
+          start = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+          end = new Date(now.getFullYear(), now.getMonth(), 0);
+        } else if (preset === 'year-to-date') {
+          start = new Date(now.getFullYear(), 0, 1);
+          end = now;
+        }
+        this.rangeStart = start;
+        this.rangeEnd = end;
+        this.applyDate(start);
+        this.syncInputsFromDate(start);
+        if (this.$refs.date) this.$refs.date.value = start.toDateString();
+        if (this.$refs.endDate) this.$refs.endDate.value = end.toDateString();
+        this.hasError = false;
+        this.hasServerError = false;
+        this.errorMessage = '';
+        this.showDatepicker = false;
+      },
+
+      selectMonth(monthIndex) {
+        let cur = this.selectedDate ? new Date(this.selectedDate) : new Date();
+        let y = Number(this.year);
+        let m = Number(monthIndex);
+        const maxDays = this.getMaxDays(y, m + 1);
+        const day = Math.min(cur.getDate(), maxDays);
+        const target = new Date(2000, 0, 1);
+        target.setFullYear(y, m, day);
+        this.applyDate(target);
+        this.syncInputsFromDate(target);
+      },
+
+      selectWeek(weekNum) {
+        const y = Number(this.year);
+        const simple = new Date(Date.UTC(y, 0, 1 + (Number(weekNum) - 1) * 7));
+        const dow = simple.getUTCDay();
+        const ISOweekStart = simple;
+        if (dow <= 4) {
+          ISOweekStart.setUTCDate(simple.getUTCDate() - simple.getUTCDay() + 1);
+        } else {
+          ISOweekStart.setUTCDate(simple.getUTCDate() + 8 - simple.getUTCDay());
+        }
+        const target = new Date(2000, 0, 1);
+        target.setFullYear(ISOweekStart.getUTCFullYear(), ISOweekStart.getUTCMonth(), ISOweekStart.getUTCDate());
+        this.applyDate(target);
+        this.syncInputsFromDate(target);
+      },
+
+      yearsList(baseYear) {
+        const current = Number(baseYear) || Number(this.year) || new Date().getFullYear();
+        // Configured bounds win; otherwise 50 years around the displayed year
+        let start = minYear ?? Math.max(1900, current - 50);
+        let end = maxYear ?? Math.min(2100, current + 50);
+        if (start > end) [start, end] = [end, start];
+        const list = [];
+        for (let y = start; y <= end; y++) list.push(y);
+        return list;
+      },
+
+      selectYear(newYear) {
+        this.year = Number(newYear);
+        const cur = this.selectedDate ? new Date(this.selectedDate) : new Date();
+        const maxDays = this.getMaxDays(this.year, Number(this.month) + 1);
+        const day = Math.min(cur.getDate(), maxDays);
+        const target = new Date(2000, 0, 1);
+        target.setFullYear(this.year, Number(this.month), day);
+        this.applyDate(target);
+        this.syncInputsFromDate(target);
+        this.openYearDropdown = false;
       },
 
       // Format a Date object to the configured locale string (e.g. DD.MM.YYYY)
@@ -216,9 +486,93 @@ if (!window.__datePickerLoaded) {
 
       // Sets month/year to the given value, or today if none was supplied
       initDate() {
+        // Without an initial value the picker starts with no selection (used by filters)
+        if (isEmpty && !this.parseInput(value)) {
+          // Open on today, or on the nearest allowed year when today is out of bounds
+          const now = new Date();
+          this.year = now.getFullYear();
+          this.month = now.getMonth();
+          if (maxYear !== null && this.year > maxYear) { this.year = maxYear; this.month = 11; }
+          if (minYear !== null && this.year < minYear) { this.year = minYear; this.month = 0; }
+          this.getNoOfDays();
+          this.watchChanges();
+          return;
+        }
         const today = this.parseInput(value) || new Date();
         this.applyDate(today);
         this.syncInputsFromDate(today);
+        if (this.isRange) {
+          this.rangeStart = today;
+          const parsedEnd = this.parseInput(endValue);
+          if (parsedEnd) {
+            this.rangeEnd = parsedEnd;
+            if (this.$refs.endDate) {
+              this.$refs.endDate.value = parsedEnd.toDateString();
+            }
+          }
+        }
+        this.watchChanges();
+      },
+
+      // Notifies the outside world about selection changes. Detail values are ISO dates or ''.
+      watchChanges() {
+        const emit = () => this.emitChange();
+        if (this.isRange) {
+          this.$watch('rangeStart', emit);
+          this.$watch('rangeEnd', emit);
+        } else {
+          this.$watch('selectedDate', emit);
+        }
+      },
+
+      toIsoDate(d) {
+        if (!d || isNaN(d.getTime())) return '';
+        const yr = String(d.getFullYear()).padStart(4, '0');
+        const mon = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${yr}-${mon}-${day}`;
+      },
+
+      emitChange() {
+        const detail = this.isRange
+          ? { value: this.toIsoDate(this.rangeStart), endValue: this.toIsoDate(this.rangeEnd) }
+          : { value: this.toIsoDate(this.selectedDate), endValue: '' };
+        this.$dispatch('datepicker-change', detail);
+      },
+
+      // Removes the selection (single date or range)
+      clear() {
+        this.selectedDate = null;
+        this.rangeStart = null;
+        this.rangeEnd = null;
+        this.hoverDate = null;
+        this.focusedDate = null;
+        this.syncInputsFromDate(null);
+        if (this.$refs.date) this.$refs.date.value = '';
+        if (this.$refs.endDate) this.$refs.endDate.value = '';
+        this.hasError = false;
+        this.hasServerError = false;
+        this.errorMessage = '';
+      },
+
+      // Sets the selection from ISO dates (YYYY-MM-DD); an empty `start` clears it
+      setValue(start, end = '') {
+        const startDate = this.parseInput(start);
+        if (!startDate) {
+          this.clear();
+          return;
+        }
+        this.applyDate(startDate);
+        this.syncInputsFromDate(startDate);
+        if (this.isRange) {
+          const endDate = this.parseInput(end);
+          this.rangeStart = startDate;
+          this.rangeEnd = endDate;
+          if (this.$refs.endDate) this.$refs.endDate.value = endDate ? endDate.toDateString() : '';
+        }
+        this.hasError = false;
+        this.hasServerError = false;
+        this.errorMessage = '';
       },
 
       // Updates internal state and calendar grid to the given date
@@ -599,16 +953,40 @@ if (!window.__datePickerLoaded) {
         }
       },
 
-      isSelected(date) {
-        if (!this.selectedDate) return false;
+      isSelected(date, targetMonth = this.month, targetYear = this.year) {
+        if (!date) return false;
         const d = new Date(2000, 0, 1);
-        d.setFullYear(this.year, this.month, date);
-        return this.selectedDate.toDateString() === d.toDateString();
+        d.setFullYear(Number(targetYear), Number(targetMonth), Number(date));
+        const t = d.toDateString();
+        if (this.isRange) {
+          const isStart = this.rangeStart && this.rangeStart.toDateString() === t;
+          const isEnd = this.rangeEnd && this.rangeEnd.toDateString() === t;
+          return Boolean(isStart || isEnd);
+        }
+        if (!this.selectedDate) return false;
+        return this.selectedDate.toDateString() === t;
       },
 
-      isToday(date) {
+      isInRange(date, targetMonth = this.month, targetYear = this.year) {
+        if (!this.isRange || !this.rangeStart || date === null) return false;
         const d = new Date(2000, 0, 1);
-        d.setFullYear(this.year, this.month, date);
+        d.setFullYear(Number(targetYear), Number(targetMonth), Number(date));
+        const t = d.getTime();
+        const startT = new Date(this.rangeStart.getFullYear(), this.rangeStart.getMonth(), this.rangeStart.getDate()).getTime();
+        if (this.rangeEnd) {
+          const endT = new Date(this.rangeEnd.getFullYear(), this.rangeEnd.getMonth(), this.rangeEnd.getDate()).getTime();
+          return t > startT && t < endT;
+        }
+        if (this.hoverDate) {
+          const hoverT = new Date(this.hoverDate.getFullYear(), this.hoverDate.getMonth(), this.hoverDate.getDate()).getTime();
+          return t > startT && t <= hoverT;
+        }
+        return false;
+      },
+
+      isToday(date, targetMonth = this.month, targetYear = this.year) {
+        const d = new Date(2000, 0, 1);
+        d.setFullYear(Number(targetYear), Number(targetMonth), Number(date));
         return new Date().toDateString() === d.toDateString();
       },
 
@@ -616,9 +994,9 @@ if (!window.__datePickerLoaded) {
         return Number(date) === Number(this.focusedDate);
       },
 
-      formatFullDate(date) {
+      formatFullDate(date, targetMonth = this.month, targetYear = this.year) {
         const d = new Date(2000, 0, 1);
-        d.setFullYear(this.year, this.month, date);
+        d.setFullYear(Number(targetYear), Number(targetMonth), Number(date));
         return d.toLocaleDateString('en-US', {
           weekday: 'long',
           year: 'numeric',
@@ -662,18 +1040,45 @@ if (!window.__datePickerLoaded) {
       },
 
       // Writes the selected date (YYYY-MM-DD) into the hidden input and closes the picker
-      getDateValue(date) {
-        const y = Number(this.year);
-        const m = Number(this.month);
+      getDateValue(date, targetMonth = this.month, targetYear = this.year) {
+        const y = Number(targetYear);
+        const m = Number(targetMonth);
         const d = Number(date);
         const sel = new Date(2000, 0, 1);
         sel.setFullYear(y, m, d);
-        this.applyDate(sel);
-        this.syncInputsFromDate(sel);
-        this.hasError = false;
-        this.hasServerError = false;
-        this.errorMessage = '';
-        this.showDatepicker = false;
+
+        if (!this.isRange) {
+          this.applyDate(sel);
+          this.syncInputsFromDate(sel);
+          this.hasError = false;
+          this.hasServerError = false;
+          this.errorMessage = '';
+          this.showDatepicker = false;
+          return;
+        }
+
+        // In range mode:
+        if (!this.rangeStart || (this.rangeStart && this.rangeEnd)) {
+          this.rangeStart = sel;
+          this.rangeEnd = null;
+          this.syncInputsFromDate(sel);
+          if (this.$refs.date) this.$refs.date.value = sel.toDateString();
+          if (this.$refs.endDate) this.$refs.endDate.value = '';
+        } else if (this.rangeStart && !this.rangeEnd) {
+          if (sel < this.rangeStart) {
+            this.rangeEnd = this.rangeStart;
+            this.rangeStart = sel;
+          } else {
+            this.rangeEnd = sel;
+          }
+          if (this.$refs.date) this.$refs.date.value = this.rangeStart.toDateString();
+          if (this.$refs.endDate) this.$refs.endDate.value = this.rangeEnd.toDateString();
+          this.syncInputsFromDate(this.rangeStart);
+          this.hasError = false;
+          this.hasServerError = false;
+          this.errorMessage = '';
+          this.showDatepicker = false;
+        }
       },
 
       // Computes the leading blank cells and day cells for the current month grid
@@ -681,14 +1086,65 @@ if (!window.__datePickerLoaded) {
         let daysInMonth = this.getMaxDays(this.year, this.month + 1);
         const firstDay = new Date(2000, 0, 1);
         firstDay.setFullYear(this.year, this.month, 1);
-        let dayOfWeek = firstDay.getDay();
+        // Monday-first: Mon=0, Tue=1, ..., Sun=6
+        let dayOfWeek = firstDay.getDay() - 1;
+        if (dayOfWeek === -1) dayOfWeek = 6;
         let blankdaysArray = [];
-        for (let i = 1; i <= dayOfWeek; i++) blankdaysArray.push(i);
+        for (let i = 0; i < dayOfWeek; i++) blankdaysArray.push(i + 1);
         let daysArray = [];
         for (let i = 1; i <= daysInMonth; i++) daysArray.push(i);
         this.blankdays = blankdaysArray;
         this.no_of_days = daysArray;
+        this.calendarRows = this.buildCalendarRows(this.year, this.month, daysInMonth, dayOfWeek);
+
+        if (this.isRange) {
+          const m2 = this.month2;
+          const y2 = this.year2;
+          const daysInMonth2 = this.getMaxDays(y2, m2 + 1);
+          const firstDay2 = new Date(2000, 0, 1);
+          firstDay2.setFullYear(y2, m2, 1);
+          let dayOfWeek2 = firstDay2.getDay() - 1;
+          if (dayOfWeek2 === -1) dayOfWeek2 = 6;
+          this.calendarRows2 = this.buildCalendarRows(y2, m2, daysInMonth2, dayOfWeek2);
+        }
+
         this.focusedDate = this.defaultFocusedDate(daysInMonth);
+      },
+
+      buildCalendarRows(y, m, daysInMonth, leadingBlankCount) {
+        const rows = [];
+        let currentDay = 1;
+        let row = { week: '', days: [] };
+
+        for (let i = 0; i < leadingBlankCount; i++) {
+          row.days.push(null);
+        }
+
+        while (currentDay <= daysInMonth) {
+          row.days.push(currentDay);
+
+          if (row.days.length === 7) {
+            const sampleDay = row.days[3] || row.days.find(x => x !== null);
+            const d = new Date(2000, 0, 1);
+            d.setFullYear(Number(y), Number(m), sampleDay);
+            row.week = this.formatWeek(d);
+            rows.push(row);
+            row = { week: '', days: [] };
+          }
+          currentDay++;
+        }
+
+        if (row.days.length > 0) {
+          while (row.days.length < 7) {
+            row.days.push(null);
+          }
+          const sampleDay = row.days.find(x => x !== null) || daysInMonth;
+          const d = new Date(2000, 0, 1);
+          d.setFullYear(Number(y), Number(m), sampleDay);
+          row.week = this.formatWeek(d);
+          rows.push(row);
+        }
+        return rows;
       },
 
       // Keeps the roving tabindex on a day that exists in the displayed month

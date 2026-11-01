@@ -183,15 +183,15 @@ public struct Dropdown: TemplateRepresentable {
                 Label(label).render()
             }
 
-            // Hidden input for standard HTML form submission
-            Input()
-                .type(.hidden)
-                .id(data.id)
-                .name(data.name ?? data.id)
-                .setAttribute(name: ":value", value: "selectedValue")
-
             // Relative container for trigger + floating panel
             Div {
+                // Hidden input for standard HTML form submission (inside the Alpine scope it binds to)
+                Input()
+                    .type(.hidden)
+                    .id(data.id)
+                    .name(data.name ?? data.id)
+                    .setAttribute(name: ":value", value: "selectedValue")
+
                 // Trigger Button
                 Button {
                     showTriggerText(bound: true)

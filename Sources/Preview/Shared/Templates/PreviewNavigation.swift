@@ -89,6 +89,10 @@ public enum PreviewNavigation {
                             url: "/preview/dark-light-mode-toggle"
                         ),
                         PreviewNavItem(
+                            title: "DataTable",
+                            url: "/preview/data-table"
+                        ),
+                        PreviewNavItem(
                             title: "DatePicker",
                             url: "/preview/date-picker"
                         ),

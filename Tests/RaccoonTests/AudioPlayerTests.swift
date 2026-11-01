@@ -195,4 +195,62 @@ struct AudioPlayerTests {
         #expect(html.contains("@keydown.arrow-right=\"skip(5)\""))
         #expect(html.contains("Use left/right arrows to skip"))
     }
+
+    @Test("renders progress thumb and tooltip when progress bar is enabled")
+    func rendersProgressThumbAndTooltipWhenEnabled() async throws {
+
+        let html = renderHTML(
+            AudioPlayer(
+                AudioPlayerData(
+                    linkToTheAudioFile: "https://example.com/test.mp3",
+                    hasProgressBar: true
+                )
+            )
+            .render()
+        )
+
+        #expect(html.contains("x-ref=\"progressThumb\""))
+        #expect(html.contains("x-ref=\"progressTooltip\""))
+        #expect(html.contains("role=\"tooltip\""))
+        #expect(html.contains("aria-hidden=\"true\""))
+        #expect(html.contains("x-text=\"previewTimeFormatted\""))
+        #expect(html.contains("x-show=\"metaDataLoaded && showThumb\""))
+        #expect(html.contains("transform: translate(-50%, -50%)"))
+    }
+
+    @Test("renders pointer drag scrubbing attributes on scrubber button")
+    func rendersPointerDragScrubbingAttributes() async throws {
+
+        let html = renderHTML(
+            AudioPlayer(
+                AudioPlayerData(
+                    linkToTheAudioFile: "https://example.com/test.mp3",
+                    hasProgressBar: true
+                )
+            )
+            .render()
+        )
+
+        #expect(html.contains("@pointerdown=\"startDrag($event)\""))
+        #expect(html.contains("@pointermove=\"onDrag($event)\""))
+        #expect(html.contains("@pointerup=\"endDrag($event)\""))
+        #expect(html.contains("@pointercancel=\"endDrag($event)\""))
+    }
+
+    @Test("omits progress thumb and tooltip when progress bar is disabled")
+    func omitsProgressThumbAndTooltipWhenDisabled() async throws {
+
+        let html = renderHTML(
+            AudioPlayer(
+                AudioPlayerData(
+                    linkToTheAudioFile: "https://example.com/test.mp3",
+                    hasProgressBar: false
+                )
+            )
+            .render()
+        )
+
+        #expect(!html.contains("x-ref=\"progressThumb\""))
+        #expect(!html.contains("x-ref=\"progressTooltip\""))
+    }
 }

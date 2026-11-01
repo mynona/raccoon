@@ -62,7 +62,7 @@ public struct AudioPlayer: TemplateRepresentable {
         )
         .setAttribute(
             name: "@loadedmetadata",
-            value: "metaDataLoaded = true"
+            value: "metaDataLoaded = true; setTime()"
         )
         .setAttribute(
             name: "@ended",
@@ -186,14 +186,42 @@ public struct AudioPlayer: TemplateRepresentable {
                 value: "scrubber"
             )
             .setAttribute(
+                name: "@pointerdown",
+                value: "startDrag($event)"
+            )
+            .setAttribute(
+                name: "@pointermove",
+                value: "onDrag($event)"
+            )
+            .setAttribute(
+                name: "@pointerup",
+                value: "endDrag($event)"
+            )
+            .setAttribute(
+                name: "@pointercancel",
+                value: "endDrag($event)"
+            )
+            .setAttribute(
+                name: "@mouseenter",
+                value: "isHovered = true"
+            )
+            .setAttribute(
+                name: "@mouseleave",
+                value: "if (!isDragging) isHovered = false"
+            )
+            .setAttribute(
+                name: "@focus",
+                value: "isFocused = true"
+            )
+            .setAttribute(
+                name: "@blur",
+                value: "isFocused = false"
+            )
+            .setAttribute(
                 name: "@click",
-                value: "scrub"
+                value: "scrub($event)"
             )
             .ariaLabel("Audio progress slider")
-            .setAttribute(
-                name: "x-init",
-                value: "progressBarWidth = $el.clientWidth"
-            )
             .setAttribute(
                 name: "x-show",
                 value: "metaDataLoaded"
@@ -232,33 +260,29 @@ public struct AudioPlayer: TemplateRepresentable {
             )
             .setAttribute(
                 name: "@keydown.home.prevent",
-                value: "$refs.player.currentTime = 0"
+                value: "seek(0)"
             )
             .setAttribute(
                 name: "@keydown.meta.arrow-left.prevent",
-                value: "$refs.player.currentTime = 0"
+                value: "seek(0)"
             )
             .setAttribute(
                 name: "@keydown.fn.arrow-left.prevent",
-                value: "$refs.player.currentTime = 0"
+                value: "seek(0)"
             )
             .setAttribute(
                 name: "@keydown.end.prevent",
-                value: "$refs.player.currentTime = $refs.player.duration"
+                value: "seek($refs.player?.duration || 0)"
             )
             .setAttribute(
                 name: "@keydown.meta.arrow-right.prevent",
-                value: "$refs.player.currentTime = $refs.player.duration"
+                value: "seek($refs.player?.duration || 0)"
             )
             .setAttribute(
                 name: "@keydown.fn.arrow-right.prevent",
-                value: "$refs.player.currentTime = $refs.player.duration"
+                value: "seek($refs.player?.duration || 0)"
             )
-            .class(
-                "absolute bottom-0 right-0 left-0 h-3 z-100 cursor-pointer"
-            )
-            .addClass(styles.backgroundTransparent)
-            .addClass(buttonStyles.iconButton)
+            .class(styles.scrubberButton)
 
         P(
             "Use left/right arrows to skip, space to play or pause, and home/end to jump to the beginning or end."
@@ -270,6 +294,7 @@ public struct AudioPlayer: TemplateRepresentable {
     func showProgressBar() -> [Element] {
         DebugComment("Progress bar")
         Div {
+            // Active progress fill
             Div {}
                 .setAttribute(
                     name: "x-ref",
@@ -284,9 +309,61 @@ public struct AudioPlayer: TemplateRepresentable {
                     value: "handleResize()"
                 )
                 .class(
-                    "opacity-0 h-3 overflow-hidden"
+                    "opacity-0 h-3 overflow-hidden transition-[width] duration-75"
                 )
                 .addClass(styles.progressBarActive)
+
+            // Reused Tooltip: floating timestamp seek preview
+            Div {
+                Div {
+                    P("")
+                        .setAttribute(
+                            name: "x-text",
+                            value: "previewTimeFormatted"
+                        )
+                        .class(styles.tooltipText)
+
+                    Div {
+                        Div {}
+                            .class(styles.tooltipArrow)
+                    }
+                    .class(styles.tooltipArrowWrapper)
+                }
+                .class(styles.tooltipBubble)
+            }
+            .setAttribute(name: "x-ref", value: "progressTooltip")
+            .setAttribute(name: "x-show", value: "metaDataLoaded")
+            .setAttribute(
+                name: ":style",
+                value:
+                    "`left: ${isHovered && !isDragging ? hoverPercent : progressPercent}%; transform: translateX(-50%);`"
+            )
+            .setAttribute(
+                name: ":class",
+                value:
+                    "{ 'opacity-100 scale-100': isHovered || isFocused || isDragging, 'opacity-0 scale-95': !(isHovered || isFocused || isDragging) }"
+            )
+            .role("tooltip")
+            .ariaHidden("true")
+            .class(styles.tooltipContainer)
+
+            // Enlarged persistent thumb indicator (16px at rest -> 20px on hover/focus/drag, hidden when time is 0:00)
+            Div {
+                Div {}
+                    .class(styles.progressThumbCircle)
+                    .setAttribute(
+                        name: ":class",
+                        value:
+                            "{ 'w-5 h-5 ring-2 ring-focusring ring-offset-2': isHovered || isFocused || isDragging, 'w-4 h-4': !(isHovered || isFocused || isDragging) }"
+                    )
+            }
+            .setAttribute(name: "x-ref", value: "progressThumb")
+            .setAttribute(name: "x-show", value: "metaDataLoaded && showThumb")
+            .setAttribute(
+                name: ":style",
+                value: "`left: ${progressPercent}%; transform: translate(-50%, -50%);`"
+            )
+            .class(styles.progressThumbContainer)
         }
         .class("absolute bottom-0 right-0 left-0 h-3")
         .addClass(styles.progressBarInactive)

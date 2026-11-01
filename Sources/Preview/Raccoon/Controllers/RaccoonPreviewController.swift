@@ -26,6 +26,7 @@ public struct RaccoonPreviewController: RouteCollection, Sendable {
         preview.get("copy-to-clipboard", use: getCopyToClipboard)
         preview.get("definition", use: getDefinition)
         preview.get("dark-light-mode-toggle", use: getDarkLightModeToggle)
+        preview.get("data-table", use: getDataTable)
         preview.get("date-picker", use: getDatePicker)
         preview.get("dropdown", use: getDropdown)
         preview.get("simple-menu", use: getSimpleMenu)
@@ -316,6 +317,12 @@ public struct RaccoonPreviewController: RouteCollection, Sendable {
     func getReferences(_ request: Request) async throws -> Response {
         let view = request.templates.renderHtml(ReferencesView())
         return view
+    }
+
+    @Sendable
+    func getDataTable(_ request: Request) async throws -> Response {
+        let hasFailure = request.query[String.self, at: "fail"] == "1"
+        return request.templates.renderHtml(DataTableView(hasFailure: hasFailure))
     }
 
     @Sendable

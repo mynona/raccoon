@@ -345,7 +345,7 @@ struct DatePickerTests {
 
     @Test("renders date picker with epoch date correctly")
     func testDatePickerWithEpochDate() {
-        let epochDate = Date(timeIntervalSince1970: 0) // 1970-01-01 00:00:00 UTC
+        let epochDate = Date(timeIntervalSince1970: 0)  // 1970-01-01 00:00:00 UTC
         let ctx = DatePickerData(
             id: "epoch-date",
             label: LabelData(id: "epoch-date", title: "Epoch Date"),
@@ -360,7 +360,7 @@ struct DatePickerTests {
 
     @Test("renders exact segmented input initial values for specific date")
     func testDatePickerSegmentedInputValuesForSpecificDate() {
-        let date = Date(timeIntervalSince1970: 1_717_349_200) // 2024-06-02 17:26:40 UTC
+        let date = Date(timeIntervalSince1970: 1_717_349_200)  // 2024-06-02 17:26:40 UTC
         let ctx = DatePickerData(
             id: "scheduled-date",
             label: LabelData(id: "scheduled-date", title: "Scheduled"),
@@ -406,5 +406,116 @@ struct DatePickerTests {
                 #expect(html == first)
             }
         }
+    }
+
+    @Test("renders month stepper buttons and week number badge on trigger bar")
+    func testTriggerBarSteppersAndWeekBadge() {
+        let date = Date(timeIntervalSince1970: 1_717_349_200)  // 2024-06-02 -> Week 22
+        let ctx = DatePickerData(
+            id: "appointment-date",
+            label: LabelData(id: "appointment-date", title: "Appointment"),
+            value: date,
+            format: .dd_mm_yyyy,
+            state: .enabled
+        )
+        let html = renderHTML(DatePicker(ctx).render())
+
+        // Quick month stepper chevrons
+        #expect(html.contains("@click.stop=\"prevMonth()\""))
+        #expect(html.contains("aria-label=\"Previous month\""))
+        #expect(html.contains("@click.stop=\"nextMonth()\""))
+        #expect(html.contains("aria-label=\"Next month\""))
+
+        // Centered group elements: pipe and week number badge
+        #expect(html.contains(DatePickerStyles.pipeDelimiter))
+        #expect(html.contains("x-text=\"currentWeekText\""))
+        #expect(html.contains("W22"))
+    }
+
+    @Test("renders shortcuts sidebar with quick options")
+    func testShortcutsSidebar() {
+        let ctx = makeData()
+        let html = renderHTML(DatePicker(ctx).render())
+
+        #expect(html.contains("Quick Select"))
+        #expect(html.contains("@click=\"selectToday()\""))
+        #expect(html.contains("@click=\"selectYesterday()\""))
+        #expect(html.contains("@click=\"selectThisWeek()\""))
+        #expect(html.contains("@click=\"selectThisMonth()\""))
+        #expect(html.contains(DatePickerStyles.shortcutsSidebar))
+        #expect(html.contains(DatePickerStyles.shortcutButton))
+    }
+
+    @Test("renders week numbers column in calendar table")
+    func testWeekNumbersColumnInCalendarGrid() {
+        let ctx = makeData()
+        let html = renderHTML(DatePicker(ctx).render())
+
+        #expect(html.contains("x-text=\"row.week\""))
+        #expect(html.contains(DatePickerStyles.weekNumberColumn))
+        #expect(html.contains("calendarRows"))
+    }
+
+    @Test("date range mode renders both start and end hidden inputs")
+    func testDateRangeMode() {
+        let startDate = Date(timeIntervalSince1970: 1_717_349_200)  // 2024-06-02
+        let endDate = Date(timeIntervalSince1970: 1_718_558_800)  // 2024-06-16
+        let ctx = DatePickerData(
+            id: "vacation",
+            endId: "vacation_end",
+            label: LabelData(id: "vacation", title: "Vacation"),
+            value: startDate,
+            endValue: endDate,
+            state: .enabled,
+            isRange: true
+        )
+        let html = renderHTML(DatePicker(ctx).render())
+
+        // 1. Primary input preserves start date under original id
+        #expect(html.contains("name=\"vacation\""))
+        #expect(html.contains("value=\"Sun Jun 02 2024\""))
+
+        // 2. Secondary input renders end date under endId
+        #expect(html.contains("name=\"vacation_end\""))
+        #expect(html.contains("value=\"Sun Jun 16 2024\""))
+        #expect(html.contains("x-ref=\"endDate\""))
+
+        // 3. Alpine config includes isRange: true
+        #expect(html.contains("isRange: true"))
+    }
+
+    @Test("starts without selection when no value is given (e.g. filters)")
+    func testEmptyStart() {
+        let single = renderHTML(
+            DatePicker(DatePickerData(id: "when", label: nil)).render()
+        )
+        #expect(single.contains("isEmpty: true"))
+        #expect(single.contains("name=\"when\" x-ref=\"date\"") || single.contains("name=\"when\""))
+        #expect(!single.contains("Sun Jun"))
+
+        let range = renderHTML(
+            DatePicker(DatePickerData(id: "span", label: nil, isRange: true))
+                .render()
+        )
+        #expect(range.contains("isRange: true, isEmpty: true"))
+        #expect(range.contains("Select a date range"))
+    }
+
+    @Test("a given value is not an empty start")
+    func testValueIsNotEmpty() {
+        let html = renderHTML(DatePicker(makeData()).render())
+        #expect(html.contains("isEmpty: false"))
+    }
+
+    @Test("year selection bounds are configurable")
+    func testYearBounds() {
+        let bounded = renderHTML(
+            DatePicker(
+                DatePickerData(id: "d", value: nil, minYear: 1898, maxYear: 1941)
+            ).render()
+        )
+        #expect(bounded.contains("minYear: 1898, maxYear: 1941"))
+        let defaults = renderHTML(DatePicker(makeData()).render())
+        #expect(defaults.contains("minYear: null, maxYear: null"))
     }
 }

@@ -13,35 +13,22 @@ html {
 @plugin '@tailwindcss/typography';
 @plugin '@tailwindcss/forms'; 
 
-/* ========================================================
-   Content sources: Scan Swift files for class detection
-   ========================================================
-   Tailwind CSS scans Swift files to generate only the CSS classes
-   actually used by your templates and Raccoon component styles (*Styles.swift).
-
-   To build the theme properly, you MUST point Tailwind to:
-   1. Your own application source code:
-      @source '/link/to/your/sourcecode/';
-      (e.g., @source '../Sources/**/*.swift';)
-
-   2. The Raccoon package source files (required to scan Raccoon *Styles.swift):
-      - Via SwiftPM CLI / Vapor:
-        @source '../.build/checkouts/raccoon/**/*.swift';
-      - Via Xcode (DerivedData checkouts):
-        @source '~/Library/Developer/Xcode/DerivedData/**/SourcePackages/checkouts/raccoon/**/*.swift';
-      - Via local Swift package dependency:
-        @source '../../raccoon/**/*.swift';
-   ======================================================== */
-@source '/link/to/your/sourcecode/';
+/* Content sources: Add here all files you want to scan for class detection */
+@source '../../raccoon/**/*.swift';
+@source '../../raccoon-raumnebenan/**/*.swift';
+@source '../../blog/**/*.swift';
+@source '../../cms/**/*.swift';
+@source '../../oauth_server/**/*.swift';
+@source '../../oauth_client/**/*.swift';
 
 @theme {
 
-/* Font Families */
+/* Configure here your font families */
 --font-sans: 'IBM Plex Sans', sans-serif;
 --font-serif: 'IBM Plex Serif', serif;
 --font-mono: 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
 
-/* Font sizes and line heights */
+/* Configure your font sizes and line heights */
 --text-xs: 12px;
 --text-xs--line-height: 18px;
 --text-sm: 14px;
@@ -69,7 +56,7 @@ html {
 --text-9xl: 128px;
 --text-9xl--line-height: 192px;
 
-/* Breakpoints */
+/* Configure your breakpoints */
 --breakpoint-mobile-sm: 320px;
 --breakpoint-mobile-md: 375px;
 --breakpoint-mobile-xl: 414px;
@@ -82,6 +69,10 @@ html {
 --breakpoint-xl: 1280px;
 --breakpoint-2xl: 1536px;
 --breakpoint-3xl: 1920px;
+
+/* ----------------------------------------
+   Color tokens for themes
+---------------------------------------- */
 
  /* Neutral gray color scale for any theme*/
 --color-gray-50: #fafafa;
@@ -96,30 +87,30 @@ html {
 --color-gray-900: #111827;
 --color-gray-950: #0a0a0a;
 
-/* reusable tokens for the raumnebenan theme */
---color-raumnebenan-theme-50: #cef1e2;
---color-raumnebenan-theme-300: #74d8b3;
---color-raumnebenan-theme-500: #40CDA0;
---color-raumnebenan-theme-600: #36b28b;
---color-raumnebenan-theme-700: #278466; 
---color-raumnebenan-theme-900: #114132;
---color-raumnebenan-theme-950: #0a251d;
---color-raumnebenan-themedark-100: #cfe3dd; 
---color-raumnebenan-themedark-700: #2a403c;
---color-raumnebenan-themedark-800: #1d2e2a;
---color-raumnebenan-themedark-950: #030b08;
---color-raumnebenan-info-50: #e8f4fd;
---color-raumnebenan-info-300: #9acff7;
---color-raumnebenan-info-600: #0b72c2;
---color-raumnebenan-error-50: #dfaabc;
---color-raumnebenan-error-300: #c87693;
---color-raumnebenan-error-500: #8e3556;
---color-raumnebenan-warning-50: #FFF7E0;
---color-raumnebenan-warning-300: #FFB74A;
---color-raumnebenan-warning-600: #C67A00;
---color-raumnebenan-success-50: var(--color-raumnebenan-theme-50);
---color-raumnebenan-success-300: var(--color-raumnebenan-theme-300);
---color-raumnebenan-success-600: var(--color-raumnebenan-theme-700);
+/* reusable tokens for the emerald mine theme */
+--color-emerald-mine-theme-50: #cef1e2;
+--color-emerald-mine-theme-300: #74d8b3;
+--color-emerald-mine-theme-500: #40CDA0;
+--color-emerald-mine-theme-600: #36b28b;
+--color-emerald-mine-theme-700: #278466; 
+--color-emerald-mine-theme-900: #114132;
+--color-emerald-mine-theme-950: #0a251d;
+--color-emerald-mine-themedark-100: #cfe3dd; 
+--color-emerald-mine-themedark-700: #2a403c;
+--color-emerald-mine-themedark-800: #1d2e2a;
+--color-emerald-mine-themedark-950: #030b08;
+--color-emerald-mine-info-50: #e8f4fd;
+--color-emerald-mine-info-300: #9acff7;
+--color-emerald-mine-info-600: #0b72c2;
+--color-emerald-mine-error-50: #dfaabc;
+--color-emerald-mine-error-300: #c87693;
+--color-emerald-mine-error-500: #8e3556;
+--color-emerald-mine-warning-50: #FFF7E0;
+--color-emerald-mine-warning-300: #FFB74A;
+--color-emerald-mine-warning-600: #C67A00;
+--color-emerald-mine-success-50: var(--color-emerald-mine-theme-50);
+--color-emerald-mine-success-300: var(--color-emerald-mine-theme-300);
+--color-emerald-mine-success-600: var(--color-emerald-mine-theme-700);
 
 /* reusable tokens for the beacon blue theme */
 --color-beacon-blue-50: #f9f9f7;
@@ -156,165 +147,101 @@ html {
 --color-beacon-blue-success-600: #1c6b4b;
 --color-beacon-blue-success-light: #6fcf9f;
 
-/* ========================================================
-   Primary
-   ======================================================== */
-
+/* Default light theme */
 --color-primary: var(--color-gray-950);
 --color-primary-dim: var(--color-gray-950);
 --color-on-primary: var(--color-white);
-
-/* ========================================================
-   Secondary
-   ======================================================== */
-
+--color-on-primary-dim: var(--color-white);
 --color-secondary: transparent;
 --color-on-secondary: var(--color-gray-950);
-
-/* ========================================================
-   Tertiary
-   ======================================================== */
-
 --color-tertiary: var(--color-gray-100);
 --color-on-tertiary: var(--color-gray-950);
-
-/* ========================================================
-   Icon
-   ======================================================== */
-
 --color-icon: transparent;
 --color-on-icon: var(--color-gray-950);
-
-/* ========================================================
-   Disabled
-   ======================================================== */
-
 --color-disabled: var(--color-gray-50);
 --color-on-disabled: var(--color-gray-400);
-
-/* ========================================================
-   Accent
-   ======================================================== */
-
---color-on-success: var(--color-raumnebenan-theme-700);
---color-on-theme: var(--color-raumnebenan-theme-700);
-
-/* Success */
---color-on-surface-success: var(--color-raumnebenan-success-600);
---color-surface-success: color-mix(in srgb, var(--color-raumnebenan-success-50) 50%, transparent);
-
-/* Info */
---color-on-surface-info: var(--color-raumnebenan-info-600);
---color-surface-info: var(--color-raumnebenan-info-50);
-
-/* Warning */
---color-on-surface-warning: var(--color-raumnebenan-warning-600);
---color-surface-warning: var(--color-raumnebenan-warning-50);
-
-/* rating */
---color-surface-rating: var(--color-raumnebenan-themedark-100);
-
-/* ========================================================
-   Hover and focus rings
-   ======================================================== */
-
+--color-on-success: var(--color-emerald-mine-theme-700);
+--color-on-theme: var(--color-emerald-mine-theme-700);
+--color-on-surface-success: var(--color-emerald-mine-success-600);
+--color-surface-success: color-mix(in srgb, var(--color-emerald-mine-success-50) 50%, transparent);
+--color-on-surface-info: var(--color-emerald-mine-info-600);
+--color-surface-info: var(--color-emerald-mine-info-50);
+--color-on-surface-warning: var(--color-emerald-mine-warning-600);
+--color-surface-warning: var(--color-emerald-mine-warning-50);
+--color-surface-rating: var(--color-emerald-mine-themedark-100);
 --color-hoverring: var(--color-gray-950);
---color-focusring: var(--color-raumnebenan-theme-700);
-
-/* ========================================================
-   Hyperlinks
-   ======================================================== */
-
+--color-focusring: var(--color-emerald-mine-theme-700);
 --color-link-active: var(--color-gray-950);
---color-link-hover: var(--color-raumnebenan-theme-700);
+--color-link-hover: var(--color-emerald-mine-theme-700);
 --color-link-visited: var(--color-gray-500);
-
-
-/* ========================================================
-   Error
-   ======================================================== */
-
---color-error: var(--color-raumnebenan-error-500);
+--color-error: var(--color-emerald-mine-error-500);
 --color-on-error: var(--color-white);
---color-on-error-variant: var(--color-raumnebenan-error-500);
---color-on-surface-error: var(--color-raumnebenan-error-500);
---color-surface-error: color-mix(in srgb, var(--color-raumnebenan-error-50) 30%, transparent);
-
-/* ========================================================
-   Progress bar
-   ======================================================== */
-
---color-progressactive: var(--color-raumnebenan-theme-700);
---color-progressinactive: color-mix(in srgb, var(--color-raumnebenan-theme-50) 80%, transparent);
-
-
-
-/* ========================================================
-   Surface
-   ======================================================== */
-
+--color-on-error-variant: var(--color-emerald-mine-error-500);
+--color-on-surface-error: var(--color-emerald-mine-error-500);
+--color-surface-error: color-mix(in srgb, var(--color-emerald-mine-error-50) 30%, transparent);
+--color-progressactive: var(--color-emerald-mine-theme-700);
+--color-progressinactive: color-mix(in srgb, var(--color-emerald-mine-theme-50) 80%, transparent);
 --color-surface: var(--color-white);
---color-surface-dark: var(--color-raumnebenan-themedark-800);
+--color-surface-dark: var(--color-emerald-mine-themedark-800);
 --color-on-surface: var(--color-gray-950);
---color-on-surface-variant: var(--color-raumnebenan-theme-700);
+--color-on-surface-variant: var(--color-emerald-mine-theme-700);
 --color-on-surface-dim: var(--color-gray-500);
 --color-on-surface-bright: var(--color-gray-950);
 --color-inverse-surface: var(--color-gray-800);
 --color-on-inverse-surface: var(--color-white);
-
-/* ========================================================
-   Outline
-   ======================================================== */
-
 --color-outline: var(--color-gray-500);
+--color-outline-variant: var(--color-gray-200);
+--color-on-code: var(--color-gray-950);
+--color-code-surface: transparent;
+--color-shadow: var(--color-white);
+--color-scrim: color-mix(in srgb, var(--color-emerald-mine-themedark-950) 70%, transparent);
+--color-overlay-hover: color-mix(in srgb, var(--color-black) 5%, transparent);
 
-/* ========================================================
-   Utility
-   ======================================================== */
-
---color-shadow: #ffffff;
---color-scrim: color-mix(in srgb, var(--color-raumnebenan-themedark-950) 70%, transparent);
+/* Print is theme-independent on purpose: no theme or .dark block overrides it */
+--color-print: var(--color-black);
 
 }
 
 @layer base {
 
-   .dark {
+   .dark,
+   [data-theme="emerald-mine"].dark {
 
---color-primary: var(--color-raumnebenan-theme-500);
---color-primary-dim: var(--color-raumnebenan-theme-700);
+--color-primary: var(--color-emerald-mine-theme-500);
+--color-primary-dim: var(--color-emerald-mine-theme-700);
 --color-on-primary: var(--color-gray-950);
+--color-on-primary-dim: var(--color-white);
 --color-secondary: transparent;
---color-on-secondary: var(--color-raumnebenan-theme-500);
---color-tertiary: color-mix(in srgb, var(--color-raumnebenan-theme-500) 10%, transparent);
---color-on-tertiary: var(--color-raumnebenan-theme-500);
+--color-on-secondary: var(--color-emerald-mine-theme-500);
+--color-tertiary: color-mix(in srgb, var(--color-emerald-mine-theme-500) 10%, transparent);
+--color-on-tertiary: var(--color-emerald-mine-theme-500);
 --color-icon: transparent;
 --color-on-icon: var(--color-white);
---color-error: var(--color-raumnebenan-error-500);
+--color-error: var(--color-emerald-mine-error-500);
 --color-on-error: var(--color-white);
---color-on-error-variant: var(--color-raumnebenan-error-50);
---color-on-surface-error: var(--color-raumnebenan-error-300);
---color-surface-error: color-mix(in srgb, var(--color-raumnebenan-error-50) 10%, transparent);
+--color-on-error-variant: var(--color-emerald-mine-error-50);
+--color-on-surface-error: var(--color-emerald-mine-error-300);
+--color-surface-error: color-mix(in srgb, var(--color-emerald-mine-error-50) 10%, transparent);
 --color-disabled: var(--color-gray-700);
 --color-on-disabled: var(--color-gray-500);
---color-on-success: var(--color-raumnebenan-theme-500);
---color-on-theme: var(--color-raumnebenan-theme-500);
---color-on-surface-success: var(--color-raumnebenan-success-300);
---color-surface-success: color-mix(in srgb, var(--color-raumnebenan-success-50) 10%, transparent);
---color-on-surface-info: var(--color-raumnebenan-info-300);
---color-surface-info: color-mix(in srgb, var(--color-raumnebenan-info-50) 10%, transparent);
---color-on-surface-warning: var(--color-raumnebenan-warning-300);
---color-surface-warning: color-mix(in srgb, var(--color-raumnebenan-warning-50) 10%, transparent);
---color-surface-rating: var(--color-raumnebenan-themedark-700);
+--color-on-success: var(--color-emerald-mine-theme-500);
+--color-on-theme: var(--color-emerald-mine-theme-500);
+--color-on-surface-success: var(--color-emerald-mine-success-300);
+--color-surface-success: color-mix(in srgb, var(--color-emerald-mine-success-50) 10%, transparent);
+--color-on-surface-info: var(--color-emerald-mine-info-300);
+--color-surface-info: color-mix(in srgb, var(--color-emerald-mine-info-50) 10%, transparent);
+--color-on-surface-warning: var(--color-emerald-mine-warning-300);
+--color-surface-warning: color-mix(in srgb, var(--color-emerald-mine-warning-50) 10%, transparent);
+--color-surface-rating: var(--color-emerald-mine-themedark-700);
 --color-hoverring: var(--color-white);
---color-focusring: var(--color-raumnebenan-theme-500);
+--color-focusring: var(--color-emerald-mine-theme-500);
 --color-link-active: var(--color-white);
---color-link-hover: var(--color-raumnebenan-theme-500);
+--color-link-hover: var(--color-emerald-mine-theme-500);
 --color-link-visited: var(--color-gray-400);
---color-progressinactive: var(--color-raumnebenan-theme-900);
---color-progressactive: var(--color-raumnebenan-theme-500);
---color-surface: var(--color-raumnebenan-theme-950);
---color-surface-dark: var(--color-raumnebenan-themedark-950);
+--color-progressinactive: var(--color-emerald-mine-theme-900);
+--color-progressactive: var(--color-emerald-mine-theme-500);
+--color-surface: var(--color-emerald-mine-theme-950);
+--color-surface-dark: var(--color-emerald-mine-themedark-950);
 --color-on-surface: var(--color-gray-400);
 --color-on-surface-variant: var(--color-white);
 --color-on-surface-dim: var(--color-gray-500);
@@ -322,9 +249,12 @@ html {
 --color-inverse-surface: var(--color-gray-600);
 --color-on-inverse-surface: var(--color-white);
 --color-outline: var(--color-gray-500);
---color-outline-variant: #ffffff;
---color-shadow: #ffffff;
---color-scrim: color-mix(in srgb, var(--color-raumnebenan-theme-50) 30%, transparent);
+--color-outline-variant: var(--color-white);
+--color-shadow: var(--color-white);
+--color-scrim: color-mix(in srgb, var(--color-emerald-mine-theme-50) 30%, transparent);
+--color-on-code: var(--color-gray-200);
+--color-code-surface: transparent;
+--color-overlay-hover: color-mix(in srgb, var(--color-white) 5%, transparent);
 
    }
 
@@ -333,6 +263,7 @@ html {
 --color-primary: var(--color-gray-950);
 --color-primary-dim: var(--color-gray-950);
 --color-on-primary: var(--color-white);
+--color-on-primary-dim: var(--color-white);
 --color-secondary: transparent;
 --color-on-secondary: var(--color-gray-950);
 --color-tertiary: var(--color-gray-100);
@@ -375,6 +306,9 @@ html {
 --color-outline-variant: var(--color-gray-200);
 --color-shadow: var(--color-white);
 --color-scrim: color-mix(in srgb, var(--color-gray-950) 70%, transparent);
+--color-on-code: var(--color-gray-950);
+--color-code-surface: transparent;
+--color-overlay-hover: color-mix(in srgb, var(--color-black) 5%, transparent);
 
   }
 
@@ -383,6 +317,7 @@ html {
 --color-primary: var(--color-white);
 --color-primary-dim: var(--color-gray-300);
 --color-on-primary: var(--color-gray-950);
+--color-on-primary-dim: var(--color-gray-950);
 --color-secondary: transparent;
 --color-on-secondary: var(--color-white);
 --color-tertiary: color-mix(in srgb, var(--color-white) 10%, transparent);
@@ -425,6 +360,9 @@ html {
 --color-outline-variant: var(--color-white);
 --color-shadow: var(--color-white);
 --color-scrim: color-mix(in srgb, var(--color-gray-50) 30%, transparent);
+--color-on-code: var(--color-gray-200);
+--color-code-surface: transparent;
+--color-overlay-hover: color-mix(in srgb, var(--color-white) 5%, transparent);
 
   }
 
@@ -433,6 +371,7 @@ html {
 --color-primary: var(--color-beacon-blue-800);
 --color-primary-dim: var(--color-beacon-blue-800);
 --color-on-primary: var(--color-beacon-blue-50);
+--color-on-primary-dim: var(--color-beacon-blue-50);
 --color-secondary: transparent;
 --color-on-secondary: var(--color-beacon-blue-800);
 --color-tertiary: var(--color-beacon-blue-100);
@@ -475,6 +414,9 @@ html {
 --color-outline-variant: var(--color-beacon-blue-200);
 --color-shadow: var(--color-beacon-blue-800);
 --color-scrim: color-mix(in srgb, var(--color-beacon-blue-900) 50%, transparent);
+--color-on-code: var(--color-beacon-blue-950);
+--color-code-surface: transparent;
+--color-overlay-hover: color-mix(in srgb, var(--color-black) 5%, transparent);
 
   }
 
@@ -483,6 +425,7 @@ html {
 --color-primary: var(--color-beacon-blue-100);
 --color-primary-dim: var(--color-beacon-blue-dark-100);
 --color-on-primary: var(--color-beacon-blue-dark-900);
+--color-on-primary-dim: var(--color-beacon-blue-dark-900);
 --color-secondary: transparent;
 --color-on-secondary: var(--color-beacon-blue-100);
 --color-tertiary: color-mix(in srgb, var(--color-beacon-blue-100) 10%, transparent);
@@ -525,6 +468,9 @@ html {
 --color-outline-variant: var(--color-beacon-blue-dark-800);
 --color-shadow: var(--color-beacon-blue-dark-950);
 --color-scrim: color-mix(in srgb, var(--color-beacon-blue-dark-950) 65%, transparent);
+--color-on-code: var(--color-beacon-blue-dark-100);
+--color-code-surface: transparent;
+--color-overlay-hover: color-mix(in srgb, var(--color-white) 5%, transparent);
 
   }
 
@@ -539,7 +485,7 @@ html {
 }
 
 
-    /* Remove all indentation for task list containers and items */
+    /* Task list containers and items: no indentation, no bullets */
     ul:has(li input[type="checkbox"]) {
       padding-left: 0 !important;
       margin-left: 0 !important;
@@ -551,74 +497,72 @@ html {
       display: flex;
       align-items: center;
     }
-  /* Hide bullets for task list items */
-  ul li:has(input[type="checkbox"]) {
-    list-style: none;
-    padding-left: 0 !important;
-    margin-left: 0 !important;
-    display: flex;
-    align-items: center;
-  }
 
-  /* Custom checkmark for checked checkboxes */
+  /* Checkbox look shared by the Check component (.check-input) and Markdown task lists.
+     Fill follows the current color, which the Check utilities override (disabled, print). */
+  input[type="checkbox"].check-input,
   ul li input[type="checkbox"] {
-    position: relative;
+    appearance: none;
+    -webkit-appearance: none;
     display: inline-block;
+    position: relative;
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    color: var(--color-primary-dim);
+    border: 1.5px solid var(--color-on-surface-dim);
+    border-radius: 0.2rem;
+    background-color: var(--color-surface);
+    background-image: none;
     vertical-align: middle;
-    background: transparent;
-    border: 1.5px solid var(--color-gray-600);
-    box-shadow: none;
-    transition: background 0.2s, border-color 0.2s;
+    transition: background-color 0.2s, border-color 0.2s;
   }
-  ul li input[type="checkbox"]:checked {
-    background: #000;
-    border-color: #000;
+  input[type="checkbox"].check-input:checked,
+  input[type="checkbox"].check-input:checked:hover,
+  input[type="checkbox"].check-input:checked:focus,
+  ul li input[type="checkbox"]:checked,
+  ul li input[type="checkbox"]:checked:hover,
+  ul li input[type="checkbox"]:checked:focus {
+    background-color: currentColor;
+    background-image: none;
+    border-color: currentColor;
   }
+  /* Custom checkmark: drawn in the on-color of the fill, so it is readable in every theme and mode */
+  input[type="checkbox"].check-input:checked::after,
   ul li input[type="checkbox"]:checked::after {
     content: '';
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 0.35em;
-    height: 0.7em;
-    border: solid #fff;
-    border-width: 0 0.18em 0.18em 0;
+    width: 0.3rem;
+    height: 0.6rem;
+    border: solid var(--color-on-primary-dim);
+    border-width: 0 0.15rem 0.15rem 0;
     transform: translate(-50%, -60%) rotate(45deg);
     pointer-events: none;
   }
-
-  /* Task list checkbox styling for Markdown-generated lists */
-  ul li input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 1rem;
-    height: 1rem;
-    border: 1.5px solid var(--color-gray-600);
-    border-radius: 0.2rem;
-    background: #fff;
-    margin-right: 0.75em;
-    vertical-align: middle;
-    position: relative;
-    cursor: not-allowed;
-    accent-color: var(--color-primary);
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  ul li input[type="checkbox"]:checked {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-  }
+  input[type="checkbox"].check-input:focus-visible,
   ul li input[type="checkbox"]:focus-visible {
-    outline: 2px solid var(--color-primary);
+    outline: 2px solid var(--color-focusring);
     outline-offset: 2px;
   }
-  ul li label {
+
+  /* Markdown task lists: label looks like the Check label (sans, text-sm, leading-6, on-surface) */
+  ul li input[type="checkbox"] {
+    margin-right: 0.75rem;
+    cursor: not-allowed;
+  }
+  ul li:has(input[type="checkbox"]) {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    line-height: 1.5rem;
     font-weight: 400;
-    color: var(--color-gray-950);
+    color: var(--color-on-surface);
   }
 
   /* Print styles - ensure black text when printing */
   .print, .print > * {
-    color: #000 !important;
+    color: var(--color-print) !important;
   }
 
     /* Preformatted text - light mode color */
@@ -635,15 +579,12 @@ html {
       content: '’' !important;
     }
   .prose code {
-    color: #0a0a0a !important;
+    color: var(--color-on-code) !important;
     font-family: var(--font-mono), monospace !important;
     font-weight: 400 !important;
   }
-  .dark .prose code {
-    color: #e5e5e5 !important;
-  }
   .prose pre {
-    color: #0a0a0a !important;
+    color: var(--color-on-code) !important;
   }
 
   /* ========================================================
@@ -651,18 +592,18 @@ html {
      ======================================================== */
   .prose {
     line-height: 1.8em !important;
-    font-family: 'IBM Plex Serif', serif;
+    font-family: var(--font-serif);
   }
 
   /* Heading 1 - Main titles */
   .prose > h1, .prose > * > h1 {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: var(--font-sans);
     font-size: 1.5em !important;
   }
 
   /* Headings 2 & 3 - Subheadings with underline accent */
   .prose > h2, .prose > * > h2, .prose > h3, .prose > * > h3 {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: var(--font-sans);
     text-decoration: underline;
     text-underline-offset: 0.28em;
     margin-bottom: 0.6em !important;
@@ -674,7 +615,7 @@ html {
 
   /* Heading 4 - Lighter weight subheading */
   .prose > h4, .prose > * > h4 {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: var(--font-sans);
     margin-bottom: 0.6em !important;
   }
 
@@ -688,23 +629,16 @@ html {
     font-style: normal !important;
     font-family: var(--font-serif), serif !important;
     font-weight: 400 !important;
-    color: #0a0a0a !important;
-    border-left: 0.25rem solid #40CDA0 !important;
+    color: var(--color-on-surface) !important;
+    border-left: 0.25rem solid var(--color-on-theme) !important;
     padding-left: 1.25em !important;
     margin-bottom: 4.0rem !important;
     margin-top: 4.0rem !important;
   }
-  .dark .prose > blockquote,
-  .dark .prose > * > blockquote {
-    border-left-color: #40CDA0 !important;
-  }
-  .dark .prose > blockquote, .dark .prose > * > blockquote {
-    color: #a3a3a3 !important;
-  }
 
   /* Links - consistent fonts */
   .prose > a, .prose > * > a, p > a {
-    font-family: 'IBM Plex Sans' !important, 'sans-serif' !important;
+    font-family: var(--font-sans) !important;
     font-weight: 400 !important;
     font-style: normal;
   }
@@ -788,11 +722,7 @@ pre code span::before {
 }
 
 pre code span:hover {
-  background: rgba(0,0,0,0.05);
-}
-
-.dark pre code span:hover {
-  background: rgba(255,255,255,0.05);
+  background: var(--color-overlay-hover);
 }
 
 pre code span {
@@ -807,7 +737,7 @@ pre code span::after {
 }
 
 pre {
-  background: var(--code-bg);
+  background: var(--color-code-surface);
 }
 
 pre,
@@ -828,75 +758,6 @@ pre code span:focus {
   outline: none !important;
 }
 
-}
-
-  @media (prefers-color-scheme: dark) {
-    ul li input[type="checkbox"] {
-      background: transparent;
-      border-color: var(--color-gray-400);
-      accent-color: var(--color-primary);
-    }
-    ul li input[type="checkbox"]:checked {
-      background: var(--color-primary);
-      border-color: var(--color-primary);
-    }
-    ul li label {
-      color: var(--color-gray-400);
-    }
-  }
-
-/* ============================================================
-   RADIO INPUT (Radio / RadioGroup)
-   Round counterpart of the checkbox. Colours come from theme
-   tokens; the checked colour is `currentColor`, set by the
-   `text-primary-dim` utility on the input.
-   ============================================================ */
-@layer components {
-  .radio-input {
-    appearance: none;
-    display: inline-block;
-    position: relative;
-    flex-shrink: 0;
-    width: 1rem;
-    height: 1rem;
-    border: 1.5px solid var(--color-on-surface-dim);
-    border-radius: 9999px;
-    background-color: var(--color-surface);
-    background-image: none;
-    vertical-align: middle;
-    transition: background-color 0.2s, border-color 0.2s;
-  }
-  input.radio-input:checked,
-  input.radio-input:checked:hover,
-  input.radio-input:checked:focus {
-    background-color: currentColor;
-    background-image: none;
-    border-color: currentColor;
-  }
-  .radio-input:checked::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0.4rem;
-    height: 0.4rem;
-    border-radius: 9999px;
-    background-color: var(--color-on-primary-dim);
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-  }
-  .radio-input:disabled {
-    cursor: not-allowed;
-  }
-  @media (forced-colors: active) {
-    input.radio-input:checked {
-      background-color: Highlight;
-      border-color: Highlight;
-    }
-    .radio-input:checked::after {
-      background-color: HighlightText;
-    }
-  }
 }
 
 /* ============================================================
@@ -928,8 +789,6 @@ pre code span:focus {
 
 @layer utilities {
 
-    /* Spacing */
-
     /* ========================================================
        FORM AUTOFILL - Browser-specific adjustments
        Prevents browser autofill background color flash
@@ -943,7 +802,7 @@ pre code span:focus {
     select:-webkit-autofill,
     select:-webkit-autofill:hover,
     select:-webkit-autofill:focus {
-        -webkit-box-shadow: 0 0 0px 1000px #000/10 inset;
+        -webkit-box-shadow: 0 0 0px 1000px color-mix(in srgb, var(--color-on-surface) 10%, transparent) inset;
         transition: background-color 0s 600000s, color 0s 600000s !important;
     }
 
@@ -978,9 +837,3 @@ pre code span:focus {
     }
 
 }
-
-
-
-
-
-

@@ -21,6 +21,14 @@ struct SimulationController: RouteCollection, Sendable {
             try await Self.simulateSearch(req)
         }
 
+        // simulate a slow, sortable, filterable and paginated data endpoint for the DataTable preview
+        routes.get("simulation", "raccoons") { @Sendable (_ req: Request) async throws -> Response in
+            try await Self.raccoons(req)
+        }
+        routes.post("simulation", "raccoons") { @Sendable (_ req: Request) async throws -> Response in
+            try await Self.raccoons(req)
+        }
+
         // fake upload endpoint to verify single and multiple file uploads
         routes.post("upload") { @Sendable (_ req: Request) async throws -> Response in
             try await Self.fakeUpload(req)

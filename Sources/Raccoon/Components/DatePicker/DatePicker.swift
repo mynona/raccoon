@@ -54,7 +54,8 @@ private enum DatePickerFormatters {
         $0.dateFormat = "MM/dd/yyyy"
     }
 
-    static func display(for format: DatePickerFormat) -> ThreadSafeDateFormatter {
+    static func display(for format: DatePickerFormat) -> ThreadSafeDateFormatter
+    {
         switch format {
         case .dd_mm_yyyy: ddDotMmDotYyyy
         case .yyyy_mm_dd: iso
@@ -104,6 +105,15 @@ public struct DatePicker: TemplateRepresentable {
         return DatePickerFormatters.year.string(from: d)
     }
 
+    func initialWeek(_ date: Date?) -> String {
+        guard let d = date else { return "W01" }
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.firstWeekday = 2
+        calendar.minimumDaysInFirstWeek = 4
+        let week = calendar.component(.weekOfYear, from: d)
+        return String(format: "W%02d", week)
+    }
+
     @Builder<Element>
     func renderDelimiterIcon(format: DatePickerFormat) -> [Element] {
         switch format {
@@ -146,6 +156,15 @@ public struct DatePicker: TemplateRepresentable {
             .setAttribute(name: "@input", value: "onDayInput($event)")
             .setAttribute(name: "@keydown", value: "onDayKeydown($event)")
             .setAttribute(name: "@blur", value: "onSegmentBlur()")
+            .setAttribute(
+                name: "@keydown.enter.prevent",
+                value: "showDatepicker = true"
+            )
+            .setAttribute(
+                name: "@keydown.down.prevent",
+                value: "showDatepicker = true"
+            )
+            .setAttribute(name: "@focus", value: "showDatepicker = true")
             .setAttribute(name: "autocomplete", value: "off")
             .setAttribute(
                 name: ":aria-invalid",
@@ -180,6 +199,15 @@ public struct DatePicker: TemplateRepresentable {
             .setAttribute(name: "@input", value: "onMonthInput($event)")
             .setAttribute(name: "@keydown", value: "onMonthKeydown($event)")
             .setAttribute(name: "@blur", value: "onSegmentBlur()")
+            .setAttribute(
+                name: "@keydown.enter.prevent",
+                value: "showDatepicker = true"
+            )
+            .setAttribute(
+                name: "@keydown.down.prevent",
+                value: "showDatepicker = true"
+            )
+            .setAttribute(name: "@focus", value: "showDatepicker = true")
             .setAttribute(name: "autocomplete", value: "off")
             .setAttribute(
                 name: ":aria-invalid",
@@ -214,6 +242,15 @@ public struct DatePicker: TemplateRepresentable {
             .setAttribute(name: "@input", value: "onYearInput($event)")
             .setAttribute(name: "@keydown", value: "onYearKeydown($event)")
             .setAttribute(name: "@blur", value: "onSegmentBlur()")
+            .setAttribute(
+                name: "@keydown.enter.prevent",
+                value: "showDatepicker = true"
+            )
+            .setAttribute(
+                name: "@keydown.down.prevent",
+                value: "showDatepicker = true"
+            )
+            .setAttribute(name: "@focus", value: "showDatepicker = true")
             .setAttribute(name: "autocomplete", value: "off")
             .setAttribute(
                 name: ":aria-invalid",
@@ -252,60 +289,222 @@ public struct DatePicker: TemplateRepresentable {
     }
 
     @Builder<Element>
-    func showDatepicker() -> [Element] {
+    func renderShortcutsSidebar() -> [Element] {
         Div {
-
             Div {
+                Span(data.isRange ? "Quick Ranges" : "Quick Select")
+                    .class(styles.weekNumberBadge)
+                    .addClass(
+                        "block text-xs uppercase tracking-wider mb-2 font-semibold"
+                    )
 
-                Div {
+                if !data.isRange {
+                    Div {
+                        Button {
+                            Span("Today")
+                        }
+                        .type(.button)
+                        .setAttribute(name: "@click", value: "selectToday()")
+                        .class(styles.shortcutButton)
 
-                    // Name of the month
-                    Span {}
+                        Button {
+                            Span("Yesterday")
+                        }
+                        .type(.button)
                         .setAttribute(
-                            name: "x-text",
-                            value: "MONTH_NAMES[month]"
+                            name: "@click",
+                            value: "selectYesterday()"
                         )
-                        .class(styles.monthText)
-                        .addClass(styles.text)
+                        .class(styles.shortcutButton)
 
-                    // Year
-                    Span {}
+                        Button {
+                            Span("This Week")
+                        }
+                        .type(.button)
+                        .setAttribute(name: "@click", value: "selectThisWeek()")
+                        .class(styles.shortcutButton)
+
+                        Button {
+                            Span("This Month")
+                        }
+                        .type(.button)
                         .setAttribute(
-                            name: "x-text",
-                            value: "year"
+                            name: "@click",
+                            value: "selectThisMonth()"
                         )
-                        .class("ml-1")
-                        .addClass(styles.yearText)
-                        .addClass(styles.text)
+                        .class(styles.shortcutButton)
+                    }
+                    .id("\(data.id)-grid")
+                    .class("datepicker-responsive-grid space-y-1.5")
                 }
+                else {
+                    Div {
+                        Button {
+                            Span("Today")
+                        }
+                        .type(.button)
+                        .setAttribute(
+                            name: "@click",
+                            value: "setPreset('today')"
+                        )
+                        .class(styles.shortcutButton)
 
-                // Change month left/right chevrons
+                        Button {
+                            Span("This Week")
+                        }
+                        .type(.button)
+                        .setAttribute(
+                            name: "@click",
+                            value: "setPreset('this-week')"
+                        )
+                        .class(styles.shortcutButton)
+
+                        Button {
+                            Span("Last 7 Days")
+                        }
+                        .type(.button)
+                        .setAttribute(
+                            name: "@click",
+                            value: "setPreset('last-7-days')"
+                        )
+                        .class(styles.shortcutButton)
+
+                        Button {
+                            Span("This Month")
+                        }
+                        .type(.button)
+                        .setAttribute(
+                            name: "@click",
+                            value: "setPreset('this-month')"
+                        )
+                        .class(styles.shortcutButton)
+
+                        Button {
+                            Span("Last Month")
+                        }
+                        .type(.button)
+                        .setAttribute(
+                            name: "@click",
+                            value: "setPreset('last-month')"
+                        )
+                        .class(styles.shortcutButton)
+
+                        Button {
+                            Span("Year to Date")
+                        }
+                        .type(.button)
+                        .setAttribute(
+                            name: "@click",
+                            value: "setPreset('year-to-date')"
+                        )
+                        .class(styles.shortcutButton)
+                    }
+                    .id("\(data.id)-grid")
+                    .class("datepicker-responsive-grid space-y-1.5")
+                }
+            }
+        }
+        .id("\(data.id)-sidebar")
+        .class(styles.shortcutsSidebar)
+        .addClass("datepicker-responsive-sidebar")
+    }
+
+    @Builder<Element>
+    func renderCalendarHeader() -> [Element] {
+        Div {
+            Div {
+                Span {}
+                    .setAttribute(
+                        name: "x-text",
+                        value: "MONTH_NAMES[month]"
+                    )
+                    .class(styles.monthText)
+                    .addClass(styles.text)
+
+                // Year dropdown
                 Div {
                     Button {
-                        Svg.icon(
-                            .chevron_left,
-                            width: 20,
-                            height: 20
-                        )
+                        Span {}
+                            .setAttribute(name: "x-text", value: "year")
+                        Svg.icon(.chevron_down, width: 12, height: 12)
+                            .class(styles.textColorMuted)
                     }
                     .type(.button)
                     .setAttribute(
                         name: "@click",
                         value:
-                            "month--; if (month < 0) { if (year > 0) { year--; month = 11 } else { month = 0 } }; getNoOfDays();"
+                            "openYearDropdown = !openYearDropdown; openYearDropdown2 = false"
                     )
-                    .class(
-                        "transition ease-in-out duration-100 inline-flex cursor-pointer p-1  rounded-full"
-                    )
-                    .ariaLabel("Previous Month")
-                    .addClass(styles.hoverDefault)
-                    .addClass(styles.focusDefault)
+                    .class(styles.yearDropdownTrigger)
+                    .ariaLabel("Select Year")
 
+                    Div {
+                        Template {
+                            Button {
+                                Span {}
+                                    .setAttribute(name: "x-text", value: "y")
+                            }
+                            .type(.button)
+                            .setAttribute(
+                                name: "@click",
+                                value: "selectYear(y)"
+                            )
+                            .class(styles.dropdownItem)
+                            .setAttribute(
+                                name: ":class",
+                                value:
+                                    "year === y ? '\(styles.daySelected)' : '\(styles.dayUnselected)'"
+                            )
+                        }
+                        .setAttribute(
+                            name: "x-for",
+                            value: "y in yearsList(year)"
+                        )
+                        .setAttribute(name: ":key", value: "y")
+                    }
+                    .setAttribute(name: "x-show", value: "openYearDropdown")
+                    .setAttribute(
+                        name: "@click.away",
+                        value: "openYearDropdown = false"
+                    )
+                    .flagAttribute("x-cloak")
+                    .class(
+                        "absolute left-0 mt-1 w-24 max-h-48 overflow-y-auto z-50 p-1"
+                    )
+                    .addClass(styles.dropdownPanel)
+                }
+                .class("relative inline-block ml-1.5")
+            }
+            .class("flex items-center")
+
+            Div {
+                Button {
+                    Svg.icon(
+                        .chevron_left,
+                        width: 18,
+                        height: 18
+                    )
+                }
+                .type(.button)
+                .setAttribute(
+                    name: "@click",
+                    value:
+                        "month--; if (month < 0) { if (year > 0) { year--; month = 11 } else { month = 0 } }; getNoOfDays();"
+                )
+                .class(
+                    "p-1 rounded-md transition"
+                )
+                .addClass(styles.textColorMuted)
+                .addClass(styles.hoverDefault)
+                .addClass(styles.focusDefault)
+                .ariaLabel("Previous Month")
+
+                if !data.isRange {
                     Button {
                         Svg.icon(
                             .chevron_right,
-                            width: 20,
-                            height: 20
+                            width: 18,
+                            height: 18
                         )
                     }
                     .type(.button)
@@ -315,138 +514,406 @@ public struct DatePicker: TemplateRepresentable {
                             "month++; if (month > 11) { if (year < 3000) { year++; month = 0 } else { month = 11 } }; getNoOfDays();"
                     )
                     .class(
-                        "transition ease-in-out duration-100 inline-flex cursor-pointer p-1 rounded-full"
+                        "p-1 rounded-md transition"
                     )
-                    .ariaLabel("Next month")
+                    .addClass(styles.textColorMuted)
                     .addClass(styles.hoverDefault)
                     .addClass(styles.focusDefault)
-
+                    .ariaLabel("Next month")
                 }
-                .class("flex items-center space-x-3")
-
             }
-            .class("flex justify-between items-center mb-2")
+            .class("flex items-center space-x-1")
+        }
+        .class("flex justify-between items-center mb-3")
 
-            // Header Week days
+        // Day of Week Headers: CSS Grid with 8 columns
+        Div {
             Div {
-                Template {
+                Span("Wk")
+            }
+            .class("text-[11px] border-r pr-1")
+            .addClass(styles.regularBorder)
+
+            Div {
+                Span("Mo")
+            }
+            Div {
+                Span("Tu")
+            }
+            Div {
+                Span("We")
+            }
+            Div {
+                Span("Th")
+            }
+            Div {
+                Span("Fr")
+            }
+            Div {
+                Span("Sa")
+            }
+            Div {
+                Span("Su")
+            }
+        }
+        .class(
+            "grid grid-cols-8 text-center text-xs font-medium pb-1.5 border-b mb-1"
+        )
+        .style(
+            "display: grid; grid-template-columns: 2.25rem repeat(7, minmax(0, 1fr));"
+        )
+        .addClass(styles.regularBorder)
+        .addClass(styles.textColorMuted)
+    }
+
+    @Builder<Element>
+    func renderCalendarRows() -> [Element] {
+        Div {
+            Template {
+                Div {
+                    // Column 1: Week number
                     Div {
-                        Div {}
+                        Span {}
                             .setAttribute(
                                 name: "x-text",
-                                value: "day"
+                                value: "row.week"
                             )
-                            .class(styles.weekDaysText)
-                            .addClass(styles.textSizeSmall)
-                            .addClass(styles.text)
                     }
-                    .style("width: 14.26%;")
-                    .class("px-1")
-                }
-                .setAttribute(
-                    name: "x-for",
-                    value: "(day, index) in DAYS"
-                )
-                .setAttribute(
-                    name: ":key",
-                    value: "index"
-                )
-            }
-            .class("flex flex-wrap mb-3 -mx-1")
+                    .class(styles.weekNumberColumn)
 
-            Div {
-                Template {
-                    Div {}
-                        .style("width: 14.28%;")
+                    // Columns 2..8: 7 days
+                    Template {
+                        Div {
+                            Template {
+                                Button {}
+                                    .type(.button)
+                                    .setAttribute(
+                                        name: "@click",
+                                        value: "getDateValue(date)"
+                                    )
+                                    .setAttribute(
+                                        name: "x-text",
+                                        value: "date"
+                                    )
+                                    .setAttribute(
+                                        name: ":data-day",
+                                        value: "date"
+                                    )
+                                    .setAttribute(
+                                        name: ":aria-label",
+                                        value:
+                                            "formatFullDate(date)"
+                                    )
+                                    .setAttribute(
+                                        name: ":aria-pressed",
+                                        value: "isSelected(date)"
+                                    )
+                                    .setAttribute(
+                                        name: ":aria-current",
+                                        value:
+                                            "isToday(date) ? 'date' : false"
+                                    )
+                                    .setAttribute(
+                                        name: ":tabindex",
+                                        value:
+                                            "isFocusable(date) ? 0 : -1"
+                                    )
+                                    .setAttribute(
+                                        name: ":class",
+                                        value:
+                                            "{'\(styles.daySelected)': isSelected(date) == true, '\(styles.dayInRange)': isInRange(date) == true, '\(styles.dayToday)': isToday(date) && !isSelected(date), '\(styles.dayUnselected)': !isSelected(date) && !isInRange(date) }"
+                                    )
+                                    .class(
+                                        "w-7 h-7 flex items-center justify-center rounded-md text-xs transition font-normal"
+                                    )
+                                    .addClass(styles.hoverDefault)
+                                    .addClass(styles.focusDefault)
+                            }
+                            .setAttribute(
+                                name: "x-if",
+                                value: "date !== null"
+                            )
+
+                            Template {
+                                Span("")
+                                    .class("w-7 h-7 block")
+                            }
+                            .setAttribute(
+                                name: "x-if",
+                                value: "date === null"
+                            )
+                        }
                         .class(
-                            "text-center border p-1 border-transparent"
+                            "p-0.5 flex items-center justify-center"
                         )
-                        .addClass(styles.textSizeSmall)
+                    }
+                    .setAttribute(
+                        name: "x-for",
+                        value: "(date, dateIndex) in row.days"
+                    )
+                    .setAttribute(
+                        name: ":key",
+                        value: "dateIndex"
+                    )
                 }
-                .setAttribute(
-                    name: "x-for",
-                    value: "blankday in blankdays"
+                .class(
+                    "grid grid-cols-8 items-center text-center text-xs border-b border-outline-variant dark:border-on-surface-dark py-0.5"
                 )
+                .style(
+                    "display: grid; grid-template-columns: 2.25rem repeat(7, minmax(0, 1fr));"
+                )
+            }
+            .setAttribute(
+                name: "x-for",
+                value: "(row, rowIndex) in calendarRows"
+            )
+            .setAttribute(
+                name: ":key",
+                value: "rowIndex"
+            )
+        }
+        .setAttribute(name: "x-ref", value: "dayGrid")
+        .setAttribute(name: "role", value: "grid")
+        .setAttribute(
+            name: "@keydown.arrow-right.prevent",
+            value: "moveFocus(1)"
+        )
+        .setAttribute(
+            name: "@keydown.arrow-left.prevent",
+            value: "moveFocus(-1)"
+        )
+        .setAttribute(
+            name: "@keydown.arrow-down.prevent",
+            value: "moveFocus(7)"
+        )
+        .setAttribute(
+            name: "@keydown.arrow-up.prevent",
+            value: "moveFocus(-7)"
+        )
+        .class("space-y-1 mt-1")
+    }
+
+    @Builder<Element>
+    func renderSecondMonth() -> [Element] {
+        Div {
+            // Month 2 Header & Next Chevron
+            Div {
+                Div {
+                    Span {}
+                        .setAttribute(
+                            name: "x-text",
+                            value: "MONTH_NAMES[month2]"
+                        )
+                        .class(styles.monthText)
+                        .addClass(styles.text)
+
+                    Span {}
+                        .setAttribute(
+                            name: "x-text",
+                            value: "year2"
+                        )
+                        .class("ml-1 font-normal")
+                        .addClass(styles.textColorMuted)
+                }
+                .class("flex items-center")
+
+                Div {
+                    Button {
+                        Svg.icon(
+                            .chevron_right,
+                            width: 18,
+                            height: 18
+                        )
+                    }
+                    .type(.button)
+                    .setAttribute(
+                        name: "@click",
+                        value:
+                            "month++; if (month > 11) { if (year < 3000) { year++; month = 0 } else { month = 11 } }; getNoOfDays();"
+                    )
+                    .class(
+                        "p-1 rounded-md transition"
+                    )
+                    .addClass(styles.textColorMuted)
+                    .addClass(styles.hoverDefault)
+                    .addClass(styles.focusDefault)
+                    .ariaLabel("Next month")
+                }
+                .class("flex items-center space-x-1")
+            }
+            .class("flex justify-between items-center mb-3")
+
+            // Day of Week Headers: CSS Grid with 8 columns
+            Div {
+                Div {
+                    Span("Wk")
+                }
+                .class("text-[11px] border-r pr-1")
+                .addClass(styles.regularBorder)
+
+                Div {
+                    Span("Mo")
+                }
+                Div {
+                    Span("Tu")
+                }
+                Div {
+                    Span("We")
+                }
+                Div {
+                    Span("Th")
+                }
+                Div {
+                    Span("Fr")
+                }
+                Div {
+                    Span("Sa")
+                }
+                Div {
+                    Span("Su")
+                }
+            }
+            .class(
+                "grid grid-cols-8 text-center text-xs font-medium pb-1.5 border-b mb-1"
+            )
+            .style(
+                "display: grid; grid-template-columns: 2.25rem repeat(7, minmax(0, 1fr));"
+            )
+            .addClass(styles.regularBorder)
+            .addClass(styles.textColorMuted)
+
+            // Month 2 Rows with Week Numbers Column & Days
+            Div {
                 Template {
                     Div {
-                        Button {}
-                            .type(.button)
-                            .setAttribute(
-                                name: "@click",
-                                value: "getDateValue(date)"
-                            )
-                            .setAttribute(
-                                name: "x-text",
-                                value: "date"
-                            )
-                            .setAttribute(
-                                name: ":data-day",
-                                value: "date"
-                            )
-                            .setAttribute(
-                                name: ":aria-label",
-                                value: "formatFullDate(date)"
-                            )
-                            .setAttribute(
-                                name: ":aria-pressed",
-                                value: "isSelected(date)"
-                            )
-                            .setAttribute(
-                                name: ":aria-current",
-                                value: "isToday(date) ? 'date' : false"
-                            )
-                            // Roving tabindex: only one day is in the tab order, arrows move within
-                            .setAttribute(
-                                name: ":tabindex",
-                                value: "isFocusable(date) ? 0 : -1"
-                            )
-                            .setAttribute(
-                                name: ":class",
-                                value:
-                                    "{'\(styles.daySelected)': isSelected(date) == true, '\(styles.dayUnselected)': isSelected(date) == false }"
-                            )
+                        // Column 1: Week number
+                        Div {
+                            Span {}
+                                .setAttribute(
+                                    name: "x-text",
+                                    value: "row.week"
+                                )
+                        }
+                        .class(styles.weekNumberColumn)
+
+                        // Columns 2..8: 7 days
+                        Template {
+                            Div {
+                                Template {
+                                    Button {}
+                                        .type(.button)
+                                        .setAttribute(
+                                            name: "@click",
+                                            value:
+                                                "getDateValue(date, month2, year2)"
+                                        )
+                                        .setAttribute(
+                                            name: "x-text",
+                                            value: "date"
+                                        )
+                                        .setAttribute(
+                                            name: ":data-day",
+                                            value: "date"
+                                        )
+                                        .setAttribute(
+                                            name: ":aria-label",
+                                            value:
+                                                "formatFullDate(date, month2, year2)"
+                                        )
+                                        .setAttribute(
+                                            name: ":aria-pressed",
+                                            value:
+                                                "isSelected(date, month2, year2)"
+                                        )
+                                        .setAttribute(
+                                            name: ":aria-current",
+                                            value:
+                                                "isToday(date, month2, year2) ? 'date' : false"
+                                        )
+                                        .setAttribute(
+                                            name: ":tabindex",
+                                            value:
+                                                "isFocusable(date) ? 0 : -1"
+                                        )
+                                        .setAttribute(
+                                            name: ":class",
+                                            value:
+                                                "{'\(styles.daySelected)': isSelected(date, month2, year2) == true, '\(styles.dayInRange)': isInRange(date, month2, year2) == true, '\(styles.dayToday)': isToday(date, month2, year2) && !isSelected(date, month2, year2), '\(styles.dayUnselected)': !isSelected(date, month2, year2) && !isInRange(date, month2, year2) }"
+                                        )
+                                        .class(
+                                            "w-7 h-7 flex items-center justify-center rounded-md text-xs transition font-normal"
+                                        )
+                                        .addClass(styles.hoverDefault)
+                                        .addClass(styles.focusDefault)
+                                }
+                                .setAttribute(
+                                    name: "x-if",
+                                    value: "date !== null"
+                                )
+
+                                Template {
+                                    Span("")
+                                        .class("w-7 h-7 block")
+                                }
+                                .setAttribute(
+                                    name: "x-if",
+                                    value: "date === null"
+                                )
+                            }
                             .class(
-                                "cursor-pointer text-center leading-none rounded-md leading-loose transition ease-in-out duration-100 p-1"
+                                "p-0.5 flex items-center justify-center"
                             )
-                            .addClass(styles.textSizeSmall)
-                            .addClass(styles.hoverDefault)
-                            .addClass(styles.focusDefault)
-
+                        }
+                        .setAttribute(
+                            name: "x-for",
+                            value: "(date, dateIndex) in row.days"
+                        )
+                        .setAttribute(
+                            name: ":key",
+                            value: "dateIndex"
+                        )
                     }
-                    .style("width: 14.28%")
-                    .class("px-1 mb-3 w-[28px]")
-
+                    .class(
+                        "grid grid-cols-8 items-center text-center text-xs border-b border-outline-variant dark:border-on-surface-dark py-0.5"
+                    )
+                    .style(
+                        "display: grid; grid-template-columns: 2.25rem repeat(7, minmax(0, 1fr));"
+                    )
                 }
                 .setAttribute(
                     name: "x-for",
-                    value: "(date, dateIndex) in no_of_days"
+                    value: "(row, rowIndex) in calendarRows2"
                 )
                 .setAttribute(
                     name: ":key",
-                    value: "dateIndex"
+                    value: "rowIndex"
                 )
-
             }
-            .setAttribute(name: "x-ref", value: "dayGrid")
-            .setAttribute(name: "role", value: "grid")
-            .setAttribute(
-                name: "@keydown.arrow-right.prevent",
-                value: "moveFocus(1)"
-            )
-            .setAttribute(
-                name: "@keydown.arrow-left.prevent",
-                value: "moveFocus(-1)"
-            )
-            .setAttribute(
-                name: "@keydown.arrow-down.prevent",
-                value: "moveFocus(7)"
-            )
-            .setAttribute(
-                name: "@keydown.arrow-up.prevent",
-                value: "moveFocus(-7)"
-            )
-            .class("flex flex-wrap -mx-1")
+            .class("space-y-1 mt-1")
+        }
+        .id("\(data.id)-month2")
+        .class(styles.calendarGridContainer)
+        .addClass(styles.regularBorder)
+    }
 
+    @Builder<Element>
+    func showDatepicker() -> [Element] {
+        Div {
+            renderShortcutsSidebar()
+
+            Div {
+                Div {
+                    renderCalendarHeader()
+                    renderCalendarRows()
+                }
+                .class(styles.calendarGridContainer)
+
+                if data.isRange {
+                    renderSecondMonth()
+                }
+            }
+            .id("\(data.id)-calendars")
+            .class("flex flex-col md:flex-row")
         }
         .setAttribute(
             name: "@click.away",
@@ -457,11 +924,16 @@ public struct DatePicker: TemplateRepresentable {
             value: "showDatepicker"
         )
         .flagAttribute("x-transition")
+        .id("\(data.id)-popup")
         .class(
-            "mt-20 rounded-lg shadow p-4 absolute top-0 left-0 z-10"
+            "mt-2 shadow-xl absolute top-full left-0 z-50 flex overflow-hidden max-w-[calc(100vw-2rem)] datepicker-responsive-popup"
         )
         .addClass(styles.datepicker)
-        .style("width: 17rem")
+        .if(data.isRange) {
+            $0.style("width: max-content; max-width: calc(100vw - 2rem);")
+        } else: {
+            $0.style("width: max-content; max-width: calc(100vw - 2rem);")
+        }
     }
 
     @Builder<Element>
@@ -566,8 +1038,50 @@ public struct DatePicker: TemplateRepresentable {
             .src("/js/datepicker.js")
             .setAttribute(name: "type", value: "text/javascript")
 
+        if data.isRange {
+            Style(
+                """
+                @media (min-width: 1025px) {
+                  #\(data.id)-popup { flex-direction: row !important; }
+                  #\(data.id)-sidebar { width: auto !important; min-width: fit-content !important; border-bottom-width: 0 !important; border-right-width: 1px !important; }
+                  #\(data.id)-grid { display: flex !important; flex-direction: column !important; }
+                }
+                @media (max-width: 1024px) {
+                  #\(data.id)-popup { flex-direction: column !important; width: 100% !important; max-width: calc(100vw - 2rem) !important; }
+                  #\(data.id)-sidebar { width: 100% !important; border-bottom-width: 1px !important; border-right-width: 0 !important; }
+                  #\(data.id)-grid { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 0.375rem !important; }
+                }
+                @media (min-width: 769px) {
+                  #\(data.id)-calendars { flex-direction: row !important; }
+                  #\(data.id)-month2 { border-left-width: 1px !important; border-top-width: 0 !important; }
+                }
+                @media (max-width: 768px) {
+                  #\(data.id)-calendars { flex-direction: column !important; }
+                  #\(data.id)-month2 { border-top-width: 1px !important; border-left-width: 0 !important; }
+                }
+                """
+            )
+        }
+        else {
+            Style(
+                """
+                @media (min-width: 769px) {
+                  #\(data.id)-popup { flex-direction: row !important; }
+                  #\(data.id)-sidebar { width: auto !important; min-width: fit-content !important; border-bottom-width: 0 !important; border-right-width: 1px !important; }
+                  #\(data.id)-grid { display: flex !important; flex-direction: column !important; }
+                }
+                @media (max-width: 768px) {
+                  #\(data.id)-popup { flex-direction: column !important; width: 100% !important; max-width: calc(100vw - 2rem) !important; }
+                  #\(data.id)-sidebar { width: 100% !important; border-bottom-width: 1px !important; border-right-width: 0 !important; }
+                  #\(data.id)-grid { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 0.375rem !important; }
+                }
+                """
+            )
+        }
+
         Div {
             Div {
+                // Primary hidden input for single date or range start (preserves CMS backend compatibility)
                 Input()
                     .value("\(submissionDate(data.value))")
                     .type(.hidden)
@@ -580,34 +1094,127 @@ public struct DatePicker: TemplateRepresentable {
                     .class(styles.inputFieldReset)
                     .addClass(styles.textColorInput)
 
+                // Optional secondary hidden input for range end date
+                if data.isRange {
+                    Input()
+                        .value("\(submissionDate(data.endValue))")
+                        .type(.hidden)
+                        .name(data.endId ?? "\(data.id)_end")
+                        .setAttribute(name: "x-ref", value: "endDate")
+                        .class(styles.inputFieldReset)
+                        .addClass(styles.textColorInput)
+                }
+
                 Div {
                     Div {
                         showLabel()
                         Div {
-                            renderSegments()
-                            Div {}.class("flex-1 min-w-2")
-
-                            ActionButton(
-                                ActionButtonData(
-                                    id: "\(data.id)-calendar",
-                                    clickAction:
-                                        "showDatepicker = !showDatepicker",
-                                    bindAriaExpanded: "showDatepicker",
-                                    ariaLabel: "Open calendar view",
-                                    htmlType: .button,
-                                    buttonType: .icon,
-                                    icon: .calendar,
-                                    contentTracker: MatomoContentTracker(
-                                        name: "button",
-                                        piece: "datepicker.calendar",
-                                        target: ""
+                            // Left quick stepper: previous month (single mode only)
+                            if !data.isRange {
+                                Button {
+                                    Svg.icon(
+                                        .chevron_left,
+                                        width: 16,
+                                        height: 16
                                     )
+                                }
+                                .type(.button)
+                                .setAttribute(
+                                    name: "@click.stop",
+                                    value: "prevMonth()"
                                 )
-                            )
-                            .render()
+                                .ariaLabel("Previous month")
+                                .class(styles.stepperButton)
+                            }
 
+                            // Centered group: calendar icon, date segments, pipe, and week number
+                            Div {
+                                Svg.icon(
+                                    .calendar,
+                                    title: "Calendar",
+                                    width: 16,
+                                    height: 16,
+                                    role: .img
+                                )
+                                .class(
+                                    "shrink-0 select-none pointer-events-none"
+                                )
+                                .addClass(styles.textColorInput)
+
+                                if !data.isRange {
+                                    Div {
+                                        renderSegments()
+                                    }
+                                    .class("flex items-center")
+                                }
+                                else {
+                                    Div {
+                                        Span(
+                                            data.value == nil
+                                                ? "Select a date range"
+                                                : "\(formatDisplayDate(data.value, format: data.format)) – \(formatDisplayDate(data.endValue, format: data.format))"
+                                        )
+                                        .setAttribute(
+                                            name: "x-text",
+                                            value:
+                                                "rangeStart ? formatDateStr(rangeStart) + ' – ' + (rangeEnd ? formatDateStr(rangeEnd) : '...') : 'Select a date range'"
+                                        )
+                                        .class("text-sm font-medium")
+                                        .addClass(styles.textColorInput)
+                                    }
+                                    .class("flex items-center")
+                                }
+
+                                Span("|")
+                                    .class(styles.pipeDelimiter)
+                                    .setAttribute(
+                                        name: "x-show",
+                                        value: "selectedDate || rangeStart"
+                                    )
+
+                                Span(initialWeek(data.value))
+                                    .setAttribute(
+                                        name: "x-text",
+                                        value: "currentWeekText"
+                                    )
+                                    .setAttribute(
+                                        name: "x-show",
+                                        value: "selectedDate || rangeStart"
+                                    )
+                                    .class(styles.weekNumberBadge)
+                            }
+                            .ariaLabel("Open calendar view")
+                            .setAttribute(
+                                name: ":aria-expanded",
+                                value: "showDatepicker"
+                            )
+                            .class(
+                                "flex items-center space-x-2 cursor-pointer select-none mx-auto"
+                            )
+                            .setAttribute(
+                                name: "@click",
+                                value: "showDatepicker = !showDatepicker"
+                            )
+
+                            // Right quick stepper: next month (single mode only)
+                            if !data.isRange {
+                                Button {
+                                    Svg.icon(
+                                        .chevron_right,
+                                        width: 16,
+                                        height: 16
+                                    )
+                                }
+                                .type(.button)
+                                .setAttribute(
+                                    name: "@click.stop",
+                                    value: "nextMonth()"
+                                )
+                                .ariaLabel("Next month")
+                                .class(styles.stepperButton)
+                            }
                         }
-                        .class("flex items-center py-2.5")
+                        .class(styles.pillContainer)
                     }
                     .setAttribute(
                         name: "@keydown.escape",
@@ -651,7 +1258,7 @@ public struct DatePicker: TemplateRepresentable {
         .setAttribute(
             name: "x-data",
             value:
-                "datePickerWidget({ value: \(JavaScriptEscaper.alpineStringLiteral(mapDate(data.value))), format: \(JavaScriptEscaper.alpineStringLiteral(data.format.rawValue)), hasServerError: \(data.errorMessages != nil ? "true" : "false") })"
+                "datePickerWidget({ value: \(JavaScriptEscaper.alpineStringLiteral(mapDate(data.value))), endValue: \(JavaScriptEscaper.alpineStringLiteral(mapDate(data.endValue))), format: \(JavaScriptEscaper.alpineStringLiteral(data.format.rawValue)), hasServerError: \(data.errorMessages != nil ? "true" : "false"), isRange: \(data.isRange ? "true" : "false"), isEmpty: \(data.value == nil ? "true" : "false"), minYear: \(data.minYear.map(String.init) ?? "null"), maxYear: \(data.maxYear.map(String.init) ?? "null") })"
         )
         .setAttribute(
             name: "x-init",

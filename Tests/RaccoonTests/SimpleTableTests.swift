@@ -71,7 +71,7 @@ struct SimpleTableTests {
         #expect(html.contains("Copy table"))
         #expect(html.contains("Toggle filter"))
         #expect(html.contains("Select visible columns"))
-        #expect(html.contains("/js/datatable.js"))
+        #expect(html.contains("/js/simple-table.js"))
         #expect(html.contains("$nextTick"))
         #expect(html.contains(":colspan=\"activeColumns.length\""))
         #expect(html.contains("'text-left': col.align === 'left'"))

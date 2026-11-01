@@ -17,20 +17,6 @@ struct MarkdownBlockView: TemplateRepresentable {
                 isProse: true
             )
         ),
-        (
-            """
-            // hasProse == false
-
-            MarkdownBlockData(
-                markdown: md, 
-                hasProse: false
-            )
-            """,
-            MarkdownBlockData(
-                markdown: DemoData.markdownText,
-                isProse: false
-            )
-        ),
     ]
 
     func makeHtml(ctx: MarkdownBlockData) -> String {

@@ -10,13 +10,13 @@ struct DatePickerView: TemplateRepresentable {
     let variants: [(String, DatePickerData)] = [
         (
             """
-            // .enabled
+            // DatePicker (Single Date)
             """,
             DatePickerData(
                 id: "date1",
                 label: LabelData(
                     id: "date-label-1",
-                    title: "date-label"
+                    title: "Appointment Date"
                 ),
                 value: Date(),
                 state: .enabled,
@@ -26,154 +26,21 @@ struct DatePickerView: TemplateRepresentable {
         ),
         (
             """
-            // .enabled + error
+            // DatePicker (Date Range)
             """,
             DatePickerData(
                 id: "date2",
+                endId: "date2_end",
                 label: LabelData(
                     id: "date-label-2",
-                    title: "date-label"
+                    title: "Vacation Period (Date Range)"
                 ),
                 value: Date(),
-                state: .enabled,
-                errorMessages: ErrorMessageData(
-                    id: "err1",
-                    errorMessages: ["error-one"],
-                    hasIcon: true
-                ),
-                backgroundColor: nil,
-            )
-        ),
-        (
-            """
-            // .enabled + backgroundColor
-            """,
-            DatePickerData(
-                id: "date3",
-                label: LabelData(
-                    id: "date-label-3",
-                    title: "date-label"
-                ),
-                value: Date(),
+                endValue: Date().addingTimeInterval(86400 * 14),
+                format: .DD_MM_YYYY,
                 state: .enabled,
                 errorMessages: nil,
-                backgroundColor: "#fecead",
-            )
-        ),
-        // info
-        (
-            """
-            // .info 
-            """,
-            DatePickerData(
-                id: "date4",
-                label: LabelData(
-                    id: "date-label-4",
-                    title: "date-label"
-                ),
-                value: Date(),
-                state: .info,
-                errorMessages: nil,
-                backgroundColor: nil,
-            )
-        ),
-        (
-            """
-            // .info + backgroundColor
-            """,
-            DatePickerData(
-                id: "date5",
-                label: LabelData(
-                    id: "date-label-5",
-                    title: "date-label"
-                ),
-                value: Date(),
-                state: .info,
-                errorMessages: nil,
-                backgroundColor: "#fecead",
-            )
-        ),
-        // disabled
-        (
-            """
-            // .disabled 
-            """,
-            DatePickerData(
-                id: "date6",
-                label: LabelData(
-                    id: "date-label-6",
-                    title: "date-label"
-                ),
-                value: Date(),
-                state: .disabled,
-                errorMessages: nil,
-                backgroundColor: nil,
-            )
-        ),
-        (
-            """
-            // .disabled + backgroundColor
-            """,
-            DatePickerData(
-                id: "date7",
-                label: LabelData(
-                    id: "date-label-7",
-                    title: "date-label"
-                ),
-                value: Date(),
-                state: .disabled,
-                errorMessages: nil,
-                backgroundColor: "#fecead",
-            )
-        ),
-        (
-            """
-            // .enabled + format: .YYYY_MM_DD (ISO 8601)
-            """,
-            DatePickerData(
-                id: "date8",
-                label: LabelData(
-                    id: "date-label-8",
-                    title: "date-label (ISO 8601: YYYY-MM-DD)"
-                ),
-                value: Date(),
-                format: .YYYY_MM_DD,
-                state: .enabled,
-                errorMessages: nil,
-                backgroundColor: nil,
-            )
-        ),
-        (
-            """
-            // .enabled + format: .DD_SLASH_MM_SLASH_YYYY (UK / Europe)
-            """,
-            DatePickerData(
-                id: "date9",
-                label: LabelData(
-                    id: "date-label-9",
-                    title: "date-label (DD/MM/YYYY)"
-                ),
-                value: Date(),
-                format: .DD_SLASH_MM_SLASH_YYYY,
-                state: .enabled,
-                errorMessages: nil,
-                backgroundColor: nil,
-            )
-        ),
-        (
-            """
-            // .enabled + format: .MM_DD_YYYY (US)
-            """,
-            DatePickerData(
-                id: "date10",
-                label: LabelData(
-                    id: "date-label-10",
-                    title: "date-label (US: MM/DD/YYYY)"
-                ),
-                value: Date(),
-                format: .MM_DD_YYYY,
-                state: .enabled,
-                errorMessages: nil,
+                isRange: true,
                 backgroundColor: nil,
             )
         ),

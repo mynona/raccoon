@@ -435,7 +435,7 @@ public struct SimpleTable: TemplateRepresentable {
             .class("pt-12 pb-14")
 
             Script()
-                .src("/js/datatable.js")
+                .src("/js/simple-table.js")
                 .setAttribute(
                     name: "type",
                     value: "text/javascript"
