@@ -18,6 +18,7 @@ public struct RaccoonPreviewController: RouteCollection, Sendable {
         preview.get("badge", use: getBadge)
         preview.get("breadcrumb", use: getBreadcrumb)
         preview.get("actionbutton", use: getButton)
+        preview.get("action-button", use: getButton)
         preview.get("by-me-a-coffee", use: getByMeACoffee)
         preview.get("carousel", use: getCarousel)
         preview.get("check", use: getCheckbox)

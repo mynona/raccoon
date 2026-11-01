@@ -971,7 +971,7 @@ struct ButtonView: TemplateRepresentable {
 
             Div {
 
-                showComponentTitle("Button")
+                showComponentTitle("ActionButton")
 
                 for (index, variant) in variants.enumerated() {
 
