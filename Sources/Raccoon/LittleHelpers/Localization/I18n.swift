@@ -19,12 +19,13 @@ public final class I18nContext: @unchecked Sendable {
         self.collects = collectsUsedKeys
     }
 
-    /// `de-AT` -> `de`, empty -> `en`.
+    /// `de-AT` -> `de`, empty -> `en`. Norwegian `no` and `nn` are served by Bokmål (`nb`).
     public static func baseLanguage(_ tag: String) -> String {
         let base = tag.lowercased()
             .split(whereSeparator: { $0 == "-" || $0 == "_" })
             .first.map(String.init)
-        return (base?.isEmpty ?? true) ? "en" : base!
+        guard let base, !base.isEmpty else { return "en" }
+        return base == "no" || base == "nn" ? "nb" : base
     }
 
     func record(_ key: String) {
@@ -167,6 +168,21 @@ public enum Translations {
             "fr": "(obligatoire)",
             "es": "(obligatorio)",
             "it": "(obbligatorio)",
+            "pt": "(obrigatório)",
+            "nl": "(verplicht)",
+            "da": "(påkrævet)",
+            "sv": "(obligatoriskt)",
+            "nb": "(obligatorisk)",
+            "fi": "(pakollinen)",
+            "is": "(nauðsynlegt)",
+            "el": "(υποχρεωτικό)",
+            "tr": "(gerekli)",
+            "hu": "(kötelező)",
+            "hr": "(obavezno)",
+            "pl": "(wymagane)",
+            "sk": "(povinné)",
+            "cs": "(povinné)",
+            "lb": "(obligatoresch)",
         ]
     ]
 }

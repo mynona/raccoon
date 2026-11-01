@@ -208,11 +208,8 @@ struct LocalizedTextTests {
             return renderHTML(I18n.scripts())
         }
         #expect(html.contains("src=\"/js/i18n.js\""))
-        #expect(
-            html.contains(
-                "\"label\":{\"de\":{\"required\":\"(erforderlich)\"},\"en\":{\"required\":\"(required)\"}"
-            )
-        )
+        #expect(html.contains("\"de\":{\"required\":\"(erforderlich)\"}"))
+        #expect(html.contains("\"en\":{\"required\":\"(required)\"}"))
         #expect(!html.contains("Speichern"))
         let usedKeys = I18n.render(language: "de", collectsUsedKeys: true) {
             _ = builtIn.resolved

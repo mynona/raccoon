@@ -30,7 +30,8 @@ if (!window.RaccoonI18n) {
     }
 
     function baseLanguage(tag) {
-      return String(tag || '').toLowerCase().split(/[-_]/)[0];
+      const base = String(tag || '').toLowerCase().split(/[-_]/)[0];
+      return base === 'no' || base === 'nn' ? 'nb' : base;
     }
 
     function currentLanguage() {

@@ -9,7 +9,10 @@ enum I18nValidator {
     typealias Tables = [String: [String: [String: String]]]
 
     /// Central list of supported base languages. Add a language here to extend the system.
-    static let supportedLanguages = ["en", "de", "fr", "es", "it"]
+    static let supportedLanguages = [
+        "en", "de", "fr", "es", "it", "pt", "nl", "lb", "da", "sv", "nb", "fi",
+        "is", "el", "tr", "hu", "hr", "pl", "sk", "cs",
+    ]
 
     /// Keys that are only used in hand-written Alpine expressions (invisible to the Swift scan).
     /// Add a Swift comment next to the usage when adding a key here.
@@ -183,9 +186,11 @@ struct I18nValidationTests {
         fr: String? = "Pause",
         extra: [String: String] = [:]
     ) -> [String: String] {
-        var result = ["en": "Pause", "es": "Pausa", "it": "Pausa"]
-        if let de { result["de"] = de }
-        if let fr { result["fr"] = fr }
+        var result = Dictionary(
+            uniqueKeysWithValues: I18nValidator.supportedLanguages.map { ($0, "Pause") }
+        )
+        result["de"] = de
+        result["fr"] = fr
         return result.merging(extra) { _, new in new }
     }
 

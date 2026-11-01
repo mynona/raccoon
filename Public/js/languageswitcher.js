@@ -4,7 +4,10 @@
 if (!window.__languageSwitcherLoaded) {
     window.__languageSwitcherLoaded = true;
 
-    const primary = (code) => (code || '').split(/[-_]/)[0].toLowerCase();
+    const primary = (code) => {
+        const base = (code || '').split(/[-_]/)[0].toLowerCase();
+        return base === 'no' || base === 'nn' ? 'nb' : base;
+    };
 
     const registerLanguageSwitcher = () => {
         Alpine.data('languageSwitcher', ({ fallback = 'en', ariaLabel = 'Language' } = {}) => ({

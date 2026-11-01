@@ -12,14 +12,10 @@ public struct LanguageOption: Sendable, Equatable {
     /// Creates a language option.
     ///
     /// - Parameters:
-    ///   - code: Language code, e.g. "de". Anything after the first "-" or "_" is dropped and the code is lowercased.
+    ///   - code: Language code, e.g. "de". Anything after the first "-" or "_" is dropped, the code is lowercased and Norwegian `no`/`nn` become `nb`.
     ///   - name: Name of the language in that language, e.g. "Deutsch".
     public init(code: String, name: String) {
-        let primary =
-            code.split(whereSeparator: { $0 == "-" || $0 == "_" })
-            .first
-            .map(String.init)
-        self.code = (primary ?? code).lowercased()
+        self.code = I18nContext.baseLanguage(code)
         self.name = name
     }
 }

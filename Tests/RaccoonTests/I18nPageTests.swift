@@ -98,10 +98,12 @@ struct I18nPageTests {
         #expect(html.contains("})({});"))
     }
 
-    @Test("the dictionary for 60 translatable components stays under 1 KB")
+    @Test(
+        "the dictionary for 60 translatable components stays under 2 KB (2 keys in 20 languages)"
+    )
     func dictionaryIsSmall() {
         let html = page(language: "de")
         let start = html.range(of: "<script>(function(d)")!.lowerBound
-        #expect(html[start...].utf8.count < 1000)
+        #expect(html[start...].utf8.count < 2000)
     }
 }
