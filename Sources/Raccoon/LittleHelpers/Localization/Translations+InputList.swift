@@ -100,5 +100,26 @@ extension Translations {
             "es": "Introduce un importe válido (p. ej., 10 o 10.50).",
             "it": "Inserisci un importo valido (ad es. 10 o 10.50).",
         ],
+        "errInvalid": [
+            "en": "Invalid value.",
+            "de": "Ungültiger Wert.",
+            "fr": "Valeur non valide.",
+            "es": "Valor no válido.",
+            "it": "Valore non valido.",
+        ],
+        "errEmpty": [
+            "en": "Value cannot be empty.",
+            "de": "Der Wert darf nicht leer sein.",
+            "fr": "La valeur ne peut pas être vide.",
+            "es": "El valor no puede estar vacío.",
+            "it": "Il valore non può essere vuoto.",
+        ],
+        "errDuplicate": [
+            "en": "This value already exists.",
+            "de": "Dieser Wert ist bereits vorhanden.",
+            "fr": "Cette valeur existe déjà.",
+            "es": "Este valor ya existe.",
+            "it": "Questo valore esiste già.",
+        ],
     ]
 }

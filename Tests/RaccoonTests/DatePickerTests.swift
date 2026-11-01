@@ -567,4 +567,21 @@ struct DatePickerTests {
         )
         #expect(html.contains("\"errComplete\""))
     }
+
+    @Test("the quick select panel is built in and translated")
+    func localizedQuickSelect() {
+        let ctx = makeData(label: LabelData(id: "d", title: "Date"))
+        let english = renderHTML(DatePicker(ctx).render())
+        for key in [
+            "quickSelect", "today", "yesterday", "thisWeek", "thisMonth",
+        ] {
+            #expect(english.contains("datepicker.\(key)"), "\(key)")
+        }
+        let german = I18n.render(language: "de") {
+            renderHTML(DatePicker(ctx).render())
+        }
+        #expect(german.contains(">Schnellauswahl</span>"))
+        #expect(german.contains(">Gestern</span>"))
+        #expect(german.contains(">Diese Woche</span>"))
+    }
 }

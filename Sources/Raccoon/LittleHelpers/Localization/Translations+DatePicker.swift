@@ -126,5 +126,62 @@ extension Translations {
             "es": "Introduce una fecha completa ({{format}})",
             "it": "Inserisci una data completa ({{format}})",
         ],
+        "quickRanges": [
+            "en": "Quick Ranges",
+            "de": "Schnellzeiträume",
+            "fr": "Plages rapides",
+            "es": "Rangos rápidos",
+            "it": "Intervalli rapidi",
+        ],
+        "quickSelect": [
+            "en": "Quick Select",
+            "de": "Schnellauswahl",
+            "fr": "Sélection rapide",
+            "es": "Selección rápida",
+            "it": "Selezione rapida",
+        ],
+        "today": [
+            "en": "Today", "de": "Heute", "fr": "Aujourd'hui", "es": "Hoy",
+            "it": "Oggi",
+        ],
+        "yesterday": [
+            "en": "Yesterday", "de": "Gestern", "fr": "Hier", "es": "Ayer",
+            "it": "Ieri",
+        ],
+        "thisWeek": [
+            "en": "This Week",
+            "de": "Diese Woche",
+            "fr": "Cette semaine",
+            "es": "Esta semana",
+            "it": "Questa settimana",
+        ],
+        "thisMonth": [
+            "en": "This Month",
+            "de": "Dieser Monat",
+            "fr": "Ce mois-ci",
+            "es": "Este mes",
+            "it": "Questo mese",
+        ],
+        "last7Days": [
+            "en": "Last 7 Days",
+            "de": "Letzte 7 Tage",
+            "fr": "7 derniers jours",
+            "es": "Últimos 7 días",
+            "it": "Ultimi 7 giorni",
+        ],
+        "lastMonth": [
+            "en": "Last Month",
+            "de": "Letzter Monat",
+            "fr": "Mois dernier",
+            "es": "Mes pasado",
+            "it": "Mese scorso",
+        ],
+        "yearToDate": [
+            "en": "Year to Date",
+            "de": "Seit Jahresbeginn",
+            "fr": "Depuis le début de l'année",
+            "es": "En lo que va del año",
+            "it": "Da inizio anno",
+        ],
     ]
 }

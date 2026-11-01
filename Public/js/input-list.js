@@ -1,4 +1,4 @@
-// V1.0
+// V1.1
 
 /* Alpine component: editable list of regex-validated string values (add/remove/validate rows). */
 
@@ -6,8 +6,13 @@
 if (!window.__inputListLoaded) {
   window.__inputListLoaded = true;
 
+  // Messages come from the i18n store (translations are registered by the page); the English text
+  // is the fallback when the store is not loaded.
+  const text = (key, fallback) =>
+    window.RaccoonI18n ? window.RaccoonI18n.t(key, null, fallback) : fallback;
+
   document.addEventListener('alpine:init', () => {
-    Alpine.data('inputListForm', (initialValues = [], regexPattern = '', errorMessage = 'Invalid value.') => ({
+    Alpine.data('inputListForm', (initialValues = [], regexPattern = '', errorMessage = text('inputlist.errInvalid', 'Invalid value.')) => ({
       values: Array.isArray(initialValues) ? initialValues : [],
       newValue: '',
       newError: '',
@@ -32,7 +37,7 @@ if (!window.__inputListLoaded) {
       setValidity(index) {
         const val = (this.values[index] || '').trim();
         if (val === '') {
-          this.rowErrors[index] = 'Value cannot be empty.';
+          this.rowErrors[index] = text('inputlist.errEmpty', 'Value cannot be empty.');
           this.rowValid[index] = false;
         } else if (!this.validate(val)) {
           this.rowErrors[index] = this.defaultMessage;
@@ -63,7 +68,7 @@ if (!window.__inputListLoaded) {
       add() {
         const trimmed = (this.newValue || '').trim();
         if (trimmed === '') {
-          this.newError = 'Value cannot be empty.';
+          this.newError = text('inputlist.errEmpty', 'Value cannot be empty.');
           return;
         }
         if (!this.validate(trimmed)) {
@@ -71,7 +76,7 @@ if (!window.__inputListLoaded) {
           return;
         }
         if (this.values.includes(trimmed)) {
-          this.newError = 'This value already exists.';
+          this.newError = text('inputlist.errDuplicate', 'This value already exists.');
           return;
         }
         this.values.push(trimmed);

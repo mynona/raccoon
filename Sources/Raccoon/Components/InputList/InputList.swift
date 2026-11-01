@@ -8,6 +8,18 @@ public struct InputList: TemplateRepresentable {
     typealias styles = InputListStyles
     typealias inputFieldStyles = InputFieldStyles
 
+    /// Messages that `input-list.js` shows. The script asks the i18n store for them, so they are
+    /// recorded here to land in the page dictionary.
+    private static let scriptTexts: [LocalizedText] = [
+        LocalizedText("inputlist.errInvalid", "Invalid value."),
+        LocalizedText("inputlist.errEmpty", "Value cannot be empty."),
+        LocalizedText("inputlist.errDuplicate", "This value already exists."),
+    ]
+
+    private static func recordScriptTexts() {
+        for text in scriptTexts { text.recordUse() }
+    }
+
     private static let delete = LocalizedText("inputlist.delete", "Delete")
     private static let deleteValue = LocalizedText(
         "inputlist.deleteValue",
@@ -375,6 +387,7 @@ public struct InputList: TemplateRepresentable {
     @Builder<Element>
     public func render() -> [Element] {
         DebugComment("Input list")
+        let _ = Self.recordScriptTexts()
         Script()
             .src("/js/input-list.js")
             .setAttribute(

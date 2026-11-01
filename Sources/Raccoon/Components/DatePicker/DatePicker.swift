@@ -101,6 +101,45 @@ public struct DatePicker: TemplateRepresentable {
         for text in scriptTexts { text.recordUse() }
     }
 
+    private static let quickRanges = LocalizedText(
+        "datepicker.quickRanges",
+        "Quick Ranges"
+    )
+    private static let quickSelect = LocalizedText(
+        "datepicker.quickSelect",
+        "Quick Select"
+    )
+
+    private static func quickHeading(isRange: Bool) -> LocalizedText {
+        isRange ? quickRanges : quickSelect
+    }
+
+    private static let today = LocalizedText("datepicker.today", "Today")
+    private static let yesterday = LocalizedText(
+        "datepicker.yesterday",
+        "Yesterday"
+    )
+    private static let thisWeek = LocalizedText(
+        "datepicker.thisWeek",
+        "This Week"
+    )
+    private static let thisMonth = LocalizedText(
+        "datepicker.thisMonth",
+        "This Month"
+    )
+    private static let last7Days = LocalizedText(
+        "datepicker.last7Days",
+        "Last 7 Days"
+    )
+    private static let lastMonth = LocalizedText(
+        "datepicker.lastMonth",
+        "Last Month"
+    )
+    private static let yearToDate = LocalizedText(
+        "datepicker.yearToDate",
+        "Year to Date"
+    )
+
     private static let dd = LocalizedText("datepicker.dd", "DD")
     private static let mm = LocalizedText("datepicker.mm", "MM")
     private static let yyyy = LocalizedText("datepicker.yyyy", "YYYY")
@@ -359,7 +398,8 @@ public struct DatePicker: TemplateRepresentable {
     func renderShortcutsSidebar() -> [Element] {
         Div {
             Div {
-                Span(data.isRange ? "Quick Ranges" : "Quick Select")
+                Span(Self.quickHeading(isRange: data.isRange).resolved)
+                    .localized(Self.quickHeading(isRange: data.isRange))
                     .class(styles.weekNumberBadge)
                     .addClass(
                         "block text-xs uppercase tracking-wider mb-2 font-semibold"
@@ -368,14 +408,14 @@ public struct DatePicker: TemplateRepresentable {
                 if !data.isRange {
                     Div {
                         Button {
-                            Span("Today")
+                            Span(Self.today.resolved).localized(Self.today)
                         }
                         .type(.button)
                         .setAttribute(name: "@click", value: "selectToday()")
                         .class(styles.shortcutButton)
 
                         Button {
-                            Span("Yesterday")
+                            Span(Self.yesterday.resolved).localized(Self.yesterday)
                         }
                         .type(.button)
                         .setAttribute(
@@ -385,14 +425,14 @@ public struct DatePicker: TemplateRepresentable {
                         .class(styles.shortcutButton)
 
                         Button {
-                            Span("This Week")
+                            Span(Self.thisWeek.resolved).localized(Self.thisWeek)
                         }
                         .type(.button)
                         .setAttribute(name: "@click", value: "selectThisWeek()")
                         .class(styles.shortcutButton)
 
                         Button {
-                            Span("This Month")
+                            Span(Self.thisMonth.resolved).localized(Self.thisMonth)
                         }
                         .type(.button)
                         .setAttribute(
@@ -407,7 +447,7 @@ public struct DatePicker: TemplateRepresentable {
                 else {
                     Div {
                         Button {
-                            Span("Today")
+                            Span(Self.today.resolved).localized(Self.today)
                         }
                         .type(.button)
                         .setAttribute(
@@ -417,7 +457,7 @@ public struct DatePicker: TemplateRepresentable {
                         .class(styles.shortcutButton)
 
                         Button {
-                            Span("This Week")
+                            Span(Self.thisWeek.resolved).localized(Self.thisWeek)
                         }
                         .type(.button)
                         .setAttribute(
@@ -427,7 +467,7 @@ public struct DatePicker: TemplateRepresentable {
                         .class(styles.shortcutButton)
 
                         Button {
-                            Span("Last 7 Days")
+                            Span(Self.last7Days.resolved).localized(Self.last7Days)
                         }
                         .type(.button)
                         .setAttribute(
@@ -437,7 +477,7 @@ public struct DatePicker: TemplateRepresentable {
                         .class(styles.shortcutButton)
 
                         Button {
-                            Span("This Month")
+                            Span(Self.thisMonth.resolved).localized(Self.thisMonth)
                         }
                         .type(.button)
                         .setAttribute(
@@ -447,7 +487,7 @@ public struct DatePicker: TemplateRepresentable {
                         .class(styles.shortcutButton)
 
                         Button {
-                            Span("Last Month")
+                            Span(Self.lastMonth.resolved).localized(Self.lastMonth)
                         }
                         .type(.button)
                         .setAttribute(
@@ -457,7 +497,7 @@ public struct DatePicker: TemplateRepresentable {
                         .class(styles.shortcutButton)
 
                         Button {
-                            Span("Year to Date")
+                            Span(Self.yearToDate.resolved).localized(Self.yearToDate)
                         }
                         .type(.button)
                         .setAttribute(

@@ -301,4 +301,26 @@ struct InputListTests {
         #expect(german.contains(">Wert</th>"))
         #expect(german.contains(">Hinzufügen</span>"))
     }
+
+    @Test("the messages of input-list.js land in the page dictionary")
+    func scriptTextsAreRegistered() {
+        let data = InputListData(
+            id: "list",
+            label: LabelData(id: "list", title: "List"),
+            values: [],
+            validationType: .url
+        )
+        let html = I18n.render(language: "de", collectsUsedKeys: true) {
+            _ = renderHTML(InputList(data).render())
+            return renderHTML(I18n.scripts())
+        }
+        #expect(
+            html.contains("\"errEmpty\":\"Der Wert darf nicht leer sein.\"")
+        )
+        #expect(
+            html.contains(
+                "\"errDuplicate\":\"Dieser Wert ist bereits vorhanden.\""
+            )
+        )
+    }
 }
