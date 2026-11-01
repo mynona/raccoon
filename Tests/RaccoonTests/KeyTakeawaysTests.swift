@@ -92,7 +92,10 @@ struct KeyTakeawaysTests {
         let longText = String(repeating: "- Point\n", count: 256)
         let html = renderHTML(
             KeyTakeaways(
-                KeyTakeawaysData(title: "Long", contentAsMarkdown: longText)
+                KeyTakeawaysData(
+                    title: "Long",
+                    contentAsMarkdown: LocalizedText(verbatim: longText)
+                )
             )
             .render()
         )
@@ -114,4 +117,24 @@ struct KeyTakeawaysTests {
         #expect(html.contains("B"))
     }
 
+    // MARK: localization
+
+    @Test("title and markdown content follow the language")
+    func localizedTexts() {
+        let data = KeyTakeawaysData(
+            title: LocalizedText(
+                en: "Key Learnings",
+                translations: ["de": "Wichtige Erkenntnisse"]
+            ),
+            contentAsMarkdown: LocalizedText(
+                en: "- Point one",
+                translations: ["de": "- Punkt eins"]
+            )
+        )
+        let html = I18n.render(language: "de") {
+            renderHTML(KeyTakeaways(data).render())
+        }
+        #expect(html.contains(">Wichtige Erkenntnisse</h3>"))
+        #expect(html.contains("Punkt eins"))
+    }
 }

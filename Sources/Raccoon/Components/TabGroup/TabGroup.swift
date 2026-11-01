@@ -65,7 +65,7 @@ public struct TabGroup: TemplateRepresentable {
             )
             .render()
         }
-        else if let badgeText = tab.badgeText, !badgeText.isEmpty {
+        else if let badgeText = tab.badgeText, !badgeText.english.isEmpty {
             Pill(
                 PillData(
                     bindClass: dynamicClass,

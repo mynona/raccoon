@@ -14,7 +14,7 @@ public struct Quote: TemplateRepresentable {
     }
 
     func quoteAsMarkdown() -> String {
-        let html = renderMarkdownAsHTML(data.quote)
+        let html = renderMarkdownAsHTML(data.quote.resolved)
 
         // Destructive <p> and </p> stripping done intentionally: quotes must never include paragraphs
         let result =
@@ -50,7 +50,8 @@ public struct Quote: TemplateRepresentable {
     @Builder<Element>
     func showCitation() -> [Element] {
         if let citation = data.citation {
-            Figcaption(citation)
+            Figcaption(citation.resolved)
+                .localized(citation)
                 .class("m-0 pt-2 !mt-0")
                 .addClass(styles.citation)
         }

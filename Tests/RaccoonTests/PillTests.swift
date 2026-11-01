@@ -98,4 +98,23 @@ struct PillTests {
         let htmlEmpty = renderHTML(Pill(PillData(text: "")).render())
         #expect(htmlEmpty.isEmpty)
     }
+
+    // MARK: localization
+
+    @Test("a consumer text follows the language; a count stays plain")
+    func localizedText() {
+        let text = PillData(
+            text: LocalizedText(en: "New", translations: ["de": "Neu"])
+        )
+        let html = I18n.render(language: "de") {
+            renderHTML(Pill(text).render())
+        }
+        #expect(html.contains(">Neu</span>"))
+        #expect(html.contains("data-i18n-values="))
+        let count = I18n.render(language: "de") {
+            renderHTML(Pill(PillData(count: 3)).render())
+        }
+        #expect(count.contains(">3</span>"))
+        #expect(!count.contains("data-i18n"))
+    }
 }

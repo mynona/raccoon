@@ -2,8 +2,8 @@
 public struct KeyTakeawaysData: Sendable {
 
     // MARK: - 2. Content & Accessibility
-    public let title: String
-    public let contentAsMarkdown: String
+    public let title: LocalizedText
+    public let contentAsMarkdown: LocalizedText
 
     // MARK: - 5. Presentation & State
     public let icon: SvgIcon
@@ -15,8 +15,8 @@ public struct KeyTakeawaysData: Sendable {
     ///   - contentAsMarkdown: Markdown content of key takeaways.
     ///   - icon: Decorative icon displayed in header, defaults to `.lightbulb`.
     public init(
-        title: String,
-        contentAsMarkdown: String,
+        title: LocalizedText,
+        contentAsMarkdown: LocalizedText,
         icon: SvgIcon = .lightbulb
     ) {
         self.title = title

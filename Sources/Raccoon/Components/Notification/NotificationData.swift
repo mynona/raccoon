@@ -8,8 +8,8 @@ public struct NotificationData: Sendable {
         case error
     }
 
-    public let title: String
-    public let text: String?
+    public let title: LocalizedText
+    public let text: LocalizedText?
     public let type: NotificationType
 
     /// Creates a new configuration instance for `Notification`.
@@ -19,8 +19,8 @@ public struct NotificationData: Sendable {
     ///   - text: Optional descriptive detail body text.
     ///   - type: Notification severity type (`success`, `info`, `warning`, `error`).
     public init(
-        title: String,
-        text: String?,
+        title: LocalizedText,
+        text: LocalizedText?,
         type: NotificationType
     ) {
         self.title = title

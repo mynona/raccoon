@@ -474,9 +474,8 @@ public struct Rating: TemplateRepresentable {
             Div {
                 Notification(
                     NotificationData(
-                        // The notification renders plain strings: the text is in the language of the render
-                        title: Self.wentWrong.resolved,
-                        text: Self.couldNotSubmit.resolved,
+                        title: Self.wentWrong,
+                        text: Self.couldNotSubmit,
                         type: .error
                     )
                 )

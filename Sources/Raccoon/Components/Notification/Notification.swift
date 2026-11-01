@@ -64,11 +64,12 @@ public struct Notification: TemplateRepresentable {
     @Builder<Element>
     func showMessage() -> [Element] {
         Div {
-            P(data.title)
+            P(data.title.resolved)
+                .localized(data.title)
                 .class(styles.titleFont)
 
             if let text = data.text {
-                Div { InlineText(renderMarkdownAsHTML(text), isRaw: true) }
+                Div { InlineText(renderMarkdownAsHTML(text.resolved), isRaw: true) }
                     .class("pt-2")
             }
         }

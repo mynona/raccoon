@@ -77,8 +77,13 @@ struct MarkdownBlockTests {
             ~~This is crossed out~~
             """
         let html = renderHTML(
-            MarkdownBlock(MarkdownBlockData(markdown: md, isProse: true))
-                .render()
+            MarkdownBlock(
+                MarkdownBlockData(
+                    markdown: LocalizedText(verbatim: md),
+                    isProse: true
+                )
+            )
+            .render()
         )
         #expect(html.contains("Heading 1"))
         #expect(html.contains("Heading 2"))
@@ -141,8 +146,13 @@ struct MarkdownBlockTests {
     func rendersVeryLongMarkdown() async throws {
         let longText = String(repeating: "LongText ", count: 5000)
         let html = renderHTML(
-            MarkdownBlock(MarkdownBlockData(markdown: longText, isProse: false))
-                .render()
+            MarkdownBlock(
+                MarkdownBlockData(
+                    markdown: LocalizedText(verbatim: longText),
+                    isProse: false
+                )
+            )
+            .render()
         )
         #expect(html.contains("LongText"))
     }
@@ -184,5 +194,22 @@ struct MarkdownBlockTests {
         )
         #expect(withProse.contains("prose"))
         #expect(!withoutProse.contains("prose"))
+    }
+
+    // MARK: localization
+
+    @Test("the markdown follows the language")
+    func localizedMarkdown() {
+        let data = MarkdownBlockData(
+            markdown: LocalizedText(
+                en: "Hello **you**",
+                translations: ["de": "Hallo **du**"]
+            ),
+            isProse: true
+        )
+        let html = I18n.render(language: "de") {
+            renderHTML(MarkdownBlock(data).render())
+        }
+        #expect(html.contains("Hallo <strong>du</strong>"))
     }
 }

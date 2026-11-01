@@ -102,4 +102,25 @@ struct QuoteTests {
         #expect(html.contains("<em>italic</em>"))
         #expect(html.contains("<strong>bold</strong>"))
     }
+
+    // MARK: localization
+
+    @Test("quote and citation follow the language")
+    func localizedTexts() {
+        let data = QuoteData(
+            quote: LocalizedText(
+                en: "Less is more",
+                translations: ["de": "Weniger ist mehr"]
+            ),
+            citation: LocalizedText(
+                en: "Source",
+                translations: ["de": "Quelle"]
+            )
+        )
+        let html = I18n.render(language: "de") {
+            renderHTML(Quote(data).render())
+        }
+        #expect(html.contains("Weniger ist mehr"))
+        #expect(html.contains(">Quelle</figcaption>"))
+    }
 }

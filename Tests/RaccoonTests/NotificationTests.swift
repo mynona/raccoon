@@ -69,7 +69,9 @@ struct NotificationTests {
             .render()
         )
         #expect(
-            html.contains("<p class=\"\(NotificationStyles.titleFont)\">Hello</p>")
+            html.contains(
+                "<p class=\"\(NotificationStyles.titleFont)\">Hello</p>"
+            )
         )
     }
 
@@ -125,5 +127,28 @@ struct NotificationTests {
             .render()
         )
         #expect(html.contains(NotificationStyles.borderSuccess))
+    }
+
+    // MARK: localization
+
+    @Test("title and markdown text follow the language")
+    func localizedTexts() {
+        let data = NotificationData(
+            title: LocalizedText(
+                en: "Saved",
+                translations: ["de": "Gespeichert"]
+            ),
+            text: LocalizedText(
+                en: "All **done**",
+                translations: ["de": "Alles **erledigt**"]
+            ),
+            type: .success
+        )
+        let html = I18n.render(language: "de") {
+            renderHTML(Notification(data).render())
+        }
+        #expect(html.contains(">Gespeichert</p>"))
+        #expect(html.contains("data-i18n-values="))
+        #expect(html.contains("<strong>erledigt</strong>"))
     }
 }

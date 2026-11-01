@@ -25,9 +25,9 @@ public struct PillData: Sendable {
 
     // MARK: - 2. Content & Accessibility
     /// Text label displayed inside the pill.
-    public let text: String?
+    public let text: LocalizedText?
     /// Accessible name override for screen readers.
-    public let ariaLabel: String?
+    public let ariaLabel: LocalizedText?
 
     // MARK: - 3. Value & Options
     /// Numeric counter value displayed inside the pill.
@@ -65,8 +65,8 @@ public struct PillData: Sendable {
         bindClass: String? = nil,
 
         // 2. Content & Accessibility
-        text: String? = nil,
-        ariaLabel: String? = nil,
+        text: LocalizedText? = nil,
+        ariaLabel: LocalizedText? = nil,
 
         // 3. Value & Options
         count: Int? = nil,
@@ -121,7 +121,7 @@ public struct PillData: Sendable {
     ///   - variant: Visual color variant of the pill.
     ///   - size: Sizing of the pill.
     public init(
-        _ text: String,
+        _ text: LocalizedText,
         variant: PillVariant = .neutral,
         size: ComponentSize = .base
     ) {

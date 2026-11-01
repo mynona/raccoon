@@ -15,17 +15,18 @@ public struct Pill: TemplateRepresentable {
     }
 
     /// Computes the displayed label string.
-    private var displayedText: String {
+    private var displayedText: LocalizedText {
         if let count = data.count {
-            return String(count)
+            return LocalizedText(verbatim: String(count))
         }
-        return data.text ?? ""
+        return data.text ?? LocalizedText(verbatim: "")
     }
 
     @Builder<Element>
     public func render() -> [Element] {
-        if !displayedText.isEmpty {
-            Span(displayedText)
+        if !displayedText.english.isEmpty {
+            Span(displayedText.resolved)
+                .localized(displayedText)
                 .if(data.id != nil) {
                     $0.id(data.id!)
                 }
@@ -33,7 +34,7 @@ public struct Pill: TemplateRepresentable {
                     $0.setAttribute(name: "x-bind:id", value: data.bindId!)
                 }
                 .if(data.ariaLabel != nil) {
-                    $0.setAttribute(name: "aria-label", value: data.ariaLabel!)
+                    $0.localized(.ariaLabel, data.ariaLabel!)
                 }
                 .if(data.bindClass != nil) {
                     $0.setAttribute(
@@ -56,7 +57,7 @@ public struct Pill: TemplateRepresentable {
                         )
                         .setAttribute(
                             name: "data-content-target",
-                            value: displayedText
+                            value: displayedText.english
                         )
                 }
         }

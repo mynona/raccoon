@@ -1,8 +1,8 @@
 /// Configuration data for the `Quote` blockquote component.
 public struct QuoteData: Sendable {
 
-    public let quote: String
-    public let citation: String?
+    public let quote: LocalizedText
+    public let citation: LocalizedText?
     public let hasQuotationMarks: Bool
 
     /// Creates a new configuration instance for `Quote`.
@@ -12,8 +12,8 @@ public struct QuoteData: Sendable {
     ///   - citation: Optional author, speaker, or source citation.
     ///   - hasQuotationMarks: Whether to visually render quotation marks.
     public init(
-        quote: String,
-        citation: String?,
+        quote: LocalizedText,
+        citation: LocalizedText?,
         hasQuotationMarks: Bool = true
     ) {
         self.quote = quote

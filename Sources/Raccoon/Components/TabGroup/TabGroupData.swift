@@ -91,7 +91,7 @@ public struct TabItemData: Sendable {
     /// Optional numeric counter badge displayed inside the tab.
     public let badgeCount: Int?
     /// Optional text badge displayed inside the tab.
-    public let badgeText: String?
+    public let badgeText: LocalizedText?
 
     // MARK: - 6. Analytics & Tracking
     /// Matomo tracking consent status.
@@ -139,7 +139,7 @@ public struct TabItemData: Sendable {
         iconPosition: IconPosition = .left,
         pill: PillData? = nil,
         badgeCount: Int? = nil,
-        badgeText: String? = nil,
+        badgeText: LocalizedText? = nil,
 
         // 6. Analytics & Tracking
         matomoStatus: MatomoStatus = .DECLINED,
@@ -212,7 +212,7 @@ public struct TabItemData: Sendable {
         iconPosition: IconPosition = .left,
         pill: PillData? = nil,
         badgeCount: Int? = nil,
-        badgeText: String? = nil,
+        badgeText: LocalizedText? = nil,
 
         // 6. Analytics & Tracking
         matomoStatus: MatomoStatus = .DECLINED,

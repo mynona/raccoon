@@ -20,7 +20,8 @@ public struct KeyTakeaways: TemplateRepresentable {
                 .class("flex-initial align-middle")
                 .addClass(styles.iconColor)
 
-            H3(data.title)
+            H3(data.title.resolved)
+                .localized(data.title)
                 .class("flex-1 align-middle !pt-0 !my-0")
                 .addClass(styles.textLabel)
 
@@ -40,7 +41,7 @@ public struct KeyTakeaways: TemplateRepresentable {
 
                 Div {
                     InlineText(
-                        renderMarkdownAsHTML(data.contentAsMarkdown),
+                        renderMarkdownAsHTML(data.contentAsMarkdown.resolved),
                         isRaw: true
                     )
                 }
