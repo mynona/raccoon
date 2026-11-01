@@ -37,40 +37,40 @@ struct CarouselView: TemplateRepresentable {
         id: "carousel-gallery-one",
         carouselItems: [
             CarouselItem(
-                id: "sample-teal",
-                src: "/images/sample-teal.svg",
+                id: "raccoon-sketch-branch",
+                src: "/images/raccoon-sketch-branch.png",
                 alt: tr(
-                    "Plain teal sample image",
-                    de: "Einfarbiges türkisfarbenes Beispielbild",
-                    fr: "Image d'exemple turquoise unie",
-                    es: "Imagen de ejemplo turquesa lisa",
-                    it: "Immagine di esempio turchese tinta unita"
+                    "Raccoon standing on a mossy branch among forest leaves",
+                    de: "Waschbär auf einem moosigen Ast zwischen Waldblättern",
+                    fr: "Raton laveur debout sur une branche moussue parmi les feuilles",
+                    es: "Mapache de pie sobre una rama con musgo entre hojas del bosque",
+                    it: "Procione in piedi su un ramo muschioso tra le foglie della foresta"
                 ),
                 caption: tr(
-                    "Sample 1 – teal",
-                    de: "Beispiel 1 – Türkis",
-                    fr: "Exemple 1 – turquoise",
-                    es: "Ejemplo 1 – turquesa",
-                    it: "Esempio 1 – turchese"
+                    "Raccoon on a branch",
+                    de: "Waschbär auf einem Ast",
+                    fr: "Raton laveur sur une branche",
+                    es: "Mapache en una rama",
+                    it: "Procione su un ramo"
                 ),
                 isS3Image: false
             ),
             CarouselItem(
-                id: "sample-amber",
-                src: "/images/sample-amber.svg",
+                id: "raccoon-sketch-hollow",
+                src: "/images/raccoon-sketch-hollow.png",
                 alt: tr(
-                    "Plain amber sample image",
-                    de: "Einfarbiges bernsteinfarbenes Beispielbild",
-                    fr: "Image d'exemple ambre unie",
-                    es: "Imagen de ejemplo ámbar lisa",
-                    it: "Immagine di esempio ambra tinta unita"
+                    "Curious raccoon peeking from a hollow oak tree trunk",
+                    de: "Neugieriger Waschbär, der aus einem hohlen Eichenstamm hervorschaut",
+                    fr: "Raton laveur curieux observant depuis le tronc creux d'un chêne",
+                    es: "Mapache curioso asomándose desde el tronco hueco de un roble",
+                    it: "Procione curioso che fa capolino dal tronco cavo di una quercia"
                 ),
                 caption: tr(
-                    "Sample 2 – amber",
-                    de: "Beispiel 2 – Bernstein",
-                    fr: "Exemple 2 – ambre",
-                    es: "Ejemplo 2 – ámbar",
-                    it: "Esempio 2 – ambra"
+                    "Curious raccoon in a tree hollow",
+                    de: "Neugieriger Waschbär in einer Baumhöhle",
+                    fr: "Raton laveur curieux dans un arbre creux",
+                    es: "Mapache curioso en el hueco de un árbol",
+                    it: "Procione curioso nella cavità di un albero"
                 ),
                 isS3Image: false
             ),
@@ -81,40 +81,40 @@ struct CarouselView: TemplateRepresentable {
         id: "carousel-gallery-two",
         carouselItems: [
             CarouselItem(
-                id: "sample-indigo",
-                src: "/images/sample-indigo.svg",
+                id: "raccoon-sketch-stream",
+                src: "/images/raccoon-sketch-stream.png",
                 alt: tr(
-                    "Plain indigo sample image",
-                    de: "Einfarbiges indigofarbenes Beispielbild",
-                    fr: "Image d'exemple indigo unie",
-                    es: "Imagen de ejemplo índigo lisa",
-                    it: "Immagine di esempio indaco tinta unita"
+                    "Raccoon washing wild berries by a flowing forest stream",
+                    de: "Waschbär wäscht Waldbeeren an einem fließenden Waldbach",
+                    fr: "Raton laveur lavant des baies sauvages au bord d'un ruisseau",
+                    es: "Mapache lavando bayas silvestres junto a un arroyo en el bosque",
+                    it: "Procione che lava bacche selvatiche vicino a un ruscello nel bosco"
                 ),
                 caption: tr(
-                    "Sample 3 – indigo",
-                    de: "Beispiel 3 – Indigo",
-                    fr: "Exemple 3 – indigo",
-                    es: "Ejemplo 3 – índigo",
-                    it: "Esempio 3 – indaco"
+                    "Raccoon washing berries by the stream",
+                    de: "Waschbär wäscht Beeren am Bach",
+                    fr: "Raton laveur lavant des baies au ruisseau",
+                    es: "Mapache lavando bayas en el arroyo",
+                    it: "Procione che lava bacche vicino al ruscello"
                 ),
                 isS3Image: false
             ),
             CarouselItem(
-                id: "sample-rose",
-                src: "/images/sample-rose.svg",
+                id: "raccoon-sketch-fence",
+                src: "/images/raccoon-sketch-fence.png",
                 alt: tr(
-                    "Plain rose sample image",
-                    de: "Einfarbiges rosafarbenes Beispielbild",
-                    fr: "Image d'exemple rose unie",
-                    es: "Imagen de ejemplo rosa lisa",
-                    it: "Immagine di esempio rosa tinta unita"
+                    "Raccoon perched on a rustic wooden fence post with oak leaves and acorns",
+                    de: "Waschbär auf einem rustikalen Zaunpfahl mit Eichenlaub und Eicheln",
+                    fr: "Raton laveur perché sur un poteau de clôture en bois avec des glands et feuilles de chêne",
+                    es: "Mapache sobre un poste de valla de madera con hojas de roble y bellotas",
+                    it: "Procione appollaiato su un palo di recinzione in legno con foglie di quercia e ghiande"
                 ),
                 caption: tr(
-                    "Sample 4 – rose",
-                    de: "Beispiel 4 – Rosa",
-                    fr: "Exemple 4 – rose",
-                    es: "Ejemplo 4 – rosa",
-                    it: "Esempio 4 – rosa"
+                    "Raccoon on a fence post",
+                    de: "Waschbär auf einem Zaunpfahl",
+                    fr: "Raton laveur sur un poteau de clôture",
+                    es: "Mapache sobre un poste de valla",
+                    it: "Procione su un palo di recinzione"
                 ),
                 isS3Image: false
             ),
@@ -218,27 +218,27 @@ struct CarouselView: TemplateRepresentable {
                         galleryS3
                     ),
                     (tr(
-                            "Local SVG Gallery",
+                            "Raccoon Sketch Gallery",
                             [
-                                "de": "Lokale SVG-Galerie",
-                                "fr": "Galerie SVG locale",
-                                "es": "Galería SVG local",
-                                "it": "Galleria SVG locale",
-                                "pt": "Galeria SVG local",
-                                "nl": "Lokale SVG-galerij",
-                                "da": "Lokalt SVG-galleri",
-                                "sv": "Lokalt SVG-galleri",
-                                "nb": "Lokalt SVG-galleri",
-                                "fi": "Paikallinen SVG-galleria",
-                                "is": "Staðbundið SVG myndasafn",
-                                "el": "Τοπική συλλογή SVG",
-                                "tr": "Yerel SVG galerisi",
-                                "hu": "Helyi SVG galéria",
-                                "hr": "Lokalna SVG galerija",
-                                "pl": "Lokalna galeria SVG",
-                                "sk": "Lokálna SVG galéria",
-                                "cs": "Lokální SVG galerie",
-                                "lb": "Lokal SVG-Galerie",
+                                "de": "Waschbär-Skizzen-Galerie",
+                                "fr": "Galerie d'esquisses de raton laveur",
+                                "es": "Galería de bocetos de mapache",
+                                "it": "Galleria di schizzi di procione",
+                                "pt": "Galeria de esboços de guaxinim",
+                                "nl": "Wasbeer schetsengalerij",
+                                "da": "Vaskebjørn skitsegalleri",
+                                "sv": "Tvättbjörn skissgalleri",
+                                "nb": "Vaskebjørn skissemuseum",
+                                "fi": "Pesukarhu luonnosgalleria",
+                                "is": "Þvottabjörn teiknisafn",
+                                "el": "Συλλογή σκίτσων ρακούν",
+                                "tr": "Rakun çizimleri galerisi",
+                                "hu": "Mosómedve vázlatgaléria",
+                                "hr": "Galerija skica rakuna",
+                                "pl": "Galeria szkiców szopa",
+                                "sk": "Galéria skíc medvedíka čistotného",
+                                "cs": "Galerie skic mývala",
+                                "lb": "Wäschbier Skizzegalerie",
                             ]
                         ), galleryOne),
                     (tr(

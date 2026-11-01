@@ -68,11 +68,7 @@ public struct TabGroupStyles {
     ]
     .joined(separator: " ")
 
-    public static let tabListVertical: String = [
-        "flex flex-col gap-2 border-r pr-4 min-w-48",
-        borderColorDefault,
-    ]
-    .joined(separator: " ")
+    public static let tabListVertical: String = "flex flex-col gap-2 min-w-48"
 
     public static let tabListVerticalPills: String = [
         "isolate flex flex-col min-w-48 border border-outline divide-y",
@@ -87,9 +83,10 @@ public struct TabGroupStyles {
         "enabled:cursor-pointer",
         textSizeSmall,
         "relative inline-flex items-center justify-center gap-2 px-3 py-3 -mb-px border-b-2 text-sm transition rounded-t-md",
-        "[[aria-orientation=vertical]>&]:-mb-0 [[aria-orientation=vertical]>&]:-mr-px",
-        "[[aria-orientation=vertical]>&]:border-b-0 [[aria-orientation=vertical]>&]:border-r-2",
-        "[[aria-orientation=vertical]>&]:rounded-t-none [[aria-orientation=vertical]>&]:rounded-l-md",
+        "[[aria-orientation=vertical]>&]:-mb-0",
+        "[[aria-orientation=vertical]>&]:justify-start",
+        "[[aria-orientation=vertical]>&]:border-b-0 [[aria-orientation=vertical]>&]:border-l-2",
+        "[[aria-orientation=vertical]>&]:rounded-t-none [[aria-orientation=vertical]>&]:rounded-r-md",
         "[[aria-orientation=vertical]>&]:px-4 [[aria-orientation=vertical]>&]:py-3",
         "enabled:hover:bg-on-surface/5",
         "focus-visible:z-10 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-focusring",
@@ -104,8 +101,9 @@ public struct TabGroupStyles {
         fontActive,
         textColorActive,
         "border-b-on-theme print:border-b-black forced-colors:border-b-[Highlight]",
-        "[[aria-orientation=vertical]>&]:border-r-on-theme",
-        "[[aria-orientation=vertical]>&]:forced-colors:border-r-[Highlight]",
+        "[[aria-orientation=vertical]>&]:border-l-on-theme",
+        "[[aria-orientation=vertical]>&]:forced-colors:border-l-[Highlight]",
+        "[[aria-orientation=vertical]>&]:bg-on-surface/5",
     ]
     .joined(separator: " ")
 
@@ -113,14 +111,14 @@ public struct TabGroupStyles {
         font,
         textColorInactive,
         "border-b-transparent",
-        "[[aria-orientation=vertical]>&]:border-r-transparent",
+        "[[aria-orientation=vertical]>&]:border-l-transparent",
     ]
     .joined(separator: " ")
 
     public static let tabUnderlineDisabled: String = [
         tabUnderlineButtonBase,
         font,
-        "border-b-transparent [[aria-orientation=vertical]>&]:border-r-transparent",
+        "border-b-transparent [[aria-orientation=vertical]>&]:border-l-transparent",
     ]
     .joined(separator: " ")
 
@@ -141,6 +139,7 @@ public struct TabGroupStyles {
         fontActive,
         CommonStyles.textColorEmphasized,
         "border-b-on-theme print:border-b-black forced-colors:border-b-[Highlight]",
+        "[[aria-orientation=vertical]>&]:bg-on-surface/5",
     ]
     .joined(separator: " ")
 
