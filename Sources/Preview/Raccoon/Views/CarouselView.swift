@@ -190,7 +190,7 @@ struct CarouselView: TemplateRepresentable {
 
                 showComponentTitle("Carousel")
 
-                for (label, data) in [
+                let variants: [(LocalizedText, CarouselData)] = [
                     (
                         "S3 Processed Images",
                         galleryS3
@@ -200,12 +200,14 @@ struct CarouselView: TemplateRepresentable {
                         "Second Gallery Instance",
                         galleryTwo
                     ),
-                ] {
+                ]
+
+                for (label, data) in variants {
 
                     showVariantTitle(label, data)
 
                     showComponentPreview(
-                        data: label,
+                        data: label.english,
                         html: makeHtml(ctx: data)
                     ) {
                         showTriggers(data)

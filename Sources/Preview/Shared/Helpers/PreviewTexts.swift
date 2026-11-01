@@ -109,6 +109,18 @@ enum PreviewTexts {
     )
 }
 
+/// Translates a text using an English base text and a dictionary of translations across languages.
+func tr(
+    _ en: String,
+    _ translations: [String: String]
+) -> LocalizedText {
+    var allTranslations = PreviewDemoTranslations.extra[en] ?? [:]
+    for (lang, text) in translations {
+        allTranslations[lang] = text
+    }
+    return LocalizedText(en: en, translations: allTranslations)
+}
+
 /// A demo text with all languages of the Preview. Every text that a variant passes into a component
 /// uses it, so that nothing is missed (`Translations` for the built-in texts do not apply to demo content).
 /// `de`, `fr`, `es` and `it` are written next to the English text. The other languages come from

@@ -10,7 +10,7 @@ struct SpacerView: TemplateRepresentable {
     let variants: [PreviewVariant<SpacerData>] = (1...10)
         .map { n in
             #previewVariant(
-                "Spacing Level \(n)",
+                LocalizedText(verbatim: "Spacing Level \(n)"),
                 SpacerData(space: UInt(n))
             )
         }
