@@ -152,7 +152,10 @@ public struct ToggleSwitch: TemplateRepresentable {
             }
             return $0
         } else: {
-            $0.ariaLabel("Toggle switch")
+            $0.localized(
+                .ariaLabel,
+                LocalizedText("toggleswitch.toggle", "Toggle switch")
+            )
         }
         .addClass(styles.focusDefault)
         .addClass(styles.hoverDefault)

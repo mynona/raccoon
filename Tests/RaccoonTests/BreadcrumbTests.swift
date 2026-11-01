@@ -140,4 +140,24 @@ struct BreadcrumbTests {
         let html = renderHTML(Breadcrumb(ctx).render())
         #expect(html.contains("NoHref"))
     }
+
+    // MARK: localization
+
+    @Test("the home link and the nav label are translated with markers")
+    func localizedHomeAndNavigation() {
+        let ctx = BreadcrumbData(paths: [], hasHome: true)
+        let english = renderHTML(Breadcrumb(ctx).render())
+        #expect(
+            english.contains("data-i18n-aria-label=\"breadcrumb.navigation\"")
+        )
+        #expect(english.contains("data-i18n=\"breadcrumb.home\""))
+        #expect(english.contains(">Home</p>"))
+
+        let german = I18n.render(language: "de") {
+            renderHTML(Breadcrumb(ctx).render())
+        }
+        #expect(german.contains("aria-label=\"Brotkrümelnavigation\""))
+        #expect(german.contains("aria-label=\"Startseite\""))
+        #expect(german.contains(">Startseite</p>"))
+    }
 }

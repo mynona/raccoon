@@ -68,6 +68,12 @@ public struct Avatar: TemplateRepresentable {
         "flex \(getContainerSize()) p-1 items-center justify-center overflow-hidden rounded-full"
     }
 
+    private static let avatar = LocalizedText("avatar.alt", "Avatar")
+    private static let generic = LocalizedText(
+        "avatar.generic",
+        "Generic avatar image"
+    )
+
     @Builder<Element>
     public func render() -> [Element] {
 
@@ -76,10 +82,13 @@ public struct Avatar: TemplateRepresentable {
         DebugComment("Avatar")
         let initials = generateInitials()
         let name = generateName()
-        let fallbackAlt = name != nil ? "\(name!)" : "Avatar"
+        // The name is caller data and shown as given; the fallback is a built-in text
+        let fallbackAlt =
+            name.map { LocalizedText(verbatim: $0) } ?? Self.avatar
 
         if let picture = data.picture {
-            Img(src: picture, alt: fallbackAlt)
+            Img(src: picture, alt: fallbackAlt.resolved)
+                .localized(.alt, fallbackAlt)
                 .class(
                     "\(getContainerSize()) rounded-full object-cover object-center p-0.5"
                 )
@@ -105,7 +114,7 @@ public struct Avatar: TemplateRepresentable {
                 .addClass(styles.initialsFont)
                 .addClass(styles.initialsText)
                 .addClass(styles.initialsBorder)
-                .ariaLabel("Generic avatar image")
+                .localized(.ariaLabel, Self.generic)
         }
     }
 }

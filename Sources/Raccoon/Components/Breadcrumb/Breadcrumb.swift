@@ -13,6 +13,12 @@ public struct Breadcrumb: TemplateRepresentable {
         self.data = data
     }
 
+    private static let home = LocalizedText("breadcrumb.home", "Home")
+    private static let navigation = LocalizedText(
+        "breadcrumb.navigation",
+        "Breadcrumb"
+    )
+
     @Builder<Element>
     func showHome() -> [Element] {
         if data.hasHome {
@@ -24,21 +30,22 @@ public struct Breadcrumb: TemplateRepresentable {
 
                         Svg.icon(
                             .house,
-                            title: "Home",
+                            title: Self.home,
                             width: 16,
                             height: 16,
                             role: .img
                         )
                         .class("inline-block md:hidden")
 
-                        P("Home")
+                        P(Self.home.resolved)
+                            .localized(Self.home)
                             .class("hidden md:inline-block")
 
                     }
                     .class("flex flex-row items-center")
                 }
                 .href(data.homeUrl)
-                .ariaLabel("Home")
+                .localized(.ariaLabel, Self.home)
                 .addClass(styles.itemActive)
                 // Matomo
                 .if(
@@ -177,10 +184,7 @@ public struct Breadcrumb: TemplateRepresentable {
                 }
                 .class(styles.list)
             }
-            .setAttribute(
-                name: "aria-label",
-                value: "Breadcrumb"
-            )
+            .localized(.ariaLabel, Self.navigation)
             .class(styles.nav)
 
         }

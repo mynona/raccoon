@@ -138,4 +138,33 @@ struct AvatarTests {
         #expect(html.contains("AS"))
         #expect(html.contains("aria-label=\"Andreas Soller\""))
     }
+
+    // MARK: localization
+
+    @Test("the fallback texts are built in and translated; a name stays plain")
+    func localizedFallbacks() {
+        let picture = AvatarData(picture: "https://example.com/a.jpg")
+        let german = I18n.render(language: "de") {
+            renderHTML(Avatar(picture).render())
+        }
+        #expect(german.contains("alt=\"Avatar\""))
+        #expect(german.contains("data-i18n-alt=\"avatar.alt\""))
+
+        let generic = I18n.render(language: "de") {
+            renderHTML(Avatar(AvatarData()).render())
+        }
+        #expect(generic.contains("aria-label=\"Allgemeines Avatar-Bild\""))
+        #expect(generic.contains("data-i18n-aria-label=\"avatar.generic\""))
+
+        let named = I18n.render(language: "de") {
+            renderHTML(
+                Avatar(
+                    AvatarData(firstName: "Ann", picture: "https://e.com/a.jpg")
+                )
+                .render()
+            )
+        }
+        #expect(named.contains("alt=\"Ann\""))
+        #expect(!named.contains("data-i18n"))
+    }
 }

@@ -170,4 +170,20 @@ struct ToggleSwitchTests {
         #expect(html.contains("h-2 w-2"))
         #expect(html.contains("translate-x-3"))
     }
+
+    // MARK: localization
+
+    @Test("the fallback aria-label is built in and translated")
+    func localizedFallbackAriaLabel() {
+        let data = ToggleSwitchData(id: "x", isSelected: false, state: .enabled)
+        let english = renderHTML(ToggleSwitch(data).render())
+        #expect(english.contains("aria-label=\"Toggle switch\""))
+        #expect(
+            english.contains("data-i18n-aria-label=\"toggleswitch.toggle\"")
+        )
+        let german = I18n.render(language: "de") {
+            renderHTML(ToggleSwitch(data).render())
+        }
+        #expect(german.contains("aria-label=\"Umschalter\""))
+    }
 }
