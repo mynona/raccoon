@@ -19,7 +19,7 @@ public struct HyperLink: TemplateRepresentable {
             Tooltip(
                 TooltipData(
                     id: "content\(contentId)",
-                    text: tooltip
+                    text: LocalizedText(verbatim: tooltip)  // i18n-todo
                 )
             )
             .render()

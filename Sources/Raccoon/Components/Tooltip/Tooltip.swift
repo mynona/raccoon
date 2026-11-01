@@ -154,7 +154,8 @@ public struct Tooltip: TemplateRepresentable {
             value: """
                 {
                  tooltipVisible: false,
-                 tooltipText: \(JavaScriptEscaper.alpineStringLiteral(context.text)),
+                 // A getter, so the text follows a language switch (a plain property is evaluated once)
+                 get tooltipText() { return \(context.text.alpineExpression); },
                  tooltipArrow: \(context.hasArrow),
                  tooltipPosition: \(JavaScriptEscaper.alpineStringLiteral(context.position.rawValue)),
                 }

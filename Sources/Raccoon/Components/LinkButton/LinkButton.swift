@@ -28,7 +28,7 @@ public struct LinkButton: TemplateRepresentable {
             Tooltip(
                 TooltipData(
                     id: referenceId,
-                    text: tooltipText,
+                    text: LocalizedText(verbatim: tooltipText),  // i18n-todo
                     position: getTooltipPosition(),
                     hasArrow: true
                 )

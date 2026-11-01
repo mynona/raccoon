@@ -31,7 +31,7 @@ public struct ActionButton: TemplateRepresentable {
                 TooltipData(
                     id: referenceId,
                     bindId: data.bindTooltipId,
-                    text: tooltipText,
+                    text: LocalizedText(verbatim: tooltipText),  // i18n-todo
                     position: getTooltipPosition(),
                     hasArrow: true
                 )

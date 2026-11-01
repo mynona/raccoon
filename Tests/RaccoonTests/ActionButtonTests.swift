@@ -182,7 +182,7 @@ struct ActionButtonTests {
         // Regression: tooltip x-data must use single-quoted JS literals, since the HTML
         // renderer does not escape double quotes inside double-quoted attribute values.
         #expect(html.contains("tooltipPosition: 'top'"))
-        #expect(html.contains("tooltipText: 'Helpful text'"))
+        #expect(html.contains("get tooltipText() { return 'Helpful text'; }"))
     }
 
     @Test("renders dynamic bindId and bindTooltipId attributes")

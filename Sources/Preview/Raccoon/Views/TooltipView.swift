@@ -30,6 +30,23 @@ struct TooltipView: TemplateRepresentable {
                 hasArrow: true
             )
         ),
+        #previewVariant(
+            """
+            // With translations (en, de, fr)
+            """,
+            TooltipData(
+                id: "tooltip-3",
+                text: LocalizedText(
+                    en: "Save your changes",
+                    translations: [
+                        "de": "Änderungen speichern",
+                        "fr": "Enregistrer vos modifications",
+                    ]
+                ),
+                position: .top,
+                hasArrow: true
+            )
+        ),
     ]
 
     func makeHtml(ctx: TooltipData) -> String {
@@ -110,7 +127,7 @@ struct TooltipView: TemplateRepresentable {
                     ) {
                         Div {
 
-                            Button(variant.data.text)
+                            Button(variant.data.text.resolved)
                                 .setAttribute(
                                     name: "x-ref",
                                     value: variant.data.id

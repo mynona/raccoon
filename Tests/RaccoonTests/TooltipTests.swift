@@ -92,4 +92,38 @@ struct TooltipTests {
         #expect(htmlRight.contains("tooltipPosition: 'right'"))
         #expect(htmlRight.contains("tooltipArrow: true"))
     }
+
+    @Test("a literal text is a plain string in the getter")
+    func literalTextIsPlain() {
+        let html = I18n.render(language: "de") {
+            renderHTML(
+                Tooltip(TooltipData(id: "t", text: "Tip")).render()
+            )
+        }
+        #expect(html.contains("get tooltipText() { return 'Tip'; }"))
+        #expect(!html.contains("RaccoonI18n"))
+    }
+
+    @Test("a consumer text follows the language switch through the getter")
+    func consumerTextIsLocalized() {
+        let text = LocalizedText(en: "Save", translations: ["de": "Speichern"])
+        let html = I18n.render(language: "de") {
+            renderHTML(Tooltip(TooltipData(id: "t", text: text)).render())
+        }
+        #expect(
+            html.contains(
+                "get tooltipText() { return (window.RaccoonI18n?RaccoonI18n.pick("
+            )
+        )
+        #expect(html.contains("'de':'Speichern'"))
+        #expect(html.contains("'Speichern'):'Speichern')"))
+    }
+
+    @Test("a quote in the text cannot break the x-data attribute")
+    func quoteIsEscaped() {
+        let html = renderHTML(
+            Tooltip(TooltipData(id: "t", text: "Say \"hi\"")).render()
+        )
+        #expect(html.contains("&quot;hi&quot;"))
+    }
 }

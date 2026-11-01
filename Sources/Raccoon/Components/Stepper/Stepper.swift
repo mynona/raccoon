@@ -60,7 +60,7 @@ public struct Stepper: TemplateRepresentable {
             Tooltip(
                 TooltipData(
                     id: referenceId,
-                    text: text,
+                    text: LocalizedText(verbatim: text),  // i18n-todo
                     position: tooltipPosition(for: step),
                     hasArrow: true
                 )
