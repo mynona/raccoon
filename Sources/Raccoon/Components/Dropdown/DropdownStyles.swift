@@ -33,7 +33,7 @@ public struct DropdownStyles {
 
     // MARK: - Dropdown Panel
     public static let dropdownPanel: String = [
-        "absolute left-0 mt-2 w-full z-50 p-1 border shadow-md",
+        "absolute left-0 mt-2 min-w-full w-max z-50 p-1 border shadow-md",
         CommonStyles.cornerRadiusMedium,
         CommonStyles.backgroundLight,
         CommonStyles.borderColorDefault,

@@ -58,6 +58,7 @@ public struct SimpleMenuStyles {
         CommonStyles.cursorPointer,
         CommonStyles.cornerRadiusMedium,
         CommonStyles.fontSans,
+        CommonStyles.textNoWrap,
         CommonStyles.textSizeSmall,
         CommonStyles.textColorDefault,
         CommonStyles.hoverDefault,
