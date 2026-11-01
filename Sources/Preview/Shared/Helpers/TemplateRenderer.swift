@@ -6,6 +6,9 @@ import Vapor
 /// (`Basic`) reads it to highlight the active sidebar entry and to build the page title.
 enum PreviewRequest {
     @TaskLocal static var path: String = "/"
+    @TaskLocal static var lang: String = "en"
+
+    static let supportedLanguages = ["en", "de", "fr", "es", "it"]
 }
 
 struct TemplateRenderer {
@@ -21,10 +24,32 @@ struct TemplateRenderer {
         minify: Bool = true,
         indent: UInt8 = 4
     ) -> Response {
-        respond(
+        let response = respond(
             render(template, type: .html, minify: minify, indent: indent),
             contentType: "text/html"
         )
+        // `?lang=de` is remembered for the following pages.
+        if let lang = requestedLanguage() {
+            response.cookies["preview-lang"] = .init(string: lang, path: "/")
+        }
+        return response
+    }
+
+    private func requestedLanguage() -> String? {
+        guard let lang = request.query[String.self, at: "lang"],
+            PreviewRequest.supportedLanguages.contains(lang)
+        else { return nil }
+        return lang
+    }
+
+    private func resolvedLanguage() -> String {
+        if let lang = requestedLanguage() { return lang }
+        if let saved = request.cookies["preview-lang"]?.string,
+            PreviewRequest.supportedLanguages.contains(saved)
+        {
+            return saved
+        }
+        return "en"
     }
 
     private func render(
@@ -33,8 +58,17 @@ struct TemplateRenderer {
         minify: Bool,
         indent: UInt8
     ) -> String? {
-        PreviewRequest.$path.withValue(request.url.path) {
-            template.renderString(type: type, minify: minify, indent: indent)
+        let language = resolvedLanguage()
+        return PreviewRequest.$lang.withValue(language) {
+            I18n.render(language: language, collectsUsedKeys: true) {
+                PreviewRequest.$path.withValue(request.url.path) {
+                    template.renderString(
+                        type: type,
+                        minify: minify,
+                        indent: indent
+                    )
+                }
+            }
         }
     }
 

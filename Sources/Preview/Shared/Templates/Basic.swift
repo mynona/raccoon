@@ -244,11 +244,12 @@ public struct Basic: TemplateRepresentable {
                 .setAttribute(name: "x-data", value: "{ search: '' }")
 
                 // Alpine bundle
+                I18n.scripts()
                 Script().src("/js/bundle-min.js")
             }
             .class(styles.body)
         }
-        .lang("en")
+        .lang(PreviewRequest.lang)
         .class(styles.html)
     }
 }
