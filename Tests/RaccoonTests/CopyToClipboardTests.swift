@@ -165,4 +165,37 @@ struct CopyToClipboardTests {
         )
         #expect(!untracked.contains("data-track-content"))
     }
+
+    // MARK: localization
+
+    private func render(language: String = "en") -> String {
+        I18n.render(language: language) {
+            renderHTML(
+                CopyToClipboard(CopyToClipboardData(value: "x")).render()
+            )
+        }
+    }
+
+    @Test("renders the English texts with markers for live switching")
+    func englishWithMarkers() {
+        let html = render()
+        #expect(html.contains("aria-label=\"Copy text\""))
+        #expect(html.contains("data-i18n-aria-label=\"copytoclipboard.copy\""))
+        #expect(html.contains("title=\"Click to copy\""))
+        #expect(html.contains("data-i18n-title=\"copytoclipboard.hint\""))
+        #expect(html.contains("data-i18n=\"copytoclipboard.copied\""))
+        #expect(html.contains(">Copied</span>"))
+        #expect(html.contains("data-i18n=\"copytoclipboard.failed\""))
+        #expect(html.contains(">Failed to copy</span>"))
+    }
+
+    @Test("renders all four texts in the page language")
+    func germanTexts() {
+        let html = render(language: "de")
+        #expect(html.contains("aria-label=\"Text kopieren\""))
+        #expect(html.contains("title=\"Zum Kopieren klicken\""))
+        #expect(html.contains(">Kopiert</span>"))
+        #expect(html.contains(">Kopieren fehlgeschlagen</span>"))
+        #expect(!html.contains(">Copied<"))
+    }
 }

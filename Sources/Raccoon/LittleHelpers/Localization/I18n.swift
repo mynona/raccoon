@@ -118,6 +118,7 @@ public enum Translations {
     public static let all: [String: [String: [String: String]]] = [
         "label": label,
         "actionbutton": actionbutton,
+        "copytoclipboard": copytoclipboard,
         "linkbutton": linkbutton,
         "searchfield": searchfield,
     ]

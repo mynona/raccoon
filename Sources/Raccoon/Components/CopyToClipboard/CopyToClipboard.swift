@@ -20,6 +20,23 @@ public struct CopyToClipboard: TemplateRepresentable {
         self.data = data
     }
 
+    private static let copy = LocalizedText(
+        "copytoclipboard.copy",
+        "Copy text"
+    )
+    private static let hint = LocalizedText(
+        "copytoclipboard.hint",
+        "Click to copy"
+    )
+    private static let copied = LocalizedText(
+        "copytoclipboard.copied",
+        "Copied"
+    )
+    private static let failed = LocalizedText(
+        "copytoclipboard.failed",
+        "Failed to copy"
+    )
+
     @Builder<Element>
     func showIcon() -> [Element] {
         Div {
@@ -41,7 +58,8 @@ public struct CopyToClipboard: TemplateRepresentable {
     @Builder<Element>
     func showCopiedLabel() -> [Element] {
         // "Copied" label, shown only when copy succeeds.
-        Span("Copied")
+        Span(Self.copied.resolved)
+            .localized(Self.copied)
             .class("flex-initial leading-4")
             .addClass(styles.textSize)
             .if(data.orientation == .horizontal) {
@@ -59,7 +77,8 @@ public struct CopyToClipboard: TemplateRepresentable {
                 value: "polite"
             )
 
-        Span("Failed to copy")
+        Span(Self.failed.resolved)
+            .localized(Self.failed)
             .class("flex-initial leading-4")
             .addClass(styles.textColorError)
             .addClass(styles.textSize)
@@ -109,8 +128,8 @@ public struct CopyToClipboard: TemplateRepresentable {
                 value: JavaScriptEscaper.htmlAttributeEscape(data.value)
             )
             .setAttribute(name: "@click", value: "copy($el.dataset.text)")
-            .setAttribute(name: "aria-label", value: "Copy text")
-            .setAttribute(name: "title", value: "Click to copy")
+            .localized(.ariaLabel, Self.copy)
+            .localized(.title, Self.hint)
             // Matomo
             .if(data.matomoStatus == .ACCEPTED || data.matomoStatus == .BANNER)
             {
