@@ -15,7 +15,8 @@ public struct Check: TemplateRepresentable {
     @Builder<Element>
     func showLabel() -> [Element] {
         Div {
-            HTML.Label(data.label ?? "")
+            HTML.Label((data.label ?? "").resolved)
+                .localized(data.label ?? "")
                 .for(data.id)
                 .class(styles.textFontDefault)
                 .if(data.state == .enabled) {

@@ -12,7 +12,7 @@ public struct RadioData: Sendable {
     // MARK: - 2. Content & Accessibility
 
     /// Visible label text displayed next to the radio.
-    public let label: String?
+    public let label: LocalizedText?
 
     // MARK: - 3. Value & Options
 
@@ -44,7 +44,7 @@ public struct RadioData: Sendable {
     /// - Parameters:
     ///   - id: Unique DOM identifier for the radio input.
     ///   - name: Form submission name. Falls back to `id`.
-    ///   - label: Visible label text displayed next to the radio.
+    ///   - label: Visible label text (a `LocalizedText`) displayed next to the radio.
     ///   - value: Value submitted when selected. Falls back to `id`.
     ///   - errorMessages: Error messages displayed below the label.
     ///   - helperText: Helper text displayed below the label.
@@ -57,7 +57,7 @@ public struct RadioData: Sendable {
         name: String? = nil,
 
         // 2. Content & Accessibility
-        label: String? = nil,
+        label: LocalizedText? = nil,
 
         // 3. Value & Options
         value: String? = nil,

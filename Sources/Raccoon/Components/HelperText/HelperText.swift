@@ -15,18 +15,25 @@ public struct HelperText: TemplateRepresentable {
     @Builder<Element>
     public func render() -> [Element] {
         if let title = data.text,
-            !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            !title.english.trimmingCharacters(in: .whitespacesAndNewlines)
+                .isEmpty
         {
             DebugComment("Helper text")
             if data.isMarkdown {
-                Div { InlineText(renderMarkdownAsHTML(title), isRaw: true) }
-                    .id("\(data.id)-helper")
-                    .class("mt-2")
-                    .addClass(styles.textSizeSmall)
-                    .addClass(styles.textColor)
+                Div {
+                    InlineText(
+                        renderMarkdownAsHTML(title.resolved),
+                        isRaw: true
+                    )
+                }
+                .id("\(data.id)-helper")
+                .class("mt-2")
+                .addClass(styles.textSizeSmall)
+                .addClass(styles.textColor)
             }
             else {
-                P(title)
+                P(title.resolved)
+                    .localized(title)
                     .id("\(data.id)-helper")
                     .class("mt-2")
                     .addClass(styles.textSizeSmall)

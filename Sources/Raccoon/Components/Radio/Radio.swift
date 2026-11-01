@@ -22,14 +22,20 @@ public struct Radio: TemplateRepresentable {
         {
             Div {
                 if let label = data.label {
-                    HTML.Label(label)
+                    HTML.Label(label.resolved)
+                        .localized(label)
                         .for(data.id)
-                        .class(isEnabled ? styles.labelEnabled : styles.labelDisabled)
+                        .class(
+                            isEnabled
+                                ? styles.labelEnabled : styles.labelDisabled
+                        )
                 }
                 if let helperText = data.helperText, helperText.hasVisibleText {
                     HelperText(helperText).render()
                 }
-                if let errorMessages = data.errorMessages, errorMessages.hasMessages {
+                if let errorMessages = data.errorMessages,
+                    errorMessages.hasMessages
+                {
                     Div { ErrorMessage(errorMessages).render() }
                         .id("\(data.id)-error")
                 }
@@ -45,7 +51,8 @@ public struct Radio: TemplateRepresentable {
 
         // HelperText renders its own `<helperText.id>-helper` id.
         let helperId: String? =
-            data.helperText?.hasVisibleText == true ? data.helperText.map { "\($0.id)-helper" } : nil
+            data.helperText?.hasVisibleText == true
+            ? data.helperText.map { "\($0.id)-helper" } : nil
         let describedBy: String? =
             switch (helperId, hasError) {
             case (let helperId?, true): "\(helperId) \(data.id)-error"
@@ -61,7 +68,9 @@ public struct Radio: TemplateRepresentable {
                     .name(data.name ?? data.id)
                     .type(.radio)
                     .value(data.value ?? data.id)
-                    .class(isEnabled ? styles.inputEnabled : styles.inputDisabled)
+                    .class(
+                        isEnabled ? styles.inputEnabled : styles.inputDisabled
+                    )
                     .if(data.isSelected) { $0.checked() }
                     .if(!isEnabled) { $0.disabled() }
                     .if(hasError || data.isInvalid) { $0.ariaInvalid(.true) }
@@ -83,7 +92,8 @@ public struct Radio: TemplateRepresentable {
 extension HelperTextData {
     /// Whether the helper text renders anything.
     var hasVisibleText: Bool {
-        !(text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        !(text?.english ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+            .isEmpty
     }
 }
 

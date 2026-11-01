@@ -220,7 +220,9 @@ public struct DataTable: TemplateRepresentable {
                         InputFieldData(
                             id: controlId,
                             label: label(controlId, title),
-                            placeholder: filter.placeholder.map(LocalizedText.init(verbatim:)),
+                            placeholder: filter.placeholder.map(
+                                LocalizedText.init(verbatim:)
+                            ),
                             type: type
                         )
                     )
@@ -273,7 +275,13 @@ public struct DataTable: TemplateRepresentable {
                     key: column.key,
                     kind: "check"
                 ) {
-                    Check(CheckData(id: controlId, label: title)).render()
+                    Check(
+                        CheckData(
+                            id: controlId,
+                            label: LocalizedText(verbatim: title)
+                        )
+                    )
+                    .render()
                 }
             case .date:
                 filterField(

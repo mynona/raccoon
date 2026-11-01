@@ -144,7 +144,10 @@ struct CheckTests {
         let longLabel = String(repeating: "A", count: 1000)
         let html = renderHTML(
             Check(
-                CheckData(id: "cb-long", label: longLabel)
+                CheckData(
+                    id: "cb-long",
+                    label: LocalizedText(verbatim: longLabel)
+                )
             )
             .render()
         )
@@ -183,5 +186,29 @@ struct CheckTests {
             .render()
         )
         #expect(html.contains("Important guidance"))
+    }
+
+    // MARK: localization
+
+    @Test("label and helper text follow the language; the label has a marker")
+    func localizedTexts() {
+        let data = CheckData(
+            id: "cb",
+            label: LocalizedText(
+                en: "Agree",
+                translations: ["de": "Zustimmen"]
+            ),
+            helperText: HelperTextData(
+                id: "cb",
+                text: LocalizedText(en: "Help", translations: ["de": "Hilfe"])
+            )
+        )
+        let english = renderHTML(Check(data).render())
+        #expect(english.contains("data-i18n-values="))
+        let german = I18n.render(language: "de") {
+            renderHTML(Check(data).render())
+        }
+        #expect(german.contains(">Zustimmen</label>"))
+        #expect(german.contains(">Hilfe</p>"))
     }
 }

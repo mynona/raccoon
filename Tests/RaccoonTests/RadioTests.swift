@@ -82,7 +82,9 @@ struct RadioTests {
 
     @Test("plain variant has no aria attributes and no Alpine state")
     func plainVariant() {
-        let html = renderHTML(Radio(RadioData(id: "r1", label: "Plain")).render())
+        let html = renderHTML(
+            Radio(RadioData(id: "r1", label: "Plain")).render()
+        )
         #expect(!html.contains("aria-describedby"))
         #expect(!html.contains("aria-invalid"))
         #expect(!html.contains("x-data"))
@@ -97,7 +99,8 @@ struct RadioTests {
                     label: "Label",
                     helperText: HelperTextData(id: "h", text: "Some help")
                 )
-            ).render()
+            )
+            .render()
         )
         #expect(html.contains("Some help"))
         #expect(html.contains("aria-describedby=\"h-helper\""))
@@ -112,10 +115,12 @@ struct RadioTests {
                 RadioData(
                     id: "r1",
                     label: "Label",
-                    errorMessages: ErrorMessageData(errorMessages: ["Pick one."]),
+                    errorMessages: ErrorMessageData(errorMessages: ["Pick one."]
+                    ),
                     helperText: HelperTextData(id: "h", text: "Some help")
                 )
-            ).render()
+            )
+            .render()
         )
         #expect(html.contains("Pick one."))
         #expect(html.contains("aria-describedby=\"h-helper r1-error\""))
@@ -132,7 +137,8 @@ struct RadioTests {
                     errorMessages: ErrorMessageData(errorMessages: []),
                     helperText: HelperTextData(id: "h", text: "  ")
                 )
-            ).render()
+            )
+            .render()
         )
         #expect(!html.contains("aria-describedby"))
         #expect(!html.contains("aria-invalid"))
@@ -142,7 +148,9 @@ struct RadioTests {
 
     @Test("isInvalid sets aria-invalid without an error message")
     func isInvalid() {
-        let html = renderHTML(Radio(RadioData(id: "r1", isInvalid: true)).render())
+        let html = renderHTML(
+            Radio(RadioData(id: "r1", isInvalid: true)).render()
+        )
         #expect(html.contains("aria-invalid=\"true\""))
         #expect(!html.contains("aria-describedby"))
     }
@@ -152,5 +160,26 @@ struct RadioTests {
         let html = renderHTML(Radio(RadioData(id: "r1")).render())
         #expect(html.contains("radio-input"))
         #expect(!html.contains("check-input"))
+    }
+
+    // MARK: localization
+
+    @Test("label and helper text follow the language; the label has a marker")
+    func localizedTexts() {
+        let data = RadioData(
+            id: "r2",
+            label: LocalizedText(en: "Yes", translations: ["de": "Ja"]),
+            helperText: HelperTextData(
+                id: "r2",
+                text: LocalizedText(en: "Help", translations: ["de": "Hilfe"])
+            )
+        )
+        let english = renderHTML(Radio(data).render())
+        #expect(english.contains("data-i18n-values="))
+        let german = I18n.render(language: "de") {
+            renderHTML(Radio(data).render())
+        }
+        #expect(german.contains(">Ja</label>"))
+        #expect(german.contains(">Hilfe</p>"))
     }
 }

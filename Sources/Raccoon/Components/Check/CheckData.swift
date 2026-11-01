@@ -3,7 +3,7 @@ import HTML
 /// Configuration data for the `Check` (checkbox) component.
 public struct CheckData: Sendable {
     public let id: String
-    public let label: String?
+    public let label: LocalizedText?
     public let name: String?
     public let isSelected: Bool
     public let errorMessages: ErrorMessageData?
@@ -14,7 +14,7 @@ public struct CheckData: Sendable {
     ///
     /// - Parameters:
     ///   - id: Unique DOM identifier for the checkbox input.
-    ///   - label: Optional text label displayed next to the checkbox.
+    ///   - label: Optional text label (a `LocalizedText`) displayed next to the checkbox.
     ///   - name: Optional form submission name attribute.
     ///   - isSelected: Whether the checkbox is currently checked.
     ///   - state: Interaction state of the checkbox (`enabled`, `disabled`).
@@ -22,7 +22,7 @@ public struct CheckData: Sendable {
     ///   - helperText: Optional helper text context displayed below the checkbox.
     public init(
         id: String,
-        label: String? = nil,
+        label: LocalizedText? = nil,
         name: String? = nil,
         isSelected: Bool = false,
         state: ComponentState = .enabled,

@@ -44,7 +44,10 @@ struct HelperTextTests {
     @Test("renders with long text")
     func testLongText() {
         let longText = String(repeating: "H", count: 256)
-        let ctx = HelperTextData(id: "long", text: longText)
+        let ctx = HelperTextData(
+            id: "long",
+            text: LocalizedText(verbatim: longText)
+        )
         let html = renderHTML(HelperText(ctx).render())
         #expect(html.contains(longText))
     }
@@ -80,5 +83,36 @@ struct HelperTextTests {
         #expect(html.contains("id=\"md-help-helper\""))
         #expect(html.contains("href=\"https://example.com\""))
         #expect(html.contains(">docs</a>"))
+    }
+
+    // MARK: localization
+
+    @Test(
+        "a consumer text follows the language and has a marker; markdown is resolved"
+    )
+    func localizedText() {
+        let plain = HelperTextData(
+            id: "f",
+            text: LocalizedText(en: "Hint", translations: ["de": "Hinweis"])
+        )
+        let english = renderHTML(HelperText(plain).render())
+        #expect(english.contains("data-i18n-values="))
+        let german = I18n.render(language: "de") {
+            renderHTML(HelperText(plain).render())
+        }
+        #expect(german.contains(">Hinweis</p>"))
+
+        let markdown = HelperTextData(
+            id: "g",
+            text: LocalizedText(
+                en: "See **docs**",
+                translations: ["de": "Siehe **Doku**"]
+            ),
+            isMarkdown: true
+        )
+        let germanMarkdown = I18n.render(language: "de") {
+            renderHTML(HelperText(markdown).render())
+        }
+        #expect(germanMarkdown.contains("<strong>Doku</strong>"))
     }
 }
