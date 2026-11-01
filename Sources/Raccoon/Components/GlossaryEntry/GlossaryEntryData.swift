@@ -5,8 +5,8 @@ public struct GlossaryEntryData: Sendable {
     public let id: String?
 
     // MARK: - 2. Content & Accessibility
-    public let term: String
-    public let definition: String
+    public let term: LocalizedText
+    public let definition: LocalizedText
 
     // MARK: - 5. Presentation & State
     public let icon: SvgIcon?
@@ -19,15 +19,15 @@ public struct GlossaryEntryData: Sendable {
     ///
     /// - Parameters:
     ///   - id: Optional identifier used for anchor links.
-    ///   - term: The term or concept title.
-    ///   - definition: Markdown or text explanation of the term.
+    ///   - term: The term or concept title (page language). The first letter of the shown term is the initial.
+    ///   - definition: Markdown or text explanation of the term (page language, no live-switch marker).
     ///   - icon: Optional SVG icon displayed with the term.
     ///   - hasInitial: Whether to display a large initial letter heading.
     ///   - matomoStatus: Matomo tracking consent status.
     public init(
         id: String? = nil,
-        term: String,
-        definition: String,
+        term: LocalizedText,
+        definition: LocalizedText,
         icon: SvgIcon? = .question_circle,
         hasInitial: Bool = false,
         matomoStatus: MatomoStatus = .DECLINED

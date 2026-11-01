@@ -3,8 +3,10 @@ import SGML
 import WebBuilders
 
 public enum AccordionContent: Sendable {
-    case html(String)
-    case markdown(String)
+    /// Raw HTML. Rendered in the page language; it has no live-switch marker (it is raw markup).
+    case html(LocalizedText)
+    /// Markdown. Rendered in the page language; it has no live-switch marker.
+    case markdown(LocalizedText)
     case element([any SGML.Element])
 
     public static func element(
@@ -15,8 +17,8 @@ public enum AccordionContent: Sendable {
 
     public var isEmpty: Bool {
         switch self {
-        case .html(let html): html.isEmpty
-        case .markdown(let markdown): markdown.isEmpty
+        case .html(let html): html.english.isEmpty
+        case .markdown(let markdown): markdown.english.isEmpty
         case .element(let elements): elements.isEmpty
         }
     }
@@ -29,7 +31,8 @@ public struct AccordionData: Sendable {
     public let id: String?
 
     // MARK: - 2. Content & Accessibility
-    public let label: String
+    /// Header label text (a `LocalizedText`, with live-switch marker).
+    public let label: LocalizedText
 
     // MARK: - 3. Value & Options
     public let content: AccordionContent
@@ -48,7 +51,7 @@ public struct AccordionData: Sendable {
     ///
     /// - Parameters:
     ///   - id: Optional identifier. Falls back to a hash of the label if omitted.
-    ///   - label: Header label text for the accordion section.
+    ///   - label: Header label text for the accordion section (a `LocalizedText`).
     ///   - content: Content payload (`html`, `markdown`, or `element`).
     ///   - icon: Optional SVG icon to display alongside the label.
     ///   - keyboardKey: Optional keyboard shortcut key indicator.
@@ -58,7 +61,7 @@ public struct AccordionData: Sendable {
     ///   - matomoStatus: Matomo analytics tracking consent status.
     public init(
         id: String? = nil,
-        label: String,
+        label: LocalizedText,
         content: AccordionContent,
         icon: SvgIcon? = nil,
         keyboardKey: String? = nil,
@@ -82,7 +85,7 @@ public struct AccordionData: Sendable {
     ///
     /// - Parameters:
     ///   - id: Optional identifier. Falls back to a hash of the label if omitted.
-    ///   - label: Header label text for the accordion section.
+    ///   - label: Header label text for the accordion section (a `LocalizedText`).
     ///   - content: Builder closure returning an array of HTML/SGML elements.
     ///   - icon: Optional SVG icon to display alongside the label.
     ///   - keyboardKey: Optional keyboard shortcut key indicator.
@@ -92,7 +95,7 @@ public struct AccordionData: Sendable {
     ///   - matomoStatus: Matomo analytics tracking consent status.
     public init(
         id: String? = nil,
-        label: String,
+        label: LocalizedText,
         @Builder<SGML.Element> content: () -> [any SGML.Element],
         icon: SvgIcon? = nil,
         keyboardKey: String? = nil,

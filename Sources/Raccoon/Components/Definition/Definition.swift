@@ -21,7 +21,8 @@ public struct Definition: TemplateRepresentable {
                 .class("flex-initial align-middle")
                 .addClass(styles.icon)
 
-            P(data.term)
+            P(data.term.resolved)
+                .localized(data.term)
                 .class(
                     "flex-1 align-middle !pt-0 !my-0"
                 )
@@ -42,7 +43,7 @@ public struct Definition: TemplateRepresentable {
                 Dd {
                     Div {
                         InlineText(
-                            renderMarkdownAsHTML(data.definition),
+                            renderMarkdownAsHTML(data.definition.resolved),
                             isRaw: true
                         )
                     }

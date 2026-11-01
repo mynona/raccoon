@@ -212,8 +212,8 @@ struct GlossaryEntryTests {
         let html = renderHTML(
             GlossaryEntry(
                 GlossaryEntryData(
-                    term: longTerm,
-                    definition: longDefinition
+                    term: LocalizedText(verbatim: longTerm),
+                    definition: LocalizedText(verbatim: longDefinition)
                 )
             )
             .render()
@@ -314,5 +314,29 @@ struct GlossaryEntryTests {
         #expect(html.contains("Café"))
         #expect(html.contains("☕"))
         #expect(html.contains("🚀"))
+    }
+
+    // MARK: localization
+
+    @Test(
+        "term and definition follow the language; the initial comes from the shown term"
+    )
+    func localizedTexts() {
+        let data = GlossaryEntryData(
+            term: LocalizedText(en: "Apple", translations: ["de": "Zebra"]),
+            definition: LocalizedText(
+                en: "A fruit",
+                translations: ["de": "Ein Tier"]
+            ),
+            hasInitial: true
+        )
+        let english = renderHTML(GlossaryEntry(data).render())
+        #expect(english.contains("data-i18n-values="))
+        let german = I18n.render(language: "de") {
+            renderHTML(GlossaryEntry(data).render())
+        }
+        #expect(german.contains(">Zebra</span>"))
+        #expect(german.contains("Ein Tier"))
+        #expect(german.contains(">Z</kbd>") || german.contains(">Z<"))
     }
 }

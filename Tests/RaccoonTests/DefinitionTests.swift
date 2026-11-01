@@ -79,4 +79,24 @@ struct DefinitionTests {
         #expect(html.contains("href=\"https://graphql.org\""))
         #expect(html.contains("GraphQL"))
     }
+
+    // MARK: localization
+
+    @Test("term and definition follow the language; the term has a marker")
+    func localizedTexts() {
+        let data = DefinitionData(
+            term: LocalizedText(en: "Term", translations: ["de": "Begriff"]),
+            definition: LocalizedText(
+                en: "**Meaning**",
+                translations: ["de": "**Bedeutung**"]
+            )
+        )
+        let english = renderHTML(Definition(data).render())
+        #expect(english.contains("data-i18n-values="))
+        let german = I18n.render(language: "de") {
+            renderHTML(Definition(data).render())
+        }
+        #expect(german.contains(">Begriff</p>"))
+        #expect(german.contains("<strong>Bedeutung</strong>"))
+    }
 }

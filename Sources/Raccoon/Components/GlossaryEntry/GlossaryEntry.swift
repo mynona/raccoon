@@ -26,7 +26,8 @@ public struct GlossaryEntry: TemplateRepresentable {
 
             let key: String? =
                 (data.hasInitial)
-                ? data.term.first { !$0.isWhitespace }.map { String($0) }
+                ? data.term.resolved.first { !$0.isWhitespace }
+                    .map { String($0) }
                 : nil
 
             // Note: labelIsMonoFont is intentionally and deliberately forced to true
@@ -34,7 +35,7 @@ public struct GlossaryEntry: TemplateRepresentable {
             Accordion(
                 AccordionData(
                     id: data.id,
-                    label: "\(data.term)",
+                    label: data.term,
                     content: .markdown(data.definition),
                     icon: icon,
                     keyboardKey: key,

@@ -17,15 +17,17 @@ public struct Accordion: TemplateRepresentable {
     func makeContent() -> [Element] {
         switch data.content {
         case .html(let html):
-            Div { InlineText(html, isRaw: true) }
+            Div { InlineText(html.resolved, isRaw: true) }
                 .if(data.isContentSansSerif) {
                     $0.addClass(styles.fontSans)
                 }
         case .markdown(let markdown):
-            Div { InlineText(renderMarkdownAsHTML(markdown), isRaw: true) }
-                .if(data.isContentSansSerif) {
-                    $0.addClass(styles.fontSans)
-                }
+            Div {
+                InlineText(renderMarkdownAsHTML(markdown.resolved), isRaw: true)
+            }
+            .if(data.isContentSansSerif) {
+                $0.addClass(styles.fontSans)
+            }
         case .element(let elements):
             elements
         }
@@ -58,7 +60,8 @@ public struct Accordion: TemplateRepresentable {
                         .class("flex-initial")
                     }
 
-                    Span(data.label)
+                    Span(data.label.resolved)
+                        .localized(data.label)
                         .class("flex-1 w-full")
                         .addClass(styles.summaryLabel)
                         .if(data.isLabelMonospaced) {
@@ -116,7 +119,7 @@ public struct Accordion: TemplateRepresentable {
                 )
                 .setAttribute(
                     name: "data-content-target",
-                    value: data.label
+                    value: data.label.english
                 )
 
         }
@@ -126,7 +129,7 @@ public struct Accordion: TemplateRepresentable {
     public func render() -> [Element] {
 
         DebugComment("Accordion")
-        let componentId = data.id ?? StableIdentifier.unique(data.label)
+        let componentId = data.id ?? StableIdentifier.unique(data.label.english)
         Div {
             Div { showDetails(id: componentId) }
                 .class("pt-4")

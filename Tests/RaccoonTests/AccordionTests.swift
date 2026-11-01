@@ -261,4 +261,46 @@ struct AccordionTests {
         #expect(html.contains("id=\"accordion-custom-id-heading\""))
         #expect(html.contains("id=\"accordion-custom-id-content\""))
     }
+
+    // MARK: localization
+
+    @Test(
+        "a consumer label is translated with a marker; html and markdown content follow the language"
+    )
+    func localizedTexts() {
+        let data = AccordionData(
+            label: LocalizedText(
+                en: "Question",
+                translations: ["de": "Frage"]
+            ),
+            content: .html(
+                LocalizedText(
+                    en: "<p>Answer</p>",
+                    translations: ["de": "<p>Antwort</p>"]
+                )
+            )
+        )
+        let english = renderHTML(Accordion(data).render())
+        #expect(english.contains("data-i18n-values="))
+        #expect(english.contains("<p>Answer</p>"))
+        let german = I18n.render(language: "de") {
+            renderHTML(Accordion(data).render())
+        }
+        #expect(german.contains(">Frage</span>"))
+        #expect(german.contains("<p>Antwort</p>"))
+
+        let markdown = AccordionData(
+            label: "Plain",
+            content: .markdown(
+                LocalizedText(
+                    en: "**Answer**",
+                    translations: ["de": "**Antwort**"]
+                )
+            )
+        )
+        let germanMarkdown = I18n.render(language: "de") {
+            renderHTML(Accordion(markdown).render())
+        }
+        #expect(germanMarkdown.contains("<strong>Antwort</strong>"))
+    }
 }

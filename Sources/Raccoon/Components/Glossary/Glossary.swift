@@ -66,7 +66,7 @@ public struct Glossary: TemplateRepresentable {
         var sections: [AlphabetSection] = []
         for entry in data.entriesSortedAlphabetically {
             let letter =
-                entry.term.first { !$0.isWhitespace }
+                entry.term.resolved.first { !$0.isWhitespace }
                 .map { String($0).uppercased() } ?? "#"
             if let lastIndex = sections.indices.last,
                 sections[lastIndex].letter == letter
@@ -103,7 +103,7 @@ public struct Glossary: TemplateRepresentable {
                     + section.entries
                     .map {
                         JavaScriptEscaper.alpineStringLiteral(
-                            $0.term.lowercased()
+                            $0.term.resolved.lowercased()
                         )
                     }
                     .joined(separator: ", ") + "]"
@@ -114,12 +114,13 @@ public struct Glossary: TemplateRepresentable {
                         for entry in section.entries {
                             let termLiteral =
                                 JavaScriptEscaper.alpineStringLiteral(
-                                    entry.term.lowercased()
+                                    entry.term.resolved.lowercased()
                                 )
 
                             if data.hasSearch {
                                 Div {
-                                    Dt(entry.term)
+                                    Dt(entry.term.resolved)
+                                        .localized(entry.term)
                                         .class("sr-only")
                                     Dd {
                                         GlossaryEntry(
@@ -142,7 +143,8 @@ public struct Glossary: TemplateRepresentable {
                                 )
                             }
                             else {
-                                Dt(entry.term)
+                                Dt(entry.term.resolved)
+                                    .localized(entry.term)
                                     .class("sr-only")
                                 Dd {
                                     GlossaryEntry(
@@ -184,7 +186,11 @@ public struct Glossary: TemplateRepresentable {
         let termsArrayLiteral =
             "["
             + data.entriesSortedAlphabetically
-            .map { JavaScriptEscaper.alpineStringLiteral($0.term.lowercased()) }
+            .map {
+                JavaScriptEscaper.alpineStringLiteral(
+                    $0.term.resolved.lowercased()
+                )
+            }
             .joined(separator: ", ") + "]"
 
         let xDataExpression = "{ search: '', terms: \(termsArrayLiteral) }"

@@ -21,7 +21,7 @@ public struct GlossaryData: Sendable {
 
     public var entriesSortedAlphabetically: [GlossaryEntryData] {
         entries.sorted {
-            $0.term.localizedCaseInsensitiveCompare($1.term)
+            $0.term.resolved.localizedCaseInsensitiveCompare($1.term.resolved)
                 == .orderedAscending
         }
     }
