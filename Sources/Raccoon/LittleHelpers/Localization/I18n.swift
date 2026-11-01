@@ -126,6 +126,7 @@ public enum Translations {
         "checkboxselect": checkboxselect,
         "badge": badge,
         "cookiebanner": cookiebanner,
+        "audioplayer": audioplayer,
         "darklightmodetoggle": darklightmodetoggle,
         "deletemodal": deletemodal,
         "fieldvalidation": fieldvalidation,

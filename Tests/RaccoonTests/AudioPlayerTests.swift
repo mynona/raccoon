@@ -253,4 +253,56 @@ struct AudioPlayerTests {
         #expect(!html.contains("x-ref=\"progressThumb\""))
         #expect(!html.contains("x-ref=\"progressTooltip\""))
     }
+
+    // MARK: localization
+
+    @Test(
+        "labels follow the language; Alpine picks the play/pause label in the browser"
+    )
+    func localizedLabels() {
+        let data = AudioPlayerData(
+            linkToTheAudioFile: "https://example.com/a.mp3"
+        )
+        let german = I18n.render(language: "de") {
+            renderHTML(AudioPlayer(data).render())
+        }
+        #expect(german.contains("aria-label=\"Audioplayer\""))
+        #expect(
+            german.contains(
+                "aria-label=\"Fortschrittsregler der Audiowiedergabe\""
+            )
+        )
+        #expect(german.contains("aria-label=\"Wiedergabe\""))
+        #expect(
+            german.contains(
+                ":aria-label=\"playing ? (window.RaccoonI18n?RaccoonI18n.t('audioplayer.pause',null,'Pause'):'Pause') : "
+            )
+        )
+
+        let titled = AudioPlayerData(
+            title: "Episode 1",
+            linkToTheAudioFile: "https://example.com/a.mp3"
+        )
+        let html = I18n.render(language: "fr") {
+            renderHTML(AudioPlayer(titled).render())
+        }
+        #expect(html.contains("aria-label=\"Lecteur audio pour Episode 1\""))
+    }
+
+    @Test("the announcements of audioplayer.js land in the page dictionary")
+    func scriptTextsAreRegistered() {
+        let data = AudioPlayerData(
+            linkToTheAudioFile: "https://example.com/a.mp3"
+        )
+        let html = I18n.render(language: "de", collectsUsedKeys: true) {
+            _ = renderHTML(AudioPlayer(data).render())
+            return renderHTML(I18n.scripts())
+        }
+        #expect(html.contains("\"paused\":\"Audio pausiert\""))
+        #expect(
+            html.contains(
+                "\"skipped\":\"{{seconds}} Sekunden übersprungen. Wiedergabe läuft.\""
+            )
+        )
+    }
 }

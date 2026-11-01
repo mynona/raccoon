@@ -1,10 +1,15 @@
-// V2.0
+// V2.1
 
 /* Alpine component: custom audio player controls (play/pause, skip, pointer-drag scrub, floating tooltip, time display). */
 
 // Guard against double registration if the script is included twice
 if (!window.__audioPlayerLoaded) {
   window.__audioPlayerLoaded = true;
+
+  // Announcements come from the i18n store (translations are registered by the page); the English
+  // text is the fallback when the store is not loaded.
+  const i18n = (key, vars, fallback) =>
+    window.RaccoonI18n ? window.RaccoonI18n.t(key, vars, fallback) : fallback;
 
   function registerPlayerData() {
     if (typeof Alpine === 'undefined') return;
@@ -86,7 +91,8 @@ if (!window.__audioPlayerLoaded) {
             await playPromise;
           }
           this.playing = true;
-          this.statusAnnouncement = `Skipped ${t > 0 ? t : Math.abs(t)} seconds. Now playing.`;
+          const seconds = t > 0 ? t : Math.abs(t);
+          this.statusAnnouncement = i18n('audioplayer.skipped', { seconds: seconds }, `Skipped ${seconds} seconds. Now playing.`);
         } catch (err) {
           console.warn('[audioPlayer] Playback was prevented or aborted:', err);
           this.playing = false;
@@ -109,7 +115,7 @@ if (!window.__audioPlayerLoaded) {
         if (this.playing) {
           player.pause();
           this.playing = false;
-          this.statusAnnouncement = 'Audio paused';
+          this.statusAnnouncement = i18n('audioplayer.paused', null, 'Audio paused');
         } else {
           try {
             const playPromise = player.play();
@@ -117,7 +123,7 @@ if (!window.__audioPlayerLoaded) {
               await playPromise;
             }
             this.playing = true;
-            this.statusAnnouncement = 'Audio playing';
+            this.statusAnnouncement = i18n('audioplayer.playing', null, 'Audio playing');
           } catch (err) {
             console.warn('[audioPlayer] Playback was prevented or aborted:', err);
             this.playing = false;

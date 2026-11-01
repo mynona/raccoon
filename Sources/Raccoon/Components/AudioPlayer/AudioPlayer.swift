@@ -7,6 +7,32 @@ import WebBuilders
 public struct AudioPlayer: TemplateRepresentable {
     let data: AudioPlayerData
     typealias styles = AudioPlayerStyles
+
+    /// Announcements that `audioplayer.js` makes. The script asks the i18n store for them, so they are
+    /// recorded here to land in the page dictionary.
+    private static let scriptTexts: [LocalizedText] = [
+        LocalizedText(
+            "audioplayer.skipped",
+            "Skipped {{seconds}} seconds. Now playing."
+        ),
+        LocalizedText("audioplayer.paused", "Audio paused"),
+        LocalizedText("audioplayer.playing", "Audio playing"),
+    ]
+
+    private static func recordScriptTexts() {
+        for text in scriptTexts { text.recordUse() }
+    }
+
+    private static let play = LocalizedText("audioplayer.play", "Play")
+    private static let pause = LocalizedText("audioplayer.pause", "Pause")
+    private static let progress = LocalizedText(
+        "audioplayer.progress",
+        "Audio progress slider"
+    )
+    private static let player = LocalizedText(
+        "audioplayer.player",
+        "Audio Player"
+    )
     typealias buttonStyles = ActionButtonStyles
 
     public init(_ data: AudioPlayerData) {
@@ -127,7 +153,7 @@ public struct AudioPlayer: TemplateRepresentable {
                     name: "x-show",
                     value: "!playing"
                 )
-                .ariaLabel("Play")
+                .localized(.ariaLabel, Self.play)
 
                 Span {
                     Svg.icon(.pause, width: 32, height: 32)
@@ -136,7 +162,7 @@ public struct AudioPlayer: TemplateRepresentable {
                     name: "x-show",
                     value: "playing"
                 )
-                .ariaLabel("Pause")
+                .localized(.ariaLabel, Self.pause)
             }
             .setAttribute(
                 name: "@click",
@@ -145,7 +171,8 @@ public struct AudioPlayer: TemplateRepresentable {
             .type(.button)
             .setAttribute(
                 name: ":aria-label",
-                value: "playing ? 'Pause' : 'Play'"
+                value:
+                    "playing ? \(Self.pause.alpineExpression) : \(Self.play.alpineExpression)"
             )
             .flagAttribute("x-cloak")
             .addClass("h-8 w-8 flex items-center justify-center")
@@ -221,7 +248,7 @@ public struct AudioPlayer: TemplateRepresentable {
                 name: "@click",
                 value: "scrub($event)"
             )
-            .ariaLabel("Audio progress slider")
+            .localized(.ariaLabel, Self.progress)
             .setAttribute(
                 name: "x-show",
                 value: "metaDataLoaded"
@@ -361,7 +388,8 @@ public struct AudioPlayer: TemplateRepresentable {
             .setAttribute(name: "x-show", value: "metaDataLoaded && showThumb")
             .setAttribute(
                 name: ":style",
-                value: "`left: ${progressPercent}%; transform: translate(-50%, -50%);`"
+                value:
+                    "`left: ${progressPercent}%; transform: translate(-50%, -50%);`"
             )
             .class(styles.progressThumbContainer)
         }
@@ -372,6 +400,7 @@ public struct AudioPlayer: TemplateRepresentable {
     @Builder<Element>
     public func render() -> [Element] {
         DebugComment("Audio Player widget")
+        let _ = Self.recordScriptTexts()
 
         // Intentional: the component ships its own script tag; duplicates are handled by the
         // window.__audioPlayerLoaded guard. Do not move into the page template during component audits.
@@ -398,11 +427,18 @@ public struct AudioPlayer: TemplateRepresentable {
         .setAttribute(name: "x-data", value: "playerData()")
         .if(data.title != nil) {
             if let title = data.title {
-                return $0.ariaLabel("Audio Player for \(title)")
+                return $0.localized(
+                    .ariaLabel,
+                    LocalizedText(
+                        "audioplayer.playerFor",
+                        "Audio Player for {{title}}",
+                        variables: ["title": title]
+                    )
+                )
             }
             return $0
         } else: {
-            $0.ariaLabel("Audio Player")
+            $0.localized(.ariaLabel, Self.player)
         }
         .class(styles.playerBorder)
     }
