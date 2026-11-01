@@ -490,7 +490,10 @@ struct DatePickerTests {
             DatePicker(DatePickerData(id: "when", label: nil)).render()
         )
         #expect(single.contains("isEmpty: true"))
-        #expect(single.contains("name=\"when\" x-ref=\"date\"") || single.contains("name=\"when\""))
+        #expect(
+            single.contains("name=\"when\" x-ref=\"date\"")
+                || single.contains("name=\"when\"")
+        )
         #expect(!single.contains("Sun Jun"))
 
         let range = renderHTML(
@@ -511,11 +514,42 @@ struct DatePickerTests {
     func testYearBounds() {
         let bounded = renderHTML(
             DatePicker(
-                DatePickerData(id: "d", value: nil, minYear: 1898, maxYear: 1941)
-            ).render()
+                DatePickerData(
+                    id: "d",
+                    value: nil,
+                    minYear: 1898,
+                    maxYear: 1941
+                )
+            )
+            .render()
         )
         #expect(bounded.contains("minYear: 1898, maxYear: 1941"))
         let defaults = renderHTML(DatePicker(makeData()).render())
         #expect(defaults.contains("minYear: null, maxYear: null"))
+    }
+
+    // MARK: localization
+
+    @Test(
+        "placeholders, aria-labels and weekday headers are built in and translated"
+    )
+    func localizedTexts() {
+        let ctx = makeData(label: LabelData(id: "d", title: "Date"))
+        let english = renderHTML(DatePicker(ctx).render())
+        for key in [
+            "dd", "mm", "yyyy", "day", "month", "year", "openCalendar",
+            "monday", "sunday", "weekNumber",
+        ] {
+            #expect(english.contains("datepicker.\(key)"), "\(key)")
+        }
+        let german = I18n.render(language: "de") {
+            renderHTML(DatePicker(ctx).render())
+        }
+        #expect(german.contains("placeholder=\"TT\""))
+        #expect(german.contains("placeholder=\"JJJJ\""))
+        #expect(german.contains("aria-label=\"Tag\""))
+        #expect(german.contains("aria-label=\"Kalenderansicht öffnen\""))
+        #expect(german.contains(">Di</span>"))
+        #expect(german.contains(">So</span>"))
     }
 }

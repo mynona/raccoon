@@ -69,6 +69,41 @@ public struct DatePicker: TemplateRepresentable {
     let data: DatePickerData
     typealias styles = DatePickerStyles
 
+    private static let dd = LocalizedText("datepicker.dd", "DD")
+    private static let mm = LocalizedText("datepicker.mm", "MM")
+    private static let yyyy = LocalizedText("datepicker.yyyy", "YYYY")
+    private static let day = LocalizedText("datepicker.day", "Day")
+    private static let month = LocalizedText("datepicker.month", "Month")
+    private static let year = LocalizedText("datepicker.year", "Year")
+    private static let selectYear = LocalizedText(
+        "datepicker.selectYear",
+        "Select Year"
+    )
+    private static let previousMonth = LocalizedText(
+        "datepicker.previousMonth",
+        "Previous month"
+    )
+    private static let nextMonth = LocalizedText(
+        "datepicker.nextMonth",
+        "Next month"
+    )
+    private static let openCalendar = LocalizedText(
+        "datepicker.openCalendar",
+        "Open calendar view"
+    )
+    private static let calendar = LocalizedText(
+        "datepicker.calendar",
+        "Calendar"
+    )
+    private static let wWk = LocalizedText("datepicker.weekNumber", "Wk")
+    private static let wMo = LocalizedText("datepicker.monday", "Mo")
+    private static let wTu = LocalizedText("datepicker.tuesday", "Tu")
+    private static let wWe = LocalizedText("datepicker.wednesday", "We")
+    private static let wTh = LocalizedText("datepicker.thursday", "Th")
+    private static let wFr = LocalizedText("datepicker.friday", "Fr")
+    private static let wSa = LocalizedText("datepicker.saturday", "Sa")
+    private static let wSu = LocalizedText("datepicker.sunday", "Su")
+
     public init(
         _ data: DatePickerData
     ) {
@@ -145,8 +180,8 @@ public struct DatePicker: TemplateRepresentable {
             }
             .type(.text)
             .setAttribute(name: "inputmode", value: "numeric")
-            .placeholder("DD")
-            .ariaLabel("Day")
+            .localized(.placeholder, Self.dd)
+            .localized(.ariaLabel, Self.day)
             .value(initialDay(data.value))
             .setAttribute(name: "maxlength", value: "2")
             .setAttribute(name: "size", value: "2")
@@ -188,8 +223,8 @@ public struct DatePicker: TemplateRepresentable {
             }
             .type(.text)
             .setAttribute(name: "inputmode", value: "numeric")
-            .placeholder("MM")
-            .ariaLabel("Month")
+            .localized(.placeholder, Self.mm)
+            .localized(.ariaLabel, Self.month)
             .value(initialMonth(data.value))
             .setAttribute(name: "maxlength", value: "2")
             .setAttribute(name: "size", value: "2")
@@ -231,8 +266,8 @@ public struct DatePicker: TemplateRepresentable {
             }
             .type(.text)
             .setAttribute(name: "inputmode", value: "numeric")
-            .placeholder("YYYY")
-            .ariaLabel("Year")
+            .localized(.placeholder, Self.yyyy)
+            .localized(.ariaLabel, Self.year)
             .value(initialYear(data.value))
             .setAttribute(name: "maxlength", value: "4")
             .setAttribute(name: "size", value: "4")
@@ -436,7 +471,7 @@ public struct DatePicker: TemplateRepresentable {
                             "openYearDropdown = !openYearDropdown; openYearDropdown2 = false"
                     )
                     .class(styles.yearDropdownTrigger)
-                    .ariaLabel("Select Year")
+                    .localized(.ariaLabel, Self.selectYear)
 
                     Div {
                         Template {
@@ -497,7 +532,7 @@ public struct DatePicker: TemplateRepresentable {
                 .addClass(styles.textColorMuted)
                 .addClass(styles.hoverDefault)
                 .addClass(styles.focusDefault)
-                .ariaLabel("Previous Month")
+                .localized(.ariaLabel, Self.previousMonth)
 
                 if !data.isRange {
                     Button {
@@ -519,7 +554,7 @@ public struct DatePicker: TemplateRepresentable {
                     .addClass(styles.textColorMuted)
                     .addClass(styles.hoverDefault)
                     .addClass(styles.focusDefault)
-                    .ariaLabel("Next month")
+                    .localized(.ariaLabel, Self.nextMonth)
                 }
             }
             .class("flex items-center space-x-1")
@@ -529,31 +564,31 @@ public struct DatePicker: TemplateRepresentable {
         // Day of Week Headers: CSS Grid with 8 columns
         Div {
             Div {
-                Span("Wk")
+                Span(Self.wWk.resolved).localized(Self.wWk)
             }
             .class("text-[11px] border-r pr-1")
             .addClass(styles.regularBorder)
 
             Div {
-                Span("Mo")
+                Span(Self.wMo.resolved).localized(Self.wMo)
             }
             Div {
-                Span("Tu")
+                Span(Self.wTu.resolved).localized(Self.wTu)
             }
             Div {
-                Span("We")
+                Span(Self.wWe.resolved).localized(Self.wWe)
             }
             Div {
-                Span("Th")
+                Span(Self.wTh.resolved).localized(Self.wTh)
             }
             Div {
-                Span("Fr")
+                Span(Self.wFr.resolved).localized(Self.wFr)
             }
             Div {
-                Span("Sa")
+                Span(Self.wSa.resolved).localized(Self.wSa)
             }
             Div {
-                Span("Su")
+                Span(Self.wSu.resolved).localized(Self.wSu)
             }
         }
         .class(
@@ -737,7 +772,7 @@ public struct DatePicker: TemplateRepresentable {
                     .addClass(styles.textColorMuted)
                     .addClass(styles.hoverDefault)
                     .addClass(styles.focusDefault)
-                    .ariaLabel("Next month")
+                    .localized(.ariaLabel, Self.nextMonth)
                 }
                 .class("flex items-center space-x-1")
             }
@@ -746,31 +781,31 @@ public struct DatePicker: TemplateRepresentable {
             // Day of Week Headers: CSS Grid with 8 columns
             Div {
                 Div {
-                    Span("Wk")
+                    Span(Self.wWk.resolved).localized(Self.wWk)
                 }
                 .class("text-[11px] border-r pr-1")
                 .addClass(styles.regularBorder)
 
                 Div {
-                    Span("Mo")
+                    Span(Self.wMo.resolved).localized(Self.wMo)
                 }
                 Div {
-                    Span("Tu")
+                    Span(Self.wTu.resolved).localized(Self.wTu)
                 }
                 Div {
-                    Span("We")
+                    Span(Self.wWe.resolved).localized(Self.wWe)
                 }
                 Div {
-                    Span("Th")
+                    Span(Self.wTh.resolved).localized(Self.wTh)
                 }
                 Div {
-                    Span("Fr")
+                    Span(Self.wFr.resolved).localized(Self.wFr)
                 }
                 Div {
-                    Span("Sa")
+                    Span(Self.wSa.resolved).localized(Self.wSa)
                 }
                 Div {
-                    Span("Su")
+                    Span(Self.wSu.resolved).localized(Self.wSu)
                 }
             }
             .class(
@@ -994,7 +1029,7 @@ public struct DatePicker: TemplateRepresentable {
 
                     Svg.icon(
                         .calendar,
-                        title: "Calendar",
+                        title: Self.calendar,
                         width: 16,
                         height: 16,
                         role: .img
@@ -1123,7 +1158,7 @@ public struct DatePicker: TemplateRepresentable {
                                     name: "@click.stop",
                                     value: "prevMonth()"
                                 )
-                                .ariaLabel("Previous month")
+                                .localized(.ariaLabel, Self.previousMonth)
                                 .class(styles.stepperButton)
                             }
 
@@ -1131,7 +1166,7 @@ public struct DatePicker: TemplateRepresentable {
                             Div {
                                 Svg.icon(
                                     .calendar,
-                                    title: "Calendar",
+                                    title: Self.calendar,
                                     width: 16,
                                     height: 16,
                                     role: .img
@@ -1183,7 +1218,7 @@ public struct DatePicker: TemplateRepresentable {
                                     )
                                     .class(styles.weekNumberBadge)
                             }
-                            .ariaLabel("Open calendar view")
+                            .localized(.ariaLabel, Self.openCalendar)
                             .setAttribute(
                                 name: ":aria-expanded",
                                 value: "showDatepicker"
@@ -1210,7 +1245,7 @@ public struct DatePicker: TemplateRepresentable {
                                     name: "@click.stop",
                                     value: "nextMonth()"
                                 )
-                                .ariaLabel("Next month")
+                                .localized(.ariaLabel, Self.nextMonth)
                                 .class(styles.stepperButton)
                             }
                         }
