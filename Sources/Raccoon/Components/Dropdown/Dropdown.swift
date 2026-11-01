@@ -255,7 +255,7 @@ public struct Dropdown: TemplateRepresentable {
                 }
                 .setAttribute(name: "x-ref", value: "panel")
                 .setAttribute(name: "x-show", value: "open")
-                .flagAttribute("x-transition.origin.top.left")
+                .flagAttribute("x-transition.origin.top")
                 .setAttribute(name: "@click.outside", value: "open = false")
                 .setAttribute(
                     name: ":id",
