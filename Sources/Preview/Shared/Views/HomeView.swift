@@ -11,67 +11,39 @@ struct HomeView: TemplateRepresentable {
     func render() -> [Element] {
 
         let name = ["name": PreviewTexts.productName]
-        let componentCount = PreviewNavigation.groups.flatMap(\.sections)
-            .flatMap(\.items).filter { !$0.isOpenInNewTab }.count
-        let kitText = PreviewTexts.kitText.with(
-            variables: ["count": "\(componentCount)"]
-        )
 
-        Basic(title: PreviewTexts.overview.resolved) {
+        Basic(title: PreviewTexts.overview.resolved, contentPadding: false) {
 
             Div {
-
-                showComponentTitle(
-                    PreviewTexts.homeTitle.with(variables: name).resolved
-                )
-
-                P(PreviewTexts.homeIntro.with(variables: name).resolved)
-                    .localized(PreviewTexts.homeIntro.with(variables: name))
-                    .class(["mb-8 text-base", CommonStyles.textColorDefault].joined(separator: " "))
+                // Subtle decorative background illustration stretching across the full content area
+                Div {
+                    Img(src: "/images/raccoon-sketch-branch.png", alt: "")
+                        .setAttribute(name: "aria-hidden", value: "true")
+                        .setAttribute(
+                            name: "style",
+                            value: "opacity: 0.10; mix-blend-mode: multiply;"
+                        )
+                        .class("w-full h-full object-cover object-center pointer-events-none select-none dark:invert")
+                }
+                .class("pointer-events-none select-none absolute inset-0 w-full h-full overflow-hidden -z-0")
+                .setAttribute(name: "aria-hidden", value: "true")
 
                 Div {
-                    // Card 1: Raccoon UI Kit
                     Div {
-                        H2(PreviewTexts.kitTitle.with(variables: name).resolved)
-                            .localized(
-                                PreviewTexts.kitTitle.with(variables: name)
-                            )
-                            .class(
-                                ["mb-2 text-lg font-bold", CommonStyles.textColorEmphasized].joined(separator: " ")
-                            )
-                        P(kitText.resolved)
-                            .localized(kitText)
-                            .class(
-                                ["mb-6 text-sm", CommonStyles.textColorDefault].joined(separator: " ")
-                            )
-                        LinkButton(
-                            LinkButtonData(
-                                label: PreviewTexts.browse.with(
-                                    variables: name
-                                ),
-                                href: "/preview/accordion",
-                                buttonType: .secondary,
-                                icon: .arrow_right_circle,
-                                contentTracker: tracker
-                            )
+                        showComponentTitle(
+                            PreviewTexts.homeTitle.with(variables: name).resolved
                         )
-                        .render()
+
+                        P(PreviewTexts.homeIntro.with(variables: name).resolved)
+                            .localized(PreviewTexts.homeIntro.with(variables: name))
+                            .class(["mb-8 text-base", CommonStyles.textColorDefault].joined(separator: " "))
                     }
-                    .class(
-                        [
-                            "p-6 flex flex-col justify-between",
-                            CommonStyles.cornerRadiusLarge,
-                            "border",
-                            CommonStyles.borderColorDefault,
-                            CommonStyles.backgroundLight,
-                        ]
-                        .joined(separator: " ")
-                    )
+                    .class("max-w-6xl mx-auto p-6 md:p-8 lg:p-10")
                 }
-                .class("grid grid-cols-1 gap-6 mt-6")
+                .class("relative z-10 w-full")
 
             }
-            .class("mt-4 space-y-6")
+            .class("relative w-full min-h-screen overflow-hidden")
 
         }
         .render()

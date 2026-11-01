@@ -8,20 +8,25 @@ public struct Basic: TemplateRepresentable {
     typealias styles = BasicStyles
 
     let title: String?
+    let contentPadding: Bool
     let TEMPLATE_MAIN: [Element]
 
     public init(
         title: String? = nil,
+        contentPadding: Bool = true,
         @Builder<Element> _ builder: () -> [Element]
     ) {
         self.title = title
+        self.contentPadding = contentPadding
         self.TEMPLATE_MAIN = builder()
     }
 
     public init(
+        contentPadding: Bool = true,
         @Builder<Element> _ builder: () -> [Element]
     ) {
         self.title = nil
+        self.contentPadding = contentPadding
         self.TEMPLATE_MAIN = builder()
     }
 
@@ -231,14 +236,18 @@ public struct Basic: TemplateRepresentable {
                     renderSidebar()
 
                     Main {
-                        Div {
+                        if contentPadding {
+                            Div {
+                                TEMPLATE_MAIN
+                            }
+                            .class(styles.contentContainer)
+                        } else {
                             TEMPLATE_MAIN
                         }
-                        .class(styles.contentContainer)
                     }
                     .id("main")
                     .setAttribute(name: "role", value: "main")
-                    .class(styles.main)
+                    .class(contentPadding ? styles.main : styles.mainNoPadding)
                 }
                 .class(styles.layout)
                 .setAttribute(name: "x-data", value: "{ search: '' }")

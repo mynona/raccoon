@@ -96,5 +96,10 @@ public struct BasicStyles {
     ]
     .joined(separator: " ")
 
+    public static let mainNoPadding: String = [
+        "flex-1 w-full min-w-0 overflow-y-auto"
+    ]
+    .joined(separator: " ")
+
     public static let contentContainer: String = "max-w-6xl mx-auto"
 }
