@@ -105,53 +105,53 @@ public struct DeleteModal: TemplateRepresentable {
     }
 
     @Builder<Element>
-    func showActionBar() -> [Element] {
-        Div {
-
-            Div {
-                ActionButton(
-                    ActionButtonData(
-                        action: data.deletionRedirect,
-                        method: .post,
-                        label: Self.yes,
-                        htmlType: .submit,
-                        buttonType: .warning,
-                        contentTracker: MatomoContentTracker(
-                            name: "delete-modal",
-                            piece: "button.delete",
-                            target: ""
+    func showForm() -> [Element] {
+        FormBuilder(
+            FormBuilderData(
+                id: StableIdentifier.unique("delete-modal"),
+                action: data.deletionRedirect,
+                method: .post,
+                csrfToken: data.csrfToken,
+                fields: [],
+                actions: [
+                    .button(
+                        ActionButtonData(
+                            action: data.deletionRedirect,
+                            clickAction: "open = false, $store.modal = false",
+                            method: .post,
+                            label: Self.yes,
+                            htmlType: .submit,
+                            buttonType: .warning,
+                            hasFullWidth: true,
+                            contentTracker: MatomoContentTracker(
+                                name: "delete-modal",
+                                piece: "button.delete",
+                                target: ""
+                            )
                         )
-                    )
-                )
-                .render()
-            }
-            .class("flex-initial")
-
-            Div {
-                ActionButton(
-                    ActionButtonData(
-                        action: "",
-                        method: .get,
-                        label: Self.cancel,
-                        htmlType: .button,
-                        buttonType: .secondary,
-                        contentTracker: MatomoContentTracker(
-                            name: "delete-modal",
-                            piece: "button.cancel",
-                            target: ""
+                    ),
+                    .button(
+                        ActionButtonData(
+                            action: "",
+                            clickAction: "open = false, $store.modal = false",
+                            method: .get,
+                            label: Self.cancel,
+                            htmlType: .button,
+                            buttonType: .secondary,
+                            hasFullWidth: true,
+                            contentTracker: MatomoContentTracker(
+                                name: "delete-modal",
+                                piece: "button.cancel",
+                                target: ""
+                            )
                         )
-                    )
-                )
-                .render()
-            }
-            .class("flex-initial")
-
-        }
-        .class("flex space-x-4 pt-8")
-        .setAttribute(
-            name: "x-on:click",
-            value: "open = false, $store.modal = false"
+                    ),
+                ],
+                layout: .dialog,
+                isTracked: false
+            )
         )
+        .render()
     }
 
     @Builder<Element>
@@ -180,26 +180,7 @@ public struct DeleteModal: TemplateRepresentable {
                     showCloseButton()
                     showDialogTitle()
                     showDialogBody()
-
-                    Form {
-
-                        // MARK: csrf
-                        HiddenField(
-                            HiddenFieldData(
-                                id: "X-CSRF-Token",
-                                value: data.csrfToken,
-                                state: .enabled
-                            )
-                        )
-                        .render()
-
-                        showActionBar()
-
-                    }
-                    .action(data.deletionRedirect)
-                    .method(.post)
-                    .flagAttribute("novalidate")
-
+                    showForm()
                 }
                 .flagAttribute("x-on:click.stop")
                 .setAttribute(

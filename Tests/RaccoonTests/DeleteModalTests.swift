@@ -100,6 +100,54 @@ struct DeleteModalTests {
         #expect(html.contains("my-secret-csrf"))
     }
 
+    @Test(
+        "validates that form data is sent with post method, deletion redirect action, and csrf token"
+    )
+    func validatesFormDataSubmission() async throws {
+        let data = DeleteModalData(
+            deletionRedirect: "/items/123/delete",
+            csrfToken: "csrf-token-abc"
+        )
+        let html = renderHTML(DeleteModal(data).render())
+
+        // 1. Form tag configuration: method, action, novalidate
+        #expect(html.contains("<form"))
+        #expect(html.contains("method=\"post\""))
+        #expect(html.contains("action=\"/items/123/delete\""))
+        #expect(html.contains("novalidate"))
+
+        // 2. Hidden field for CSRF token
+        #expect(html.contains("type=\"hidden\""))
+        #expect(html.contains("name=\"X-CSRF-Token\""))
+        #expect(html.contains("value=\"csrf-token-abc\""))
+
+        // 3. Submit button inside form
+        #expect(html.contains("type=\"submit\""))
+        #expect(html.contains("deletemodal.yes"))
+
+        // 4. Cancel button does not submit form data
+        #expect(html.contains("type=\"button\""))
+        #expect(html.contains("deletemodal.cancel"))
+        #expect(html.contains("open = false"))
+    }
+
+    @Test("validates form data when csrf token is omitted")
+    func validatesFormDataWithoutCsrf() async throws {
+        let data = DeleteModalData(
+            deletionRedirect: "/items/456/delete",
+            csrfToken: nil
+        )
+        let html = renderHTML(DeleteModal(data).render())
+
+        #expect(html.contains("<form"))
+        #expect(html.contains("method=\"post\""))
+        #expect(html.contains("action=\"/items/456/delete\""))
+        #expect(html.contains("novalidate"))
+        #expect(!html.contains("name=\"X-CSRF-Token\""))
+        #expect(html.contains("type=\"submit\""))
+        #expect(html.contains("deletemodal.yes"))
+    }
+
     @Test("renders cannot-be-undone warning")
     func rendersCannotBeUndoneWarning() async throws {
 

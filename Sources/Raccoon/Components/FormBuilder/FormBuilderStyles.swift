@@ -7,7 +7,8 @@ public struct FormBuilderStyles {
     // (for example a script and a container) and hidden inputs, which do not create a box.
     public static let form: String = "flex flex-col gap-y-4"
 
-    public static let group: String = "flex flex-col gap-y-4 min-w-0 m-0 p-0 border-0"
+    public static let group: String =
+        "flex flex-col gap-y-4 min-w-0 m-0 p-0 border-0"
     public static let row: String =
         "grid grid-cols-1 gap-4 sm:grid-flow-col sm:auto-cols-fr"
 
@@ -24,6 +25,8 @@ public struct FormBuilderStyles {
     // MARK: actions
     public static let actionsPage: String = "flex flex-row flex-wrap gap-4 pt-4"
     public static let actionsDialog: String =
-        "flex flex-row flex-wrap justify-end gap-4 pt-4"
+        "flex flex-col sm:flex-row justify-end gap-4 pt-4"
+    public static let actionsBanner: String =
+        "pt-4 flex flex-col sm:flex-row gap-4"
     public static let action: String = "flex-initial"
 }

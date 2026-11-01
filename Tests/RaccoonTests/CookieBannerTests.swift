@@ -55,6 +55,19 @@ struct CookieBannerTests {
         #expect(html.contains("formaction=\"/opt-out\""))
     }
 
+    @Test("validates form configuration and button action behavior")
+    func testFormConfigurationAndActions() {
+        let ctx = CookieBannerData(url: "/articles/test", matomoStatus: .BANNER)
+        let html = renderHTML(CookieBanner(ctx).render())
+
+        #expect(html.contains("<form"))
+        #expect(html.contains("formaction=\"/opt-in/articles/test\""))
+        #expect(html.contains("formaction=\"/opt-out/articles/test\""))
+        #expect(html.contains("formmethod=\"get\""))
+        #expect(html.contains("consent = false"))
+        #expect(!html.contains("name=\"X-CSRF-Token\""))
+    }
+
     // MARK: localization
 
     @Test(

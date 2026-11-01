@@ -10,7 +10,8 @@ private func renderHTML(_ elements: [any Element]) -> String {
 }
 
 private func position(of text: String, in html: String) -> Int? {
-    html.range(of: text).map { html.distance(from: html.startIndex, to: $0.lowerBound) }
+    html.range(of: text)
+        .map { html.distance(from: html.startIndex, to: $0.lowerBound) }
 }
 
 private func tracker(_ piece: String) -> MatomoContentTracker {
@@ -47,8 +48,10 @@ struct FormBuilderTests {
             FormBuilder(FormBuilderData(id: "f")).render()
         )
         let with = renderHTML(
-            FormBuilder(FormBuilderData(id: "f", action: "/auth2/validate-email/"))
-                .render()
+            FormBuilder(
+                FormBuilderData(id: "f", action: "/auth2/validate-email/")
+            )
+            .render()
         )
         #expect(!without.contains("action="))
         #expect(with.contains("action=\"/auth2/validate-email/\""))
@@ -76,13 +79,18 @@ struct FormBuilderTests {
                     id: "f",
                     fields: [
                         .input(InputFieldData(id: "second_field")),
-                        .check(CheckData(id: "first_field", name: "first_field")),
+                        .check(
+                            CheckData(id: "first_field", name: "first_field")
+                        ),
                         .hidden(HiddenFieldData(id: "third_field", value: "x")),
                     ]
                 )
-            ).render()
+            )
+            .render()
         )
-        let second = try #require(position(of: "name=\"second_field\"", in: html))
+        let second = try #require(
+            position(of: "name=\"second_field\"", in: html)
+        )
         let first = try #require(position(of: "name=\"first_field\"", in: html))
         let third = try #require(position(of: "name=\"third_field\"", in: html))
         #expect(second < first)
@@ -91,7 +99,9 @@ struct FormBuilderTests {
 
     @Test("sets multipart enctype for file uploads, also when nested")
     func setsMultipartEnctype() {
-        let upload = FormField.singleFileUpload(SingleFileUploadData(id: "image"))
+        let upload = FormField.singleFileUpload(
+            SingleFileUploadData(id: "image")
+        )
         let multiple = FormField.multipleFileUpload(
             MultipleFileUploadData(id: "images")
         )
@@ -102,17 +112,27 @@ struct FormBuilderTests {
             FormBuilder(
                 FormBuilderData(
                     id: "f",
-                    fields: [.group(FormGroupData(legend: "Files", fields: [multiple]))]
+                    fields: [
+                        .group(
+                            FormGroupData(legend: "Files", fields: [multiple])
+                        )
+                    ]
                 )
-            ).render()
+            )
+            .render()
         )
         let inRow = renderHTML(
-            FormBuilder(FormBuilderData(id: "f", fields: [.row([upload])])).render()
+            FormBuilder(FormBuilderData(id: "f", fields: [.row([upload])]))
+                .render()
         )
         let none = renderHTML(
             FormBuilder(
-                FormBuilderData(id: "f", fields: [.input(InputFieldData(id: "a"))])
-            ).render()
+                FormBuilderData(
+                    id: "f",
+                    fields: [.input(InputFieldData(id: "a"))]
+                )
+            )
+            .render()
         )
         #expect(direct.contains("enctype=\"multipart/form-data\""))
         #expect(inGroup.contains("enctype=\"multipart/form-data\""))
@@ -120,7 +140,9 @@ struct FormBuilderTests {
         #expect(!none.contains("enctype"))
     }
 
-    @Test("renders a group as fieldset with a screen reader only legend by default")
+    @Test(
+        "renders a group as fieldset with a screen reader only legend by default"
+    )
     func rendersHiddenLegend() {
         let html = renderHTML(
             FormBuilder(
@@ -136,7 +158,8 @@ struct FormBuilderTests {
                         )
                     ]
                 )
-            ).render()
+            )
+            .render()
         )
         #expect(html.contains("<fieldset"))
         #expect(html.contains("id=\"contact\""))
@@ -161,7 +184,8 @@ struct FormBuilderTests {
                         )
                     ]
                 )
-            ).render()
+            )
+            .render()
         )
         #expect(html.contains("Visible"))
         #expect(!html.contains("sr-only"))
@@ -180,7 +204,8 @@ struct FormBuilderTests {
                         ])
                     ]
                 )
-            ).render()
+            )
+            .render()
         )
         #expect(html.contains(FormBuilderStyles.row))
         #expect(html.contains("name=\"first_name\""))
@@ -211,7 +236,8 @@ struct FormBuilderTests {
                         ),
                     ]
                 )
-            ).render()
+            )
+            .render()
         )
         let button = try #require(position(of: "Proceed", in: html))
         let link = try #require(position(of: "Already registered?", in: html))
@@ -242,13 +268,34 @@ struct FormBuilderTests {
         let dialog = renderHTML(
             FormBuilder(
                 FormBuilderData(id: "f", actions: actions, layout: .dialog)
-            ).render()
+            )
+            .render()
         )
         let page = renderHTML(
             FormBuilder(FormBuilderData(id: "f", actions: actions)).render()
         )
         #expect(dialog.contains(FormBuilderStyles.actionsDialog))
         #expect(page.contains(FormBuilderStyles.actionsPage))
+    }
+
+    @Test("renders banner layout for actions")
+    func rendersBannerLayout() {
+        let actions: [FormAction] = [
+            .button(
+                ActionButtonData(
+                    label: "Accept",
+                    buttonType: .primary,
+                    contentTracker: tracker("button.accept")
+                )
+            )
+        ]
+        let banner = renderHTML(
+            FormBuilder(
+                FormBuilderData(id: "f", actions: actions, layout: .banner)
+            )
+            .render()
+        )
+        #expect(banner.contains(FormBuilderStyles.actionsBanner))
     }
 
     @Test("renders form-level error messages above the fields")
@@ -262,7 +309,8 @@ struct FormBuilderTests {
                         errorMessages: ["Sign in failed"]
                     )
                 )
-            ).render()
+            )
+            .render()
         )
         let error = try #require(position(of: "Sign in failed", in: html))
         let field = try #require(position(of: "name=\"email\"", in: html))
@@ -281,7 +329,8 @@ struct FormBuilderTests {
         let html = renderHTML(
             FormBuilder(
                 FormBuilderData(id: "f", fields: [.custom(Custom())])
-            ).render()
+            )
+            .render()
         )
         #expect(html.contains("custom content"))
     }

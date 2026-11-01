@@ -77,6 +77,17 @@ public struct FormBuilder: TemplateRepresentable {
         .class(styles.row)
     }
 
+    private var actionsClass: String {
+        switch data.layout {
+        case .page:
+            return styles.actionsPage
+        case .dialog:
+            return styles.actionsDialog
+        case .banner:
+            return styles.actionsBanner
+        }
+    }
+
     @Builder<Element>
     func showActions() -> [Element] {
         if !data.actions.isEmpty {
@@ -93,10 +104,7 @@ public struct FormBuilder: TemplateRepresentable {
                     .class(styles.action)
                 }
             }
-            .class(
-                data.layout == .dialog
-                    ? styles.actionsDialog : styles.actionsPage
-            )
+            .class(actionsClass)
         }
     }
 

@@ -4,4 +4,6 @@ public enum FormLayout: String, Sendable {
     case page
     /// Form inside a dialog: actions aligned to the trailing edge.
     case dialog
+    /// Form inside a banner: actions stacked on mobile, inline row on tablet/desktop.
+    case banner
 }

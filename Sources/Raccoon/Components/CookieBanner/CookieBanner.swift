@@ -116,61 +116,55 @@ public struct CookieBanner: TemplateRepresentable {
     }
 
     @Builder<Element>
-    func showActionBar() -> [Element] {
-        Div {
-
-            Div {
-
-                // Note: The form submission uses method: .get deliberately to trigger opt-in / opt-out redirects.
-                // Do not change method to POST during component audits.
-                ActionButton(
-                    ActionButtonData(
-                        action: "/opt-in\(data.url)",
-                        clickAction: "consent = false",
-                        method: .get,
-                        label: Self.acceptAll,
-                        buttonType: .primary,
-                        hasFullWidth: true,
-                        matomoStatus: data.matomoStatus,
-                        contentTracker:
-                            MatomoContentTracker(
-                                name: "cookie-banner",
-                                piece: "button.accept",
-                                target: "/opt-in"
-                            )
-                    )
-                )
-                .render()
-
-            }
-            .class("flex-initial sm:pr-4")
-
-            Div {
-
-                ActionButton(
-                    ActionButtonData(
-                        action: "/opt-out\(data.url)",
-                        clickAction: "consent = false",
-                        method: .get,
-                        label: Self.decline,
-                        buttonType: .tertiary,
-                        hasFullWidth: true,
-                        matomoStatus: data.matomoStatus,
-                        contentTracker:
-                            MatomoContentTracker(
-                                name: "cookie-banner",
-                                piece: "button.decline",
-                                target: "/opt-out"
-                            )
-                    )
-                )
-                .render()
-
-            }
-            .class("flex-initial")
-
-        }
-        .class("pt-4 flex-cols space-y-4 sm:flex sm:space-y-0")
+    func showForm() -> [Element] {
+        FormBuilder(
+            FormBuilderData(
+                id: StableIdentifier.unique("cookie-consent-form"),
+                method: .get,
+                fields: [],
+                actions: [
+                    // Note: The form submission uses method: .get deliberately to trigger opt-in / opt-out redirects.
+                    // Do not change method to POST during component audits.
+                    .button(
+                        ActionButtonData(
+                            action: "/opt-in\(data.url)",
+                            clickAction: "consent = false",
+                            method: .get,
+                            label: Self.acceptAll,
+                            buttonType: .primary,
+                            hasFullWidth: true,
+                            matomoStatus: data.matomoStatus,
+                            contentTracker:
+                                MatomoContentTracker(
+                                    name: "cookie-banner",
+                                    piece: "button.accept",
+                                    target: "/opt-in"
+                                )
+                        )
+                    ),
+                    .button(
+                        ActionButtonData(
+                            action: "/opt-out\(data.url)",
+                            clickAction: "consent = false",
+                            method: .get,
+                            label: Self.decline,
+                            buttonType: .tertiary,
+                            hasFullWidth: true,
+                            matomoStatus: data.matomoStatus,
+                            contentTracker:
+                                MatomoContentTracker(
+                                    name: "cookie-banner",
+                                    piece: "button.decline",
+                                    target: "/opt-out"
+                                )
+                        )
+                    ),
+                ],
+                layout: .banner,
+                isTracked: false
+            )
+        )
+        .render()
     }
 
     @Builder<Element>
@@ -186,7 +180,7 @@ public struct CookieBanner: TemplateRepresentable {
                     // Content
                     Div {
                         showDialogBodyText()
-                        Form { showActionBar() }
+                        showForm()
                     }
                     .class("p-4")
                     .addClass(styles.bodyText)
