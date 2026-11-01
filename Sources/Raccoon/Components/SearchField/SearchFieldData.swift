@@ -46,7 +46,7 @@ public struct SearchFieldData: Sendable {
     public let ariaControls: String?
 
     /// Optional accessible title forwarded to the leading SVG icon.
-    public let iconTitle: String?
+    public let iconTitle: LocalizedText?
 
     // MARK: - 3. Value & Options
 
@@ -130,7 +130,7 @@ public struct SearchFieldData: Sendable {
         ariaLabel: LocalizedText? = nil,
         clearAriaLabel: LocalizedText? = nil,
         ariaControls: String? = nil,
-        iconTitle: String? = nil,
+        iconTitle: LocalizedText? = nil,
 
         // 3. Value & Options
         value: String? = nil,

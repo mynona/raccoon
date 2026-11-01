@@ -137,7 +137,7 @@ public struct SingleSelect: TemplateRepresentable {
             Button {
                 Svg.icon(
                     .chevron_down,
-                    title: "Select \(data.id)",
+                    title: LocalizedText(verbatim: "Select \(data.id)"),  // i18n-todo
                     width: 16,
                     height: 16
                 )
@@ -218,7 +218,7 @@ public struct SingleSelect: TemplateRepresentable {
                         Span {
                             Svg.icon(
                                 .check_lg,
-                                title: "Select \(data.id)",
+                                title: LocalizedText(verbatim: "Select \(data.id)"),  // i18n-todo
                                 width: 18,
                                 height: 18,
                                 role: .img

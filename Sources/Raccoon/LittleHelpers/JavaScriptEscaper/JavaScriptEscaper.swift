@@ -53,7 +53,14 @@ public enum JavaScriptEscaper {
     /// so an embedded `"` would otherwise terminate the attribute early. Browsers decode entities
     /// before Alpine reads the attribute value, so this is transparent to JS/JSON parsing.
     public static func htmlAttributeEscape(_ value: String) -> String {
-        value
+        // Most texts need no escaping: skip the five replacements (and their allocations)
+        guard
+            value.utf8.contains(where: {
+                $0 == 38 || $0 == 34 || $0 == 39 || $0 == 60 || $0 == 62
+            })
+        else { return value }
+        return
+            value
             .replacingOccurrences(of: "&", with: "&amp;")
             .replacingOccurrences(of: "\"", with: "&quot;")
             .replacingOccurrences(of: "'", with: "&#39;")

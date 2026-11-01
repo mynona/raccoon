@@ -84,7 +84,7 @@ struct SvgTests {
                         let actual = renderHTML(
                             Svg.icon(
                                 icon,
-                                title: title,
+                                title: title.map(LocalizedText.init(verbatim:)),
                                 width: width,
                                 height: height,
                                 role: role
@@ -155,5 +155,59 @@ struct SvgTests {
         #expect(html.contains(#"aria-label="Second""#))
         #expect(!html.contains("First"))
         #expect(html.contains(#"width="16px""#))
+    }
+
+    // MARK: localization
+
+    @Test("a plain title sets aria-label only, without any marker")
+    func plainTitleHasNoMarker() {
+        let html = I18n.render(language: "de") {
+            renderHTML(Svg.icon(.check, title: "Done", role: .img))
+        }
+        #expect(html.contains(#"aria-label="Done""#))
+        #expect(!html.contains("data-i18n"))
+    }
+
+    @Test(
+        "a built-in title is rendered in the page language with its key marker"
+    )
+    func builtInTitle() {
+        let title = LocalizedText("label.required", "(required)")
+        let html = I18n.render(language: "de") {
+            renderHTML(Svg.icon(.check, title: title, role: .img))
+        }
+        #expect(html.contains(#"aria-label="(erforderlich)""#))
+        #expect(html.contains(#"data-i18n-aria-label="label.required""#))
+    }
+
+    @Test(
+        "a consumer title is rendered in the page language with its values marker"
+    )
+    func consumerTitle() {
+        let title = LocalizedText(en: "Done", translations: ["de": "Fertig"])
+        let html = I18n.render(language: "de") {
+            renderHTML(Svg.icon(.check, title: title, role: .img))
+        }
+        #expect(html.contains(#"aria-label="Fertig""#))
+        #expect(html.contains("data-i18n-aria-label-values="))
+    }
+
+    @Test("special characters in the title are escaped")
+    func titleIsEscaped() {
+        let html = renderHTML(
+            Svg.icon(
+                .check,
+                title: LocalizedText(verbatim: #"A "b" & <c>"#),
+                role: .img
+            )
+        )
+        #expect(html.contains(#"aria-label="A &quot;b&quot; &amp; &lt;c&gt;""#))
+    }
+
+    @Test("an icon without title renders no aria-label and no marker")
+    func noTitle() {
+        let html = renderHTML(Svg.icon(.check, role: .img))
+        #expect(!html.contains("aria-label"))
+        #expect(!html.contains("data-i18n"))
     }
 }

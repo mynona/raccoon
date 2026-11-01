@@ -30,6 +30,12 @@ struct SearchFieldView: TemplateRepresentable {
                     translations: [
                         "de": "Artikel finden", "fr": "Trouver des articles",
                     ]
+                ),
+                iconTitle: LocalizedText(
+                    en: "Search icon",
+                    translations: [
+                        "de": "Suchsymbol", "fr": "Icône de recherche",
+                    ]
                 )
             )
         ),

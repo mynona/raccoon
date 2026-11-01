@@ -110,6 +110,36 @@ public struct LocalizedText: Sendable, Equatable, ExpressibleByStringLiteral,
         translations.merging(["en": template]) { current, _ in current }
     }
 
+    /// The marker attributes of a translatable text: the key (built-in) or the `-values` map (consumer),
+    /// plus `data-i18n-vars` when there are variables. `base` is `data-i18n` or `data-i18n-<attribute>`.
+    func markerAttributes(base: String) -> [(name: String, value: String)] {
+        var result: [(name: String, value: String)] = []
+        if !key.isEmpty {
+            result.append((base, key))
+        }
+        else {
+            result.append(
+                (
+                    "\(base)-values",
+                    JavaScriptEscaper.htmlAttributeEscape(
+                        I18n.jsonStrings(markerValues)
+                    )
+                )
+            )
+        }
+        if !variables.isEmpty {
+            result.append(
+                (
+                    "data-i18n-vars",
+                    JavaScriptEscaper.htmlAttributeEscape(
+                        I18n.jsonStrings(variables)
+                    )
+                )
+            )
+        }
+        return result
+    }
+
     /// JavaScript expression for Alpine bindings (`:aria-label`, `x-text`, ...).
     /// It falls back to the resolved text if the store is not loaded.
     /// The result is safe inside a double-quoted HTML attribute.
@@ -157,35 +187,18 @@ public enum LocalizableAttribute: String, Sendable {
 
 extension SGML.Attributes where Self: SGML.Mutable {
 
-    private func localizedVariables(_ text: LocalizedText) -> Self {
-        guard !text.variables.isEmpty else { return self }
-        return setAttribute(
-            name: "data-i18n-vars",
-            value: JavaScriptEscaper.htmlAttributeEscape(
-                I18n.jsonStrings(text.variables)
-            )
-        )
-    }
-
-    /// The marker for a text: the key for built-in texts, the values for consumer texts.
-    private func localizedMarker(_ text: LocalizedText, name: String) -> Self {
-        if !text.key.isEmpty {
-            return setAttribute(name: name, value: text.key)
-        }
-        return setAttribute(
-            name: "\(name)-values",
-            value: JavaScriptEscaper.htmlAttributeEscape(
-                I18n.jsonStrings(text.markerValues)
-            )
-        )
+    private func localizedMarkers(_ text: LocalizedText, base: String) -> Self {
+        text.markerAttributes(base: base)
+            .reduce(self) {
+                $0.setAttribute(name: $1.name, value: $1.value)
+            }
     }
 
     /// Marks the text content of a leaf element as translatable. The element content itself must be
     /// `text.resolved`. Use it only on elements without child elements. Plain texts get no marker.
     public func localized(_ text: LocalizedText) -> Self {
         guard text.isTranslatable else { return self }
-        return localizedMarker(text, name: "data-i18n")
-            .localizedVariables(text)
+        return localizedMarkers(text, base: "data-i18n")
     }
 
     /// Sets an attribute to the resolved text and, for translatable texts, adds the marker.
@@ -199,9 +212,9 @@ extension SGML.Attributes where Self: SGML.Mutable {
             value: JavaScriptEscaper.htmlAttributeEscape(text.resolved)
         )
         guard text.isTranslatable else { return valueSet }
-        return
-            valueSet
-            .localizedMarker(text, name: "data-i18n-\(attribute.rawValue)")
-            .localizedVariables(text)
+        return valueSet.localizedMarkers(
+            text,
+            base: "data-i18n-\(attribute.rawValue)"
+        )
     }
 }

@@ -36,7 +36,8 @@ public struct Svg: Sendable {
     ///
     /// Parameters:
     /// - icon: The icon asset to render.
-    /// - title: Optional accessible label (only used when `role == .img`).
+    /// - title: Optional accessible label (only used when `role == .img`). A string literal is shown as given;
+    ///   a `LocalizedText` is translated and marked for live language switching.
     /// - width: Output width in pixels (default: 16).
     /// - height: Output height in pixels (default: 16).
     /// - role: Whether the icon is decorative (`.presentation`) or meaningful (`.img`).
@@ -51,7 +52,7 @@ public struct Svg: Sendable {
     ///   `Path` element per path. The minified HTML output is unchanged.
     public static func icon(
         _ icon: SvgIcon,
-        title: String? = nil,
+        title: LocalizedText? = nil,
         width: Int = 16,
         height: Int = 16,
         role: AccessibiliyRoleSvg = .presentation
@@ -69,7 +70,18 @@ public struct Svg: Sendable {
             }
 
         if let title {
-            attributes.set(name: "aria-label", value: title)
+            attributes.set(
+                name: "aria-label",
+                value: JavaScriptEscaper.htmlAttributeEscape(title.resolved)
+            )
+            // Plain titles get no marker, so the hot path stays unchanged
+            if title.isTranslatable {
+                for (name, value) in title.markerAttributes(
+                    base: "data-i18n-aria-label"
+                ) {
+                    attributes.set(name: name, value: value)
+                }
+            }
         }
 
         if width != IconAttributes.defaultSize

@@ -198,7 +198,7 @@ public struct MultiSelect: TemplateRepresentable {
                         Span {
                             Svg.icon(
                                 .check_lg,
-                                title: "Select \(data.id)",
+                                title: LocalizedText(verbatim: "Select \(data.id)"),  // i18n-todo
                                 width: 16,
                                 height: 16,
                                 role: .img
