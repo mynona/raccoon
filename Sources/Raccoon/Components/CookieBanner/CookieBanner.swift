@@ -6,6 +6,51 @@ public struct CookieBanner: TemplateRepresentable {
     let data: CookieBannerData
     typealias styles = CookieBannerStyles
 
+    private static let title = LocalizedText(
+        "cookiebanner.title",
+        "You decide"
+    )
+    private static let statistics = LocalizedText(
+        "cookiebanner.statistics",
+        "Statistics cookies"
+    )
+    private static let statisticsText = LocalizedText(
+        "cookiebanner.statisticsText",
+        " help me to improve this service. No data is shared with third parties."
+    )
+    private static let necessary = LocalizedText(
+        "cookiebanner.necessary",
+        "Necessary cookies"
+    )
+    private static let necessaryText = LocalizedText(
+        "cookiebanner.necessaryText",
+        " keep this website reliable and secure."
+    )
+    private static let privacyBefore = LocalizedText(
+        "cookiebanner.privacyBefore",
+        "You can change your cookie preferences anytime in the "
+    )
+    private static let privacyLink = LocalizedText(
+        "cookiebanner.privacyLink",
+        "Privacy Policy"
+    )
+    private static let privacyAfter = LocalizedText(
+        "cookiebanner.privacyAfter",
+        "."
+    )
+    private static let acceptAll = LocalizedText(
+        "cookiebanner.acceptAll",
+        "Accept all"
+    )
+    private static let decline = LocalizedText(
+        "cookiebanner.decline",
+        "Decline statistics"
+    )
+    private static let consent = LocalizedText(
+        "cookiebanner.consent",
+        "Cookie consent"
+    )
+
     public init(
         _ data: CookieBannerData
     ) {
@@ -14,20 +59,26 @@ public struct CookieBanner: TemplateRepresentable {
 
     @Builder<Element>
     func showDialogBodyText() -> [Element] {
-        P("You decide").class(styles.bodyTitle)
+        P(Self.title.resolved)
+            .localized(Self.title)
+            .class(styles.bodyTitle)
 
         Div {
             Ul {
                 Li {
-                    Span("Statistics cookies").class("italic")
-                    Span(
-                        " help me to improve this service. No data is shared with third parties."
-                    )
+                    Span(Self.statistics.resolved)
+                        .localized(Self.statistics)
+                        .class("italic")
+                    Span(Self.statisticsText.resolved)
+                        .localized(Self.statisticsText)
 
                 }
                 Li {
-                    Span("Necessary cookies").class("italic")
-                    Span(" keep this website reliable and secure.")
+                    Span(Self.necessary.resolved)
+                        .localized(Self.necessary)
+                        .class("italic")
+                    Span(Self.necessaryText.resolved)
+                        .localized(Self.necessaryText)
                 }
             }
             .class("list-disc list-outside")
@@ -35,13 +86,18 @@ public struct CookieBanner: TemplateRepresentable {
         .class("pl-4 py-2")
 
         P {
-            Span("You can change your cookie preferences anytime in the ")
-            A("Privacy Policy")
+            // The sentence is split around the link; each part is its own key so that
+            // the word order of every language works
+            Span(Self.privacyBefore.resolved)
+                .localized(Self.privacyBefore)
+            A(Self.privacyLink.resolved)
+                .localized(Self.privacyLink)
                 .href("/privacy-policy/")
                 .class(
                     "p-1 \(HyperLinkStyles.underlined) \(HyperLinkStyles.link) \(HyperLinkStyles.focus)"
                 )
-            Span(".")
+            Span(Self.privacyAfter.resolved)
+                .localized(Self.privacyAfter)
         }
         // Matomo
         .flagAttribute("data-track-content")
@@ -72,7 +128,7 @@ public struct CookieBanner: TemplateRepresentable {
                         action: "/opt-in\(data.url)",
                         clickAction: "consent = false",
                         method: .get,
-                        label: "Accept all",
+                        label: Self.acceptAll,
                         buttonType: .primary,
                         hasFullWidth: true,
                         matomoStatus: data.matomoStatus,
@@ -96,7 +152,7 @@ public struct CookieBanner: TemplateRepresentable {
                         action: "/opt-out\(data.url)",
                         clickAction: "consent = false",
                         method: .get,
-                        label: "Decline statistics",
+                        label: Self.decline,
                         buttonType: .tertiary,
                         hasFullWidth: true,
                         matomoStatus: data.matomoStatus,
@@ -140,10 +196,7 @@ public struct CookieBanner: TemplateRepresentable {
                     name: "role",
                     value: "dialog"
                 )
-                .setAttribute(
-                    name: "aria-label",
-                    value: "Cookie consent"
-                )
+                .localized(.ariaLabel, Self.consent)
                 .id("cookie-consent")
                 // Note: Focus trap is intentionally omitted so users can freely navigate the page.
                 // Do not add x-trap or modal focus lock during component audits.

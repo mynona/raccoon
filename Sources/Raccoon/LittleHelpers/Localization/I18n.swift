@@ -125,6 +125,7 @@ public enum Translations {
         "bymeacoffee": bymeacoffee,
         "checkboxselect": checkboxselect,
         "badge": badge,
+        "cookiebanner": cookiebanner,
         "darklightmodetoggle": darklightmodetoggle,
         "deletemodal": deletemodal,
         "fieldvalidation": fieldvalidation,
