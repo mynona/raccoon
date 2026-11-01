@@ -1,6 +1,12 @@
-// v1.14
+// v1.15
 
 /* Alpine factory: sortable/filterable data table with configurable, reorderable, persisted columns. */
+
+// Announcements come from the i18n store (translations are registered by the page); the English
+// text is the fallback when the store is not loaded.
+function simpleTableText(key, vars, fallback) {
+  return window.RaccoonI18n ? window.RaccoonI18n.t(key, vars, fallback) : fallback;
+}
 
 function datatable(data) {
 
@@ -452,8 +458,8 @@ function datatable(data) {
 
       this.keyboardDraggingKey = wasDragging ? null : key;
       this.keyboardAnnouncement = wasDragging
-      ? `Dropped ${key}.`
-      : `Picked up ${key}. Use arrow keys to move.`;
+      ? simpleTableText('simpletable.dropped', { key: key }, `Dropped ${key}.`)
+      : simpleTableText('simpletable.pickedUp', { key: key }, `Picked up ${key}. Use arrow keys to move.`);
 
       log("toggleKeyboardDrag", {
         key,
@@ -469,7 +475,7 @@ function datatable(data) {
 
       log("cancelKeyboardDrag", this.keyboardDraggingKey);
 
-      this.keyboardAnnouncement = `Cancelled reordering ${this.keyboardDraggingKey}.`;
+      this.keyboardAnnouncement = simpleTableText('simpletable.cancelled', { key: this.keyboardDraggingKey }, `Cancelled reordering ${this.keyboardDraggingKey}.`);
       this.keyboardDraggingKey = null;
     },
 
@@ -500,7 +506,7 @@ function datatable(data) {
       }
 
       const pos = this.tempColumnOrder.indexOf(key) + 1;
-      this.keyboardAnnouncement = `Moved ${key} to position ${pos}.`;
+      this.keyboardAnnouncement = simpleTableText('simpletable.moved', { key: key, position: pos }, `Moved ${key} to position ${pos}.`);
 
       log("moveKeyboard after", {
         key,
@@ -530,7 +536,7 @@ function datatable(data) {
         this.tempColumnOrder = keys;
       }
 
-      this.keyboardAnnouncement = `Moved ${key} to the first position.`;
+      this.keyboardAnnouncement = simpleTableText('simpletable.movedFirst', { key: key }, `Moved ${key} to the first position.`);
 
       log("moveKeyboardToStart after", {
         key,
@@ -558,7 +564,7 @@ function datatable(data) {
         this.tempColumnOrder = keys;
       }
 
-      this.keyboardAnnouncement = `Moved ${key} to the last position.`;
+      this.keyboardAnnouncement = simpleTableText('simpletable.movedLast', { key: key }, `Moved ${key} to the last position.`);
 
       log("moveKeyboardToEnd after", {
         key,
@@ -583,7 +589,7 @@ function datatable(data) {
       log("finishKeyboardDrag", { key, eventKey: event.key });
 
       this.keyboardDraggingKey = null;
-      this.keyboardAnnouncement = `Dropped ${key}.`;
+      this.keyboardAnnouncement = simpleTableText('simpletable.dropped', { key: key }, `Dropped ${key}.`);
       event.preventDefault();
     },
 

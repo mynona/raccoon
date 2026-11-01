@@ -11,14 +11,15 @@ public func simpleTableColumnConfigurator(
     DebugComment("Column configurator")
     Div {
         Div {
-            H3("Configure columns")
+            H3(SimpleTableTexts.configure.resolved)
+                .localized(SimpleTableTexts.configure)
                 .class(SimpleTableStyles.columnSelectorTitle)
 
             Button {
                 Svg.icon(.x_lg)
                     .class("w-5 h-5")
             }
-            .ariaLabel("Close column configurator")
+            .localized(.ariaLabel, SimpleTableTexts.closeConfigurator)
             .setAttribute(
                 name: "data-popover-initial",
                 value: ""
@@ -92,9 +93,9 @@ public func simpleTableColumnConfigurator(
                                 name: "tabindex",
                                 value: "0"
                             )
-                            .setAttribute(
-                                name: "aria-label",
-                                value: "Reorder column"
+                            .localized(
+                                .ariaLabel,
+                                SimpleTableTexts.reorderColumn
                             )
                             .setAttribute(
                                 name: ":aria-pressed",
@@ -285,12 +286,13 @@ public func simpleTableColumnConfigurator(
 
         }
 
-        Button("Reset all settings")
+        Button(SimpleTableTexts.resetAll.resolved)
+            .localized(SimpleTableTexts.resetAll)
             .setAttribute(
                 name: "@click",
                 value: "resetTableState()"
             )
-            .ariaLabel("Reset column settings")
+            .localized(.ariaLabel, SimpleTableTexts.resetColumns)
             .class("mb-2")
             .addClass("cursor-pointer")
             .addClass(ActionButtonStyles.font)
@@ -330,8 +332,8 @@ public func simpleTableColumnConfigurator(
                 ActionButtonData(
                     id: "table-cancel",
                     clickAction: "cancelColumnChanges()",
-                    label: "Cancel",
-                    ariaLabel: "Cancel column changes",
+                    label: SimpleTableTexts.cancel,
+                    ariaLabel: SimpleTableTexts.cancelChanges,
                     htmlType: .button,
                     buttonType: .secondary,
                     contentTracker: MatomoContentTracker(
@@ -347,8 +349,8 @@ public func simpleTableColumnConfigurator(
                 ActionButtonData(
                     id: "table-save",
                     clickAction: "applyColumnChanges()",
-                    label: "Save",
-                    ariaLabel: "Apply column changes",
+                    label: SimpleTableTexts.save,
+                    ariaLabel: SimpleTableTexts.applyChanges,
                     htmlType: .button,
                     buttonType: .primary,
                     contentTracker: MatomoContentTracker(

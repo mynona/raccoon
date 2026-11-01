@@ -132,4 +132,32 @@ struct SimpleTableTests {
 
         #expect(html.isEmpty)
     }
+
+    // MARK: localization
+
+    @Test(
+        "the built-in texts follow the language and the announcements land in the page dictionary"
+    )
+    func localizedTexts() {
+        let data = SimpleTableData(
+            meta: metaWithFeatures,
+            rows: rows,
+            caption: "Team"
+        )
+        let english = renderHTML(SimpleTable(data).render())
+        #expect(english.contains("data-i18n=\"simpletable.noResults\""))
+        #expect(english.contains("simpletable.searchRows"))
+
+        let german = I18n.render(language: "de", collectsUsedKeys: true) {
+            let page = renderHTML(SimpleTable(data).render())
+            return page + renderHTML(I18n.scripts())
+        }
+        #expect(german.contains(">Keine Ergebnisse gefunden</p>"))
+        #expect(german.contains("aria-label=\"Tabellenzeilen durchsuchen\""))
+        #expect(
+            german.contains(
+                "\"moved\":\"{{key}} auf Position {{position}} verschoben.\""
+            )
+        )
+    }
 }

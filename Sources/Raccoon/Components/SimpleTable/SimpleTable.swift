@@ -3,6 +3,95 @@ import SGML
 import SVG
 import WebBuilders
 
+/// The built-in texts of `SimpleTable` and its column configurator.
+enum SimpleTableTexts {
+    static let copied = LocalizedText("simpletable.copied", "Copied")
+    static let copyTable = LocalizedText(
+        "simpletable.copyTable",
+        "Copy table"
+    )
+    static let toggleFilter = LocalizedText(
+        "simpletable.toggleFilter",
+        "Toggle filter"
+    )
+    static let selectColumns = LocalizedText(
+        "simpletable.selectColumns",
+        "Select visible columns"
+    )
+    static let searchRows = LocalizedText(
+        "simpletable.searchRows",
+        "Search table rows"
+    )
+    static let clearFilter = LocalizedText(
+        "simpletable.clearFilter",
+        "Clear filter"
+    )
+    static let noResults = LocalizedText(
+        "simpletable.noResults",
+        "No results found"
+    )
+    static let configure = LocalizedText(
+        "simpletable.configure",
+        "Configure columns"
+    )
+    static let closeConfigurator = LocalizedText(
+        "simpletable.closeConfigurator",
+        "Close column configurator"
+    )
+    static let reorderColumn = LocalizedText(
+        "simpletable.reorderColumn",
+        "Reorder column"
+    )
+    static let resetAll = LocalizedText(
+        "simpletable.resetAll",
+        "Reset all settings"
+    )
+    static let resetColumns = LocalizedText(
+        "simpletable.resetColumns",
+        "Reset column settings"
+    )
+    static let cancel = LocalizedText("simpletable.cancel", "Cancel")
+    static let cancelChanges = LocalizedText(
+        "simpletable.cancelChanges",
+        "Cancel column changes"
+    )
+    static let save = LocalizedText("simpletable.save", "Save")
+    static let applyChanges = LocalizedText(
+        "simpletable.applyChanges",
+        "Apply column changes"
+    )
+
+    /// Announcements that `simple-table.js` makes. The script asks the i18n store for them, so they are
+    /// recorded when the table renders to land in the page dictionary.
+    static let scriptTexts: [LocalizedText] = [
+        LocalizedText("simpletable.dropped", "Dropped {{key}}."),
+        LocalizedText(
+            "simpletable.pickedUp",
+            "Picked up {{key}}. Use arrow keys to move."
+        ),
+        LocalizedText(
+            "simpletable.cancelled",
+            "Cancelled reordering {{key}}."
+        ),
+        LocalizedText(
+            "simpletable.moved",
+            "Moved {{key}} to position {{position}}."
+        ),
+        LocalizedText(
+            "simpletable.movedFirst",
+            "Moved {{key}} to the first position."
+        ),
+        LocalizedText(
+            "simpletable.movedLast",
+            "Moved {{key}} to the last position."
+        ),
+    ]
+
+    static func recordScriptTexts() {
+        for text in scriptTexts { text.recordUse() }
+    }
+}
+
 public struct SimpleTable: TemplateRepresentable {
     let data: SimpleTableData
     typealias styles = SimpleTableStyles
@@ -54,7 +143,10 @@ public struct SimpleTable: TemplateRepresentable {
                             .class("w-5 h-5")
                         }
 
-                        Div { Span("Copied") }
+                        Div {
+                            Span(SimpleTableTexts.copied.resolved)
+                                .localized(SimpleTableTexts.copied)
+                        }
                             .class("ml-2")
                             .setAttribute(
                                 name: "x-show",
@@ -85,10 +177,7 @@ public struct SimpleTable: TemplateRepresentable {
                         name: "x-show",
                         value: "hasCopyToClipboard && canCopy"
                     )
-                    .setAttribute(
-                        name: "aria-label",
-                        value: "Copy table"
-                    )
+                    .localized(.ariaLabel, SimpleTableTexts.copyTable)
                     // Matomo
                     .flagAttribute("data-track-content")
                     .setAttribute(
@@ -119,10 +208,7 @@ public struct SimpleTable: TemplateRepresentable {
                         .addClass(ActionButtonStyles.borderIcon)
                         .addClass(CommonStyles.focusDefault)
                         .addClass(CommonStyles.hoverDefault)
-                        .setAttribute(
-                            name: "aria-label",
-                            value: "Toggle filter"
-                        )
+                        .localized(.ariaLabel, SimpleTableTexts.toggleFilter)
                         .setAttribute(
                             name: "x-show",
                             value: "hasSearch"
@@ -178,9 +264,9 @@ public struct SimpleTable: TemplateRepresentable {
                                 name: "@click",
                                 value: "openColumnModal()"
                             )
-                            .setAttribute(
-                                name: "aria-label",
-                                value: "Select visible columns"
+                            .localized(
+                                .ariaLabel,
+                                SimpleTableTexts.selectColumns
                             )
                             .setAttribute(
                                 name: "data-column-trigger",
@@ -226,9 +312,8 @@ public struct SimpleTable: TemplateRepresentable {
                 SearchFieldData(
                     bindModel: "filterText",
                     bindRef: "filterInput",
-                    placeholder: "Search",
-                    ariaLabel: "Search table rows",
-                    clearAriaLabel: "Clear filter",
+                    ariaLabel: SimpleTableTexts.searchRows,
+                    clearAriaLabel: SimpleTableTexts.clearFilter,
                     hasTransparentBackground: true,
                     contentTracker: MatomoContentTracker(
                         name: "simple-table",
@@ -339,7 +424,8 @@ public struct SimpleTable: TemplateRepresentable {
                             }
                             .class("text-on-surface")
 
-                            P("No results found")
+                            P(SimpleTableTexts.noResults.resolved)
+                                .localized(SimpleTableTexts.noResults)
 
                         }
                         .class("flex flex-row space-x-4 items-center")
@@ -410,6 +496,7 @@ public struct SimpleTable: TemplateRepresentable {
     // MARK: - Render
     @Builder<Element>
     public func render() -> [Element] {
+        let _ = SimpleTableTexts.recordScriptTexts()
 
         if let json = data.json {
 
