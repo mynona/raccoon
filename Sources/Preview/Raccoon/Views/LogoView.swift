@@ -9,15 +9,11 @@ struct LogoView: TemplateRepresentable {
 
     let variants: [PreviewVariant<LogoData>] = [
         #previewVariant(
-            """
-            // With default context
-            """,
+            "Default Static Logo",
             LogoData()
         ),
         #previewVariant(
-            """
-            // inverted (decomissioned)
-            """,
+            "Linked Logo Destination",
             LogoData(destination: "/")
         ),
     ]

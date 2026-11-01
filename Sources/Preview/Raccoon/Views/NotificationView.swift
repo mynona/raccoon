@@ -9,9 +9,7 @@ struct NotificationView: TemplateRepresentable {
 
     let variants: [PreviewVariant<NotificationData>] = [
         #previewVariant(
-            """
-            // Info (no text)
-            """,
+            "Info Title Only",
             NotificationData(
                 title: tr(
                     "Info title",
@@ -25,9 +23,7 @@ struct NotificationView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Info (with text)
-            """,
+            "Info with Markdown Text",
             NotificationData(
                 title: tr(
                     "Info title",
@@ -47,9 +43,7 @@ struct NotificationView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Success
-            """,
+            "Success Message",
             NotificationData(
                 title: tr(
                     "All done!",
@@ -69,9 +63,7 @@ struct NotificationView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Warning
-            """,
+            "Warning Message",
             NotificationData(
                 title: tr(
                     "Watch out",
@@ -91,9 +83,7 @@ struct NotificationView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Error
-            """,
+            "Error Message",
             NotificationData(
                 title: tr(
                     "Something went wrong",

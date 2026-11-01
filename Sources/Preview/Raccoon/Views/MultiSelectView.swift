@@ -9,9 +9,7 @@ struct MultiSelectView: TemplateRepresentable {
 
     let variants: [PreviewVariant<MultiSelectData>] = [
         #previewVariant(
-            """
-            // .enabled
-            """,
+            "Pre-selected with Helper Text",
             MultiSelectData(
                 id: "multi-1",
                 name: "techs",
@@ -48,9 +46,7 @@ struct MultiSelectView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .enabled + error
-            """,
+            "Validation Error State",
             MultiSelectData(
                 id: "multi-3",
                 name: "techs",
@@ -90,9 +86,7 @@ struct MultiSelectView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .info
-            """,
+            "Read-Only Info State",
             MultiSelectData(
                 id: "multi-41",
                 name: "techs",
@@ -119,9 +113,7 @@ struct MultiSelectView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .info + background
-            """,
+            "Read-Only Info with Custom Background",
             MultiSelectData(
                 id: "multi-43",
                 name: "techs",
@@ -149,9 +141,7 @@ struct MultiSelectView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .disabled + backgroundColor
-            """,
+            "Disabled with Custom Background",
             MultiSelectData(
                 id: "multi-51",
                 name: "techs",
@@ -179,9 +169,7 @@ struct MultiSelectView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .disabled 
-            """,
+            "Disabled State",
             MultiSelectData(
                 id: "multi-52",
                 name: "techs",

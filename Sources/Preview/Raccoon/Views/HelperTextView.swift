@@ -9,9 +9,7 @@ struct HelperTextView: TemplateRepresentable {
 
     let variants: [PreviewVariant<HelperTextData>] = [
         #previewVariant(
-            """
-            // With helper text
-            """,
+            "Standard Helper Text",
             HelperTextData(
                 id: "helper",
                 text: tr(

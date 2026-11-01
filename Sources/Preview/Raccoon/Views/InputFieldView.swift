@@ -10,7 +10,7 @@ struct InputFieldView: TemplateRepresentable {
     let variants: [PreviewVariant<InputFieldData>] = [
         #previewVariant(
 
-            "// First & Last Name validation",
+            "First & Last Name Validation",
             InputFieldData(
                 id: "fullname",
                 label: LabelData(
@@ -40,7 +40,7 @@ struct InputFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "// Email validation",
+            "Email Validation",
             InputFieldData(
                 id: "email",
                 label: LabelData(
@@ -59,7 +59,7 @@ struct InputFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "// URL validation",
+            "URL Validation",
             InputFieldData(
                 id: "website",
                 label: LabelData(
@@ -78,7 +78,7 @@ struct InputFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "// Integer validation",
+            "Integer Validation",
             InputFieldData(
                 id: "age",
                 label: LabelData(
@@ -97,7 +97,7 @@ struct InputFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "// Amount validation",
+            "Amount Validation",
             InputFieldData(
                 id: "amount",
                 label: LabelData(
@@ -116,7 +116,7 @@ struct InputFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "// Phone number validation",
+            "Phone Number Validation",
             InputFieldData(
                 id: "phone",
                 label: LabelData(
@@ -136,7 +136,7 @@ struct InputFieldView: TemplateRepresentable {
         ),
 
         #previewVariant(
-            "// IPv4 Address validation",
+            "IPv4 Address Validation",
             InputFieldData(
                 id: "ip",
                 label: LabelData(
@@ -155,7 +155,7 @@ struct InputFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "// Friendly URL validation",
+            "Friendly URL Slug Validation",
             InputFieldData(
                 id: "slug",
                 label: LabelData(
@@ -174,7 +174,7 @@ struct InputFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "// Custom validation: must be 'abc123'",
+            "Custom Regex Pattern Validation",
             InputFieldData(
                 id: "custom",
                 label: LabelData(

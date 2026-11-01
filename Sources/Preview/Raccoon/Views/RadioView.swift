@@ -7,9 +7,7 @@ struct RadioView: TemplateRepresentable {
 
     let variants: [PreviewVariant<RadioData>] = [
         #previewVariant(
-            """
-            // Default
-            """,
+            "Unchecked Default",
             RadioData(
                 id: "radio-1",
                 label: tr(
@@ -22,9 +20,7 @@ struct RadioView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Selected
-            """,
+            "Checked State",
             RadioData(
                 id: "radio-2",
                 label: tr(
@@ -38,9 +34,7 @@ struct RadioView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Disabled
-            """,
+            "Disabled Unchecked",
             RadioData(
                 id: "radio-3",
                 label: tr(
@@ -54,9 +48,7 @@ struct RadioView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Disabled and selected
-            """,
+            "Disabled Checked",
             RadioData(
                 id: "radio-4",
                 label: tr(
@@ -71,9 +63,7 @@ struct RadioView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Helper text
-            """,
+            "With Helper Text",
             RadioData(
                 id: "radio-5",
                 label: tr(
@@ -96,9 +86,7 @@ struct RadioView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Error
-            """,
+            "With Error Message",
             RadioData(
                 id: "radio-6",
                 label: tr(

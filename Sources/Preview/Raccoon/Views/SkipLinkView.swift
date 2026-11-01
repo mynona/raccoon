@@ -8,15 +8,11 @@ struct SkipLinkView: TemplateRepresentable {
 
     let variants: [PreviewVariant<SkipLinkData>] = [
         #previewVariant(
-            """
-            // Default configuration
-            """,
+            "Default Configuration",
             SkipLinkData()
         ),
         #previewVariant(
-            """
-            // Custom target and text
-            """,
+            "Custom Target and Localized Text",
             SkipLinkData(
                 text: tr(
                     "Skip to article main content",

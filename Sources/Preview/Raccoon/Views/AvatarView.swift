@@ -9,9 +9,7 @@ struct AvatarView: TemplateRepresentable {
 
     let variants: [PreviewVariant<AvatarData>] = [
         #previewVariant(
-            """
-            //
-            """,
+            "Initials Small",
             AvatarData(
                 firstName: "Andreas",
                 lastName: "Soller",
@@ -19,9 +17,7 @@ struct AvatarView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            //
-            """,
+            "Initials Medium",
             AvatarData(
                 firstName: "Andreas",
                 lastName: "Soller",
@@ -29,9 +25,7 @@ struct AvatarView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            //
-            """,
+            "Initials Extra Large",
             AvatarData(
                 firstName: "Andreas",
                 lastName: "Soller",
@@ -39,23 +33,17 @@ struct AvatarView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            //
-            """,
+            "Single Initial",
             AvatarData(
                 firstName: "Andreas"
             )
         ),
         #previewVariant(
-            """
-            // No name
-            """,
+            "Placeholder Fallback",
             AvatarData()
         ),
         #previewVariant(
-            """
-            //
-            """,
+            "Image Picture",
             AvatarData(
                 picture:
                     "https://avatars.githubusercontent.com/u/12345678?v=4"

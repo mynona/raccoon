@@ -9,9 +9,7 @@ struct SimpleMenuView: TemplateRepresentable {
 
     let variants: [PreviewVariant<SimpleMenuData>] = [
         #previewVariant(
-            """
-            // Action Menu with text
-            """,
+            "Action Menu with Text Trigger",
             SimpleMenuData(
                 ariaLabel: tr(
                     "Actions",
@@ -66,9 +64,7 @@ struct SimpleMenuView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // SSR Link Mode with Pre-rendered Checkmark
-            """,
+            "SSR Link Mode with Selected Checkmark",
             SimpleMenuData(
                 ariaLabel: tr(
                     "Page size",
@@ -126,9 +122,7 @@ struct SimpleMenuView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Icon-Only Trigger Button
-            """,
+            "Icon-Only Palette Trigger",
             SimpleMenuData(
                 ariaLabel: tr(
                     "Color theme",
@@ -157,9 +151,7 @@ struct SimpleMenuView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Right-Aligned Panel with Option Icons
-            """,
+            "Right-Aligned Menu with Option Icons",
             SimpleMenuData(
                 ariaLabel: tr(
                     "User options",

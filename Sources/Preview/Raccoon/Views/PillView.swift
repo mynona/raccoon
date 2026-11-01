@@ -9,27 +9,21 @@ struct PillView: TemplateRepresentable {
 
     let variants: [PreviewVariant<PillData>] = [
         #previewVariant(
-            """
-            // Neutral Counter Pill (Default)
-            """,
+            "Neutral Counter",
             PillData(
                 42,
                 variant: .neutral
             )
         ),
         #previewVariant(
-            """
-            // Theme Accent Counter Pill
-            """,
+            "Theme Accent Counter",
             PillData(
                 3124,
                 variant: .theme
             )
         ),
         #previewVariant(
-            """
-            // Text Pill with Status Variant
-            """,
+            "Success Status Text",
             PillData(
                 tr("New", de: "Neu", fr: "Nouveau", es: "Nuevo", it: "Nuovo"),
                 variant: .success,
@@ -37,9 +31,7 @@ struct PillView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Large Error Pill
-            """,
+            "Large Error Status Text",
             PillData(
                 tr(
                     "Failed",

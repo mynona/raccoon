@@ -9,9 +9,7 @@ struct GlossaryEntryView: TemplateRepresentable {
 
     let variants: [PreviewVariant<GlossaryEntryData>] = [
         #previewVariant(
-            """
-            // Default
-            """,
+            "With Initial Letter Badge",
             GlossaryEntryData(
                 term: tr(
                     "Product Thinking",
@@ -36,9 +34,7 @@ struct GlossaryEntryView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Default
-            """,
+            "Without Initial Letter",
             GlossaryEntryData(
                 term: tr(
                     "Product Thinking",

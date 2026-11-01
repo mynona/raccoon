@@ -9,9 +9,7 @@ struct BadgeView: TemplateRepresentable {
 
     let variants: [PreviewVariant<BadgeData>] = [
         #previewVariant(
-            """
-            //
-            """,
+            "Text Only",
             BadgeData(
                 id: "badge-1",
                 title: tr(
@@ -24,9 +22,7 @@ struct BadgeView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            //
-            """,
+            "With Counter",
             BadgeData(
                 id: "badge-2",
                 title: tr(
@@ -40,9 +36,7 @@ struct BadgeView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            //
-            """,
+            "Interactive Link Badge",
             BadgeData(
                 id: "badge-3",
                 title: tr(

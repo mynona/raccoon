@@ -9,9 +9,7 @@ struct CookieBannerView: TemplateRepresentable {
 
     let variants: [PreviewVariant<CookieBannerData>] = [
         #previewVariant(
-            """
-            // With default url
-            """,
+            "Consent Banner",
             CookieBannerData(url: "/test-page", matomoStatus: .BANNER)
         )
     ]

@@ -9,9 +9,7 @@ struct HiddenFieldView: TemplateRepresentable {
 
     let variants: [PreviewVariant<HiddenFieldData>] = [
         #previewVariant(
-            """
-            // With default context
-            """,
+            "Key-Value Hidden Input",
             HiddenFieldData(
                 id: "hidden-key",
                 value: "hidden-value",

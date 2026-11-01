@@ -9,9 +9,7 @@ struct PaginationView: TemplateRepresentable {
 
     let variants: [PreviewVariant<PaginationData>] = [
         #previewVariant(
-            """
-            // Middle page (Page 4 of 10 selected: First | 2 | 3 | 4 | 5 | 6 | Last)
-            """,
+            "Middle Page with Table of Contents",
             PaginationData(
                 tableOfContent: PaginationItem(
                     title: tr(
@@ -44,9 +42,7 @@ struct PaginationView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // First page (Page 1 of 10 selected: no pages before, First button omitted)
-            """,
+            "First Page with Table of Contents",
             PaginationData(
                 tableOfContent: PaginationItem(
                     title: tr(
@@ -79,9 +75,7 @@ struct PaginationView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Near start (Page 2 of 10 selected: only 1 page before)
-            """,
+            "Near-Start Page without TOC",
             PaginationData(
                 tableOfContent: nil,
                 pages: (1...10)
@@ -104,9 +98,7 @@ struct PaginationView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Last page (Page 10 of 10 selected: no pages after, Last button omitted)
-            """,
+            "Last Page without TOC",
             PaginationData(
                 tableOfContent: nil,
                 pages: (1...10)
@@ -129,9 +121,7 @@ struct PaginationView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // 2 pages (Page 1 selected: First omitted, Last shown)
-            """,
+            "Two Pages Only",
             PaginationData(
                 tableOfContent: nil,
                 pages: [
@@ -164,9 +154,7 @@ struct PaginationView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // 100 pages (Page 42 selected: First | 40 | 41 | 42 | 43 | 44 | Last)
-            """,
+            "Large Dataset (100 Pages Windowed)",
             PaginationData(
                 tableOfContent: PaginationItem(
                     title: tr(
@@ -199,9 +187,7 @@ struct PaginationView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Long Table of content title (> 15 characters, truncated)
-            """,
+            "Truncated Long TOC Title",
             PaginationData(
                 tableOfContent: PaginationItem(
                     title: tr(

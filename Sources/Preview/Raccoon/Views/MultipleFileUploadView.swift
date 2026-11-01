@@ -9,9 +9,7 @@ struct MultipleFileUploadView: TemplateRepresentable {
 
     let variants: [PreviewVariant<MultipleFileUploadData>] = [
         #previewVariant(
-            """
-            // Multiple file upload
-            """,
+            "Multiple Files Upload",
             MultipleFileUploadData(
                 id: "multi-file-upload",
                 label: LabelData(
@@ -28,9 +26,7 @@ struct MultipleFileUploadView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Multiple file upload with error
-            """,
+            "Multiple Files with Validation Error",
             MultipleFileUploadData(
                 id: "multi-file-upload-err",
                 label: LabelData(

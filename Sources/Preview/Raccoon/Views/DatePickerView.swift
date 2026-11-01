@@ -9,9 +9,7 @@ struct DatePickerView: TemplateRepresentable {
 
     let variants: [PreviewVariant<DatePickerData>] = [
         #previewVariant(
-            """
-            // DatePicker (Single Date)
-            """,
+            "Single Date",
             DatePickerData(
                 id: "date1",
                 label: LabelData(
@@ -31,9 +29,7 @@ struct DatePickerView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // DatePicker (Date Range)
-            """,
+            "Date Range",
             DatePickerData(
                 id: "date2",
                 endId: "date2_end",

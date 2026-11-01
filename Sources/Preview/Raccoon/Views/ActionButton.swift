@@ -9,9 +9,7 @@ struct ButtonView: TemplateRepresentable {
 
     let variants: [PreviewVariant<ActionButtonData>] = [
         #previewVariant(
-            """
-            // With translations (en, de, fr) and an icon-only button with the built-in fallback label
-            """,
+            "Localized with Icon & Tooltip",
             ActionButtonData(
                 id: "btn-i18n",
                 label: tr(
@@ -37,9 +35,7 @@ struct ButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Icon only, no texts: the aria-label "Action" is built in and translated
-            """,
+            "Icon-Only Built-In Fallback",
             ActionButtonData(
                 id: "btn-i18n-fallback",
                 htmlType: .button,
@@ -49,9 +45,7 @@ struct ButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Primary Button
-            """,
+            "Full-Width Primary with Icon",
             ActionButtonData(
                 id: "btn-1",
                 clickAction: "alert('ClickAction fired');",
@@ -89,9 +83,7 @@ struct ButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // with Matomo
-            """,
+            "Primary with Matomo",
             ActionButtonData(
                 id: "btn-2",
                 label: tr(
@@ -128,9 +120,7 @@ struct ButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            //
-            """,
+            "Secondary Style",
             ActionButtonData(
                 id: "btn-3",
                 label: tr(
@@ -167,9 +157,7 @@ struct ButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            //
-            """,
+            "Tertiary Style",
             ActionButtonData(
                 id: "btn-8",
                 label: tr(
@@ -206,9 +194,7 @@ struct ButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            //
-            """,
+            "Warning Style",
             ActionButtonData(
                 id: "btn-12",
                 label: tr(
@@ -245,9 +231,7 @@ struct ButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .icon
-            """,
+            "Icon-Only Cake with Tooltip",
             ActionButtonData(
                 id: "btn-22",
                 label: nil,
@@ -278,11 +262,7 @@ struct ButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            /// action + method:
-            /// Sets the button's formaction and formmethod (native form submission).
-            /// Clicking this button will submit the form to the server endpoint /preview-save using POST.
-            """,
+            "Formaction Native POST Submission",
             ActionButtonData(
                 id: "btn-action",
                 action: "/preview-save",  // -> becomes formaction="/preview-save"
@@ -321,11 +301,7 @@ struct ButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            /// bindAction:
-            /// Sets x-bind:formaction to a JS expression so the button's target can change at runtime.
-            /// Requires a parent Alpine scope that defines the bound variable (e.g., dynamicUrl).
-            """,
+            "Reactive Dynamic Formaction",
             ActionButtonData(
                 id: "btn-bindAction",
                 bindAction: "dynamicUrl",  // -> becomes x-bind:formaction="dynamicUrl"
@@ -364,9 +340,7 @@ struct ButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // state: .disabled — primary
-            """,
+            "Disabled Primary",
             ActionButtonData(
                 id: "btn-disabled-primary",
                 clickAction: "alert('This must never fire');",
@@ -404,9 +378,7 @@ struct ButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // state: .disabled — secondary
-            """,
+            "Disabled Secondary",
             ActionButtonData(
                 id: "btn-disabled-secondary",
                 label: tr(
@@ -429,9 +401,7 @@ struct ButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // state: .disabled — tertiary
-            """,
+            "Disabled Tertiary",
             ActionButtonData(
                 id: "btn-disabled-tertiary",
                 label: tr(
@@ -454,9 +424,7 @@ struct ButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // state: .disabled — warning
-            """,
+            "Disabled Warning",
             ActionButtonData(
                 id: "btn-disabled-warning",
                 label: tr(
@@ -479,9 +447,7 @@ struct ButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // state: .disabled — icon only
-            """,
+            "Disabled Icon-Only",
             ActionButtonData(
                 id: "btn-disabled-icon",
                 ariaLabel: tr(
@@ -506,10 +472,7 @@ struct ButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // No explicit id and no tooltipId — identical to the two below.
-            // Hovering one icon button must show exactly one tooltip.
-            """,
+            "Auto-Generated ID Tooltip Disambiguation (First)",
             ActionButtonData(
                 ariaLabel: tr(
                     "Icon button without id, first",
@@ -532,9 +495,7 @@ struct ButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // No explicit id, second of three
-            """,
+            "Auto-Generated ID Tooltip Disambiguation (Second)",
             ActionButtonData(
                 ariaLabel: tr(
                     "Icon button without id, second",
@@ -546,7 +507,7 @@ struct ButtonView: TemplateRepresentable {
                 tooltip: tr(
                     "Same tooltip text on all three",
                     de: "Gleicher Tooltip-Text bei allen dreien",
-                    fr: "Même texte d'infobulle pour les trois",
+                    fr: "Même texte d'infobulle pour les drei",
                     es: "Mismo texto de información en los tres",
                     it: "Stesso testo del tooltip per tutti e tre"
                 ),
@@ -557,9 +518,7 @@ struct ButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Multiline wrapping with icon
-            """,
+            "Multiline Text Wrapping with Icon",
             ActionButtonData(
                 id: "btn-multiline",
                 label:

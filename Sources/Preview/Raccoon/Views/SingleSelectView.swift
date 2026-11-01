@@ -9,9 +9,7 @@ struct SingleSelectView: TemplateRepresentable {
 
     let variants: [PreviewVariant<SingleSelectData>] = [
         #previewVariant(
-            """
-            // state = .enabled
-            """,
+            "Enabled with Helper Text",
             SingleSelectData(
                 id: "select-1",
                 name: "select-name-for-forms",
@@ -49,9 +47,7 @@ struct SingleSelectView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // state = .enabled
-            """,
+            "Validation Error State",
             SingleSelectData(
                 id: "select-2",
                 name: "select-name-for-forms",
@@ -101,9 +97,7 @@ struct SingleSelectView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // backgroundColor
-            """,
+            "Custom Background Color",
             SingleSelectData(
                 id: "select-3",
                 name: "select-name-for-forms",
@@ -132,9 +126,7 @@ struct SingleSelectView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // state: .disabled
-            """,
+            "Disabled State",
             SingleSelectData(
                 id: "select-4",
                 name: "select-name-for-forms",
@@ -163,9 +155,7 @@ struct SingleSelectView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // state: .info
-            """,
+            "Read-Only Info State",
             SingleSelectData(
                 id: "select-5",
                 name: "select-name-for-forms",
@@ -194,9 +184,7 @@ struct SingleSelectView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // no label + no name + no title + no placeholder
-            """,
+            "Minimal without Labels",
             SingleSelectData(
                 id: "select-6",
                 name: nil,
@@ -210,10 +198,7 @@ struct SingleSelectView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // value set in backend but does not match any value in 
-            // the option list, then no option is selected
-            """,
+            "Unmatched Value Fallback",
             SingleSelectData(
                 id: "select-7",
                 name: "select-name-for-forms",
@@ -252,9 +237,7 @@ struct SingleSelectView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // value set in backend with a correct value
-            """,
+            "Pre-selected Matching Value",
             SingleSelectData(
                 id: "select-8",
                 name: "select-name-for-forms",

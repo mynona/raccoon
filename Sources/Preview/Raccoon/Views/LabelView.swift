@@ -9,9 +9,7 @@ struct LabelView: TemplateRepresentable {
 
     let variants: [PreviewVariant<LabelData>] = [
         #previewVariant(
-            """
-            // Required
-            """,
+            "Required Field",
             LabelData(
                 id: "field-1",
                 title: tr(
@@ -25,9 +23,7 @@ struct LabelView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Optional
-            """,
+            "Optional Right-Aligned",
             LabelData(
                 id: "field-2",
                 title: tr(
@@ -42,9 +38,7 @@ struct LabelView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Optional
-            """,
+            "Extra Large Left-Aligned",
             LabelData(
                 id: "field-3",
                 title: tr(
@@ -61,9 +55,7 @@ struct LabelView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Title with translations (en, de, fr)
-            """,
+            "Localized Required Email",
             LabelData(
                 id: "field-4",
                 title: tr(

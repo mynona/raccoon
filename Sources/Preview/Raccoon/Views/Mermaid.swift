@@ -9,9 +9,7 @@ struct MermaidView: TemplateRepresentable {
 
     let variants: [PreviewVariant<MermaidData>] = [
         #previewVariant(
-            """
-            // Flowchart
-            """,
+            "Flowchart",
             MermaidData(
                 diagram:
                     """
@@ -26,9 +24,7 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // State diagram
-            """,
+            "State Diagram",
             MermaidData(
                 diagram:
                     """
@@ -44,9 +40,7 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Sequence
-            """,
+            "Sequence Diagram",
             MermaidData(
                 diagram:
                     """
@@ -63,9 +57,7 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Timeline
-            """,
+            "Timeline Diagram",
             MermaidData(
                 diagram:
                     """
@@ -82,9 +74,7 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Class
-            """,
+            "Class Diagram",
             MermaidData(
                 diagram:
                     """
@@ -106,9 +96,7 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // ER diagram
-            """,
+            "Entity Relationship Diagram",
             MermaidData(
                 diagram:
                     """
@@ -132,9 +120,7 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // User Journey
-            """,
+            "User Journey Diagram",
             MermaidData(
                 diagram:
                     """
@@ -151,9 +137,7 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Architecture
-            """,
+            "Architecture Diagram",
             MermaidData(
                 diagram:
                     """
@@ -170,9 +154,7 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // xychart
-            """,
+            "XY Chart",
             MermaidData(
                 diagram:
                     """
@@ -187,9 +169,7 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // pie chart
-            """,
+            "Pie Chart",
             MermaidData(
                 diagram:
                     """
@@ -204,9 +184,7 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // quadrant chart
-            """,
+            "Quadrant Chart",
             MermaidData(
                 diagram:
                     """
@@ -226,9 +204,7 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // gantt chart
-            """,
+            "Gantt Chart",
             MermaidData(
                 diagram:
                     """
@@ -248,9 +224,7 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Mindmap
-            """,
+            "Mindmap",
             MermaidData(
                 diagram:
                     """
@@ -277,9 +251,7 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // GitGraph
-            """,
+            "Git Graph",
             MermaidData(
                 diagram:
                     """
@@ -314,9 +286,7 @@ struct MermaidView: TemplateRepresentable {
         ),
 
         #previewVariant(
-            """
-            // Radar chart
-            """,
+            "Radar Chart",
             MermaidData(
                 diagram:
                     """
@@ -335,9 +305,7 @@ struct MermaidView: TemplateRepresentable {
         ),
 
         #previewVariant(
-            """
-            // Sankey
-            """,
+            "Sankey Diagram",
             MermaidData(
                 diagram:
                     """
@@ -354,9 +322,7 @@ struct MermaidView: TemplateRepresentable {
         ),
 
         #previewVariant(
-            """
-            // Paket
-            """,
+            "Packet Diagram",
             MermaidData(
                 diagram:
                     """
@@ -374,9 +340,7 @@ struct MermaidView: TemplateRepresentable {
         ),
 
         #previewVariant(
-            """
-            // Kanban board
-            """,
+            "Kanban Board",
             MermaidData(
                 diagram:
                     """
@@ -394,9 +358,7 @@ struct MermaidView: TemplateRepresentable {
         ),
 
         #previewVariant(
-            """
-            // Treemap
-            """,
+            "Treemap",
             MermaidData(
                 diagram:
                     """
@@ -415,9 +377,7 @@ struct MermaidView: TemplateRepresentable {
         ),
 
         #previewVariant(
-            """
-            // Event modeling
-            """,
+            "Event Modeling Diagram",
             MermaidData(
                 diagram:
                     """

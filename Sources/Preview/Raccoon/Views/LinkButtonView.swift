@@ -9,9 +9,7 @@ struct LinkButtonView: TemplateRepresentable {
 
     let variants: [PreviewVariant<LinkButtonData>] = [
         #previewVariant(
-            """
-            // With translations (en, de, fr) and icon-only with the built-in fallback label
-            """,
+            "Localized with Icon & Tooltip",
             LinkButtonData(
                 label: tr(
                     "Save",
@@ -37,9 +35,7 @@ struct LinkButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Icon only, no texts: the aria-label "Link" is built in and translated
-            """,
+            "Icon-Only Built-In Fallback",
             LinkButtonData(
                 href: "#",
                 buttonType: .icon,
@@ -49,9 +45,7 @@ struct LinkButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .primary
-            """,
+            "Primary with Icon",
             LinkButtonData(
                 label: tr(
                     "Label",
@@ -84,9 +78,7 @@ struct LinkButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .primary + no icon
-            """,
+            "Primary without Icon",
             LinkButtonData(
                 label: tr(
                     "Label",
@@ -111,9 +103,7 @@ struct LinkButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .primary + fullWidth
-            """,
+            "Primary Full-Width",
             LinkButtonData(
                 label: tr(
                     "Label",
@@ -146,9 +136,7 @@ struct LinkButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .primary + inverted
-            """,
+            "Primary Inverted",
             LinkButtonData(
                 label: tr(
                     "Label",
@@ -174,9 +162,7 @@ struct LinkButtonView: TemplateRepresentable {
         ),
         // secondary
         #previewVariant(
-            """
-            // .secondary
-            """,
+            "Secondary with Icon",
             LinkButtonData(
                 label: tr(
                     "Label",
@@ -201,9 +187,7 @@ struct LinkButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            //
-            """,
+            "Secondary without Icon",
             LinkButtonData(
                 label: tr(
                     "Label",
@@ -228,9 +212,7 @@ struct LinkButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            //
-            """,
+            "Secondary Full-Width",
             LinkButtonData(
                 label: tr(
                     "Label",
@@ -255,9 +237,7 @@ struct LinkButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            //
-            """,
+            "Secondary Inverted",
             LinkButtonData(
                 label: tr(
                     "Label",
@@ -283,9 +263,7 @@ struct LinkButtonView: TemplateRepresentable {
         ),
         // tertiary
         #previewVariant(
-            """
-            // .tertiary
-            """,
+            "Tertiary with Icon",
             LinkButtonData(
                 label: tr(
                     "Label",
@@ -310,9 +288,7 @@ struct LinkButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .tertiary + no icon
-            """,
+            "Tertiary without Icon",
             LinkButtonData(
                 label: tr(
                     "Label",
@@ -337,9 +313,7 @@ struct LinkButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .tertiary + fullWidth
-            """,
+            "Tertiary Full-Width",
             LinkButtonData(
                 label: tr(
                     "Label",
@@ -364,9 +338,7 @@ struct LinkButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .tertiary + inverted
-            """,
+            "Tertiary Inverted",
             LinkButtonData(
                 label: tr(
                     "Label",
@@ -392,9 +364,7 @@ struct LinkButtonView: TemplateRepresentable {
         ),
         // warning
         #previewVariant(
-            """
-            // .warning
-            """,
+            "Warning with Icon",
             LinkButtonData(
                 label: tr(
                     "Label",
@@ -427,9 +397,7 @@ struct LinkButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .warning + no icon
-            """,
+            "Warning without Icon",
             LinkButtonData(
                 label: tr(
                     "Label",
@@ -454,9 +422,7 @@ struct LinkButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .warning + fullWidth
-            """,
+            "Warning Full-Width",
             LinkButtonData(
                 label: tr(
                     "Label",
@@ -481,9 +447,7 @@ struct LinkButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .warning + inverted
-            """,
+            "Warning Inverted",
             LinkButtonData(
                 label: tr(
                     "Label",
@@ -509,9 +473,7 @@ struct LinkButtonView: TemplateRepresentable {
         ),
         // icon
         #previewVariant(
-            """
-            // .icon
-            """,
+            "Icon-Only Link",
             LinkButtonData(
                 label: nil,
                 ariaLabel: tr(
@@ -538,9 +500,7 @@ struct LinkButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .icon + fullWidth
-            """,
+            "Icon-Only Full-Width",
             LinkButtonData(
                 label: nil,
                 ariaLabel: tr(
@@ -567,9 +527,7 @@ struct LinkButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .icon + inverted
-            """,
+            "Icon-Only Inverted",
             LinkButtonData(
                 label: nil,
                 ariaLabel: tr(
@@ -588,9 +546,7 @@ struct LinkButtonView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Multiline wrapping with icon
-            """,
+            "Multiline Text Wrapping with Icon",
             LinkButtonData(
                 label:
                     tr(

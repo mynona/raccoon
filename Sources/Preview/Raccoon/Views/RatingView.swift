@@ -9,13 +9,7 @@ struct RatingView: TemplateRepresentable {
 
     let variants: [PreviewVariant<RatingData>] = [
         #previewVariant(
-            """
-            // .thumbsUpDown
-            //
-            // When the user has successfully submitted the widget
-            // we store the uuid in the local storage that the user
-            // is not prompted for this uuid again to provide feedback
-            """,
+            "Thumbs Up/Down Binary Rating",
             RatingData(
                 id: "897c1000-0000-0000-0000-000000000000",
                 url: "/success",
@@ -23,11 +17,7 @@ struct RatingView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .fiveStars
-            //
-            // This will trigger the error view
-            """,
+            "Five Stars with Error Handling",
             RatingData(
                 id: "111c1000-0000-0000-0000-000000000000",
                 url: "/error",

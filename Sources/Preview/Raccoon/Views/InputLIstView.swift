@@ -9,9 +9,7 @@ struct InputListView: TemplateRepresentable {
 
     let variants: [PreviewVariant<InputListData>] = [
         #previewVariant(
-            """
-            // Default
-            """,
+            "Dynamic URL List",
             InputListData(
                 id: "refs",
                 label: LabelData(id: "refs", title: "References"),

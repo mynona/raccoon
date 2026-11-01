@@ -40,9 +40,7 @@ struct RadioGroupView: TemplateRepresentable {
 
     let variants: [PreviewVariant<RadioGroupData>] = [
         #previewVariant(
-            """
-            // No selection
-            """,
+            "Unselected Optional Group",
             RadioGroupData(
                 id: "group-1",
                 name: "plan-1",
@@ -61,9 +59,7 @@ struct RadioGroupView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Preselected, required legend
-            """,
+            "Preselected Required Group",
             RadioGroupData(
                 id: "group-2",
                 name: "plan-2",
@@ -82,9 +78,7 @@ struct RadioGroupView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Helper text
-            """,
+            "Group with Helper Text",
             RadioGroupData(
                 id: "group-3",
                 name: "plan-3",
@@ -114,9 +108,7 @@ struct RadioGroupView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Group error
-            """,
+            "Group Validation Error",
             RadioGroupData(
                 id: "group-4",
                 name: "plan-4",
@@ -157,9 +149,7 @@ struct RadioGroupView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // One option disabled, option helper text
-            """,
+            "Individual Option Disabled with Helper Text",
             RadioGroupData(
                 id: "group-5",
                 name: "plan-5",
@@ -224,9 +214,7 @@ struct RadioGroupView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Whole group disabled
-            """,
+            "Entire Group Disabled",
             RadioGroupData(
                 id: "group-6",
                 name: "plan-6",

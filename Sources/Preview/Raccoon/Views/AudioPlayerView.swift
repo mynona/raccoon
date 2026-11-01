@@ -9,9 +9,7 @@ struct AudioPlayerView: TemplateRepresentable {
 
     let variants: [PreviewVariant<AudioPlayerData>] = [
         #previewVariant(
-            """
-            //
-            """,
+            "Full Player with Progress Bar",
             AudioPlayerData(
                 title: tr(
                     "Episode 2",
@@ -33,9 +31,7 @@ struct AudioPlayerView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // with Matomo
-            """,
+            "Minimal Player with Matomo",
             AudioPlayerData(
                 linkToTheAudioFile:
                     "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",

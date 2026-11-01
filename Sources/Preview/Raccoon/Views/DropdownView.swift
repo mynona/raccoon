@@ -52,9 +52,7 @@ struct DropdownView: TemplateRepresentable {
 
     let variants: [PreviewVariant<DropdownData>] = [
         #previewVariant(
-            """
-            // Standard Enabled Dropdown with Pre-selected Value
-            """,
+            "Pre-selected with Helper Text",
             DropdownData(
                 id: "topic_select",
                 label: LabelData(
@@ -85,9 +83,7 @@ struct DropdownView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Dropdown with Validation Error
-            """,
+            "Validation Error State",
             DropdownData(
                 id: "required_topic",
                 label: LabelData(
@@ -128,9 +124,7 @@ struct DropdownView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Initialized Directly from SingleSelectData (Drop-in Interchangeable)
-            """,
+            "SingleSelectData Compatibility",
             DropdownData(
                 SingleSelectData(
                     id: "author_single_select",
@@ -151,9 +145,7 @@ struct DropdownView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Disabled State
-            """,
+            "Disabled State",
             DropdownData(
                 id: "disabled_dropdown",
                 label: LabelData(
@@ -172,9 +164,7 @@ struct DropdownView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Info State (Read-only Summary)
-            """,
+            "Read-Only Info State",
             DropdownData(
                 id: "info_dropdown",
                 label: LabelData(

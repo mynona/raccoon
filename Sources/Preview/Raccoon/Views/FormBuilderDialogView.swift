@@ -51,9 +51,7 @@ struct FormBuilderDialogView: TemplateRepresentable {
 
     let variants: [PreviewVariant<FormBuilderData>] = [
         #previewVariant(
-            """
-            // Form in a dialog: actions aligned to the trailing edge, cancel closes the dialog
-            """,
+            "Dialog Form with Trailing Actions",
             FormBuilderData(
                 id: "preview.dialog.rename",
                 action: "/preview/form-builder-dialog",

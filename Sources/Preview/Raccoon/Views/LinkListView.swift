@@ -9,9 +9,7 @@ struct LinkListView: TemplateRepresentable {
 
     let variants: [PreviewVariant<LinkListData>] = [
         #previewVariant(
-            """
-            // Default
-            """,
+            "Standard Links with Disabled Fallback",
             LinkListData(
                 links: [
                     tr(
@@ -43,9 +41,7 @@ struct LinkListView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Multiline wrapping
-            """,
+            "Multiline Link Item Wrapping",
             LinkListData(
                 links: [
                     tr(

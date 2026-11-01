@@ -9,7 +9,7 @@ struct CodeBlockView: TemplateRepresentable {
 
     let variants: [PreviewVariant<CodeBlockData>] = [
         #previewVariant(
-            "// Swift function",
+            "Short Snippet",
             CodeBlockData(
                 code:
                     """
@@ -22,7 +22,7 @@ struct CodeBlockView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "// Python function",
+            "Long Snippet with Scroll",
             CodeBlockData(
                 code:
                     """

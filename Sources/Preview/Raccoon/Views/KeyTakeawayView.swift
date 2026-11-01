@@ -9,9 +9,7 @@ struct KeyTakeawayView: TemplateRepresentable {
 
     let variants: [PreviewVariant<KeyTakeawaysData>] = [
         #previewVariant(
-            """
-            // Default
-            """,
+            "Markdown List with Lightbulb Icon",
             KeyTakeawaysData(
                 title: tr(
                     "Key Takeaways",

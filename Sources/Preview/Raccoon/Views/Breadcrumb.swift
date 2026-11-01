@@ -9,17 +9,13 @@ struct BreadcrumbView: TemplateRepresentable {
 
     let variants: [PreviewVariant<BreadcrumbData>] = [
         #previewVariant(
-            """
-            //
-            """,
+            "Path Links",
             BreadcrumbData(
                 paths: DemoData.breadcrumbPaths
             )
         ),
         #previewVariant(
-            """
-            // with Matomo
-            """,
+            "Path Links with Home & Matomo",
             BreadcrumbData(
                 paths: DemoData.breadcrumbPaths,
                 hasHome: true,

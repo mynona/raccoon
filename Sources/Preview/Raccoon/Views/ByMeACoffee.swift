@@ -9,9 +9,7 @@ struct ByMeACoffeeView: TemplateRepresentable {
 
     let variants: [PreviewVariant<ByMeACoffeeData>] = [
         #previewVariant(
-            """
-            // With default data
-            """,
+            "Default Button",
             ByMeACoffeeData(
                 dataSlug: "support-kaeru",
                 imageSrc: "/images/bmc-yellow.png",
@@ -20,9 +18,7 @@ struct ByMeACoffeeView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // With Matomo
-            """,
+            "Button with Matomo",
             ByMeACoffeeData(
                 dataSlug: "support-kaeru",
                 imageSrc: "/images/bmc-yellow.png",

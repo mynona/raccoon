@@ -9,9 +9,7 @@ struct ReferencesView: TemplateRepresentable {
 
     let variants: [PreviewVariant<ReferencesData>] = [
         #previewVariant(
-            """
-            // Default
-            """,
+            "Markdown References List",
             ReferencesData(
                 title: tr(
                     "References",

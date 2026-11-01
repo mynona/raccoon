@@ -67,12 +67,14 @@ let html = renderHTML(
 | `CookieBanner` | GDPR-compliant cookie consent banner |
 | `CopyToClipboard` | Text copy widget with visual feedback confirmation |
 | `DarkLightModeToggle` | Colour mode switch with localStorage persistence and Alt+M shortcut |
+| `DataTable` | Accessible API-driven data table supporting server-side sorting, filtering, search, and pagination |
 | `DatePicker` | Date selection input with calendar picker |
 | `Definition` | Definition term and description block for explanatory content |
 | `DeleteModal` | Confirmation modal dialog for delete and destructive actions |
 | `Dropdown` | Accessible single-option form dropdown without search, styling-matched to `SimpleMenu` and interchangeable with `SingleSelect` |
 | `ErrorMessage` | Inline validation and error notification element |
 | `FileList` | List view displaying downloadable files with metadata |
+| `FormBuilder` | Declarative form builder rendering accessible form fields, groups, and actions in page or dialog layouts |
 | `Glossary` | Searchable glossary overview and index |
 | `GlossaryEntry` | Individual term definition entry within a glossary |
 | `HelperText` | Contextual hint and helper text below input fields |
@@ -117,6 +119,59 @@ let html = renderHTML(
 | `Tooltip` | Hover- and focus-activated contextual tooltip |
 | `ViewMaskedSecret` | Revealable secret / masked credential viewer |
 
+## Localization (i18n)
+
+Raccoon components render on the server in one page language and include a lightweight client-side store (`Public/js/i18n.js`) allowing live language switching in the browser without a full page reload.
+
+### Rendering in a language
+
+Wrap page rendering in `I18n.render(language:)`:
+
+```swift
+import Raccoon
+
+let html = I18n.render(language: "de", collectsUsedKeys: true) {
+    page.renderString(type: .html5, minify: false, indent: 0)
+}
+```
+
+The rendering context is task-local, making it thread-safe for concurrent server requests.
+
+### LocalizedText
+
+All user-facing component strings accept `LocalizedText`:
+
+- **Built-in texts:** Components provide default strings translated across 20 European languages (`en`, `de`, `fr`, `es`, `it`, `pt`, `nl`, `lb`, `da`, `sv`, `nb`, `fi`, `is`, `el`, `tr`, `hu`, `hr`, `pl`, `sk`, `cs`). Passing `nil` for optional text properties falls back to the translated built-in default.
+- **Consumer translations:** Supply custom translations with `LocalizedText(en: "Save", translations: ["de": "Speichern"])`.
+- **Plain literals:** Plain string literals (`"Save"`) are displayed verbatim in every language.
+
+```swift
+ActionButton(
+    ActionButtonData(
+        label: LocalizedText(en: "Save", translations: ["de": "Speichern", "fr": "Enregistrer"]),
+        ariaLabel: "Save the document",
+        tooltip: nil // Uses built-in translated default tooltip
+    )
+).render()
+```
+
+### Client-side switching
+
+To enable dynamic language switching in the browser:
+
+1. Serve `Public/js/i18n.js` at `/js/i18n.js`.
+2. Output `I18n.scripts()` once near the end of `<body>` to emit the client engine and the dictionary of keys used on the page:
+
+```swift
+Body {
+    content
+    I18n.scripts()
+}
+.lang(language)
+```
+
+3. Changing `<html lang="...">` (for example, via the built-in `LanguageSwitcher` component) instantly re-translates marked elements without reloading the page.
+
 ## Matomo (optional)
 
 Each component has integrated Matomo for analytics to track component usage.
@@ -148,7 +203,7 @@ Sources/
   Raccoon/                      # Core domain-agnostic UI kit
     Components/                 # Reusable UI components
     Enums/                      # Shared enumerations (ComponentSize, ComponentState, etc.)
-    LittleHelpers/              # Utility functions, SEO, and Matomo tracking
+    LittleHelpers/              # Utility functions, SEO, localization (i18n), and Matomo tracking
     Svg/                        # SVG icon rendering (Svg, SvgIcon)
     Templates/                  # Core rendering protocol (TemplateRepresentable, renderString)
     Theme/                      # CommonStyles design tokens and Tailwind theme classes

@@ -9,15 +9,11 @@ struct SearchFieldView: TemplateRepresentable {
 
     let variants: [PreviewVariant<SearchFieldData>] = [
         #previewVariant(
-            """
-            // Default search field
-            """,
+            "Default Search Field",
             SearchFieldData()
         ),
         #previewVariant(
-            """
-            // Own texts with translations (en, de, fr)
-            """,
+            "Localized Texts with Icon Title",
             SearchFieldData(
                 placeholder: tr(
                     "Find articles",
@@ -43,9 +39,7 @@ struct SearchFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Small size variant (.sm) for compact sidebars and headers
-            """,
+            "Compact Size Variant",
             SearchFieldData(
                 placeholder: tr(
                     "Filter components...",
@@ -65,9 +59,7 @@ struct SearchFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Loading state (animated heart icon while querying server)
-            """,
+            "Animated Loading State",
             SearchFieldData(
                 placeholder: tr(
                     "Searching items...",
@@ -87,9 +79,7 @@ struct SearchFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Disabled state
-            """,
+            "Disabled State",
             SearchFieldData(
                 placeholder: tr(
                     "Search disabled",
@@ -109,9 +99,7 @@ struct SearchFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Custom Alpine bindings and clear actions
-            """,
+            "Custom Alpine Model Bindings",
             SearchFieldData(
                 name: "customSearchInput",
                 bindModel: "customQuery",
@@ -133,9 +121,7 @@ struct SearchFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Transparent container background
-            """,
+            "Transparent Container Background",
             SearchFieldData(
                 placeholder: tr(
                     "Transparent background...",

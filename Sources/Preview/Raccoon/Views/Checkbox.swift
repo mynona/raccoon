@@ -9,9 +9,7 @@ struct CheckboxView: TemplateRepresentable {
 
     let variants: [PreviewVariant<CheckData>] = [
         #previewVariant(
-            """
-            //
-            """,
+            "Checked with Helper Text",
             CheckData(
                 id: "cb-1",
                 label: tr(
@@ -38,9 +36,7 @@ struct CheckboxView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            //
-            """,
+            "Unchecked Default",
             CheckData(
                 id: "cb-10",
                 label: tr(
@@ -58,9 +54,7 @@ struct CheckboxView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            //
-            """,
+            "Checked Disabled",
             CheckData(
                 id: "cb-11",
                 label: tr(
@@ -78,9 +72,7 @@ struct CheckboxView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            //
-            """,
+            "With Error and Helper Text",
             CheckData(
                 id: "cb-30",
                 label: tr(

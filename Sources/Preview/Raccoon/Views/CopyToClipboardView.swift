@@ -9,18 +9,14 @@ struct CopyToClipboardView: TemplateRepresentable {
 
     let variants: [PreviewVariant<CopyToClipboardData>] = [
         #previewVariant(
-            """
-            // Horizontal
-            """,
+            "Horizontal Layout",
             CopyToClipboardData(
                 value: "sk-abc123XYZ",
                 orientation: .horizontal
             )
         ),
         #previewVariant(
-            """
-            // Vertical
-            """,
+            "Vertical Layout",
             CopyToClipboardData(
                 value: "sk-abc123XYZ",
                 orientation: .vertical

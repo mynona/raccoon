@@ -9,9 +9,7 @@ struct CheckboxSelectView: TemplateRepresentable {
 
     let variants: [PreviewVariant<CheckboxSelectData>] = [
         #previewVariant(
-            """
-            // Default
-            """,
+            "With Search & Select All",
             CheckboxSelectData(
                 id: "select-1",
                 label: LabelData(
@@ -40,9 +38,7 @@ struct CheckboxSelectView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // no search, no selectAll
-            """,
+            "List Only Without Search",
             CheckboxSelectData(
                 id: "select-2",
                 label: LabelData(
@@ -62,9 +58,7 @@ struct CheckboxSelectView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // no search, no selectAll
-            """,
+            "With Select All Without Search",
             CheckboxSelectData(
                 id: "select-3",
                 label: LabelData(

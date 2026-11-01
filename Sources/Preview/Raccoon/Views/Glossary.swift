@@ -9,9 +9,7 @@ struct GlossaryView: TemplateRepresentable {
 
     let variants: [PreviewVariant<GlossaryData>] = [
         #previewVariant(
-            """
-            // Default (with in-page search)
-            """,
+            "With In-Page Search",
             GlossaryData(
                 entries: [
                     GlossaryEntryData(
@@ -208,9 +206,7 @@ struct GlossaryView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Without Search
-            """,
+            "Without Search",
             GlossaryData(
                 entries: [
                     GlossaryEntryData(

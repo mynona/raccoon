@@ -9,9 +9,7 @@ struct DefinitionView: TemplateRepresentable {
 
     let variants: [PreviewVariant<DefinitionData>] = [
         #previewVariant(
-            """
-            // Default
-            """,
+            "Term with Icon",
             DefinitionData(
                 term: tr(
                     "Product Thinking",

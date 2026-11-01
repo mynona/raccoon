@@ -10,9 +10,7 @@ struct SpacerView: TemplateRepresentable {
     let variants: [PreviewVariant<SpacerData>] = (1...10)
         .map { n in
             #previewVariant(
-                """
-                // Space \(n)
-                """,
+                "Spacing Level \(n)",
                 SpacerData(space: UInt(n))
             )
         }

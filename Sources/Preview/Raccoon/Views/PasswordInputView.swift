@@ -9,9 +9,7 @@ struct PasswordInputView: TemplateRepresentable {
 
     let variants: [PreviewVariant<PasswordInputData>] = [
         #previewVariant(
-            """
-            // Default
-            """,
+            "Password Input with Toggle Visibility",
             PasswordInputData(
                 passwordId: "password",
                 passwordLabel: LabelData(

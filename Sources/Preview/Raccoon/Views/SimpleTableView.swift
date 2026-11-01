@@ -9,10 +9,7 @@ struct SimpleTableView: TemplateRepresentable {
 
     let variants: [PreviewVariant<SimpleTableData>] = [
         #previewVariant(
-            """
-            // Growth Loops
-            SimpleTableData(meta: meta, rows: rows, caption: \"Types of Growth Loops\")
-            """,
+            "Structured Data Table with Caption",
             SimpleTableData(
                 meta: DemoData.simpleTableMeta,
                 rows: DemoData.simpleTableRows,

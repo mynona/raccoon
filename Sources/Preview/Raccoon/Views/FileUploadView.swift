@@ -9,9 +9,7 @@ struct FileUploadView: TemplateRepresentable {
 
     let variants: [PreviewVariant<SingleFileUploadData>] = [
         #previewVariant(
-            """
-            //
-            """,
+            "Standard Upload",
             SingleFileUploadData(
                 id: "file-upload",
                 label: LabelData(
@@ -28,9 +26,7 @@ struct FileUploadView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            //
-            """,
+            "Upload with Validation Error",
             SingleFileUploadData(
                 id: "file-upload2",
                 label: LabelData(
@@ -59,19 +55,7 @@ struct FileUploadView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // noLabel
-
-            SingleFileUploadData(
-                id: "file-upload3",
-                label: nil
-                errorMessages: ErrorMessageData(
-                    ["error one"],
-                    id: "err-1-2",
-                    showIcon: true
-                    )
-            )
-            """,
+            "Upload without Label",
             SingleFileUploadData(
                 id: "file-upload3",
                 errorMessages: ErrorMessageData(

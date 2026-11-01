@@ -10,9 +10,7 @@ struct AccordionView: TemplateRepresentable {
     var variants: [PreviewVariant<AccordionData>] {
         [
             #previewVariant(
-                """
-                // Border 
-                """,
+                "Bordered with HTML Content",
                 AccordionData(
                     label: tr(
                         "What is product thinking?",
@@ -41,9 +39,7 @@ struct AccordionView: TemplateRepresentable {
                 )
             ),
             #previewVariant(
-                """
-                // No border + with Matomo
-                """,
+                "Borderless with Markdown & Matomo",
                 AccordionData(
                     label: tr(
                         "No border applied",
@@ -66,9 +62,7 @@ struct AccordionView: TemplateRepresentable {
                 )
             ),
             #previewVariant(
-                """
-                // element
-                """,
+                "Borderless with Custom Elements",
                 AccordionData(
                     label: tr(
                         "No border applied",

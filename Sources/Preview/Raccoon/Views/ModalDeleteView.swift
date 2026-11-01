@@ -9,18 +9,14 @@ struct ModalDeleteView: TemplateRepresentable {
 
     let variants: [PreviewVariant<DeleteModalData>] = [
         #previewVariant(
-            """
-            // Default
-            """,
+            "Standard Confirmation Dialog",
             DeleteModalData(
                 deletionRedirect: "/items",
                 csrfToken: "tok_abc123"
             )
         ),
         #previewVariant(
-            """
-            // Second instance on the same page — must not share ids with the first
-            """,
+            "Second Independent Modal Instance",
             DeleteModalData(
                 deletionRedirect: "/records",
                 csrfToken: "tok_def456"

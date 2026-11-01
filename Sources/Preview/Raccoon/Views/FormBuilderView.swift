@@ -9,9 +9,7 @@ struct FormBuilderView: TemplateRepresentable {
 
     let variants: [PreviewVariant<FormBuilderData>] = [
         #previewVariant(
-            """
-            // Page form: group, fields, link action (sign up)
-            """,
+            "Registration Form with Field Groups",
             FormBuilderData(
                 id: "preview.registration",
                 action: "/preview/form-builder",

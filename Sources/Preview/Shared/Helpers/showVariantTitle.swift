@@ -2,7 +2,7 @@ import HTML
 import SGML
 import WebBuilders
 
-/// Shows the variant's "//" comment above the rendered component.
+/// Shows the variant title above the rendered component.
 @Builder<Element>
 func showVariantTitle(_ label: String, _ ctx: Any) -> [Element] {
 

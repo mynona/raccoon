@@ -9,9 +9,7 @@ struct LinkView: TemplateRepresentable {
 
     let variants: [PreviewVariant<HyperLinkData>] = [
         #previewVariant(
-            """
-            // .center
-            """,
+            "Centered External Link with Tooltip",
             HyperLinkData(
                 label: tr(
                     "Some label",
@@ -46,9 +44,7 @@ struct LinkView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .left
-            """,
+            "Left-Aligned Internal Link",
             HyperLinkData(
                 label: tr(
                     "Some label",
@@ -81,9 +77,7 @@ struct LinkView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .left + not underlined + no aria label + iconSize(48)
-            """,
+            "Large Icon without Underline",
             HyperLinkData(
                 label: tr(
                     "Some label",
@@ -103,9 +97,7 @@ struct LinkView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // focusable = false
-            """,
+            "Non-Focusable Link",
             HyperLinkData(
                 label: tr(
                     "Some label",
@@ -125,9 +117,7 @@ struct LinkView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Multiline wrapping
-            """,
+            "Multiline Text Wrapping with Icon",
             HyperLinkData(
                 label:
                     tr(

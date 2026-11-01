@@ -9,15 +9,11 @@ struct DarkLightModeToggleView: TemplateRepresentable {
 
     let variants: [PreviewVariant<DarkLightModeToggleData>] = [
         #previewVariant(
-            """
-            // With default context
-            """,
+            "Default Toggle",
             DarkLightModeToggleData()
         ),
         #previewVariant(
-            """
-            // With id and Matomo tracking enabled
-            """,
+            "Toggle with Matomo",
             DarkLightModeToggleData(
                 id: "darkLightModeToggle",
                 matomoStatus: .ACCEPTED

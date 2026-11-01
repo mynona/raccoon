@@ -9,9 +9,7 @@ struct MarkdownBlockView: TemplateRepresentable {
 
     let variants: [PreviewVariant<MarkdownBlockData>] = [
         #previewVariant(
-            """
-            // hasProse == true
-            """,
+            "Rendered Prose Content",
             MarkdownBlockData(
                 markdown: DemoData.markdownText,
                 isProse: true

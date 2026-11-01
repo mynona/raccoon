@@ -9,9 +9,7 @@ struct ErrorMessageView: TemplateRepresentable {
 
     let variants: [PreviewVariant<ErrorMessageData>] = [
         #previewVariant(
-            """
-            // With error messages
-            """,
+            "Multiple Errors with Icon",
             ErrorMessageData(
                 id: "err2",
                 errorMessages: [
@@ -34,9 +32,7 @@ struct ErrorMessageView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // With error messages
-            """,
+            "Single Error without Icon",
             ErrorMessageData(
                 id: "err3",
                 errorMessages: [
@@ -52,9 +48,7 @@ struct ErrorMessageView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Messages with translations
-            """,
+            "Localized Error with Icon",
             ErrorMessageData(
                 id: "err4",
                 errorMessages: [

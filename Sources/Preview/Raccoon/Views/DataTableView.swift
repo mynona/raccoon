@@ -135,7 +135,7 @@ struct DataTableView: TemplateRepresentable {
             defaultSort: DataTableSort(key: "name"),
             search: DataTableSearch(
                 label: "Search raccoons",
-                placeholder: "Search by name or range (min. 3 characters)…"
+                placeholder: "search for raccoon"
             ),
             hasFilterMode: true
         )

@@ -9,33 +9,23 @@ struct KbdView: TemplateRepresentable {
 
     let variants: [PreviewVariant<KeyboardKeyData>] = [
         #previewVariant(
-            """
-            // Shift
-            """,
+            "Shift Key",
             KeyboardKeyData(key: .shift)
         ),
         #previewVariant(
-            """
-            // Command
-            """,
+            "Command Key",
             KeyboardKeyData(key: .command)
         ),
         #previewVariant(
-            """
-            // Ctrl
-            """,
+            "Control Key",
             KeyboardKeyData(key: .ctrl)
         ),
         #previewVariant(
-            """
-            // Custom text
-            """,
+            "Single Letter Key",
             KeyboardKeyData(key: .text("K"))
         ),
         #previewVariant(
-            """
-            // Custom text
-            """,
+            "Named Text Key",
             KeyboardKeyData(key: .text("esc"))
         ),
     ]

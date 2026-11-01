@@ -9,9 +9,7 @@ struct QuoteView: TemplateRepresentable {
 
     let variants: [PreviewVariant<QuoteData>] = [
         #previewVariant(
-            """
-            // With citation
-            """,
+            "With Citation and Quotation Marks",
             QuoteData(
                 quote:
                     tr(
@@ -30,9 +28,7 @@ struct QuoteView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // With citation but no quotation marks
-            """,
+            "With Citation Without Quotation Marks",
             QuoteData(
                 quote:
                     tr(
@@ -51,9 +47,7 @@ struct QuoteView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // No citation
-            """,
+            "Quote Only Without Citation",
             QuoteData(
                 quote: tr(
                     "Ship early, learn fast.",

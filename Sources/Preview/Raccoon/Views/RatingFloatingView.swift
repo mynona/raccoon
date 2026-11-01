@@ -17,11 +17,7 @@ struct RatingFloatingView: TemplateRepresentable {
 
     let variants: [PreviewVariant<RatingData>] = [
         #previewVariant(
-            """
-            // Floating rating widget on scroll
-            // Revealed once the user has scrolled through 80% of the page.
-            // If closed without comment, it docks into the fixed place on the page.
-            """,
+            "Scroll-Triggered Floating Feedback Widget",
             RatingData(
                 id: "floating-scroll-124",
                 url: "/success",

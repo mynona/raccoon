@@ -192,12 +192,12 @@ struct CarouselView: TemplateRepresentable {
 
                 for (label, data) in [
                     (
-                        "// S3 Processed Gallery – automatic AVIF & WebP alternatives",
+                        "S3 Processed Images",
                         galleryS3
                     ),
-                    ("// Gallery one", galleryOne),
+                    ("Local SVG Gallery", galleryOne),
                     (
-                        "// Gallery two – second instance on the same page",
+                        "Second Gallery Instance",
                         galleryTwo
                     ),
                 ] {

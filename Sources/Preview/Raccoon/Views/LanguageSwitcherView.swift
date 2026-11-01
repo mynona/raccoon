@@ -9,9 +9,7 @@ struct LanguageSwitcherView: TemplateRepresentable {
 
     let variants: [PreviewVariant<LanguageSwitcherData>] = [
         #previewVariant(
-            """
-            // English and German
-            """,
+            "Two Languages (English & German)",
             LanguageSwitcherData(
                 languages: [
                     LanguageOption(code: "en", name: "English"),
@@ -20,9 +18,7 @@ struct LanguageSwitcherView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // More languages, custom id and fallback
-            """,
+            "Four Languages with German Fallback",
             LanguageSwitcherData(
                 id: "language-switcher-2",
                 languages: [
