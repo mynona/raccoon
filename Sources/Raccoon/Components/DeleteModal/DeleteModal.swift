@@ -7,6 +7,28 @@ public struct DeleteModal: TemplateRepresentable {
     let data: DeleteModalData
     typealias styles = DeleteModalStyles
 
+    private static let close = LocalizedText(
+        "deletemodal.close",
+        "Close delete dialog"
+    )
+    private static let title = LocalizedText("deletemodal.title", "Delete")
+    private static let confirm = LocalizedText(
+        "deletemodal.confirm",
+        "Are you sure you want to delete this item?"
+    )
+    private static let warning = LocalizedText(
+        "deletemodal.warning",
+        "This action cannot be undone and all data will be irrevocably deleted."
+    )
+    private static let yes = LocalizedText(
+        "deletemodal.yes",
+        "Yes, delete"
+    )
+    private static let cancel = LocalizedText(
+        "deletemodal.cancel",
+        "Cancel"
+    )
+
     public init(
         _ data: DeleteModalData
     ) {
@@ -24,7 +46,7 @@ public struct DeleteModal: TemplateRepresentable {
                     clickAction: "open = false, $store.modal = false",
                     method: nil,
                     label: nil,
-                    ariaLabel: "Close delete dialog",
+                    ariaLabel: Self.close,
                     tooltip: nil,
                     tooltipPosition: nil,
                     htmlType: .button,
@@ -52,7 +74,8 @@ public struct DeleteModal: TemplateRepresentable {
             Span { Svg.icon(.exclamation_triangle, width: 24, height: 24) }
                 .class("flex-initial")
 
-            H2("Delete")
+            H2(Self.title.resolved)
+                .localized(Self.title)
                 .setAttribute(
                     name: ":id",
                     value: "$id('modal-title')"
@@ -68,18 +91,14 @@ public struct DeleteModal: TemplateRepresentable {
     @Builder<Element>
     func showDialogBody() -> [Element] {
         Div {
-            P("Are you sure you want to delete this item?")
+            P(Self.confirm.resolved)
+                .localized(Self.confirm)
                 .addClass(styles.textColor)
-            P {
-                Span("This action")
-                Span(" cannot ")
-                    .class(styles.emphasisFont)
-                Span(
-                    "be undone and all data will be irrevocably deleted."
-                )
-            }
-            .class("pt-4")
-            .addClass(styles.textColor)
+            // One key for the whole sentence: the word order differs between languages
+            P(Self.warning.resolved)
+                .localized(Self.warning)
+                .class("pt-4")
+                .addClass(styles.textColor)
         }
         .class("mt-4 pr-4")
 
@@ -94,7 +113,7 @@ public struct DeleteModal: TemplateRepresentable {
                     ActionButtonData(
                         action: data.deletionRedirect,
                         method: .post,
-                        label: "Yes, delete",
+                        label: Self.yes,
                         htmlType: .submit,
                         buttonType: .warning,
                         contentTracker: MatomoContentTracker(
@@ -113,7 +132,7 @@ public struct DeleteModal: TemplateRepresentable {
                     ActionButtonData(
                         action: "",
                         method: .get,
-                        label: "Cancel",
+                        label: Self.cancel,
                         htmlType: .button,
                         buttonType: .secondary,
                         contentTracker: MatomoContentTracker(

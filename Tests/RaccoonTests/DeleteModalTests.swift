@@ -133,4 +133,32 @@ struct DeleteModalTests {
         #expect(html.contains("X-CSRF-Token"))
         #expect(html.contains("/js/modal.js"))
     }
+
+    // MARK: localization
+
+    @Test("all texts are built in and translated; the warning is one sentence")
+    func localizedTexts() {
+        let data = DeleteModalData(deletionRedirect: "/a", csrfToken: nil)
+        let english = renderHTML(DeleteModal(data).render())
+        for key in ["close", "title", "confirm", "warning", "yes", "cancel"] {
+            #expect(english.contains("deletemodal.\(key)"), "\(key)")
+        }
+        #expect(
+            english.contains(
+                ">This action cannot be undone and all data will be irrevocably deleted.</p>"
+            )
+        )
+
+        let german = I18n.render(language: "de") {
+            renderHTML(DeleteModal(data).render())
+        }
+        #expect(
+            german.contains(
+                ">Soll dieser Eintrag wirklich gelöscht werden?</p>"
+            )
+        )
+        #expect(german.contains("Ja, löschen"))
+        #expect(german.contains("Abbrechen"))
+        #expect(german.contains("aria-label=\"Löschdialog schließen\""))
+    }
 }

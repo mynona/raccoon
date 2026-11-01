@@ -126,6 +126,7 @@ public enum Translations {
         "checkboxselect": checkboxselect,
         "badge": badge,
         "darklightmodetoggle": darklightmodetoggle,
+        "deletemodal": deletemodal,
         "fieldvalidation": fieldvalidation,
         "datepicker": datepicker,
         "inputlist": inputlist,
