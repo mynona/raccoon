@@ -124,6 +124,7 @@ public enum Translations {
         "copytoclipboard": copytoclipboard,
         "bymeacoffee": bymeacoffee,
         "checkboxselect": checkboxselect,
+        "badge": badge,
         "darklightmodetoggle": darklightmodetoggle,
         "fieldvalidation": fieldvalidation,
         "datepicker": datepicker,

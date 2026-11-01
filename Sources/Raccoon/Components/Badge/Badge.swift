@@ -46,7 +46,14 @@ public struct Badge: TemplateRepresentable {
                 .addClass(styles.font)
                 .addClass(styles.textSize)
                 .addClass(styles.counterTextColor)
-                .ariaLabel("\(counter) articles tagged with '\(title())'")
+                .localized(
+                    .ariaLabel,
+                    LocalizedText(
+                        "badge.counter",
+                        "Articles tagged '{{title}}': {{count}}",
+                        variables: ["title": title(), "count": "\(counter)"]
+                    )
+                )
         }
     }
 
@@ -91,7 +98,14 @@ public struct Badge: TemplateRepresentable {
                     .class("flex flex-row items-center")
 
                 }
-                .ariaLabel("View all articles tagged as '\(title())'")
+                .localized(
+                    .ariaLabel,
+                    LocalizedText(
+                        "badge.viewAll",
+                        "View all articles tagged as '{{title}}'",
+                        variables: ["title": title()]
+                    )
+                )
                 .href(buildTagUrl(urlTag: urlTag))
                 // Matomo
                 .if(
@@ -130,7 +144,14 @@ public struct Badge: TemplateRepresentable {
         .id(data.id)
         .role("group")
         .if(!data.isLink) {
-            $0.ariaLabel("Articles tagged as '\(title())'")
+            $0.localized(
+                .ariaLabel,
+                LocalizedText(
+                    "badge.group",
+                    "Articles tagged as '{{title}}'",
+                    variables: ["title": title()]
+                )
+            )
         }
         .class(styles.fontSans)
         .addClass(

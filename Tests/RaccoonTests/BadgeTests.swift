@@ -135,7 +135,8 @@ struct BadgeTests {
         #expect(html.contains("rounded-l-lg"))
         #expect(html.contains("rounded-r-lg"))
         #expect(html.contains("role=\"group\""))
-        #expect(html.contains("Articles tagged as 'Messages'"))
+        // Attribute values are escaped, so the apostrophes are entities
+        #expect(html.contains("Articles tagged as &#39;Messages&#39;"))
     }
 
     @Test("renders without counter has full rounded-lg")
@@ -148,5 +149,36 @@ struct BadgeTests {
         #expect(html.contains("rounded-lg"))
         #expect(!html.contains("rounded-l-lg"))
         #expect(!html.contains("rounded-r-lg"))
+    }
+
+    // MARK: localization
+
+    @Test(
+        "the aria-labels are built in, translated, and keep the title as caller data"
+    )
+    func localizedLabels() {
+        let link = BadgeData(id: "b1", title: "Swift", counter: 3, isLink: true)
+        let english = renderHTML(Badge(link).render())
+        #expect(english.contains("data-i18n-aria-label=\"badge.viewAll\""))
+        #expect(english.contains("data-i18n-aria-label=\"badge.counter\""))
+        #expect(english.contains("Articles tagged &#39;Swift&#39;: 3"))
+
+        let german = I18n.render(language: "de") {
+            renderHTML(Badge(link).render())
+        }
+        #expect(
+            german.contains(
+                "aria-label=\"Alle Artikel mit dem Tag „Swift“ anzeigen\""
+            )
+        )
+        #expect(
+            german.contains("aria-label=\"Artikel mit dem Tag „Swift“: 3\"")
+        )
+
+        let plain = BadgeData(id: "b2", title: "Swift", isLink: false)
+        let group = I18n.render(language: "fr") {
+            renderHTML(Badge(plain).render())
+        }
+        #expect(group.contains("aria-label=\"Articles avec le tag « Swift »\""))
     }
 }
