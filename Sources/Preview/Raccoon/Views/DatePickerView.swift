@@ -16,7 +16,13 @@ struct DatePickerView: TemplateRepresentable {
                 id: "date1",
                 label: LabelData(
                     id: "date-label-1",
-                    title: "Appointment Date"
+                    title: tr(
+                        "Appointment Date",
+                        de: "Termin",
+                        fr: "Date du rendez-vous",
+                        es: "Fecha de la cita",
+                        it: "Data dell'appuntamento"
+                    )
                 ),
                 value: Date(),
                 state: .enabled,
@@ -33,7 +39,13 @@ struct DatePickerView: TemplateRepresentable {
                 endId: "date2_end",
                 label: LabelData(
                     id: "date-label-2",
-                    title: "Vacation Period (Date Range)"
+                    title: tr(
+                        "Vacation Period (Date Range)",
+                        de: "Urlaubszeitraum (Datumsbereich)",
+                        fr: "Période de vacances (plage de dates)",
+                        es: "Período de vacaciones (rango de fechas)",
+                        it: "Periodo di vacanza (intervallo di date)"
+                    )
                 ),
                 value: Date(),
                 endValue: Date().addingTimeInterval(86400 * 14),

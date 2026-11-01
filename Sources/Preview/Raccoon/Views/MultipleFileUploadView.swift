@@ -16,7 +16,13 @@ struct MultipleFileUploadView: TemplateRepresentable {
                 id: "multi-file-upload",
                 label: LabelData(
                     id: "multi-label-1",
-                    title: "Attach multiple documents"
+                    title: tr(
+                        "Attach multiple documents",
+                        de: "Mehrere Dokumente anhängen",
+                        fr: "Joindre plusieurs documents",
+                        es: "Adjuntar varios documentos",
+                        it: "Allega più documenti"
+                    )
                 ),
                 errorMessages: nil
             )
@@ -29,11 +35,28 @@ struct MultipleFileUploadView: TemplateRepresentable {
                 id: "multi-file-upload-err",
                 label: LabelData(
                     id: "multi-label-2",
-                    title: "Upload files"
+                    title: tr(
+                        "Upload files",
+                        de: "Dateien hochladen",
+                        fr: "Téléverser des fichiers",
+                        es: "Subir archivos",
+                        it: "Carica file"
+                    )
                 ),
                 errorMessages: ErrorMessageData(
                     id: "err-multi-1",
-                    errorMessages: ["Files must not exceed 10MB in total."],
+                    errorMessages: [
+                        tr(
+                            "Files must not exceed 10MB in total.",
+                            de:
+                                "Die Dateien dürfen insgesamt 10 MB nicht überschreiten.",
+                            fr:
+                                "Les fichiers ne doivent pas dépasser 10 Mo au total.",
+                            es:
+                                "Los archivos no deben superar los 10 MB en total.",
+                            it: "I file non devono superare 10 MB in totale."
+                        )
+                    ],
                     hasIcon: true
                 )
             )
@@ -67,9 +90,25 @@ struct MultipleFileUploadView: TemplateRepresentable {
                                     id: "alt_text",
                                     label: LabelData(
                                         id: "alt_text",
-                                        title: "Description / Alt text"
+                                        title: tr(
+                                            "Description / Alt text",
+                                            de: "Beschreibung / Alternativtext",
+                                            fr:
+                                                "Description / texte alternatif",
+                                            es:
+                                                "Descripción / texto alternativo",
+                                            it:
+                                                "Descrizione / testo alternativo"
+                                        )
                                     ),
-                                    placeholder: "Describe the uploaded files"
+                                    placeholder: tr(
+                                        "Describe the uploaded files",
+                                        de:
+                                            "Beschreibe die hochgeladenen Dateien",
+                                        fr: "Décrivez les fichiers téléversés",
+                                        es: "Describe los archivos subidos",
+                                        it: "Descrivi i file caricati"
+                                    )
                                 )
                             )
                             .render()
@@ -81,7 +120,13 @@ struct MultipleFileUploadView: TemplateRepresentable {
                                 id: "files",
                                 label: LabelData(
                                     id: "files",
-                                    title: "Select Files"
+                                    title: tr(
+                                        "Select Files",
+                                        de: "Dateien auswählen",
+                                        fr: "Sélectionner des fichiers",
+                                        es: "Seleccionar archivos",
+                                        it: "Seleziona file"
+                                    )
                                 )
                             )
                         )
@@ -91,7 +136,13 @@ struct MultipleFileUploadView: TemplateRepresentable {
                             ActionButton(
                                 ActionButtonData(
                                     id: "submit-multi-upload",
-                                    label: "Upload Files",
+                                    label: tr(
+                                        "Upload Files",
+                                        de: "Dateien hochladen",
+                                        fr: "Téléverser les fichiers",
+                                        es: "Subir archivos",
+                                        it: "Carica file"
+                                    ),
                                     htmlType: .submit,
                                     buttonType: .primary,
                                     hasFullWidth: false,

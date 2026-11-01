@@ -228,10 +228,12 @@ public struct TabGroup: TemplateRepresentable {
     func renderPanelContent(_ content: TabContent) -> [Element] {
         switch content {
         case .html(let html):
-            Div { InlineText(html, isRaw: true) }
+            Div { InlineText(html.resolved, isRaw: true) }
         case .markdown(let markdown):
-            Div { InlineText(renderMarkdownAsHTML(markdown), isRaw: true) }
-                .addClass(styles.panelProse)
+            Div {
+                InlineText(renderMarkdownAsHTML(markdown.resolved), isRaw: true)
+            }
+            .addClass(styles.panelProse)
         case .element(let elements):
             elements
         }

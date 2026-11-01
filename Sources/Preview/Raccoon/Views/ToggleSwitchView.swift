@@ -16,7 +16,13 @@ struct ToggleSwitchView: TemplateRepresentable {
                 id: "ts-1",
                 label: LabelData(
                     id: "ts-1",
-                    title: "label"
+                    title: tr(
+                        "label",
+                        de: "Beschriftung",
+                        fr: "libellé",
+                        es: "etiqueta",
+                        it: "etichetta"
+                    )
                 ),
                 isSelected: false,
                 size: .base,
@@ -45,7 +51,13 @@ struct ToggleSwitchView: TemplateRepresentable {
                 id: "ts-3",
                 label: LabelData(
                     id: "ts-3",
-                    title: "label",
+                    title: tr(
+                        "label",
+                        de: "Beschriftung",
+                        fr: "libellé",
+                        es: "etiqueta",
+                        it: "etichetta"
+                    ),
                     position: .left
                 ),
                 isSelected: true,
@@ -62,7 +74,13 @@ struct ToggleSwitchView: TemplateRepresentable {
                 id: "ts-5",
                 label: LabelData(
                     id: "ts-5",
-                    title: "label",
+                    title: tr(
+                        "label",
+                        de: "Beschriftung",
+                        fr: "libellé",
+                        es: "etiqueta",
+                        it: "etichetta"
+                    ),
                     position: .right
                 ),
                 isSelected: true,

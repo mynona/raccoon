@@ -76,9 +76,9 @@ struct LinkListTests {
 
     @Test("renders 100+ links (performance)")
     func rendersManyLinks() async throws {
-        var links: [String: String?] = [:]
+        var links: [LocalizedText: String?] = [:]
         for i in 1...120 {
-            links["Link #\(i) 🚀"] = "/l\(i)"
+            links[LocalizedText(verbatim: "Link #\(i) 🚀")] = "/l\(i)"
         }
         let data = LinkListData(
             links: links,
@@ -177,7 +177,7 @@ func accessibilityAttributesAllLinks() async throws {
 @Test("renders with all prop combinations (exhaustive)")
 func rendersAllPropCombinations() async throws {
     let icons: [SvgIcon?] = [.arrow_right_circle, nil]
-    let linksList: [[String: String?]] = [
+    let linksList: [[LocalizedText: String?]] = [
         ["A": "/a"],
         ["B": nil],
         ["": ""],
@@ -203,7 +203,7 @@ func rendersAllPropCombinations() async throws {
                 })?
                 .key
             {
-                #expect(html.contains(key))
+                #expect(html.contains(key.english))
             }
         }
     }

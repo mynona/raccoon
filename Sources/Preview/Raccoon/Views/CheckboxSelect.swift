@@ -14,11 +14,26 @@ struct CheckboxSelectView: TemplateRepresentable {
             """,
             CheckboxSelectData(
                 id: "select-1",
-                label: LabelData(id: "tags", title: "Tags"),
+                label: LabelData(
+                    id: "tags",
+                    title: tr(
+                        "Tags",
+                        de: "Tags",
+                        fr: "Tags",
+                        es: "Etiquetas",
+                        it: "Tag"
+                    )
+                ),
                 values: DemoData.optionList,
                 helperText: HelperTextData(
                     id: "helper-1",
-                    text: "helper text"
+                    text: tr(
+                        "helper text",
+                        de: "Hilfetext",
+                        fr: "texte d'aide",
+                        es: "texto de ayuda",
+                        it: "testo di aiuto"
+                    )
                 ),
                 hasSearch: true,
                 hasSelectAll: true
@@ -30,7 +45,16 @@ struct CheckboxSelectView: TemplateRepresentable {
             """,
             CheckboxSelectData(
                 id: "select-2",
-                label: LabelData(id: "tags-2", title: "Tags"),
+                label: LabelData(
+                    id: "tags-2",
+                    title: tr(
+                        "Tags",
+                        de: "Tags",
+                        fr: "Tags",
+                        es: "Etiquetas",
+                        it: "Tag"
+                    )
+                ),
                 values: DemoData.optionList,
                 helperText: nil,
                 hasSearch: false,
@@ -43,7 +67,16 @@ struct CheckboxSelectView: TemplateRepresentable {
             """,
             CheckboxSelectData(
                 id: "select-3",
-                label: LabelData(id: "tags-3", title: "Tags"),
+                label: LabelData(
+                    id: "tags-3",
+                    title: tr(
+                        "Tags",
+                        de: "Tags",
+                        fr: "Tags",
+                        es: "Etiquetas",
+                        it: "Tag"
+                    )
+                ),
                 values: DemoData.optionList,
                 helperText: nil,
                 hasSearch: false,

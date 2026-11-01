@@ -18,7 +18,13 @@ struct SkipLinkView: TemplateRepresentable {
             // Custom target and text
             """,
             SkipLinkData(
-                text: "Skip to article main content",
+                text: tr(
+                    "Skip to article main content",
+                    de: "Zum Hauptinhalt des Artikels springen",
+                    fr: "Passer au contenu principal de l'article",
+                    es: "Saltar al contenido principal del artículo",
+                    it: "Vai al contenuto principale dell'articolo"
+                ),
                 targetId: "article-content"
             )
         ),
@@ -50,7 +56,18 @@ struct SkipLinkView: TemplateRepresentable {
                     ) {
                         Div {
                             P(
-                                "Tab to or focus the link below to see the skip link style:"
+                                tr(
+                                    "Tab to or focus the link below to see the skip link style:",
+                                    de:
+                                        "Springe mit der Tabulatortaste zum Link unten oder fokussiere ihn, um den Stil des Sprunglinks zu sehen:",
+                                    fr:
+                                        "Utilisez la touche Tab ou placez le focus sur le lien ci-dessous pour voir le style du lien d'évitement :",
+                                    es:
+                                        "Pulsa Tab o enfoca el enlace de abajo para ver el estilo del enlace de salto:",
+                                    it:
+                                        "Premi Tab o porta il focus sul link qui sotto per vedere lo stile del link di salto:"
+                                )
+                                .resolved
                             )
                             .class(
                                 "mb-2 text-sm text-gray-500 dark:text-gray-400"

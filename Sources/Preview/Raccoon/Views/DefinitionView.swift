@@ -13,9 +13,25 @@ struct DefinitionView: TemplateRepresentable {
             // Default
             """,
             DefinitionData(
-                term: "Product Thinking",
+                term: tr(
+                    "Product Thinking",
+                    de: "Product Thinking",
+                    fr: "Product thinking",
+                    es: "Product thinking",
+                    it: "Product thinking"
+                ),
                 definition:
-                    "Solving the right problems by deeply understanding user needs and business context.",
+                    tr(
+                        "Solving the right problems by deeply understanding user needs and business context.",
+                        de:
+                            "Die richtigen Probleme lösen, indem man Nutzerbedürfnisse und den Geschäftskontext genau versteht.",
+                        fr:
+                            "Résoudre les bons problèmes en comprenant en profondeur les besoins des utilisateurs et le contexte métier.",
+                        es:
+                            "Resolver los problemas correctos comprendiendo a fondo las necesidades de los usuarios y el contexto de negocio.",
+                        it:
+                            "Risolvere i problemi giusti comprendendo a fondo i bisogni degli utenti e il contesto aziendale."
+                    ),
                 icon: .book
             )
         )

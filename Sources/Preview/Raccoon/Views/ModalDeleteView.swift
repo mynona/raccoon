@@ -50,7 +50,13 @@ struct ModalDeleteView: TemplateRepresentable {
                             id: "buttonOpenDeleteModal",
                             action: "/system/client-delete/uuid",
                             method: .post,
-                            label: "Delete",
+                            label: tr(
+                                "Delete",
+                                de: "Löschen",
+                                fr: "Supprimer",
+                                es: "Eliminar",
+                                it: "Elimina"
+                            ),
                             htmlType: .button,
                             buttonType: .warning,
                             contentTracker: MatomoContentTracker(

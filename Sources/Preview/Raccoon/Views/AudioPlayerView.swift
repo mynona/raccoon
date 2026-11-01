@@ -13,8 +13,20 @@ struct AudioPlayerView: TemplateRepresentable {
             //
             """,
             AudioPlayerData(
-                title: "Episode 2",
-                disclaimer: "Disclaimer information",
+                title: tr(
+                    "Episode 2",
+                    de: "Folge 2",
+                    fr: "Épisode 2",
+                    es: "Episodio 2",
+                    it: "Episodio 2"
+                ),
+                disclaimer: tr(
+                    "Disclaimer information",
+                    de: "Hinweise zum Haftungsausschluss",
+                    fr: "Informations de décharge de responsabilité",
+                    es: "Información de exención de responsabilidad",
+                    it: "Informazioni sulla dichiarazione di non responsabilità"
+                ),
                 linkToTheAudioFile:
                     "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
                 hasProgressBar: true

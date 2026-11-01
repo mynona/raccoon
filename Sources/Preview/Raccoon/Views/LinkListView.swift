@@ -14,10 +14,29 @@ struct LinkListView: TemplateRepresentable {
             """,
             LinkListData(
                 links: [
-                    "Getting started": "/start",
-                    "Documentation": "/docs",
-                    "Blog": "/blog",
-                    "DeadLink": nil,
+                    tr(
+                        "Getting started",
+                        de: "Erste Schritte",
+                        fr: "Premiers pas",
+                        es: "Primeros pasos",
+                        it: "Per iniziare"
+                    ): "/start",
+                    tr(
+                        "Documentation",
+                        de: "Dokumentation",
+                        fr: "Documentation",
+                        es: "Documentación",
+                        it: "Documentazione"
+                    ): "/docs",
+                    tr("Blog", de: "Blog", fr: "Blog", es: "Blog", it: "Blog"):
+                        "/blog",
+                    tr(
+                        "DeadLink",
+                        de: "Toter Link",
+                        fr: "Lien mort",
+                        es: "Enlace roto",
+                        it: "Link morto"
+                    ): nil,
                 ],
                 icon: .arrow_right_circle,
                 contentTracker: tracker
@@ -29,9 +48,25 @@ struct LinkListView: TemplateRepresentable {
             """,
             LinkListData(
                 links: [
-                    "Comprehensive Guide to Building Distributed Microservices with Swift, Vapor and Modern Cloud Architecture Patterns":
+                    tr(
+                        "Comprehensive Guide to Building Distributed Microservices with Swift, Vapor and Modern Cloud Architecture Patterns",
+                        de:
+                            "Umfassender Leitfaden zum Aufbau verteilter Microservices mit Swift, Vapor und modernen Cloud-Architekturmustern",
+                        fr:
+                            "Guide complet pour créer des microservices distribués avec Swift, Vapor et des architectures cloud modernes",
+                        es:
+                            "Guía completa para crear microservicios distribuidos con Swift, Vapor y arquitecturas cloud modernas",
+                        it:
+                            "Guida completa alla creazione di microservizi distribuiti con Swift, Vapor e architetture cloud moderne"
+                    ):
                         "/guide",
-                    "Short Link": "/short",
+                    tr(
+                        "Short Link",
+                        de: "Kurzer Link",
+                        fr: "Lien court",
+                        es: "Enlace corto",
+                        it: "Link breve"
+                    ): "/short",
                 ],
                 icon: .arrow_right_circle,
                 contentTracker: tracker

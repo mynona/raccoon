@@ -13,22 +13,52 @@ struct SimpleMenuView: TemplateRepresentable {
             // Action Menu with text
             """,
             SimpleMenuData(
-                ariaLabel: "Actions",
-                triggerText: "Actions",
+                ariaLabel: tr(
+                    "Actions",
+                    de: "Aktionen",
+                    fr: "Actions",
+                    es: "Acciones",
+                    it: "Azioni"
+                ),
+                triggerText: tr(
+                    "Actions",
+                    de: "Aktionen",
+                    fr: "Actions",
+                    es: "Acciones",
+                    it: "Azioni"
+                ),
                 options: [
                     SimpleMenuOption(
                         id: "edit",
-                        title: "Edit item",
+                        title: tr(
+                            "Edit item",
+                            de: "Element bearbeiten",
+                            fr: "Modifier l'élément",
+                            es: "Editar elemento",
+                            it: "Modifica elemento"
+                        ),
                         clickAction: "alert('Edit clicked')"
                     ),
                     SimpleMenuOption(
                         id: "duplicate",
-                        title: "Duplicate",
+                        title: tr(
+                            "Duplicate",
+                            de: "Duplizieren",
+                            fr: "Dupliquer",
+                            es: "Duplicar",
+                            it: "Duplica"
+                        ),
                         clickAction: "alert('Duplicate clicked')"
                     ),
                     SimpleMenuOption(
                         id: "archive",
-                        title: "Archive",
+                        title: tr(
+                            "Archive",
+                            de: "Archivieren",
+                            fr: "Archiver",
+                            es: "Archivar",
+                            it: "Archivia"
+                        ),
                         clickAction: "alert('Archive clicked')"
                     ),
                 ],
@@ -40,24 +70,54 @@ struct SimpleMenuView: TemplateRepresentable {
             // SSR Link Mode with Pre-rendered Checkmark
             """,
             SimpleMenuData(
-                ariaLabel: "Page size",
-                triggerText: "25 items",
+                ariaLabel: tr(
+                    "Page size",
+                    de: "Seitengröße",
+                    fr: "Taille de page",
+                    es: "Tamaño de página",
+                    it: "Dimensione pagina"
+                ),
+                triggerText: tr(
+                    "25 items",
+                    de: "25 Einträge",
+                    fr: "25 éléments",
+                    es: "25 elementos",
+                    it: "25 elementi"
+                ),
                 options: [
                     SimpleMenuOption(
                         id: "10",
-                        title: "10 items",
+                        title: tr(
+                            "10 items",
+                            de: "10 Einträge",
+                            fr: "10 éléments",
+                            es: "10 elementos",
+                            it: "10 elementi"
+                        ),
                         isSelected: false,
                         href: "/preview/simple-menu?per=10"
                     ),
                     SimpleMenuOption(
                         id: "25",
-                        title: "25 items",
+                        title: tr(
+                            "25 items",
+                            de: "25 Einträge",
+                            fr: "25 éléments",
+                            es: "25 elementos",
+                            it: "25 elementi"
+                        ),
                         isSelected: true,
                         href: "/preview/simple-menu?per=25"
                     ),
                     SimpleMenuOption(
                         id: "50",
-                        title: "50 items",
+                        title: tr(
+                            "50 items",
+                            de: "50 Einträge",
+                            fr: "50 éléments",
+                            es: "50 elementos",
+                            it: "50 elementi"
+                        ),
                         isSelected: false,
                         href: "/preview/simple-menu?per=50"
                     ),
@@ -70,7 +130,13 @@ struct SimpleMenuView: TemplateRepresentable {
             // Icon-Only Trigger Button
             """,
             SimpleMenuData(
-                ariaLabel: "Color theme",
+                ariaLabel: tr(
+                    "Color theme",
+                    de: "Farbschema",
+                    fr: "Thème de couleurs",
+                    es: "Tema de color",
+                    it: "Tema colore"
+                ),
                 options: [
                     SimpleMenuOption(
                         id: "theme-default",
@@ -95,12 +161,30 @@ struct SimpleMenuView: TemplateRepresentable {
             // Right-Aligned Panel with Option Icons
             """,
             SimpleMenuData(
-                ariaLabel: "User options",
-                triggerText: "Profile",
+                ariaLabel: tr(
+                    "User options",
+                    de: "Benutzeroptionen",
+                    fr: "Options utilisateur",
+                    es: "Opciones de usuario",
+                    it: "Opzioni utente"
+                ),
+                triggerText: tr(
+                    "Profile",
+                    de: "Profil",
+                    fr: "Profil",
+                    es: "Perfil",
+                    it: "Profilo"
+                ),
                 options: [
                     SimpleMenuOption(
                         id: "account",
-                        title: "Account settings",
+                        title: tr(
+                            "Account settings",
+                            de: "Kontoeinstellungen",
+                            fr: "Paramètres du compte",
+                            es: "Ajustes de la cuenta",
+                            it: "Impostazioni account"
+                        ),
                         clickAction: "alert('Account')",
                         icon: .person_fill
                     ),
@@ -112,7 +196,13 @@ struct SimpleMenuView: TemplateRepresentable {
                     ),
                     SimpleMenuOption(
                         id: "logout",
-                        title: "Sign out",
+                        title: tr(
+                            "Sign out",
+                            de: "Abmelden",
+                            fr: "Se déconnecter",
+                            es: "Cerrar sesión",
+                            it: "Esci"
+                        ),
                         clickAction: "alert('Sign out')",
                         icon: .box_arrow_left
                     ),

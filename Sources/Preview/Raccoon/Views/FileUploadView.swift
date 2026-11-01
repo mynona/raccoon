@@ -16,7 +16,13 @@ struct FileUploadView: TemplateRepresentable {
                 id: "file-upload",
                 label: LabelData(
                     id: "label-1",
-                    title: "label"
+                    title: tr(
+                        "label",
+                        de: "Beschriftung",
+                        fr: "libellé",
+                        es: "etiqueta",
+                        it: "etichetta"
+                    )
                 ),
                 errorMessages: nil
             )
@@ -29,11 +35,25 @@ struct FileUploadView: TemplateRepresentable {
                 id: "file-upload2",
                 label: LabelData(
                     id: "label-1",
-                    title: "label"
+                    title: tr(
+                        "label",
+                        de: "Beschriftung",
+                        fr: "libellé",
+                        es: "etiqueta",
+                        it: "etichetta"
+                    )
                 ),
                 errorMessages: ErrorMessageData(
                     id: "err-1",
-                    errorMessages: ["error one"],
+                    errorMessages: [
+                        tr(
+                            "error one",
+                            de: "Fehler eins",
+                            fr: "erreur un",
+                            es: "error uno",
+                            it: "errore uno"
+                        )
+                    ],
                     hasIcon: true
                 )
             )
@@ -56,7 +76,15 @@ struct FileUploadView: TemplateRepresentable {
                 id: "file-upload3",
                 errorMessages: ErrorMessageData(
                     id: "err-1-3",
-                    errorMessages: ["error one"],
+                    errorMessages: [
+                        tr(
+                            "error one",
+                            de: "Fehler eins",
+                            fr: "erreur un",
+                            es: "error uno",
+                            it: "errore uno"
+                        )
+                    ],
                     hasIcon: true
                 )
             )
@@ -90,9 +118,21 @@ struct FileUploadView: TemplateRepresentable {
                                     id: "alt_text",
                                     label: LabelData(
                                         id: "alt_text",
-                                        title: "Alt text"
+                                        title: tr(
+                                            "Alt text",
+                                            de: "Alternativtext",
+                                            fr: "Texte alternatif",
+                                            es: "Texto alternativo",
+                                            it: "Testo alternativo"
+                                        )
                                     ),
-                                    placeholder: "Describe the image"
+                                    placeholder: tr(
+                                        "Describe the image",
+                                        de: "Beschreibe das Bild",
+                                        fr: "Décrivez l'image",
+                                        es: "Describe la imagen",
+                                        it: "Descrivi l'immagine"
+                                    )
                                 )
                             )
                             .render()
@@ -104,7 +144,13 @@ struct FileUploadView: TemplateRepresentable {
                                 id: "image",
                                 label: LabelData(
                                     id: "image",
-                                    title: "Select Image"
+                                    title: tr(
+                                        "Select Image",
+                                        de: "Bild auswählen",
+                                        fr: "Sélectionner une image",
+                                        es: "Seleccionar imagen",
+                                        it: "Seleziona immagine"
+                                    )
                                 )
                             )
                         )
@@ -114,7 +160,13 @@ struct FileUploadView: TemplateRepresentable {
                             ActionButton(
                                 ActionButtonData(
                                     id: "submit-single-upload",
-                                    label: "Upload Image",
+                                    label: tr(
+                                        "Upload Image",
+                                        de: "Bild hochladen",
+                                        fr: "Téléverser l'image",
+                                        es: "Subir imagen",
+                                        it: "Carica immagine"
+                                    ),
                                     htmlType: .submit,
                                     buttonType: .primary,
                                     hasFullWidth: false,

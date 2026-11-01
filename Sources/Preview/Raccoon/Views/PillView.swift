@@ -31,7 +31,7 @@ struct PillView: TemplateRepresentable {
             // Text Pill with Status Variant
             """,
             PillData(
-                "New",
+                tr("New", de: "Neu", fr: "Nouveau", es: "Nuevo", it: "Nuovo"),
                 variant: .success,
                 size: .base
             )
@@ -41,7 +41,13 @@ struct PillView: TemplateRepresentable {
             // Large Error Pill
             """,
             PillData(
-                "Failed",
+                tr(
+                    "Failed",
+                    de: "Fehlgeschlagen",
+                    fr: "Échec",
+                    es: "Fallido",
+                    it: "Non riuscito"
+                ),
                 variant: .error,
                 size: .xl
             )

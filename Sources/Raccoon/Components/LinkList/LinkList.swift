@@ -14,11 +14,11 @@ public struct LinkList: TemplateRepresentable {
     }
 
     @Builder<Element>
-    func showLink(key: String, value: String) -> [Element] {
+    func showLink(key: LocalizedText, value: String) -> [Element] {
         LinkButton(
             LinkButtonData(
-                label: LocalizedText(verbatim: key),
-                ariaLabel: LocalizedText(verbatim: key),
+                label: key,
+                ariaLabel: key,
                 href: value,
                 buttonType: .tertiary,
                 icon: data.icon,
@@ -27,7 +27,7 @@ public struct LinkList: TemplateRepresentable {
                 matomoStatus: data.matomoStatus,
                 contentTracker: MatomoContentTracker(
                     name: data.contentTracker.name,
-                    piece: key,
+                    piece: key.english,
                     target: value
                 )
             )

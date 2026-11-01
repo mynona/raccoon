@@ -1,7 +1,7 @@
 /// Configuration data for the `AudioPlayer` component.
 public struct AudioPlayerData: Sendable {
-    public let title: String?
-    public let disclaimer: String?
+    public let title: LocalizedText?
+    public let disclaimer: LocalizedText?
     public let linkToTheAudioFile: String
     public let hasProgressBar: Bool
     public let matomoStatus: MatomoStatus
@@ -15,8 +15,8 @@ public struct AudioPlayerData: Sendable {
     ///   - hasProgressBar: Whether to display a playback progress bar.
     ///   - matomoStatus: Matomo analytics tracking consent status.
     public init(
-        title: String? = nil,
-        disclaimer: String? = nil,
+        title: LocalizedText? = nil,
+        disclaimer: LocalizedText? = nil,
         linkToTheAudioFile: String,
         hasProgressBar: Bool = true,
         matomoStatus: MatomoStatus = .DECLINED

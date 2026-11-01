@@ -56,5 +56,12 @@ extension Translations {
             "es": "Reproduciendo audio",
             "it": "Riproduzione audio in corso",
         ],
+        "keyboardHint": [
+            "en": "Use left/right arrows to skip, space to play or pause, and home/end to jump to the beginning or end.",
+            "de": "Mit den Pfeiltasten links/rechts vor- oder zurückspringen, mit der Leertaste abspielen oder pausieren, mit Pos1/Ende zum Anfang oder Ende springen.",
+            "fr": "Utilisez les flèches gauche/droite pour avancer ou reculer, la barre d'espace pour lire ou mettre en pause, et Début/Fin pour aller au début ou à la fin.",
+            "es": "Use las flechas izquierda/derecha para saltar, la barra espaciadora para reproducir o pausar, e Inicio/Fin para ir al principio o al final.",
+            "it": "Usa le frecce sinistra/destra per spostarti, la barra spaziatrice per riprodurre o mettere in pausa e Home/Fine per andare all'inizio o alla fine.",
+        ],
     ]
 }

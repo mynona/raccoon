@@ -13,7 +13,7 @@ struct MarkdownBlockView: TemplateRepresentable {
             // hasProse == true
             """,
             MarkdownBlockData(
-                markdown: LocalizedText(verbatim: DemoData.markdownText),
+                markdown: DemoData.markdownText,
                 isProse: true
             )
         )

@@ -19,23 +19,26 @@ struct SearchFieldView: TemplateRepresentable {
             // Own texts with translations (en, de, fr)
             """,
             SearchFieldData(
-                placeholder: LocalizedText(
-                    en: "Find articles",
-                    translations: [
-                        "de": "Artikel finden", "fr": "Trouver des articles",
-                    ]
+                placeholder: tr(
+                    "Find articles",
+                    de: "Artikel finden",
+                    fr: "Trouver des articles",
+                    es: "Buscar artículos",
+                    it: "Trova articoli"
                 ),
-                ariaLabel: LocalizedText(
-                    en: "Find articles",
-                    translations: [
-                        "de": "Artikel finden", "fr": "Trouver des articles",
-                    ]
+                ariaLabel: tr(
+                    "Find articles",
+                    de: "Artikel finden",
+                    fr: "Trouver des articles",
+                    es: "Buscar artículos",
+                    it: "Trova articoli"
                 ),
-                iconTitle: LocalizedText(
-                    en: "Search icon",
-                    translations: [
-                        "de": "Suchsymbol", "fr": "Icône de recherche",
-                    ]
+                iconTitle: tr(
+                    "Search icon",
+                    de: "Suchsymbol",
+                    fr: "Icône de recherche",
+                    es: "Icono de búsqueda",
+                    it: "Icona di ricerca"
                 )
             )
         ),
@@ -44,8 +47,20 @@ struct SearchFieldView: TemplateRepresentable {
             // Small size variant (.sm) for compact sidebars and headers
             """,
             SearchFieldData(
-                placeholder: "Filter components...",
-                ariaLabel: "Filter components",
+                placeholder: tr(
+                    "Filter components...",
+                    de: "Komponenten filtern …",
+                    fr: "Filtrer les composants…",
+                    es: "Filtrar componentes…",
+                    it: "Filtra i componenti…"
+                ),
+                ariaLabel: tr(
+                    "Filter components",
+                    de: "Komponenten filtern",
+                    fr: "Filtrer les composants",
+                    es: "Filtrar componentes",
+                    it: "Filtra i componenti"
+                ),
                 size: .sm
             )
         ),
@@ -54,8 +69,20 @@ struct SearchFieldView: TemplateRepresentable {
             // Loading state (animated heart icon while querying server)
             """,
             SearchFieldData(
-                placeholder: "Searching items...",
-                ariaLabel: "Search",
+                placeholder: tr(
+                    "Searching items...",
+                    de: "Elemente werden gesucht …",
+                    fr: "Recherche d'éléments…",
+                    es: "Buscando elementos…",
+                    it: "Ricerca di elementi…"
+                ),
+                ariaLabel: tr(
+                    "Search",
+                    de: "Suchen",
+                    fr: "Rechercher",
+                    es: "Buscar",
+                    it: "Cerca"
+                ),
                 loadingBind: "isLoading"
             )
         ),
@@ -64,8 +91,20 @@ struct SearchFieldView: TemplateRepresentable {
             // Disabled state
             """,
             SearchFieldData(
-                placeholder: "Search disabled",
-                ariaLabel: "Search disabled",
+                placeholder: tr(
+                    "Search disabled",
+                    de: "Suche deaktiviert",
+                    fr: "Recherche désactivée",
+                    es: "Búsqueda deshabilitada",
+                    it: "Ricerca disabilitata"
+                ),
+                ariaLabel: tr(
+                    "Search disabled",
+                    de: "Suche deaktiviert",
+                    fr: "Recherche désactivée",
+                    es: "Búsqueda deshabilitada",
+                    it: "Ricerca disabilitata"
+                ),
                 state: .disabled
             )
         ),
@@ -77,8 +116,20 @@ struct SearchFieldView: TemplateRepresentable {
                 name: "customSearchInput",
                 bindModel: "customQuery",
                 bindRef: "customInputRef",
-                placeholder: "Custom bindings...",
-                ariaLabel: "Custom search"
+                placeholder: tr(
+                    "Custom bindings...",
+                    de: "Eigene Bindings …",
+                    fr: "Liaisons personnalisées…",
+                    es: "Enlaces personalizados…",
+                    it: "Binding personalizzati…"
+                ),
+                ariaLabel: tr(
+                    "Custom search",
+                    de: "Eigene Suche",
+                    fr: "Recherche personnalisée",
+                    es: "Búsqueda personalizada",
+                    it: "Ricerca personalizzata"
+                )
             )
         ),
         #previewVariant(
@@ -86,8 +137,20 @@ struct SearchFieldView: TemplateRepresentable {
             // Transparent container background
             """,
             SearchFieldData(
-                placeholder: "Transparent background...",
-                ariaLabel: "Search",
+                placeholder: tr(
+                    "Transparent background...",
+                    de: "Transparenter Hintergrund …",
+                    fr: "Arrière-plan transparent…",
+                    es: "Fondo transparente…",
+                    it: "Sfondo trasparente…"
+                ),
+                ariaLabel: tr(
+                    "Search",
+                    de: "Suchen",
+                    fr: "Rechercher",
+                    es: "Buscar",
+                    it: "Cerca"
+                ),
                 hasTransparentBackground: true
             )
         ),

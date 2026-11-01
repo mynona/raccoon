@@ -6,10 +6,10 @@ import WebBuilders
 
 /// Content payload for an individual tab panel in `TabGroup`.
 public enum TabContent: Sendable {
-    /// Raw HTML string rendered directly.
-    case html(String)
-    /// Markdown string rendered as HTML through the markdown parser.
-    case markdown(String)
+    /// Raw HTML rendered directly, in the page language (no live-switch marker).
+    case html(LocalizedText)
+    /// Markdown rendered as HTML through the markdown parser, in the page language (no live-switch marker).
+    case markdown(LocalizedText)
     /// Array of SGML/HTML element nodes.
     case element([any SGML.Element])
 
@@ -23,8 +23,8 @@ public enum TabContent: Sendable {
     /// Whether the content payload is empty.
     public var isEmpty: Bool {
         switch self {
-        case .html(let html): html.isEmpty
-        case .markdown(let markdown): markdown.isEmpty
+        case .html(let html): html.english.isEmpty
+        case .markdown(let markdown): markdown.english.isEmpty
         case .element(let elements): elements.isEmpty
         }
     }

@@ -16,10 +16,22 @@ struct TextareaFieldView: TemplateRepresentable {
                 id: "tf-1",
                 label: LabelData(
                     id: "tf-1",
-                    title: "Name",
+                    title: tr(
+                        "Name",
+                        de: "Name",
+                        fr: "Nom",
+                        es: "Nombre",
+                        it: "Nome"
+                    ),
                     isRequired: false
                 ),
-                placeholder: "Placeholder text",
+                placeholder: tr(
+                    "Placeholder text",
+                    de: "Platzhaltertext",
+                    fr: "Texte d'espace réservé",
+                    es: "Texto de marcador",
+                    it: "Testo segnaposto"
+                ),
                 rows: 1,
                 value:
                     """
@@ -29,7 +41,13 @@ struct TextareaFieldView: TemplateRepresentable {
                 errorMessages: nil,
                 helperText: HelperTextData(
                     id: "hlp1",
-                    text: "Helper text"
+                    text: tr(
+                        "Helper text",
+                        de: "Hilfetext",
+                        fr: "Texte d'aide",
+                        es: "Texto de ayuda",
+                        it: "Testo di aiuto"
+                    )
                 ),
                 isMonospaced: false
             )
@@ -42,7 +60,13 @@ struct TextareaFieldView: TemplateRepresentable {
                 id: "tf-2",
                 label: LabelData(
                     id: "tf-2",
-                    title: "Email",
+                    title: tr(
+                        "Email",
+                        de: "E-Mail",
+                        fr: "E-mail",
+                        es: "Correo electrónico",
+                        it: "E-mail"
+                    ),
                     isRequired: true
                 ),
                 placeholder: "john.doe@example.com",
@@ -51,12 +75,33 @@ struct TextareaFieldView: TemplateRepresentable {
                 validation: .email,
                 errorMessages: ErrorMessageData(
                     id: "err",
-                    errorMessages: ["Test error 1", "Test error 2"],
+                    errorMessages: [
+                        tr(
+                            "Test error 1",
+                            de: "Testfehler 1",
+                            fr: "Erreur de test 1",
+                            es: "Error de prueba 1",
+                            it: "Errore di test 1"
+                        ),
+                        tr(
+                            "Test error 2",
+                            de: "Testfehler 2",
+                            fr: "Erreur de test 2",
+                            es: "Error de prueba 2",
+                            it: "Errore di test 2"
+                        ),
+                    ],
                     hasIcon: true
                 ),
                 helperText: HelperTextData(
                     id: "hlp2",
-                    text: "Helper text"
+                    text: tr(
+                        "Helper text",
+                        de: "Hilfetext",
+                        fr: "Texte d'aide",
+                        es: "Texto de ayuda",
+                        it: "Testo di aiuto"
+                    )
                 ),
                 isMonospaced: false
             )
@@ -80,7 +125,17 @@ struct TextareaFieldView: TemplateRepresentable {
                 helperText: HelperTextData(
                     id: "hlp3",
                     text:
-                        "Enter a valid URL starting with http:// or https://"
+                        tr(
+                            "Enter a valid URL starting with http:// or https://",
+                            de:
+                                "Gib eine gültige URL ein, die mit http:// oder https:// beginnt",
+                            fr:
+                                "Saisissez une URL valide commençant par http:// ou https://",
+                            es:
+                                "Introduce una URL válida que empiece por http:// o https://",
+                            it:
+                                "Inserisci un URL valido che inizi con http:// o https://"
+                        )
                 ),
                 isMonospaced: false
             )
@@ -93,7 +148,13 @@ struct TextareaFieldView: TemplateRepresentable {
                 id: "tf-4",
                 label: LabelData(
                     id: "tf-4",
-                    title: "Integer",
+                    title: tr(
+                        "Integer",
+                        de: "Ganzzahl",
+                        fr: "Entier",
+                        es: "Entero",
+                        it: "Intero"
+                    ),
                     isRequired: false
                 ),
                 placeholder: "12345",
@@ -103,7 +164,13 @@ struct TextareaFieldView: TemplateRepresentable {
                 errorMessages: nil,
                 helperText: HelperTextData(
                     id: "hlp4",
-                    text: "Enter an integer value"
+                    text: tr(
+                        "Enter an integer value",
+                        de: "Gib eine ganze Zahl ein",
+                        fr: "Saisissez un nombre entier",
+                        es: "Introduce un número entero",
+                        it: "Inserisci un numero intero"
+                    )
                 ),
                 isMonospaced: false
             )
@@ -116,7 +183,13 @@ struct TextareaFieldView: TemplateRepresentable {
                 id: "tf-5",
                 label: LabelData(
                     id: "tf-5",
-                    title: "Amount",
+                    title: tr(
+                        "Amount",
+                        de: "Betrag",
+                        fr: "Montant",
+                        es: "Importe",
+                        it: "Importo"
+                    ),
                     isRequired: false
                 ),
                 placeholder: "12.34",
@@ -126,7 +199,13 @@ struct TextareaFieldView: TemplateRepresentable {
                 errorMessages: nil,
                 helperText: HelperTextData(
                     id: "hlp5",
-                    text: "Enter an amount with 2 decimals"
+                    text: tr(
+                        "Enter an amount with 2 decimals",
+                        de: "Gib einen Betrag mit 2 Nachkommastellen ein",
+                        fr: "Saisissez un montant avec 2 décimales",
+                        es: "Introduce un importe con 2 decimales",
+                        it: "Inserisci un importo con 2 decimali"
+                    )
                 ),
                 isMonospaced: true
             )
@@ -139,7 +218,13 @@ struct TextareaFieldView: TemplateRepresentable {
                 id: "tf-6",
                 label: LabelData(
                     id: "tf-6",
-                    title: "Phone Number",
+                    title: tr(
+                        "Phone Number",
+                        de: "Telefonnummer",
+                        fr: "Numéro de téléphone",
+                        es: "Número de teléfono",
+                        it: "Numero di telefono"
+                    ),
                     isRequired: false
                 ),
                 placeholder: "+491234567890",
@@ -149,7 +234,13 @@ struct TextareaFieldView: TemplateRepresentable {
                 errorMessages: nil,
                 helperText: HelperTextData(
                     id: "hlp6",
-                    text: "Enter a phone number in E.164 format"
+                    text: tr(
+                        "Enter a phone number in E.164 format",
+                        de: "Gib eine Telefonnummer im E.164-Format ein",
+                        fr: "Saisissez un numéro de téléphone au format E.164",
+                        es: "Introduce un número de teléfono en formato E.164",
+                        it: "Inserisci un numero di telefono nel formato E.164"
+                    )
                 ),
                 isMonospaced: false
             )
@@ -162,7 +253,13 @@ struct TextareaFieldView: TemplateRepresentable {
                 id: "tf-7",
                 label: LabelData(
                     id: "tf-7",
-                    title: "IPv4 Address",
+                    title: tr(
+                        "IPv4 Address",
+                        de: "IPv4-Adresse",
+                        fr: "Adresse IPv4",
+                        es: "Dirección IPv4",
+                        it: "Indirizzo IPv4"
+                    ),
                     isRequired: false
                 ),
                 placeholder: "192.168.0.1",
@@ -172,7 +269,13 @@ struct TextareaFieldView: TemplateRepresentable {
                 errorMessages: nil,
                 helperText: HelperTextData(
                     id: "hlp7",
-                    text: "Enter a valid IPv4 address"
+                    text: tr(
+                        "Enter a valid IPv4 address",
+                        de: "Gib eine gültige IPv4-Adresse ein",
+                        fr: "Saisissez une adresse IPv4 valide",
+                        es: "Introduce una dirección IPv4 válida",
+                        it: "Inserisci un indirizzo IPv4 valido"
+                    )
                 ),
                 isMonospaced: true
             )
@@ -185,7 +288,13 @@ struct TextareaFieldView: TemplateRepresentable {
                 id: "tf-8",
                 label: LabelData(
                     id: "tf-8",
-                    title: "Custom Pattern",
+                    title: tr(
+                        "Custom Pattern",
+                        de: "Benutzerdefiniertes Muster",
+                        fr: "Motif personnalisé",
+                        es: "Patrón personalizado",
+                        it: "Modello personalizzato"
+                    ),
                     isRequired: false
                 ),
                 placeholder: "ABC-1234",
@@ -193,12 +302,24 @@ struct TextareaFieldView: TemplateRepresentable {
                 value: nil,
                 validation: .custom(
                     pattern: "^[A-Z]{3}-\\d{4}$",
-                    message: "Must match pattern ABC-1234"
+                    message: tr(
+                        "Must match pattern ABC-1234",
+                        de: "Muss dem Muster ABC-1234 entsprechen",
+                        fr: "Doit correspondre au motif ABC-1234",
+                        es: "Debe coincidir con el patrón ABC-1234",
+                        it: "Deve corrispondere al modello ABC-1234"
+                    )
                 ),
                 errorMessages: nil,
                 helperText: HelperTextData(
                     id: "hlp8",
-                    text: "Format: ABC-1234"
+                    text: tr(
+                        "Format: ABC-1234",
+                        de: "Format: ABC-1234",
+                        fr: "Format : ABC-1234",
+                        es: "Formato: ABC-1234",
+                        it: "Formato: ABC-1234"
+                    )
                 ),
                 isMonospaced: false
             )

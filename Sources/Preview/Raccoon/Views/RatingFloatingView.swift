@@ -84,7 +84,7 @@ struct RatingFloatingView: TemplateRepresentable {
                         .setAttribute(
                             name: "x-text",
                             value:
-                                "scrollPercent >= 80 ? 'REACHED (widget visible)' : 'Scroll down to trigger'"
+                                "scrollPercent >= 80 ? '\(tr("REACHED (widget visible)", de: "ERREICHT (Widget sichtbar)", fr: "ATTEINT (widget visible)", es: "ALCANZADO (widget visible)", it: "RAGGIUNTO (widget visibile)").resolved)' : '\(tr("Scroll down to trigger", de: "Zum Auslösen nach unten scrollen", fr: "Faites défiler pour déclencher", es: "Desplázate hacia abajo para activarlo", it: "Scorri verso il basso per attivare").resolved)'"
                         )
                         .setAttribute(
                             name: ":class",
@@ -163,7 +163,18 @@ struct RatingFloatingView: TemplateRepresentable {
                         )
 
                     P(
-                        "This tall page section allows testing the 80% scroll threshold and the close/docking behavior. As you scroll down past the 80% indicator marker line, the widget appears floating at the bottom of the viewport. If you click the close button, it docks into its dedicated in-page spot below."
+                        tr(
+                            "This tall page section allows testing the 80% scroll threshold and the close/docking behavior. As you scroll down past the 80% indicator marker line, the widget appears floating at the bottom of the viewport. If you click the close button, it docks into its dedicated in-page spot below.",
+                            de:
+                                "Dieser hohe Seitenabschnitt erlaubt es, den Scroll-Schwellenwert von 80 % und das Schließen bzw. Andocken zu testen. Sobald du über die 80-%-Markierungslinie hinausscrollst, erscheint das Widget schwebend am unteren Rand des Anzeigebereichs. Wenn du auf die Schließen-Schaltfläche klickst, dockt es an seiner vorgesehenen Stelle weiter unten an.",
+                            fr:
+                                "Cette longue section de page permet de tester le seuil de défilement de 80 % et le comportement de fermeture et d'ancrage. Lorsque vous dépassez la ligne repère des 80 %, le widget apparaît flottant en bas de la fenêtre. Si vous cliquez sur le bouton de fermeture, il s'ancre à son emplacement dédié plus bas dans la page.",
+                            es:
+                                "Esta larga sección de la página permite probar el umbral de desplazamiento del 80 % y el comportamiento de cierre y acoplamiento. Al superar la línea marcadora del 80 %, el widget aparece flotando en la parte inferior de la ventana. Si haces clic en el botón de cierre, se acopla en su lugar dedicado más abajo en la página.",
+                            it:
+                                "Questa lunga sezione della pagina permette di testare la soglia di scorrimento dell'80% e il comportamento di chiusura e ancoraggio. Quando superi la linea di riferimento dell'80%, il widget appare fluttuante in fondo all'area visibile. Se fai clic sul pulsante di chiusura, si aggancia nella sua posizione dedicata più in basso nella pagina."
+                        )
+                        .resolved
                     )
                     .class("text-sm text-gray-600 dark:text-gray-300 mb-6")
 
@@ -172,7 +183,7 @@ struct RatingFloatingView: TemplateRepresentable {
                         // 0% marker
                         Div {
                             Span(PreviewTexts.pageTop.resolved)
-                            .localized(PreviewTexts.pageTop)
+                                .localized(PreviewTexts.pageTop)
                                 .class(
                                     "text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400"
                                 )
@@ -186,14 +197,20 @@ struct RatingFloatingView: TemplateRepresentable {
                             Div {
                                 Div {
                                     Span(
-                                        PreviewTexts.milestone.with(variables: ["percent": "\(percent)"]).resolved
+                                        PreviewTexts.milestone
+                                            .with(variables: [
+                                                "percent": "\(percent)"
+                                            ])
+                                            .resolved
                                     )
                                     .localized(
-                                        PreviewTexts.milestone.with(variables: ["percent": "\(percent)"])
+                                        PreviewTexts.milestone.with(variables: [
+                                            "percent": "\(percent)"
+                                        ])
                                     )
-                                        .class(
-                                            "text-xs font-semibold px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
-                                        )
+                                    .class(
+                                        "text-xs font-semibold px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
+                                    )
                                 }
                                 .class("mb-2")
 
@@ -222,7 +239,7 @@ struct RatingFloatingView: TemplateRepresentable {
                                 Div {
                                     Svg.icon(.arrow_down, width: 20, height: 20)
                                     Span(PreviewTexts.reached.resolved)
-                            .localized(PreviewTexts.reached)
+                                        .localized(PreviewTexts.reached)
                                         .class(
                                             "font-bold tracking-wider text-sm"
                                         )
@@ -233,7 +250,18 @@ struct RatingFloatingView: TemplateRepresentable {
                                 )
 
                                 P(
-                                    "At or below this line, currentScroll + viewHeight >= 80% totalHeight. The rating widget triggers and floats over the viewport bottom."
+                                    tr(
+                                        "At or below this line, currentScroll + viewHeight >= 80% totalHeight. The rating widget triggers and floats over the viewport bottom.",
+                                        de:
+                                            "Auf oder unterhalb dieser Linie gilt currentScroll + viewHeight >= 80 % totalHeight. Das Bewertungs-Widget wird ausgelöst und schwebt über dem unteren Rand des Anzeigebereichs.",
+                                        fr:
+                                            "Sur cette ligne ou en dessous, currentScroll + viewHeight >= 80 % totalHeight. Le widget de notation se déclenche et flotte au bas de la fenêtre.",
+                                        es:
+                                            "En esta línea o por debajo, currentScroll + viewHeight >= 80 % totalHeight. El widget de valoración se activa y flota sobre la parte inferior de la ventana.",
+                                        it:
+                                            "Su questa linea o sotto, currentScroll + viewHeight >= 80% totalHeight. Il widget di valutazione si attiva e fluttua sul fondo dell'area visibile."
+                                    )
+                                    .resolved
                                 )
                                 .class(
                                     "text-xs text-center text-amber-700 dark:text-amber-300 mt-2 font-medium"
@@ -249,14 +277,20 @@ struct RatingFloatingView: TemplateRepresentable {
                             Div {
                                 Div {
                                     Span(
-                                        PreviewTexts.milestone.with(variables: ["percent": "\(percent)"]).resolved
+                                        PreviewTexts.milestone
+                                            .with(variables: [
+                                                "percent": "\(percent)"
+                                            ])
+                                            .resolved
                                     )
                                     .localized(
-                                        PreviewTexts.milestone.with(variables: ["percent": "\(percent)"])
+                                        PreviewTexts.milestone.with(variables: [
+                                            "percent": "\(percent)"
+                                        ])
                                     )
-                                        .class(
-                                            "text-xs font-semibold px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
-                                        )
+                                    .class(
+                                        "text-xs font-semibold px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
+                                    )
                                 }
                                 .class("mb-2")
 
@@ -276,12 +310,23 @@ struct RatingFloatingView: TemplateRepresentable {
                         Div {
                             Div {
                                 Span(PreviewTexts.articleEnd.resolved)
-                            .localized(PreviewTexts.articleEnd)
+                                    .localized(PreviewTexts.articleEnd)
                                     .class(
                                         "text-xs font-bold uppercase tracking-wider text-green-700 dark:text-green-300"
                                     )
                                 P(
-                                    "When the floating rating widget is closed, it docks here into the normal document flow."
+                                    tr(
+                                        "When the floating rating widget is closed, it docks here into the normal document flow.",
+                                        de:
+                                            "Wenn das schwebende Bewertungs-Widget geschlossen wird, dockt es hier im normalen Dokumentfluss an.",
+                                        fr:
+                                            "Lorsque le widget de notation flottant est fermé, il s'ancre ici dans le flux normal du document.",
+                                        es:
+                                            "Cuando se cierra el widget de valoración flotante, se acopla aquí en el flujo normal del documento.",
+                                        it:
+                                            "Quando il widget di valutazione fluttuante viene chiuso, si aggancia qui nel normale flusso del documento."
+                                    )
+                                    .resolved
                                 )
                                 .class(
                                     "text-xs text-gray-500 dark:text-gray-400 mt-1"
@@ -303,7 +348,7 @@ struct RatingFloatingView: TemplateRepresentable {
                         // Page bottom indicator
                         Div {
                             Span(PreviewTexts.pageBottom.resolved)
-                            .localized(PreviewTexts.pageBottom)
+                                .localized(PreviewTexts.pageBottom)
                                 .class(
                                     "text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500"
                                 )

@@ -13,7 +13,13 @@ struct ReferencesView: TemplateRepresentable {
             // Default
             """,
             ReferencesData(
-                title: "References",
+                title: tr(
+                    "References",
+                    de: "Quellen",
+                    fr: "Références",
+                    es: "Referencias",
+                    it: "Riferimenti"
+                ),
                 contentAsMarkdown:
                     "* Norman, D. (2013). *The Design of Everyday Things*. Basic Books.\n* Gothelf, J. (2013). *Lean UX*. O'Reilly Media."
             )

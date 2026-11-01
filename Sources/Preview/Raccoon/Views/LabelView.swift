@@ -14,7 +14,13 @@ struct LabelView: TemplateRepresentable {
             """,
             LabelData(
                 id: "field-1",
-                title: "Full name",
+                title: tr(
+                    "Full name",
+                    de: "Vollständiger Name",
+                    fr: "Nom complet",
+                    es: "Nombre completo",
+                    it: "Nome completo"
+                ),
                 isRequired: true
             )
         ),
@@ -24,7 +30,13 @@ struct LabelView: TemplateRepresentable {
             """,
             LabelData(
                 id: "field-2",
-                title: "Middle name",
+                title: tr(
+                    "Middle name",
+                    de: "Zweiter Vorname",
+                    fr: "Deuxième prénom",
+                    es: "Segundo nombre",
+                    it: "Secondo nome"
+                ),
                 position: .right,
                 isRequired: false
             )
@@ -35,7 +47,13 @@ struct LabelView: TemplateRepresentable {
             """,
             LabelData(
                 id: "field-3",
-                title: "Label",
+                title: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
                 position: .left,
                 size: .xl,
                 isRequired: true,
@@ -48,11 +66,12 @@ struct LabelView: TemplateRepresentable {
             """,
             LabelData(
                 id: "field-4",
-                title: LocalizedText(
-                    en: "Email address",
-                    translations: [
-                        "de": "E-Mail-Adresse", "fr": "Adresse e-mail",
-                    ]
+                title: tr(
+                    "Email address",
+                    de: "E-Mail-Adresse",
+                    fr: "Adresse e-mail",
+                    es: "Dirección de correo electrónico",
+                    it: "Indirizzo e-mail"
                 ),
                 isRequired: true
             )

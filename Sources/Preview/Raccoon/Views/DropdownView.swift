@@ -8,10 +8,46 @@ import WebBuilders
 struct DropdownView: TemplateRepresentable {
 
     static let sampleOptions = [
-        OptionValue(title: "Architecture & Systems", value: "arch"),
-        OptionValue(title: "Product Thinking", value: "product"),
-        OptionValue(title: "Design Systems", value: "design"),
-        OptionValue(title: "Engineering Culture", value: "culture"),
+        OptionValue(
+            title: tr(
+                "Architecture & Systems",
+                de: "Architektur & Systeme",
+                fr: "Architecture et systèmes",
+                es: "Arquitectura y sistemas",
+                it: "Architettura e sistemi"
+            ),
+            value: "arch"
+        ),
+        OptionValue(
+            title: tr(
+                "Product Thinking",
+                de: "Product Thinking",
+                fr: "Product thinking",
+                es: "Product thinking",
+                it: "Product thinking"
+            ),
+            value: "product"
+        ),
+        OptionValue(
+            title: tr(
+                "Design Systems",
+                de: "Designsysteme",
+                fr: "Systèmes de design",
+                es: "Sistemas de diseño",
+                it: "Design system"
+            ),
+            value: "design"
+        ),
+        OptionValue(
+            title: tr(
+                "Engineering Culture",
+                de: "Engineering-Kultur",
+                fr: "Culture d'ingénierie",
+                es: "Cultura de ingeniería",
+                it: "Cultura ingegneristica"
+            ),
+            value: "culture"
+        ),
     ]
 
     let variants: [PreviewVariant<DropdownData>] = [
@@ -21,12 +57,30 @@ struct DropdownView: TemplateRepresentable {
             """,
             DropdownData(
                 id: "topic_select",
-                label: LabelData(id: "topic_select", title: "Topic"),
+                label: LabelData(
+                    id: "topic_select",
+                    title: tr(
+                        "Topic",
+                        de: "Thema",
+                        fr: "Sujet",
+                        es: "Tema",
+                        it: "Argomento"
+                    )
+                ),
                 value: "product",
                 options: sampleOptions,
                 helperText: HelperTextData(
                     id: "topic_helper",
-                    text: "Choose the primary category for this publication."
+                    text: tr(
+                        "Choose the primary category for this publication.",
+                        de:
+                            "Wähle die Hauptkategorie für diese Veröffentlichung.",
+                        fr:
+                            "Choisissez la catégorie principale de cette publication.",
+                        es: "Elige la categoría principal de esta publicación.",
+                        it:
+                            "Scegli la categoria principale per questa pubblicazione."
+                    )
                 )
             )
         ),
@@ -38,15 +92,37 @@ struct DropdownView: TemplateRepresentable {
                 id: "required_topic",
                 label: LabelData(
                     id: "required_topic",
-                    title: "Required Category",
+                    title: tr(
+                        "Required Category",
+                        de: "Erforderliche Kategorie",
+                        fr: "Catégorie obligatoire",
+                        es: "Categoría obligatoria",
+                        it: "Categoria obbligatoria"
+                    ),
                     isRequired: true
                 ),
-                placeholderText: "Please choose a category...",
+                placeholderText: tr(
+                    "Please choose a category...",
+                    de: "Bitte wähle eine Kategorie …",
+                    fr: "Veuillez choisir une catégorie…",
+                    es: "Elige una categoría…",
+                    it: "Scegli una categoria…"
+                ),
                 options: sampleOptions,
                 errorMessages: ErrorMessageData(
                     id: "required_topic",
                     errorMessages: [
-                        "Please select a valid category before publishing."
+                        tr(
+                            "Please select a valid category before publishing.",
+                            de:
+                                "Bitte wähle vor der Veröffentlichung eine gültige Kategorie.",
+                            fr:
+                                "Veuillez sélectionner une catégorie valide avant de publier.",
+                            es:
+                                "Selecciona una categoría válida antes de publicar.",
+                            it:
+                                "Seleziona una categoria valida prima di pubblicare."
+                        )
                     ]
                 )
             )
@@ -60,7 +136,13 @@ struct DropdownView: TemplateRepresentable {
                     id: "author_single_select",
                     label: LabelData(
                         id: "author_single_select",
-                        title: "Author (from SingleSelectData)"
+                        title: tr(
+                            "Author (from SingleSelectData)",
+                            de: "Autor (aus SingleSelectData)",
+                            fr: "Auteur (depuis SingleSelectData)",
+                            es: "Autor (desde SingleSelectData)",
+                            it: "Autore (da SingleSelectData)"
+                        )
                     ),
                     value: "arch",
                     options: sampleOptions,
@@ -76,7 +158,13 @@ struct DropdownView: TemplateRepresentable {
                 id: "disabled_dropdown",
                 label: LabelData(
                     id: "disabled_dropdown",
-                    title: "Locked Field"
+                    title: tr(
+                        "Locked Field",
+                        de: "Gesperrtes Feld",
+                        fr: "Champ verrouillé",
+                        es: "Campo bloqueado",
+                        it: "Campo bloccato"
+                    )
                 ),
                 value: "design",
                 options: sampleOptions,
@@ -91,7 +179,13 @@ struct DropdownView: TemplateRepresentable {
                 id: "info_dropdown",
                 label: LabelData(
                     id: "info_dropdown",
-                    title: "Published Category"
+                    title: tr(
+                        "Published Category",
+                        de: "Veröffentlichte Kategorie",
+                        fr: "Catégorie publiée",
+                        es: "Categoría publicada",
+                        it: "Categoria pubblicata"
+                    )
                 ),
                 value: "culture",
                 options: sampleOptions,

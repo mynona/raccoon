@@ -14,14 +14,26 @@ struct CheckboxView: TemplateRepresentable {
             """,
             CheckData(
                 id: "cb-1",
-                label: "Accept terms",
+                label: tr(
+                    "Accept terms",
+                    de: "Bedingungen akzeptieren",
+                    fr: "Accepter les conditions",
+                    es: "Aceptar los términos",
+                    it: "Accetta i termini"
+                ),
                 name: "name",
                 isSelected: true,
                 state: .enabled,
                 errorMessages: nil,
                 helperText: HelperTextData(
                     id: "helper-1",
-                    text: "helper text"
+                    text: tr(
+                        "helper text",
+                        de: "Hilfetext",
+                        fr: "texte d'aide",
+                        es: "texto de ayuda",
+                        it: "testo di aiuto"
+                    )
                 )
             )
         ),
@@ -31,7 +43,13 @@ struct CheckboxView: TemplateRepresentable {
             """,
             CheckData(
                 id: "cb-10",
-                label: "Accept terms",
+                label: tr(
+                    "Accept terms",
+                    de: "Bedingungen akzeptieren",
+                    fr: "Accepter les conditions",
+                    es: "Aceptar los términos",
+                    it: "Accetta i termini"
+                ),
                 name: "name",
                 isSelected: false,
                 state: .enabled,
@@ -45,7 +63,13 @@ struct CheckboxView: TemplateRepresentable {
             """,
             CheckData(
                 id: "cb-11",
-                label: "Accept terms",
+                label: tr(
+                    "Accept terms",
+                    de: "Bedingungen akzeptieren",
+                    fr: "Accepter les conditions",
+                    es: "Aceptar los términos",
+                    it: "Accetta i termini"
+                ),
                 name: "name",
                 isSelected: true,
                 state: .disabled,
@@ -59,18 +83,38 @@ struct CheckboxView: TemplateRepresentable {
             """,
             CheckData(
                 id: "cb-30",
-                label: "Accept terms",
+                label: tr(
+                    "Accept terms",
+                    de: "Bedingungen akzeptieren",
+                    fr: "Accepter les conditions",
+                    es: "Aceptar los términos",
+                    it: "Accetta i termini"
+                ),
                 name: "name",
                 isSelected: false,
                 state: .enabled,
                 errorMessages: ErrorMessageData(
                     id: "error-1",
-                    errorMessages: ["error one"],
+                    errorMessages: [
+                        tr(
+                            "error one",
+                            de: "Fehler eins",
+                            fr: "erreur un",
+                            es: "error uno",
+                            it: "errore uno"
+                        )
+                    ],
                     hasIcon: true
                 ),
                 helperText: HelperTextData(
                     id: "helper-1-2",
-                    text: "helper text"
+                    text: tr(
+                        "helper text",
+                        de: "Hilfetext",
+                        fr: "texte d'aide",
+                        es: "texto de ayuda",
+                        it: "testo di aiuto"
+                    )
                 )
             )
         ),

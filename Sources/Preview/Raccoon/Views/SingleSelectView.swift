@@ -17,14 +17,32 @@ struct SingleSelectView: TemplateRepresentable {
                 name: "select-name-for-forms",
                 label: LabelData(
                     id: "select-1",
-                    title: "Choose option"
+                    title: tr(
+                        "Choose option",
+                        de: "Option wählen",
+                        fr: "Choisir une option",
+                        es: "Elegir opción",
+                        it: "Scegli un'opzione"
+                    )
                 ),
-                placeholder: "select-placeholder",
+                placeholder: tr(
+                    "select-placeholder",
+                    de: "Platzhalter für die Auswahl",
+                    fr: "espace réservé de sélection",
+                    es: "marcador de selección",
+                    it: "segnaposto di selezione"
+                ),
                 options: DemoData.optionList,
                 errorMessages: nil,
                 helperText: HelperTextData(
                     id: "hlp-1",
-                    text: "helper-text-1"
+                    text: tr(
+                        "helper-text-1",
+                        de: "Hilfetext 1",
+                        fr: "texte d'aide 1",
+                        es: "texto de ayuda 1",
+                        it: "testo di aiuto 1"
+                    )
                 ),
                 state: .enabled,
                 backgroundColor: nil,
@@ -39,18 +57,44 @@ struct SingleSelectView: TemplateRepresentable {
                 name: "select-name-for-forms",
                 label: LabelData(
                     id: "select-2",
-                    title: "Choose option"
+                    title: tr(
+                        "Choose option",
+                        de: "Option wählen",
+                        fr: "Choisir une option",
+                        es: "Elegir opción",
+                        it: "Scegli un'opzione"
+                    )
                 ),
-                placeholder: "select-placeholder",
+                placeholder: tr(
+                    "select-placeholder",
+                    de: "Platzhalter für die Auswahl",
+                    fr: "espace réservé de sélection",
+                    es: "marcador de selección",
+                    it: "segnaposto di selezione"
+                ),
                 options: DemoData.optionList,
                 errorMessages: ErrorMessageData(
                     id: "err-2",
-                    errorMessages: ["error-one"],
+                    errorMessages: [
+                        tr(
+                            "error-one",
+                            de: "Fehler eins",
+                            fr: "erreur un",
+                            es: "error uno",
+                            it: "errore uno"
+                        )
+                    ],
                     hasIcon: false
                 ),
                 helperText: HelperTextData(
                     id: "hlp-2",
-                    text: "helper-text-1"
+                    text: tr(
+                        "helper-text-1",
+                        de: "Hilfetext 1",
+                        fr: "texte d'aide 1",
+                        es: "texto de ayuda 1",
+                        it: "testo di aiuto 1"
+                    )
                 ),
                 state: .enabled,
                 backgroundColor: nil,
@@ -65,9 +109,21 @@ struct SingleSelectView: TemplateRepresentable {
                 name: "select-name-for-forms",
                 label: LabelData(
                     id: "select-3",
-                    title: "Choose option"
+                    title: tr(
+                        "Choose option",
+                        de: "Option wählen",
+                        fr: "Choisir une option",
+                        es: "Elegir opción",
+                        it: "Scegli un'opzione"
+                    )
                 ),
-                placeholder: "select-placeholder",
+                placeholder: tr(
+                    "select-placeholder",
+                    de: "Platzhalter für die Auswahl",
+                    fr: "espace réservé de sélection",
+                    es: "marcador de selección",
+                    it: "segnaposto di selezione"
+                ),
                 options: DemoData.optionList,
                 errorMessages: nil,
                 helperText: nil,
@@ -84,9 +140,21 @@ struct SingleSelectView: TemplateRepresentable {
                 name: "select-name-for-forms",
                 label: LabelData(
                     id: "select-4",
-                    title: "Choose option"
+                    title: tr(
+                        "Choose option",
+                        de: "Option wählen",
+                        fr: "Choisir une option",
+                        es: "Elegir opción",
+                        it: "Scegli un'opzione"
+                    )
                 ),
-                placeholder: "select-placeholder",
+                placeholder: tr(
+                    "select-placeholder",
+                    de: "Platzhalter für die Auswahl",
+                    fr: "espace réservé de sélection",
+                    es: "marcador de selección",
+                    it: "segnaposto di selezione"
+                ),
                 options: DemoData.optionList,
                 errorMessages: nil,
                 helperText: nil,
@@ -103,9 +171,21 @@ struct SingleSelectView: TemplateRepresentable {
                 name: "select-name-for-forms",
                 label: LabelData(
                     id: "select-5",
-                    title: "Choose option"
+                    title: tr(
+                        "Choose option",
+                        de: "Option wählen",
+                        fr: "Choisir une option",
+                        es: "Elegir opción",
+                        it: "Scegli un'opzione"
+                    )
                 ),
-                placeholder: "select-placeholder",
+                placeholder: tr(
+                    "select-placeholder",
+                    de: "Platzhalter für die Auswahl",
+                    fr: "espace réservé de sélection",
+                    es: "marcador de selección",
+                    it: "segnaposto di selezione"
+                ),
                 options: DemoData.optionList,
                 errorMessages: nil,
                 helperText: nil,
@@ -139,15 +219,33 @@ struct SingleSelectView: TemplateRepresentable {
                 name: "select-name-for-forms",
                 label: LabelData(
                     id: "select-7",
-                    title: "Choose option"
+                    title: tr(
+                        "Choose option",
+                        de: "Option wählen",
+                        fr: "Choisir une option",
+                        es: "Elegir opción",
+                        it: "Scegli un'opzione"
+                    )
                 ),
-                placeholder: "select-placeholder",
+                placeholder: tr(
+                    "select-placeholder",
+                    de: "Platzhalter für die Auswahl",
+                    fr: "espace réservé de sélection",
+                    es: "marcador de selección",
+                    it: "segnaposto di selezione"
+                ),
                 value: "blabla",
                 options: DemoData.optionList,
                 errorMessages: nil,
                 helperText: HelperTextData(
                     id: "hlp-7",
-                    text: "helper-text-1"
+                    text: tr(
+                        "helper-text-1",
+                        de: "Hilfetext 1",
+                        fr: "texte d'aide 1",
+                        es: "texto de ayuda 1",
+                        it: "testo di aiuto 1"
+                    )
                 ),
                 state: .enabled,
                 backgroundColor: nil,
@@ -162,15 +260,33 @@ struct SingleSelectView: TemplateRepresentable {
                 name: "select-name-for-forms",
                 label: LabelData(
                     id: "select-8",
-                    title: "Choose option"
+                    title: tr(
+                        "Choose option",
+                        de: "Option wählen",
+                        fr: "Choisir une option",
+                        es: "Elegir opción",
+                        it: "Scegli un'opzione"
+                    )
                 ),
-                placeholder: "select-placeholder",
+                placeholder: tr(
+                    "select-placeholder",
+                    de: "Platzhalter für die Auswahl",
+                    fr: "espace réservé de sélection",
+                    es: "marcador de selección",
+                    it: "segnaposto di selezione"
+                ),
                 value: "a",
                 options: DemoData.optionList,
                 errorMessages: nil,
                 helperText: HelperTextData(
                     id: "hlp-8",
-                    text: "helper-text-1"
+                    text: tr(
+                        "helper-text-1",
+                        de: "Hilfetext 1",
+                        fr: "texte d'aide 1",
+                        es: "texto de ayuda 1",
+                        it: "testo di aiuto 1"
+                    )
                 ),
                 state: .enabled,
                 backgroundColor: nil,

@@ -10,19 +10,48 @@ struct RadioView: TemplateRepresentable {
             """
             // Default
             """,
-            RadioData(id: "radio-1", label: "Accept terms")
+            RadioData(
+                id: "radio-1",
+                label: tr(
+                    "Accept terms",
+                    de: "Bedingungen akzeptieren",
+                    fr: "Accepter les conditions",
+                    es: "Aceptar los términos",
+                    it: "Accetta i termini"
+                )
+            )
         ),
         #previewVariant(
             """
             // Selected
             """,
-            RadioData(id: "radio-2", label: "Accept terms", isSelected: true)
+            RadioData(
+                id: "radio-2",
+                label: tr(
+                    "Accept terms",
+                    de: "Bedingungen akzeptieren",
+                    fr: "Accepter les conditions",
+                    es: "Aceptar los términos",
+                    it: "Accetta i termini"
+                ),
+                isSelected: true
+            )
         ),
         #previewVariant(
             """
             // Disabled
             """,
-            RadioData(id: "radio-3", label: "Accept terms", state: .disabled)
+            RadioData(
+                id: "radio-3",
+                label: tr(
+                    "Accept terms",
+                    de: "Bedingungen akzeptieren",
+                    fr: "Accepter les conditions",
+                    es: "Aceptar los términos",
+                    it: "Accetta i termini"
+                ),
+                state: .disabled
+            )
         ),
         #previewVariant(
             """
@@ -30,7 +59,13 @@ struct RadioView: TemplateRepresentable {
             """,
             RadioData(
                 id: "radio-4",
-                label: "Accept terms",
+                label: tr(
+                    "Accept terms",
+                    de: "Bedingungen akzeptieren",
+                    fr: "Accepter les conditions",
+                    es: "Aceptar los términos",
+                    it: "Accetta i termini"
+                ),
                 state: .disabled,
                 isSelected: true
             )
@@ -41,8 +76,23 @@ struct RadioView: TemplateRepresentable {
             """,
             RadioData(
                 id: "radio-5",
-                label: "Accept terms",
-                helperText: HelperTextData(id: "radio-5", text: "helper text")
+                label: tr(
+                    "Accept terms",
+                    de: "Bedingungen akzeptieren",
+                    fr: "Accepter les conditions",
+                    es: "Aceptar los términos",
+                    it: "Accetta i termini"
+                ),
+                helperText: HelperTextData(
+                    id: "radio-5",
+                    text: tr(
+                        "helper text",
+                        de: "Hilfetext",
+                        fr: "texte d'aide",
+                        es: "texto de ayuda",
+                        it: "testo di aiuto"
+                    )
+                )
             )
         ),
         #previewVariant(
@@ -51,13 +101,36 @@ struct RadioView: TemplateRepresentable {
             """,
             RadioData(
                 id: "radio-6",
-                label: "Accept terms",
+                label: tr(
+                    "Accept terms",
+                    de: "Bedingungen akzeptieren",
+                    fr: "Accepter les conditions",
+                    es: "Aceptar los términos",
+                    it: "Accetta i termini"
+                ),
                 errorMessages: ErrorMessageData(
                     id: "radio-6",
-                    errorMessages: ["error one"],
+                    errorMessages: [
+                        tr(
+                            "error one",
+                            de: "Fehler eins",
+                            fr: "erreur un",
+                            es: "error uno",
+                            it: "errore uno"
+                        )
+                    ],
                     hasIcon: true
                 ),
-                helperText: HelperTextData(id: "radio-6", text: "helper text")
+                helperText: HelperTextData(
+                    id: "radio-6",
+                    text: tr(
+                        "helper text",
+                        de: "Hilfetext",
+                        fr: "texte d'aide",
+                        es: "texto de ayuda",
+                        it: "testo di aiuto"
+                    )
+                )
             )
         ),
     ]

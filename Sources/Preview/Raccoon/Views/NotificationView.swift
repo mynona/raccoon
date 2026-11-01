@@ -13,7 +13,13 @@ struct NotificationView: TemplateRepresentable {
             // Info (no text)
             """,
             NotificationData(
-                title: "Info title",
+                title: tr(
+                    "Info title",
+                    de: "Info-Titel",
+                    fr: "Titre d'information",
+                    es: "Título informativo",
+                    it: "Titolo informativo"
+                ),
                 text: nil,
                 type: .info
             )
@@ -23,8 +29,20 @@ struct NotificationView: TemplateRepresentable {
             // Info (with text)
             """,
             NotificationData(
-                title: "Info title",
-                text: "Some **detail** here.",
+                title: tr(
+                    "Info title",
+                    de: "Info-Titel",
+                    fr: "Titre d'information",
+                    es: "Título informativo",
+                    it: "Titolo informativo"
+                ),
+                text: tr(
+                    "Some **detail** here.",
+                    de: "Hier ein **Detail**.",
+                    fr: "Voici un **détail**.",
+                    es: "Aquí hay un **detalle**.",
+                    it: "Ecco un **dettaglio**."
+                ),
                 type: .info
             )
         ),
@@ -33,8 +51,20 @@ struct NotificationView: TemplateRepresentable {
             // Success
             """,
             NotificationData(
-                title: "All done!",
-                text: "Your changes were saved.",
+                title: tr(
+                    "All done!",
+                    de: "Alles erledigt!",
+                    fr: "Tout est terminé !",
+                    es: "¡Todo listo!",
+                    it: "Tutto fatto!"
+                ),
+                text: tr(
+                    "Your changes were saved.",
+                    de: "Deine Änderungen wurden gespeichert.",
+                    fr: "Vos modifications ont été enregistrées.",
+                    es: "Tus cambios se han guardado.",
+                    it: "Le tue modifiche sono state salvate."
+                ),
                 type: .success
             )
         ),
@@ -43,8 +73,20 @@ struct NotificationView: TemplateRepresentable {
             // Warning
             """,
             NotificationData(
-                title: "Watch out",
-                text: "This action cannot be undone.",
+                title: tr(
+                    "Watch out",
+                    de: "Achtung",
+                    fr: "Attention",
+                    es: "Atención",
+                    it: "Attenzione"
+                ),
+                text: tr(
+                    "This action cannot be undone.",
+                    de: "Diese Aktion kann nicht rückgängig gemacht werden.",
+                    fr: "Cette action est irréversible.",
+                    es: "Esta acción no se puede deshacer.",
+                    it: "Questa azione non può essere annullata."
+                ),
                 type: .warning
             )
         ),
@@ -53,8 +95,20 @@ struct NotificationView: TemplateRepresentable {
             // Error
             """,
             NotificationData(
-                title: "Something went wrong",
-                text: "Please try again later.",
+                title: tr(
+                    "Something went wrong",
+                    de: "Etwas ist schiefgelaufen",
+                    fr: "Une erreur s'est produite",
+                    es: "Algo salió mal",
+                    it: "Qualcosa è andato storto"
+                ),
+                text: tr(
+                    "Please try again later.",
+                    de: "Bitte versuche es später erneut.",
+                    fr: "Veuillez réessayer plus tard.",
+                    es: "Inténtalo de nuevo más tarde.",
+                    it: "Riprova più tardi."
+                ),
                 type: .error
             )
         ),

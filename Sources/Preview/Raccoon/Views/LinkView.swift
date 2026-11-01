@@ -13,12 +13,30 @@ struct LinkView: TemplateRepresentable {
             // .center
             """,
             HyperLinkData(
-                label: "Some label",
-                ariaLabel: "Some aria label",
+                label: tr(
+                    "Some label",
+                    de: "Eine Beschriftung",
+                    fr: "Un libellé",
+                    es: "Una etiqueta",
+                    it: "Un'etichetta"
+                ),
+                ariaLabel: tr(
+                    "Some aria label",
+                    de: "Ein Aria-Label",
+                    fr: "Un aria-label",
+                    es: "Un aria-label",
+                    it: "Un aria-label"
+                ),
                 href: "#",
                 target: .blank,
                 rel: .nofollow,
-                tooltip: "Some tooltip",
+                tooltip: tr(
+                    "Some tooltip",
+                    de: "Ein Tooltip",
+                    fr: "Une infobulle",
+                    es: "Una información",
+                    it: "Un tooltip"
+                ),
                 icon: .airplane,
                 iconSize: 16,
                 align: .center,
@@ -32,10 +50,28 @@ struct LinkView: TemplateRepresentable {
             // .left
             """,
             HyperLinkData(
-                label: "Some label",
-                ariaLabel: "Some aria label",
+                label: tr(
+                    "Some label",
+                    de: "Eine Beschriftung",
+                    fr: "Un libellé",
+                    es: "Una etiqueta",
+                    it: "Un'etichetta"
+                ),
+                ariaLabel: tr(
+                    "Some aria label",
+                    de: "Ein Aria-Label",
+                    fr: "Un aria-label",
+                    es: "Un aria-label",
+                    it: "Un aria-label"
+                ),
                 href: "#",
-                tooltip: "Some tooltip",
+                tooltip: tr(
+                    "Some tooltip",
+                    de: "Ein Tooltip",
+                    fr: "Une infobulle",
+                    es: "Una información",
+                    it: "Un tooltip"
+                ),
                 icon: .airplane,
                 iconSize: 16,
                 align: .left,
@@ -49,7 +85,13 @@ struct LinkView: TemplateRepresentable {
             // .left + not underlined + no aria label + iconSize(48)
             """,
             HyperLinkData(
-                label: "Some label",
+                label: tr(
+                    "Some label",
+                    de: "Eine Beschriftung",
+                    fr: "Un libellé",
+                    es: "Una etiqueta",
+                    it: "Un'etichetta"
+                ),
                 ariaLabel: nil,
                 href: "#",
                 icon: .airplane,
@@ -65,7 +107,13 @@ struct LinkView: TemplateRepresentable {
             // focusable = false
             """,
             HyperLinkData(
-                label: "Some label",
+                label: tr(
+                    "Some label",
+                    de: "Eine Beschriftung",
+                    fr: "Un libellé",
+                    es: "Una etiqueta",
+                    it: "Un'etichetta"
+                ),
                 ariaLabel: nil,
                 href: "#",
                 icon: .airplane,
@@ -82,8 +130,24 @@ struct LinkView: TemplateRepresentable {
             """,
             HyperLinkData(
                 label:
-                    "This is a detailed hyperlink text explaining an external resource across multiple wrapped lines with vertical centering",
-                ariaLabel: "Detailed resource documentation",
+                    tr(
+                        "This is a detailed hyperlink text explaining an external resource across multiple wrapped lines with vertical centering",
+                        de:
+                            "Dies ist ein ausführlicher Hyperlink-Text, der eine externe Ressource über mehrere umbrochene Zeilen mit vertikaler Zentrierung erklärt",
+                        fr:
+                            "Ceci est un texte de lien détaillé qui explique une ressource externe sur plusieurs lignes avec centrage vertical",
+                        es:
+                            "Este es un texto de hipervínculo detallado que explica un recurso externo en varias líneas con centrado vertical",
+                        it:
+                            "Questo è un testo di collegamento dettagliato che spiega una risorsa esterna su più righe con centratura verticale"
+                    ),
+                ariaLabel: tr(
+                    "Detailed resource documentation",
+                    de: "Ausführliche Dokumentation der Ressource",
+                    fr: "Documentation détaillée de la ressource",
+                    es: "Documentación detallada del recurso",
+                    it: "Documentazione dettagliata della risorsa"
+                ),
                 href: "#",
                 icon: .airplane,
                 iconSize: 20,

@@ -8,9 +8,33 @@ struct RadioGroupView: TemplateRepresentable {
     /// Option ids must be unique on the page, so every group gets its own prefix.
     private static func plans(_ prefix: String) -> [RadioData] {
         [
-            RadioData(id: "\(prefix)-free", label: "Free", value: "free"),
-            RadioData(id: "\(prefix)-pro", label: "Pro", value: "pro"),
-            RadioData(id: "\(prefix)-team", label: "Team", value: "team"),
+            RadioData(
+                id: "\(prefix)-free",
+                label: tr(
+                    "Free",
+                    de: "Kostenlos",
+                    fr: "Gratuit",
+                    es: "Gratis",
+                    it: "Gratuito"
+                ),
+                value: "free"
+            ),
+            RadioData(
+                id: "\(prefix)-pro",
+                label: tr("Pro", de: "Pro", fr: "Pro", es: "Pro", it: "Pro"),
+                value: "pro"
+            ),
+            RadioData(
+                id: "\(prefix)-team",
+                label: tr(
+                    "Team",
+                    de: "Team",
+                    fr: "Équipe",
+                    es: "Equipo",
+                    it: "Team"
+                ),
+                value: "team"
+            ),
         ]
     }
 
@@ -24,7 +48,13 @@ struct RadioGroupView: TemplateRepresentable {
                 name: "plan-1",
                 label: LabelData(
                     id: "group-1",
-                    title: "Plan",
+                    title: tr(
+                        "Plan",
+                        de: "Tarif",
+                        fr: "Forfait",
+                        es: "Plan",
+                        it: "Piano"
+                    ),
                     isRequired: false
                 ),
                 options: plans("g1")
@@ -37,7 +67,16 @@ struct RadioGroupView: TemplateRepresentable {
             RadioGroupData(
                 id: "group-2",
                 name: "plan-2",
-                label: LabelData(id: "group-2", title: "Plan"),
+                label: LabelData(
+                    id: "group-2",
+                    title: tr(
+                        "Plan",
+                        de: "Tarif",
+                        fr: "Forfait",
+                        es: "Plan",
+                        it: "Piano"
+                    )
+                ),
                 selectedValue: "pro",
                 options: plans("g2")
             )
@@ -51,14 +90,26 @@ struct RadioGroupView: TemplateRepresentable {
                 name: "plan-3",
                 label: LabelData(
                     id: "group-3",
-                    title: "Plan",
+                    title: tr(
+                        "Plan",
+                        de: "Tarif",
+                        fr: "Forfait",
+                        es: "Plan",
+                        it: "Piano"
+                    ),
                     isRequired: false
                 ),
                 selectedValue: "free",
                 options: plans("g3"),
                 helperText: HelperTextData(
                     id: "group-3",
-                    text: "You can change your plan at any time."
+                    text: tr(
+                        "You can change your plan at any time.",
+                        de: "Du kannst deinen Tarif jederzeit ändern.",
+                        fr: "Vous pouvez changer de forfait à tout moment.",
+                        es: "Puedes cambiar de plan en cualquier momento.",
+                        it: "Puoi cambiare piano in qualsiasi momento."
+                    )
                 )
             )
         ),
@@ -69,16 +120,39 @@ struct RadioGroupView: TemplateRepresentable {
             RadioGroupData(
                 id: "group-4",
                 name: "plan-4",
-                label: LabelData(id: "group-4", title: "Plan"),
+                label: LabelData(
+                    id: "group-4",
+                    title: tr(
+                        "Plan",
+                        de: "Tarif",
+                        fr: "Forfait",
+                        es: "Plan",
+                        it: "Piano"
+                    )
+                ),
                 options: plans("g4"),
                 errorMessages: ErrorMessageData(
                     id: "group-4",
-                    errorMessages: ["Select a plan."],
+                    errorMessages: [
+                        tr(
+                            "Select a plan.",
+                            de: "Wähle einen Tarif.",
+                            fr: "Sélectionnez un forfait.",
+                            es: "Selecciona un plan.",
+                            it: "Seleziona un piano."
+                        )
+                    ],
                     hasIcon: true
                 ),
                 helperText: HelperTextData(
                     id: "group-4",
-                    text: "You can change your plan at any time."
+                    text: tr(
+                        "You can change your plan at any time.",
+                        de: "Du kannst deinen Tarif jederzeit ändern.",
+                        fr: "Vous pouvez changer de forfait à tout moment.",
+                        es: "Puedes cambiar de plan en cualquier momento.",
+                        it: "Puoi cambiare piano in qualsiasi momento."
+                    )
                 )
             )
         ),
@@ -91,23 +165,61 @@ struct RadioGroupView: TemplateRepresentable {
                 name: "plan-5",
                 label: LabelData(
                     id: "group-5",
-                    title: "Plan",
+                    title: tr(
+                        "Plan",
+                        de: "Tarif",
+                        fr: "Forfait",
+                        es: "Plan",
+                        it: "Piano"
+                    ),
                     isRequired: false
                 ),
                 selectedValue: "free",
                 options: [
-                    RadioData(id: "plan-5-free", label: "Free", value: "free"),
+                    RadioData(
+                        id: "plan-5-free",
+                        label: tr(
+                            "Free",
+                            de: "Kostenlos",
+                            fr: "Gratuit",
+                            es: "Gratis",
+                            it: "Gratuito"
+                        ),
+                        value: "free"
+                    ),
                     RadioData(
                         id: "plan-5-pro",
-                        label: "Pro",
+                        label: tr(
+                            "Pro",
+                            de: "Pro",
+                            fr: "Pro",
+                            es: "Pro",
+                            it: "Pro"
+                        ),
                         value: "pro",
                         helperText: HelperTextData(
                             id: "plan-5-pro",
-                            text: "Includes support."
+                            text: tr(
+                                "Includes support.",
+                                de: "Inklusive Support.",
+                                fr: "Support inclus.",
+                                es: "Incluye soporte.",
+                                it: "Supporto incluso."
+                            )
                         ),
                         state: .disabled
                     ),
-                    RadioData(id: "plan-5-team", label: "Team", value: "team"),
+                    RadioData(
+                        id: "plan-5-team",
+                        label: tr(
+                            "Team",
+                            de: "Team",
+                            fr: "Équipe",
+                            es: "Equipo",
+                            it: "Team"
+                        ),
+                        value: "team"
+                    ),
                 ]
             )
         ),
@@ -120,7 +232,13 @@ struct RadioGroupView: TemplateRepresentable {
                 name: "plan-6",
                 label: LabelData(
                     id: "group-6",
-                    title: "Plan",
+                    title: tr(
+                        "Plan",
+                        de: "Tarif",
+                        fr: "Forfait",
+                        es: "Plan",
+                        it: "Piano"
+                    ),
                     isRequired: false
                 ),
                 selectedValue: "pro",

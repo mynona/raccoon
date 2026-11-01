@@ -13,16 +13,19 @@ struct LinkButtonView: TemplateRepresentable {
             // With translations (en, de, fr) and icon-only with the built-in fallback label
             """,
             LinkButtonData(
-                label: LocalizedText(
-                    en: "Save",
-                    translations: ["de": "Speichern", "fr": "Enregistrer"]
+                label: tr(
+                    "Save",
+                    de: "Speichern",
+                    fr: "Enregistrer",
+                    es: "Guardar",
+                    it: "Salva"
                 ),
-                tooltip: LocalizedText(
-                    en: "Save your changes",
-                    translations: [
-                        "de": "Änderungen speichern",
-                        "fr": "Enregistrer vos modifications",
-                    ]
+                tooltip: tr(
+                    "Save your changes",
+                    de: "Änderungen speichern",
+                    fr: "Enregistrer vos modifications",
+                    es: "Guardar los cambios",
+                    it: "Salva le modifiche"
                 ),
                 tooltipPosition: .bottom,
                 href: "#",
@@ -50,9 +53,27 @@ struct LinkButtonView: TemplateRepresentable {
             // .primary
             """,
             LinkButtonData(
-                label: "Label",
-                ariaLabel: "aria-label",
-                tooltip: "Tooltip",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "aria-label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
+                tooltip: tr(
+                    "Tooltip",
+                    de: "Tooltip",
+                    fr: "Infobulle",
+                    es: "Información",
+                    it: "Tooltip"
+                ),
                 tooltipPosition: .bottom,
                 href: "#",
                 buttonType: .primary,
@@ -67,8 +88,20 @@ struct LinkButtonView: TemplateRepresentable {
             // .primary + no icon
             """,
             LinkButtonData(
-                label: "Label",
-                ariaLabel: "aria-label",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "aria-label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
                 href: "#",
                 buttonType: .primary,
                 icon: nil,
@@ -82,9 +115,27 @@ struct LinkButtonView: TemplateRepresentable {
             // .primary + fullWidth
             """,
             LinkButtonData(
-                label: "Label",
-                ariaLabel: "aria-label",
-                tooltip: "Tooltip",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "aria-label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
+                tooltip: tr(
+                    "Tooltip",
+                    de: "Tooltip",
+                    fr: "Infobulle",
+                    es: "Información",
+                    it: "Tooltip"
+                ),
                 tooltipPosition: .bottom,
                 href: "#",
                 buttonType: .primary,
@@ -99,8 +150,20 @@ struct LinkButtonView: TemplateRepresentable {
             // .primary + inverted
             """,
             LinkButtonData(
-                label: "Label",
-                ariaLabel: "aria-label",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "aria-label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
                 href: "#",
                 buttonType: .primary,
                 icon: .airplane,
@@ -115,8 +178,20 @@ struct LinkButtonView: TemplateRepresentable {
             // .secondary
             """,
             LinkButtonData(
-                label: "Label",
-                ariaLabel: "aria-label",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "aria-label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
                 href: "#",
                 buttonType: .secondary,
                 icon: .camera,
@@ -130,8 +205,20 @@ struct LinkButtonView: TemplateRepresentable {
             //
             """,
             LinkButtonData(
-                label: "Label",
-                ariaLabel: "aria-label",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "aria-label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
                 href: "#",
                 buttonType: .secondary,
                 icon: nil,
@@ -145,8 +232,20 @@ struct LinkButtonView: TemplateRepresentable {
             //
             """,
             LinkButtonData(
-                label: "Label",
-                ariaLabel: "aria-label",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "aria-label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
                 href: "#",
                 buttonType: .secondary,
                 icon: .camera,
@@ -160,8 +259,20 @@ struct LinkButtonView: TemplateRepresentable {
             //
             """,
             LinkButtonData(
-                label: "Label",
-                ariaLabel: "aria-label",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "aria-label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
                 href: "#",
                 buttonType: .secondary,
                 icon: .camera,
@@ -176,8 +287,20 @@ struct LinkButtonView: TemplateRepresentable {
             // .tertiary
             """,
             LinkButtonData(
-                label: "Label",
-                ariaLabel: "aria-label",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "aria-label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
                 href: "#",
                 buttonType: .tertiary,
                 icon: .cake,
@@ -191,8 +314,20 @@ struct LinkButtonView: TemplateRepresentable {
             // .tertiary + no icon
             """,
             LinkButtonData(
-                label: "Label",
-                ariaLabel: "aria-label",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "aria-label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
                 href: "#",
                 buttonType: .tertiary,
                 icon: nil,
@@ -206,8 +341,20 @@ struct LinkButtonView: TemplateRepresentable {
             // .tertiary + fullWidth
             """,
             LinkButtonData(
-                label: "Label",
-                ariaLabel: "aria-label",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "aria-label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
                 href: "#",
                 buttonType: .tertiary,
                 icon: .cake,
@@ -221,8 +368,20 @@ struct LinkButtonView: TemplateRepresentable {
             // .tertiary + inverted
             """,
             LinkButtonData(
-                label: "Label",
-                ariaLabel: "aria-label",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "aria-label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
                 href: "#",
                 buttonType: .tertiary,
                 icon: .cake,
@@ -237,9 +396,27 @@ struct LinkButtonView: TemplateRepresentable {
             // .warning
             """,
             LinkButtonData(
-                label: "Label",
-                ariaLabel: "aria-label",
-                tooltip: "Tooltip",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "aria-label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
+                tooltip: tr(
+                    "Tooltip",
+                    de: "Tooltip",
+                    fr: "Infobulle",
+                    es: "Información",
+                    it: "Tooltip"
+                ),
                 tooltipPosition: .bottom,
                 href: "#",
                 buttonType: .warning,
@@ -254,8 +431,20 @@ struct LinkButtonView: TemplateRepresentable {
             // .warning + no icon
             """,
             LinkButtonData(
-                label: "Label",
-                ariaLabel: "aria-label",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "aria-label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
                 href: "#",
                 buttonType: .warning,
                 icon: nil,
@@ -269,8 +458,20 @@ struct LinkButtonView: TemplateRepresentable {
             // .warning + fullWidth
             """,
             LinkButtonData(
-                label: "Label",
-                ariaLabel: "aria-label",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "aria-label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
                 href: "#",
                 buttonType: .warning,
                 icon: .tree,
@@ -284,8 +485,20 @@ struct LinkButtonView: TemplateRepresentable {
             // .warning + inverted
             """,
             LinkButtonData(
-                label: "Label",
-                ariaLabel: "aria-label",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "aria-label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
                 href: "#",
                 buttonType: .warning,
                 icon: .tree,
@@ -301,8 +514,20 @@ struct LinkButtonView: TemplateRepresentable {
             """,
             LinkButtonData(
                 label: nil,
-                ariaLabel: "aria-label",
-                tooltip: "Tooltip",
+                ariaLabel: tr(
+                    "aria-label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
+                tooltip: tr(
+                    "Tooltip",
+                    de: "Tooltip",
+                    fr: "Infobulle",
+                    es: "Información",
+                    it: "Tooltip"
+                ),
                 tooltipPosition: .bottom,
                 href: "#",
                 buttonType: .icon,
@@ -318,8 +543,20 @@ struct LinkButtonView: TemplateRepresentable {
             """,
             LinkButtonData(
                 label: nil,
-                ariaLabel: "aria-label",
-                tooltip: "Tooltip",
+                ariaLabel: tr(
+                    "aria-label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
+                tooltip: tr(
+                    "Tooltip",
+                    de: "Tooltip",
+                    fr: "Infobulle",
+                    es: "Información",
+                    it: "Tooltip"
+                ),
                 tooltipPosition: .top,
                 href: "#",
                 buttonType: .icon,
@@ -335,7 +572,13 @@ struct LinkButtonView: TemplateRepresentable {
             """,
             LinkButtonData(
                 label: nil,
-                ariaLabel: "aria-label",
+                ariaLabel: tr(
+                    "aria-label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
                 href: "#",
                 buttonType: .icon,
                 icon: .mouse,
@@ -350,8 +593,24 @@ struct LinkButtonView: TemplateRepresentable {
             """,
             LinkButtonData(
                 label:
-                    "This is a very long link button label that exceeds container width and wraps onto multiple lines cleanly with vertical centering",
-                ariaLabel: "Detailed long link button",
+                    tr(
+                        "This is a very long link button label that exceeds container width and wraps onto multiple lines cleanly with vertical centering",
+                        de:
+                            "Dies ist eine sehr lange Link-Button-Beschriftung, die die Containerbreite überschreitet und sauber über mehrere Zeilen mit vertikaler Zentrierung umbricht",
+                        fr:
+                            "Ceci est un libellé de bouton lien très long qui dépasse la largeur du conteneur et s'étend proprement sur plusieurs lignes avec centrage vertical",
+                        es:
+                            "Esta es una etiqueta de botón de enlace muy larga que supera el ancho del contenedor y se distribuye limpiamente en varias líneas con centrado vertical",
+                        it:
+                            "Questa è un'etichetta molto lunga che supera la larghezza del contenitore e va a capo in modo ordinato su più righe con centratura verticale"
+                    ),
+                ariaLabel: tr(
+                    "Detailed long link button",
+                    de: "Ausführlicher langer Link-Button",
+                    fr: "Long bouton lien détaillé",
+                    es: "Botón de enlace largo y detallado",
+                    it: "Pulsante link lungo e dettagliato"
+                ),
                 href: "#",
                 buttonType: .primary,
                 icon: .airplane,

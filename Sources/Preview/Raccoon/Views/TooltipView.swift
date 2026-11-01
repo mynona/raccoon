@@ -14,7 +14,13 @@ struct TooltipView: TemplateRepresentable {
             """,
             TooltipData(
                 id: "tooltip-1",
-                text: "This appears on top",
+                text: tr(
+                    "This appears on top",
+                    de: "Dies erscheint oben",
+                    fr: "Ceci apparaît au-dessus",
+                    es: "Esto aparece arriba",
+                    it: "Questo appare sopra"
+                ),
                 position: .top,
                 hasArrow: true
             )
@@ -25,7 +31,13 @@ struct TooltipView: TemplateRepresentable {
             """,
             TooltipData(
                 id: "tooltip-2",
-                text: "This appears on bottom",
+                text: tr(
+                    "This appears on bottom",
+                    de: "Dies erscheint unten",
+                    fr: "Ceci apparaît en dessous",
+                    es: "Esto aparece abajo",
+                    it: "Questo appare sotto"
+                ),
                 position: .bottom,
                 hasArrow: true
             )
@@ -36,12 +48,12 @@ struct TooltipView: TemplateRepresentable {
             """,
             TooltipData(
                 id: "tooltip-3",
-                text: LocalizedText(
-                    en: "Save your changes",
-                    translations: [
-                        "de": "Änderungen speichern",
-                        "fr": "Enregistrer vos modifications",
-                    ]
+                text: tr(
+                    "Save your changes",
+                    de: "Änderungen speichern",
+                    fr: "Enregistrer vos modifications",
+                    es: "Guardar los cambios",
+                    it: "Salva le modifiche"
                 ),
                 position: .top,
                 hasArrow: true

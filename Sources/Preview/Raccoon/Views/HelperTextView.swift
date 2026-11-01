@@ -14,7 +14,13 @@ struct HelperTextView: TemplateRepresentable {
             """,
             HelperTextData(
                 id: "helper",
-                text: "This is a helper text."
+                text: tr(
+                    "This is a helper text.",
+                    de: "Dies ist ein Hilfetext.",
+                    fr: "Ceci est un texte d'aide.",
+                    es: "Este es un texto de ayuda.",
+                    it: "Questo è un testo di aiuto."
+                )
             )
         )
     ]

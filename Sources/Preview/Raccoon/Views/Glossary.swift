@@ -15,54 +15,193 @@ struct GlossaryView: TemplateRepresentable {
             GlossaryData(
                 entries: [
                     GlossaryEntryData(
-                        term: "Alpinum",
-                        definition:
-                            "Anlage mit Alpenpflanzen"
+                        term: tr(
+                            "Alpine garden",
+                            de: "Alpinum",
+                            fr: "Jardin alpin",
+                            es: "Jardín alpino",
+                            it: "Giardino alpino"
+                        ),
+                        definition: tr(
+                            "A garden area planted with alpine plants.",
+                            de: "Anlage mit Alpenpflanzen",
+                            fr: "Aménagement planté de plantes alpines.",
+                            es: "Zona ajardinada con plantas alpinas.",
+                            it: "Area allestita con piante alpine."
+                        )
                     ),
                     GlossaryEntryData(
-                        term: "API",
-                        definition:
-                            "Application Programming Interface – eine Schnittstelle zur Kommunikation zwischen Softwaresystemen."
+                        term: tr(
+                            "API",
+                            de: "API",
+                            fr: "API",
+                            es: "API",
+                            it: "API"
+                        ),
+                        definition: tr(
+                            "Application Programming Interface – an interface for communication between software systems.",
+                            de:
+                                "Application Programming Interface – eine Schnittstelle zur Kommunikation zwischen Softwaresystemen.",
+                            fr:
+                                "Application Programming Interface – une interface de communication entre systèmes logiciels.",
+                            es:
+                                "Application Programming Interface: una interfaz de comunicación entre sistemas de software.",
+                            it:
+                                "Application Programming Interface – un'interfaccia per la comunicazione tra sistemi software."
+                        )
                     ),
                     GlossaryEntryData(
-                        term: "Accordion",
-                        definition:
-                            "Ein UI-Element, mit dem Inhalte ein- und ausgeklappt werden können."
+                        term: tr(
+                            "Accordion",
+                            de: "Accordion",
+                            fr: "Accordéon",
+                            es: "Acordeón",
+                            it: "Accordion"
+                        ),
+                        definition: tr(
+                            "A UI element that lets content be expanded and collapsed.",
+                            de:
+                                "Ein UI-Element, mit dem Inhalte ein- und ausgeklappt werden können.",
+                            fr:
+                                "Un élément d'interface qui permet de déplier et de replier du contenu.",
+                            es:
+                                "Un elemento de interfaz que permite expandir y contraer contenido.",
+                            it:
+                                "Un elemento dell'interfaccia che permette di espandere e comprimere i contenuti."
+                        )
                     ),
                     GlossaryEntryData(
-                        term: "beinhalten",
-                        definition:
-                            "Das Wort *beinhalten* sollte nicht zwischen *n* und *h* getrennt werden."
+                        term: tr(
+                            "beinhalten",
+                            de: "beinhalten",
+                            fr: "beinhalten",
+                            es: "beinhalten",
+                            it: "beinhalten"
+                        ),
+                        definition: tr(
+                            "The German word *beinhalten* should not be hyphenated between *n* and *h*.",
+                            de:
+                                "Das Wort *beinhalten* sollte nicht zwischen *n* und *h* getrennt werden.",
+                            fr:
+                                "Le mot allemand *beinhalten* ne doit pas être coupé entre *n* et *h*.",
+                            es:
+                                "La palabra alemana *beinhalten* no debe dividirse entre *n* y *h*.",
+                            it:
+                                "La parola tedesca *beinhalten* non va divisa tra *n* e *h*."
+                        )
                     ),
                     GlossaryEntryData(
-                        term: "Build-Tool",
-                        definition:
-                            "Software zur Automatisierung der Erstellung von ausführbaren Programmen aus Quellcode."
+                        term: tr(
+                            "Build tool",
+                            de: "Build-Tool",
+                            fr: "Outil de build",
+                            es: "Herramienta de compilación",
+                            it: "Strumento di build"
+                        ),
+                        definition: tr(
+                            "Software that automates building executable programs from source code.",
+                            de:
+                                "Software zur Automatisierung der Erstellung von ausführbaren Programmen aus Quellcode.",
+                            fr:
+                                "Logiciel qui automatise la création de programmes exécutables à partir du code source.",
+                            es:
+                                "Software que automatiza la creación de programas ejecutables a partir del código fuente.",
+                            it:
+                                "Software che automatizza la creazione di programmi eseguibili a partire dal codice sorgente."
+                        )
                     ),
                     GlossaryEntryData(
-                        term: "Heliskiing",
-                        definition:
-                            "Abfahrt von einem Berggipfel, zu dem der Skiläufer mit einem Helikopter gebracht worden ist."
+                        term: tr(
+                            "Heliskiing",
+                            de: "Heliskiing",
+                            fr: "Heliskiing",
+                            es: "Heliskiing",
+                            it: "Heliskiing"
+                        ),
+                        definition: tr(
+                            "A descent from a mountain peak to which the skier has been brought by helicopter.",
+                            de:
+                                "Abfahrt von einem Berggipfel, zu dem der Skiläufer mit einem Helikopter gebracht worden ist.",
+                            fr:
+                                "Descente depuis un sommet où le skieur a été déposé en hélicoptère.",
+                            es:
+                                "Descenso desde una cima a la que el esquiador ha sido llevado en helicóptero.",
+                            it:
+                                "Discesa da una vetta raggiunta dallo sciatore in elicottero."
+                        )
                     ),
                     GlossaryEntryData(
-                        term: "Hotfix",
-                        definition:
-                            "Eine dringende Fehlerbehebung, die direkt in die Produktionsumgebung eingespielt wird."
+                        term: tr(
+                            "Hotfix",
+                            de: "Hotfix",
+                            fr: "Correctif d'urgence",
+                            es: "Parche urgente",
+                            it: "Hotfix"
+                        ),
+                        definition: tr(
+                            "An urgent bug fix that is deployed directly to the production environment.",
+                            de:
+                                "Eine dringende Fehlerbehebung, die direkt in die Produktionsumgebung eingespielt wird.",
+                            fr:
+                                "Une correction urgente de bug déployée directement en production.",
+                            es:
+                                "Una corrección urgente de errores que se despliega directamente en producción.",
+                            it:
+                                "Una correzione urgente di un bug rilasciata direttamente in produzione."
+                        )
                     ),
                     GlossaryEntryData(
-                        term: "Logout",
-                        definition:
-                            "Das Ausloggen"
+                        term: tr(
+                            "Logout",
+                            de: "Logout",
+                            fr: "Déconnexion",
+                            es: "Cierre de sesión",
+                            it: "Logout"
+                        ),
+                        definition: tr(
+                            "Signing out.",
+                            de: "Das Ausloggen",
+                            fr: "Le fait de se déconnecter.",
+                            es: "Salir de la cuenta.",
+                            it: "L'uscita dall'account."
+                        )
                     ),
                     GlossaryEntryData(
-                        term: "Lazy Loading",
-                        definition:
-                            "Ein Entwurfsmuster, bei dem Ressourcen erst dann geladen werden, wenn sie tatsächlich benötigt werden."
+                        term: tr(
+                            "Lazy loading",
+                            de: "Lazy Loading",
+                            fr: "Chargement différé",
+                            es: "Carga diferida",
+                            it: "Lazy loading"
+                        ),
+                        definition: tr(
+                            "A design pattern in which resources are only loaded when they are actually needed.",
+                            de:
+                                "Ein Entwurfsmuster, bei dem Ressourcen erst dann geladen werden, wenn sie tatsächlich benötigt werden.",
+                            fr:
+                                "Un modèle de conception où les ressources ne sont chargées que lorsqu'elles sont réellement nécessaires.",
+                            es:
+                                "Un patrón de diseño en el que los recursos solo se cargan cuando realmente se necesitan.",
+                            it:
+                                "Un modello di progettazione in cui le risorse vengono caricate solo quando servono davvero."
+                        )
                     ),
                     GlossaryEntryData(
-                        term: "Tribute-Band",
-                        definition:
-                            "Musikband, die eine berühmte Band nachahmt."
+                        term: tr(
+                            "Tribute band",
+                            de: "Tribute-Band",
+                            fr: "Groupe hommage",
+                            es: "Banda tributo",
+                            it: "Tribute band"
+                        ),
+                        definition: tr(
+                            "A band that imitates a famous band.",
+                            de: "Musikband, die eine berühmte Band nachahmt.",
+                            fr:
+                                "Groupe de musique qui imite un groupe célèbre.",
+                            es: "Banda de música que imita a una banda famosa.",
+                            it: "Gruppo musicale che imita una band famosa."
+                        )
                     ),
                 ],
                 hasSearch: true
@@ -75,24 +214,76 @@ struct GlossaryView: TemplateRepresentable {
             GlossaryData(
                 entries: [
                     GlossaryEntryData(
-                        term: "Alpinum",
-                        definition:
-                            "Anlage mit Alpenpflanzen"
+                        term: tr(
+                            "Alpine garden",
+                            de: "Alpinum",
+                            fr: "Jardin alpin",
+                            es: "Jardín alpino",
+                            it: "Giardino alpino"
+                        ),
+                        definition: tr(
+                            "A garden area planted with alpine plants.",
+                            de: "Anlage mit Alpenpflanzen",
+                            fr: "Aménagement planté de plantes alpines.",
+                            es: "Zona ajardinada con plantas alpinas.",
+                            it: "Area allestita con piante alpine."
+                        )
                     ),
                     GlossaryEntryData(
-                        term: "API",
-                        definition:
-                            "Application Programming Interface – Schnittstelle."
+                        term: tr(
+                            "API",
+                            de: "API",
+                            fr: "API",
+                            es: "API",
+                            it: "API"
+                        ),
+                        definition: tr(
+                            "Application Programming Interface – an interface.",
+                            de:
+                                "Application Programming Interface – Schnittstelle.",
+                            fr:
+                                "Application Programming Interface – une interface.",
+                            es:
+                                "Application Programming Interface: una interfaz.",
+                            it:
+                                "Application Programming Interface – un'interfaccia."
+                        )
                     ),
                     GlossaryEntryData(
-                        term: "Heliskiing",
-                        definition:
-                            "Abfahrt von einem Berggipfel, zu dem der Skiläufer mit einem Helikopter gebracht worden ist."
+                        term: tr(
+                            "Heliskiing",
+                            de: "Heliskiing",
+                            fr: "Heliskiing",
+                            es: "Heliskiing",
+                            it: "Heliskiing"
+                        ),
+                        definition: tr(
+                            "A descent from a mountain peak to which the skier has been brought by helicopter.",
+                            de:
+                                "Abfahrt von einem Berggipfel, zu dem der Skiläufer mit einem Helikopter gebracht worden ist.",
+                            fr:
+                                "Descente depuis un sommet où le skieur a été déposé en hélicoptère.",
+                            es:
+                                "Descenso desde una cima a la que el esquiador ha sido llevado en helicóptero.",
+                            it:
+                                "Discesa da una vetta raggiunta dallo sciatore in elicottero."
+                        )
                     ),
                     GlossaryEntryData(
-                        term: "Logout",
-                        definition:
-                            "Das Ausloggen"
+                        term: tr(
+                            "Logout",
+                            de: "Logout",
+                            fr: "Déconnexion",
+                            es: "Cierre de sesión",
+                            it: "Logout"
+                        ),
+                        definition: tr(
+                            "Signing out.",
+                            de: "Das Ausloggen",
+                            fr: "Le fait de se déconnecter.",
+                            es: "Salir de la cuenta.",
+                            it: "L'uscita dall'account."
+                        )
                     ),
                 ],
                 hasSearch: false

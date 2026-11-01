@@ -14,7 +14,17 @@ struct QuoteView: TemplateRepresentable {
             """,
             QuoteData(
                 quote:
-                    "Design is not just what it looks like and feels like. Design is how it works.",
+                    tr(
+                        "Design is not just what it looks like and feels like. Design is how it works.",
+                        de:
+                            "Design ist nicht nur, wie etwas aussieht und sich anfühlt. Design ist, wie es funktioniert.",
+                        fr:
+                            "Le design, ce n'est pas seulement l'apparence et la sensation. Le design, c'est le fonctionnement.",
+                        es:
+                            "El diseño no es solo cómo se ve y cómo se siente. El diseño es cómo funciona.",
+                        it:
+                            "Il design non è solo come appare e come ci si sente. Il design è come funziona."
+                    ),
                 citation: "Steve Jobs",
                 hasQuotationMarks: true
             )
@@ -25,7 +35,17 @@ struct QuoteView: TemplateRepresentable {
             """,
             QuoteData(
                 quote:
-                    "Design is *not* just what it looks like and feels like. Design is **how** it works.",
+                    tr(
+                        "Design is *not* just what it looks like and feels like. Design is **how** it works.",
+                        de:
+                            "Design ist *nicht* nur, wie etwas aussieht und sich anfühlt. Design ist, **wie** es funktioniert.",
+                        fr:
+                            "Le design, ce n'est *pas* seulement l'apparence et la sensation. Le design, c'est **le fonctionnement**.",
+                        es:
+                            "El diseño *no* es solo cómo se ve y cómo se siente. El diseño es **cómo** funciona.",
+                        it:
+                            "Il design *non* è solo come appare e come ci si sente. Il design è **come** funziona."
+                    ),
                 citation: "Steve Jobs",
                 hasQuotationMarks: false
             )
@@ -34,7 +54,16 @@ struct QuoteView: TemplateRepresentable {
             """
             // No citation
             """,
-            QuoteData(quote: "Ship early, learn fast.", citation: nil)
+            QuoteData(
+                quote: tr(
+                    "Ship early, learn fast.",
+                    de: "Früh ausliefern, schnell lernen.",
+                    fr: "Livrer tôt, apprendre vite.",
+                    es: "Lanza pronto, aprende rápido.",
+                    it: "Rilascia presto, impara in fretta."
+                ),
+                citation: nil
+            )
         ),
     ]
 

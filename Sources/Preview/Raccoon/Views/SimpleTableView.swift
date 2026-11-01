@@ -16,7 +16,13 @@ struct SimpleTableView: TemplateRepresentable {
             SimpleTableData(
                 meta: DemoData.simpleTableMeta,
                 rows: DemoData.simpleTableRows,
-                caption: "Types of Growth Loops"
+                caption: tr(
+                    "Types of Growth Loops",
+                    de: "Arten von Wachstumsschleifen",
+                    fr: "Types de boucles de croissance",
+                    es: "Tipos de bucles de crecimiento",
+                    it: "Tipi di cicli di crescita"
+                )
             )
         )
     ]

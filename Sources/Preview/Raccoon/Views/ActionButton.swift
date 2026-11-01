@@ -10,20 +10,23 @@ struct ButtonView: TemplateRepresentable {
     let variants: [PreviewVariant<ActionButtonData>] = [
         #previewVariant(
             """
-            With translations (en, de, fr) and an icon-only button with the built-in fallback label
+            // With translations (en, de, fr) and an icon-only button with the built-in fallback label
             """,
             ActionButtonData(
                 id: "btn-i18n",
-                label: LocalizedText(
-                    en: "Save",
-                    translations: ["de": "Speichern", "fr": "Enregistrer"]
+                label: tr(
+                    "Save",
+                    de: "Speichern",
+                    fr: "Enregistrer",
+                    es: "Guardar",
+                    it: "Salva"
                 ),
-                tooltip: LocalizedText(
-                    en: "Save your changes",
-                    translations: [
-                        "de": "Änderungen speichern",
-                        "fr": "Enregistrer vos modifications",
-                    ]
+                tooltip: tr(
+                    "Save your changes",
+                    de: "Änderungen speichern",
+                    fr: "Enregistrer vos modifications",
+                    es: "Guardar los cambios",
+                    it: "Salva le modifiche"
                 ),
                 tooltipPosition: .bottom,
                 htmlType: .button,
@@ -35,7 +38,7 @@ struct ButtonView: TemplateRepresentable {
         ),
         #previewVariant(
             """
-            Icon only, no texts: the aria-label "Action" is built in and translated
+            // Icon only, no texts: the aria-label "Action" is built in and translated
             """,
             ActionButtonData(
                 id: "btn-i18n-fallback",
@@ -47,14 +50,32 @@ struct ButtonView: TemplateRepresentable {
         ),
         #previewVariant(
             """
-            Primary Button
+            // Primary Button
             """,
             ActionButtonData(
                 id: "btn-1",
                 clickAction: "alert('ClickAction fired');",
-                label: "Label",
-                ariaLabel: "Aria-Label",
-                tooltip: "Tooltip",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "Aria-Label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
+                tooltip: tr(
+                    "Tooltip",
+                    de: "Tooltip",
+                    fr: "Infobulle",
+                    es: "Información",
+                    it: "Tooltip"
+                ),
                 tooltipPosition: .bottom,
                 htmlType: .submit,
                 buttonType: .primary,
@@ -73,9 +94,27 @@ struct ButtonView: TemplateRepresentable {
             """,
             ActionButtonData(
                 id: "btn-2",
-                label: "Label",
-                ariaLabel: "Aria-Label",
-                tooltip: "Tooltip",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "Aria-Label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
+                tooltip: tr(
+                    "Tooltip",
+                    de: "Tooltip",
+                    fr: "Infobulle",
+                    es: "Información",
+                    it: "Tooltip"
+                ),
                 tooltipPosition: .right,
                 htmlType: .submit,
                 buttonType: .primary,
@@ -94,9 +133,27 @@ struct ButtonView: TemplateRepresentable {
             """,
             ActionButtonData(
                 id: "btn-3",
-                label: "Label",
-                ariaLabel: "Aria-Label",
-                tooltip: "Tooltip",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "Aria-Label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
+                tooltip: tr(
+                    "Tooltip",
+                    de: "Tooltip",
+                    fr: "Infobulle",
+                    es: "Información",
+                    it: "Tooltip"
+                ),
                 tooltipPosition: .right,
                 htmlType: .submit,
                 buttonType: .secondary,
@@ -115,9 +172,27 @@ struct ButtonView: TemplateRepresentable {
             """,
             ActionButtonData(
                 id: "btn-8",
-                label: "Label",
-                ariaLabel: "Aria-Label",
-                tooltip: "Tooltip",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "Aria-Label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
+                tooltip: tr(
+                    "Tooltip",
+                    de: "Tooltip",
+                    fr: "Infobulle",
+                    es: "Información",
+                    it: "Tooltip"
+                ),
                 tooltipPosition: .right,
                 htmlType: .submit,
                 buttonType: .tertiary,
@@ -136,9 +211,27 @@ struct ButtonView: TemplateRepresentable {
             """,
             ActionButtonData(
                 id: "btn-12",
-                label: "Label",
-                ariaLabel: "Aria-Label",
-                tooltip: "Tooltip",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "Aria-Label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
+                tooltip: tr(
+                    "Tooltip",
+                    de: "Tooltip",
+                    fr: "Infobulle",
+                    es: "Información",
+                    it: "Tooltip"
+                ),
                 tooltipPosition: .right,
                 htmlType: .submit,
                 buttonType: .warning,
@@ -158,8 +251,20 @@ struct ButtonView: TemplateRepresentable {
             ActionButtonData(
                 id: "btn-22",
                 label: nil,
-                ariaLabel: "Aria-Label",
-                tooltip: "Tooltip",
+                ariaLabel: tr(
+                    "Aria-Label",
+                    de: "Aria-Label",
+                    fr: "Aria-label",
+                    es: "Aria-label",
+                    it: "Aria-label"
+                ),
+                tooltip: tr(
+                    "Tooltip",
+                    de: "Tooltip",
+                    fr: "Infobulle",
+                    es: "Información",
+                    it: "Tooltip"
+                ),
                 tooltipPosition: .bottom,
                 htmlType: .submit,
                 buttonType: .icon,
@@ -182,9 +287,27 @@ struct ButtonView: TemplateRepresentable {
                 id: "btn-action",
                 action: "/preview-save",  // -> becomes formaction="/preview-save"
                 method: .post,  // -> becomes formmethod="post"
-                label: "Submit to /preview-save",
-                ariaLabel: "SubmitAction",
-                tooltip: "Submits form to server",
+                label: tr(
+                    "Submit to /preview-save",
+                    de: "An /preview-save senden",
+                    fr: "Envoyer à /preview-save",
+                    es: "Enviar a /preview-save",
+                    it: "Invia a /preview-save"
+                ),
+                ariaLabel: tr(
+                    "SubmitAction",
+                    de: "Aktion absenden",
+                    fr: "Action d'envoi",
+                    es: "Acción de envío",
+                    it: "Azione di invio"
+                ),
+                tooltip: tr(
+                    "Submits form to server",
+                    de: "Sendet das Formular an den Server",
+                    fr: "Envoie le formulaire au serveur",
+                    es: "Envía el formulario al servidor",
+                    it: "Invia il modulo al server"
+                ),
                 tooltipPosition: .top,
                 htmlType: .submit,
                 buttonType: .secondary,
@@ -207,9 +330,27 @@ struct ButtonView: TemplateRepresentable {
                 id: "btn-bindAction",
                 bindAction: "dynamicUrl",  // -> becomes x-bind:formaction="dynamicUrl"
                 method: .post,
-                label: "Submit to dynamic URL",
-                ariaLabel: "BindAction",
-                tooltip: "Reactive formaction via x-bind:formaction",
+                label: tr(
+                    "Submit to dynamic URL",
+                    de: "An dynamische URL senden",
+                    fr: "Envoyer à l'URL dynamique",
+                    es: "Enviar a URL dinámica",
+                    it: "Invia a URL dinamico"
+                ),
+                ariaLabel: tr(
+                    "BindAction",
+                    de: "Bindungsaktion",
+                    fr: "Action liée",
+                    es: "Acción vinculada",
+                    it: "Azione associata"
+                ),
+                tooltip: tr(
+                    "Reactive formaction via x-bind:formaction",
+                    de: "Reaktive formaction über x-bind:formaction",
+                    fr: "Formaction réactive via x-bind:formaction",
+                    es: "Formaction reactiva mediante x-bind:formaction",
+                    it: "Formaction reattiva tramite x-bind:formaction"
+                ),
                 tooltipPosition: .right,
                 htmlType: .submit,
                 buttonType: .tertiary,
@@ -229,9 +370,27 @@ struct ButtonView: TemplateRepresentable {
             ActionButtonData(
                 id: "btn-disabled-primary",
                 clickAction: "alert('This must never fire');",
-                label: "Label",
-                ariaLabel: "Disabled primary button",
-                tooltip: "Tooltip",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "Disabled primary button",
+                    de: "Deaktivierte primäre Schaltfläche",
+                    fr: "Bouton principal désactivé",
+                    es: "Botón principal deshabilitado",
+                    it: "Pulsante primario disabilitato"
+                ),
+                tooltip: tr(
+                    "Tooltip",
+                    de: "Tooltip",
+                    fr: "Infobulle",
+                    es: "Información",
+                    it: "Tooltip"
+                ),
                 tooltipPosition: .right,
                 htmlType: .submit,
                 buttonType: .primary,
@@ -250,8 +409,20 @@ struct ButtonView: TemplateRepresentable {
             """,
             ActionButtonData(
                 id: "btn-disabled-secondary",
-                label: "Label",
-                ariaLabel: "Disabled secondary button",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "Disabled secondary button",
+                    de: "Deaktivierte sekundäre Schaltfläche",
+                    fr: "Bouton secondaire désactivé",
+                    es: "Botón secundario deshabilitado",
+                    it: "Pulsante secondario disabilitato"
+                ),
                 buttonType: .secondary,
                 state: .disabled,
                 contentTracker: tracker
@@ -263,8 +434,20 @@ struct ButtonView: TemplateRepresentable {
             """,
             ActionButtonData(
                 id: "btn-disabled-tertiary",
-                label: "Label",
-                ariaLabel: "Disabled tertiary button",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "Disabled tertiary button",
+                    de: "Deaktivierte tertiäre Schaltfläche",
+                    fr: "Bouton tertiaire désactivé",
+                    es: "Botón terciario deshabilitado",
+                    it: "Pulsante terziario disabilitato"
+                ),
                 buttonType: .tertiary,
                 state: .disabled,
                 contentTracker: tracker
@@ -276,8 +459,20 @@ struct ButtonView: TemplateRepresentable {
             """,
             ActionButtonData(
                 id: "btn-disabled-warning",
-                label: "Label",
-                ariaLabel: "Disabled warning button",
+                label: tr(
+                    "Label",
+                    de: "Beschriftung",
+                    fr: "Libellé",
+                    es: "Etiqueta",
+                    it: "Etichetta"
+                ),
+                ariaLabel: tr(
+                    "Disabled warning button",
+                    de: "Deaktivierte Warn-Schaltfläche",
+                    fr: "Bouton d'avertissement désactivé",
+                    es: "Botón de advertencia deshabilitado",
+                    it: "Pulsante di avviso disabilitato"
+                ),
                 buttonType: .warning,
                 state: .disabled,
                 contentTracker: tracker
@@ -289,8 +484,20 @@ struct ButtonView: TemplateRepresentable {
             """,
             ActionButtonData(
                 id: "btn-disabled-icon",
-                ariaLabel: "Disabled icon button",
-                tooltip: "Tooltip",
+                ariaLabel: tr(
+                    "Disabled icon button",
+                    de: "Deaktivierte Icon-Schaltfläche",
+                    fr: "Bouton icône désactivé",
+                    es: "Botón de icono deshabilitado",
+                    it: "Pulsante con icona disabilitato"
+                ),
+                tooltip: tr(
+                    "Tooltip",
+                    de: "Tooltip",
+                    fr: "Infobulle",
+                    es: "Información",
+                    it: "Tooltip"
+                ),
                 tooltipPosition: .bottom,
                 buttonType: .icon,
                 state: .disabled,
@@ -304,8 +511,20 @@ struct ButtonView: TemplateRepresentable {
             // Hovering one icon button must show exactly one tooltip.
             """,
             ActionButtonData(
-                ariaLabel: "Icon button without id, first",
-                tooltip: "Same tooltip text on all three",
+                ariaLabel: tr(
+                    "Icon button without id, first",
+                    de: "Icon-Schaltfläche ohne ID, erste",
+                    fr: "Bouton icône sans id, premier",
+                    es: "Botón de icono sin id, primero",
+                    it: "Pulsante con icona senza id, primo"
+                ),
+                tooltip: tr(
+                    "Same tooltip text on all three",
+                    de: "Gleicher Tooltip-Text bei allen dreien",
+                    fr: "Même texte d'infobulle pour les trois",
+                    es: "Mismo texto de información en los tres",
+                    it: "Stesso testo del tooltip per tutti e tre"
+                ),
                 tooltipPosition: .top,
                 buttonType: .tertiary,
                 icon: .airplane,
@@ -317,8 +536,20 @@ struct ButtonView: TemplateRepresentable {
             // No explicit id, second of three
             """,
             ActionButtonData(
-                ariaLabel: "Icon button without id, second",
-                tooltip: "Same tooltip text on all three",
+                ariaLabel: tr(
+                    "Icon button without id, second",
+                    de: "Icon-Schaltfläche ohne ID, zweite",
+                    fr: "Bouton icône sans id, deuxième",
+                    es: "Botón de icono sin id, segundo",
+                    it: "Pulsante con icona senza id, secondo"
+                ),
+                tooltip: tr(
+                    "Same tooltip text on all three",
+                    de: "Gleicher Tooltip-Text bei allen dreien",
+                    fr: "Même texte d'infobulle pour les trois",
+                    es: "Mismo texto de información en los tres",
+                    it: "Stesso testo del tooltip per tutti e tre"
+                ),
                 tooltipPosition: .top,
                 buttonType: .tertiary,
                 icon: .airplane,
@@ -332,7 +563,17 @@ struct ButtonView: TemplateRepresentable {
             ActionButtonData(
                 id: "btn-multiline",
                 label:
-                    "This is a very long button label that exceeds typical button widths and wraps across several lines with vertical centering",
+                    tr(
+                        "This is a very long button label that exceeds typical button widths and wraps across several lines with vertical centering",
+                        de:
+                            "Dies ist eine sehr lange Beschriftung, die übliche Schaltflächenbreiten überschreitet und über mehrere Zeilen umbricht, vertikal zentriert",
+                        fr:
+                            "Ceci est un libellé de bouton très long qui dépasse les largeurs habituelles et s'étend sur plusieurs lignes avec centrage vertical",
+                        es:
+                            "Esta es una etiqueta de botón muy larga que supera los anchos habituales y se distribuye en varias líneas con centrado vertical",
+                        it:
+                            "Questa è un'etichetta molto lunga che supera le larghezze abituali e va a capo su più righe con centratura verticale"
+                    ),
                 buttonType: .primary,
                 size: .base,
                 hasFullWidth: false,

@@ -23,6 +23,10 @@ public struct AudioPlayer: TemplateRepresentable {
         for text in scriptTexts { text.recordUse() }
     }
 
+    private static let keyboardHint = LocalizedText(
+        "audioplayer.keyboardHint",
+        "Use left/right arrows to skip, space to play or pause, and home/end to jump to the beginning or end."
+    )
     private static let play = LocalizedText("audioplayer.play", "Play")
     private static let pause = LocalizedText("audioplayer.pause", "Pause")
     private static let progress = LocalizedText(
@@ -104,14 +108,16 @@ public struct AudioPlayer: TemplateRepresentable {
             // Title
             if let title = data.title {
 
-                P(title)
+                P(title.resolved)
+                    .localized(title)
                     .class(styles.titleText)
             }
 
             // Disclaimer
             if let disclaimer = data.disclaimer {
 
-                P(disclaimer)
+                P(disclaimer.resolved)
+                    .localized(disclaimer)
                     .class(styles.disclaimerText)
             }
 
@@ -311,10 +317,9 @@ public struct AudioPlayer: TemplateRepresentable {
             )
             .class(styles.scrubberButton)
 
-        P(
-            "Use left/right arrows to skip, space to play or pause, and home/end to jump to the beginning or end."
-        )
-        .class("sr-only")
+        P(Self.keyboardHint.resolved)
+            .localized(Self.keyboardHint)
+            .class("sr-only")
     }
 
     @Builder<Element>
@@ -432,7 +437,7 @@ public struct AudioPlayer: TemplateRepresentable {
                     LocalizedText(
                         "audioplayer.playerFor",
                         "Audio Player for {{title}}",
-                        variables: ["title": title]
+                        variables: ["title": title.resolved]
                     )
                 )
             }

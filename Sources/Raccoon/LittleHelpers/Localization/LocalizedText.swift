@@ -15,7 +15,7 @@ import WebBuilders
 ///
 /// Placeholders use `{{name}}` (no spaces), values go in `variables`. The page language comes from
 /// `I18n.context`; a missing translation falls back to English.
-public struct LocalizedText: Sendable, Equatable, ExpressibleByStringLiteral,
+public struct LocalizedText: Sendable, Hashable, ExpressibleByStringLiteral,
     CustomStringConvertible
 {
     /// `namespace.key` of a built-in text, empty for consumer and plain texts.

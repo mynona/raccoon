@@ -17,15 +17,33 @@ struct MultiSelectView: TemplateRepresentable {
                 name: "techs",
                 label: LabelData(
                     id: "multi-1",
-                    title: "Technologies"
+                    title: tr(
+                        "Technologies",
+                        de: "Technologien",
+                        fr: "Technologies",
+                        es: "Tecnologías",
+                        it: "Tecnologie"
+                    )
                 ),
-                placeholder: "placeholder",
+                placeholder: tr(
+                    "placeholder",
+                    de: "Platzhalter",
+                    fr: "espace réservé",
+                    es: "marcador",
+                    it: "segnaposto"
+                ),
                 values: ["vapor", "html"],
                 options: DemoData.optionList,
                 state: .enabled,
                 helperText: HelperTextData(
                     id: "hlp-1",
-                    text: "helper-text-1"
+                    text: tr(
+                        "helper-text-1",
+                        de: "Hilfetext 1",
+                        fr: "texte d'aide 1",
+                        es: "texto de ayuda 1",
+                        it: "testo di aiuto 1"
+                    )
                 )
             )
         ),
@@ -38,15 +56,35 @@ struct MultiSelectView: TemplateRepresentable {
                 name: "techs",
                 label: LabelData(
                     id: "multi-3",
-                    title: "Technologies"
+                    title: tr(
+                        "Technologies",
+                        de: "Technologien",
+                        fr: "Technologies",
+                        es: "Tecnologías",
+                        it: "Tecnologie"
+                    )
                 ),
-                placeholder: "placeholder",
+                placeholder: tr(
+                    "placeholder",
+                    de: "Platzhalter",
+                    fr: "espace réservé",
+                    es: "marcador",
+                    it: "segnaposto"
+                ),
                 values: ["vapor"],
                 options: DemoData.optionList,
                 state: .enabled,
                 errorMessages: ErrorMessageData(
                     id: "err-1",
-                    errorMessages: ["error one"],
+                    errorMessages: [
+                        tr(
+                            "error one",
+                            de: "Fehler eins",
+                            fr: "erreur un",
+                            es: "error uno",
+                            it: "errore uno"
+                        )
+                    ],
                     hasIcon: false
                 )
             )
@@ -60,9 +98,21 @@ struct MultiSelectView: TemplateRepresentable {
                 name: "techs",
                 label: LabelData(
                     id: "multi-41",
-                    title: "Technologies"
+                    title: tr(
+                        "Technologies",
+                        de: "Technologien",
+                        fr: "Technologies",
+                        es: "Tecnologías",
+                        it: "Tecnologie"
+                    )
                 ),
-                placeholder: "placeholder",
+                placeholder: tr(
+                    "placeholder",
+                    de: "Platzhalter",
+                    fr: "espace réservé",
+                    es: "marcador",
+                    it: "segnaposto"
+                ),
                 values: ["vapor"],
                 options: DemoData.optionList,
                 state: .info
@@ -77,9 +127,21 @@ struct MultiSelectView: TemplateRepresentable {
                 name: "techs",
                 label: LabelData(
                     id: "multi-43",
-                    title: "Technologies"
+                    title: tr(
+                        "Technologies",
+                        de: "Technologien",
+                        fr: "Technologies",
+                        es: "Tecnologías",
+                        it: "Tecnologie"
+                    )
                 ),
-                placeholder: "placeholder",
+                placeholder: tr(
+                    "placeholder",
+                    de: "Platzhalter",
+                    fr: "espace réservé",
+                    es: "marcador",
+                    it: "segnaposto"
+                ),
                 values: ["vapor"],
                 options: DemoData.optionList,
                 state: .info,
@@ -95,9 +157,21 @@ struct MultiSelectView: TemplateRepresentable {
                 name: "techs",
                 label: LabelData(
                     id: "multi-51",
-                    title: "Technologies"
+                    title: tr(
+                        "Technologies",
+                        de: "Technologien",
+                        fr: "Technologies",
+                        es: "Tecnologías",
+                        it: "Tecnologie"
+                    )
                 ),
-                placeholder: "placeholder",
+                placeholder: tr(
+                    "placeholder",
+                    de: "Platzhalter",
+                    fr: "espace réservé",
+                    es: "marcador",
+                    it: "segnaposto"
+                ),
                 values: ["vapor"],
                 options: DemoData.optionList,
                 state: .disabled,
@@ -113,9 +187,21 @@ struct MultiSelectView: TemplateRepresentable {
                 name: "techs",
                 label: LabelData(
                     id: "multi-52",
-                    title: "Technologies"
+                    title: tr(
+                        "Technologies",
+                        de: "Technologien",
+                        fr: "Technologies",
+                        es: "Tecnologías",
+                        it: "Tecnologie"
+                    )
                 ),
-                placeholder: "placeholder",
+                placeholder: tr(
+                    "placeholder",
+                    de: "Platzhalter",
+                    fr: "espace réservé",
+                    es: "marcador",
+                    it: "segnaposto"
+                ),
                 values: ["vapor"],
                 options: DemoData.optionList,
                 state: .disabled

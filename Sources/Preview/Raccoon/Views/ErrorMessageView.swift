@@ -15,8 +15,20 @@ struct ErrorMessageView: TemplateRepresentable {
             ErrorMessageData(
                 id: "err2",
                 errorMessages: [
-                    "Error 1",
-                    "Error 2",
+                    tr(
+                        "Error 1",
+                        de: "Fehler 1",
+                        fr: "Erreur 1",
+                        es: "Error 1",
+                        it: "Errore 1"
+                    ),
+                    tr(
+                        "Error 2",
+                        de: "Fehler 2",
+                        fr: "Erreur 2",
+                        es: "Error 2",
+                        it: "Errore 2"
+                    ),
                 ],
                 hasIcon: true
             )
@@ -28,21 +40,30 @@ struct ErrorMessageView: TemplateRepresentable {
             ErrorMessageData(
                 id: "err3",
                 errorMessages: [
-                    "Error 3"
+                    tr(
+                        "Error 3",
+                        de: "Fehler 3",
+                        fr: "Erreur 3",
+                        es: "Error 3",
+                        it: "Errore 3"
+                    )
                 ],
                 hasIcon: false
             )
         ),
         #previewVariant(
             """
-            // Messages with translations (en, de)
+            // Messages with translations
             """,
             ErrorMessageData(
                 id: "err4",
                 errorMessages: [
-                    LocalizedText(
-                        en: "This field is required.",
-                        translations: ["de": "Dieses Feld ist erforderlich."]
+                    tr(
+                        "This field is required.",
+                        de: "Dieses Feld ist erforderlich.",
+                        fr: "Ce champ est obligatoire.",
+                        es: "Este campo es obligatorio.",
+                        it: "Questo campo è obbligatorio."
                     )
                 ],
                 hasIcon: true

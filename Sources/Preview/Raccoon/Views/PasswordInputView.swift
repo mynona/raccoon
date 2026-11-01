@@ -16,7 +16,13 @@ struct PasswordInputView: TemplateRepresentable {
                 passwordId: "password",
                 passwordLabel: LabelData(
                     id: "password",
-                    title: "Password"
+                    title: tr(
+                        "Password",
+                        de: "Passwort",
+                        fr: "Mot de passe",
+                        es: "Contraseña",
+                        it: "Password"
+                    )
                 )
             )
         )

@@ -7,7 +7,7 @@ public struct MultiSelectData: Sendable {
     public let values: [String]?
     public let options: [OptionValue]?
     public let state: ComponentState
-    public let placeholder: String?
+    public let placeholder: LocalizedText?
     public let errorMessages: ErrorMessageData?
     public let helperText: HelperTextData?
 
@@ -30,7 +30,7 @@ public struct MultiSelectData: Sendable {
         id: String,
         name: String,
         label: LabelData? = nil,
-        placeholder: String? = nil,
+        placeholder: LocalizedText? = nil,
         values: [String]? = nil,
         options: [OptionValue]? = nil,
         state: ComponentState,

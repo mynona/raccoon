@@ -13,9 +13,25 @@ struct KeyTakeawayView: TemplateRepresentable {
             // Default
             """,
             KeyTakeawaysData(
-                title: "Key Takeaways",
+                title: tr(
+                    "Key Takeaways",
+                    de: "Wichtige Erkenntnisse",
+                    fr: "Points clés",
+                    es: "Puntos clave",
+                    it: "Punti chiave"
+                ),
                 contentAsMarkdown:
-                    "- Start with user problems, not solutions.\n- Validate early and often.\n- Measure outcomes, not outputs.",
+                    tr(
+                        "- Start with user problems, not solutions.\n- Validate early and often.\n- Measure outcomes, not outputs.",
+                        de:
+                            "- Beginne mit den Problemen der Nutzer, nicht mit Lösungen.\n- Validiere früh und oft.\n- Messe Ergebnisse, nicht Outputs.",
+                        fr:
+                            "- Partez des problèmes des utilisateurs, pas des solutions.\n- Validez tôt et souvent.\n- Mesurez les résultats, pas les livrables.",
+                        es:
+                            "- Empieza por los problemas de los usuarios, no por las soluciones.\n- Valida pronto y a menudo.\n- Mide los resultados, no los entregables.",
+                        it:
+                            "- Parti dai problemi degli utenti, non dalle soluzioni.\n- Valida presto e spesso.\n- Misura i risultati, non gli output."
+                    ),
                 icon: .lightbulb
             )
         )
