@@ -274,4 +274,31 @@ struct InputListTests {
                 || html.contains("@click=\"add\"")
         )
     }
+
+    // MARK: localization
+
+    @Test("buttons, placeholders and the header are built in and translated")
+    func localizedTexts() {
+        let data = InputListData(
+            id: "list",
+            label: LabelData(id: "list", title: "List"),
+            values: [],
+            validationType: .url
+        )
+        let english = renderHTML(InputList(data).render())
+        for key in [
+            "delete", "deleteValue", "add", "addValue", "clearAll",
+            "clearAllValues", "editValue", "enterValue", "addNewValue",
+            "enterNewValue", "value",
+        ] {
+            #expect(english.contains("inputlist.\(key)"), "\(key)")
+        }
+        let german = I18n.render(language: "de") {
+            renderHTML(InputList(data).render())
+        }
+        #expect(german.contains("aria-label=\"Wert löschen\""))
+        #expect(german.contains("placeholder=\"Neuen Wert eingeben\""))
+        #expect(german.contains(">Wert</th>"))
+        #expect(german.contains(">Hinzufügen</span>"))
+    }
 }

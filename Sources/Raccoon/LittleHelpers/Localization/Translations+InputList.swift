@@ -1,0 +1,81 @@
+extension Translations {
+    static let inputlist: [String: [String: String]] = [
+        "delete": [
+            "en": "Delete",
+            "de": "Löschen",
+            "fr": "Supprimer",
+            "es": "Eliminar",
+            "it": "Elimina",
+        ],
+        "deleteValue": [
+            "en": "Delete value",
+            "de": "Wert löschen",
+            "fr": "Supprimer la valeur",
+            "es": "Eliminar valor",
+            "it": "Elimina valore",
+        ],
+        "add": [
+            "en": "Add",
+            "de": "Hinzufügen",
+            "fr": "Ajouter",
+            "es": "Añadir",
+            "it": "Aggiungi",
+        ],
+        "addValue": [
+            "en": "Add value",
+            "de": "Wert hinzufügen",
+            "fr": "Ajouter une valeur",
+            "es": "Añadir valor",
+            "it": "Aggiungi valore",
+        ],
+        "clearAll": [
+            "en": "Clear All",
+            "de": "Alle löschen",
+            "fr": "Tout effacer",
+            "es": "Borrar todo",
+            "it": "Cancella tutto",
+        ],
+        "clearAllValues": [
+            "en": "Clear all values",
+            "de": "Alle Werte löschen",
+            "fr": "Effacer toutes les valeurs",
+            "es": "Borrar todos los valores",
+            "it": "Cancella tutti i valori",
+        ],
+        "editValue": [
+            "en": "Edit value",
+            "de": "Wert bearbeiten",
+            "fr": "Modifier la valeur",
+            "es": "Editar valor",
+            "it": "Modifica valore",
+        ],
+        "enterValue": [
+            "en": "Enter value",
+            "de": "Wert eingeben",
+            "fr": "Saisir une valeur",
+            "es": "Introducir valor",
+            "it": "Inserisci valore",
+        ],
+        "addNewValue": [
+            "en": "Add new value",
+            "de": "Neuen Wert hinzufügen",
+            "fr": "Ajouter une nouvelle valeur",
+            "es": "Añadir un nuevo valor",
+            "it": "Aggiungi un nuovo valore",
+        ],
+        "enterNewValue": [
+            "en": "Enter new value",
+            "de": "Neuen Wert eingeben",
+            "fr": "Saisir une nouvelle valeur",
+            "es": "Introducir un nuevo valor",
+            "it": "Inserisci un nuovo valore",
+        ],
+        "value": [
+            "en": "Value",
+            "de": "Wert",
+            "fr": "Valeur",
+            "es": "Valor",
+            "it": "Valore",
+        ],
+    ]
+}

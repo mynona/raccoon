@@ -8,6 +8,42 @@ public struct InputList: TemplateRepresentable {
     typealias styles = InputListStyles
     typealias inputFieldStyles = InputFieldStyles
 
+    private static let delete = LocalizedText("inputlist.delete", "Delete")
+    private static let deleteValue = LocalizedText(
+        "inputlist.deleteValue",
+        "Delete value"
+    )
+    private static let add = LocalizedText("inputlist.add", "Add")
+    private static let addValue = LocalizedText(
+        "inputlist.addValue",
+        "Add value"
+    )
+    private static let clearAll = LocalizedText(
+        "inputlist.clearAll",
+        "Clear All"
+    )
+    private static let clearAllValues = LocalizedText(
+        "inputlist.clearAllValues",
+        "Clear all values"
+    )
+    private static let editValue = LocalizedText(
+        "inputlist.editValue",
+        "Edit value"
+    )
+    private static let enterValue = LocalizedText(
+        "inputlist.enterValue",
+        "Enter value"
+    )
+    private static let addNewValue = LocalizedText(
+        "inputlist.addNewValue",
+        "Add new value"
+    )
+    private static let enterNewValue = LocalizedText(
+        "inputlist.enterNewValue",
+        "Enter new value"
+    )
+    private static let value = LocalizedText("inputlist.value", "Value")
+
     private func jsonInitialValues() -> String {
         guard let values = data.values else { return "[]" }
         return JavaScriptEscaper.jsonEncode(values, fallback: "[]")
@@ -24,8 +60,8 @@ public struct InputList: TemplateRepresentable {
         ActionButton(
             ActionButtonData(
                 clickAction: "remove(index)",
-                label: "Delete",
-                ariaLabel: "Delete value",
+                label: Self.delete,
+                ariaLabel: Self.deleteValue,
                 htmlType: .button,
                 buttonType: .icon,
                 icon: .trash3,
@@ -45,8 +81,8 @@ public struct InputList: TemplateRepresentable {
         ActionButton(
             ActionButtonData(
                 clickAction: "add",
-                label: "Add",
-                ariaLabel: "Add value",
+                label: Self.add,
+                ariaLabel: Self.addValue,
                 htmlType: .button,
                 buttonType: .icon,
                 icon: .plus_circle,
@@ -65,8 +101,8 @@ public struct InputList: TemplateRepresentable {
         ActionButton(
             ActionButtonData(
                 clickAction: "clearAll",
-                label: "Clear All",
-                ariaLabel: "Clear all values",
+                label: Self.clearAll,
+                ariaLabel: Self.clearAllValues,
                 htmlType: .button,
                 buttonType: .icon,
                 icon: .trash3,
@@ -87,7 +123,7 @@ public struct InputList: TemplateRepresentable {
             Div {
                 Input()
                     .type(.text)
-                    .ariaLabel("Edit value")
+                    .localized(.ariaLabel, Self.editValue)
                     .setAttribute(
                         name: "x-model",
                         value: "values[index]"
@@ -102,7 +138,7 @@ public struct InputList: TemplateRepresentable {
                         value:
                             "validateExisting(index)"
                     )
-                    .placeholder("Enter value")
+                    .localized(.placeholder, Self.enterValue)
                     .addClass(inputFieldStyles.inputReset)
                     .addClass(inputFieldStyles.textColorInput)
                     .addClass(inputFieldStyles.textColorPlaceholder)
@@ -179,7 +215,7 @@ public struct InputList: TemplateRepresentable {
                         name: "x-model",
                         value: "newValue"
                     )
-                    .ariaLabel("Add new value")
+                    .localized(.ariaLabel, Self.addNewValue)
                     .setAttribute(
                         name: "@input",
                         value: "validateNew()"
@@ -192,7 +228,7 @@ public struct InputList: TemplateRepresentable {
                         name: "@keydown.escape.prevent",
                         value: "clearInput"
                     )
-                    .placeholder("Enter new value")
+                    .localized(.placeholder, Self.enterNewValue)
                     .addClass(inputFieldStyles.inputReset)
                     .addClass(inputFieldStyles.textColorInput)
                     .addClass(inputFieldStyles.textColorPlaceholder)
@@ -270,7 +306,8 @@ public struct InputList: TemplateRepresentable {
                         )
                         .addClass(inputFieldStyles.textColorDefault)
 
-                    Th("Value")
+                    Th(Self.value.resolved)
+                        .localized(Self.value)
                         .scope(.col)
                         .class(
                             "px-3 py-2 text-left w-full"
