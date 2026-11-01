@@ -11,6 +11,7 @@ import WebBuilders
 public struct SimpleMenu: TemplateRepresentable {
 
     let data: SimpleMenuData
+    let customTriggerContent: [Element]?
     typealias styles = SimpleMenuStyles
 
     /// Creates a new `SimpleMenu` instance.
@@ -18,22 +19,41 @@ public struct SimpleMenu: TemplateRepresentable {
     /// - Parameter data: Configuration data model for the simple menu.
     public init(_ data: SimpleMenuData) {
         self.data = data
+        self.customTriggerContent = nil
+    }
+
+    /// Creates a new `SimpleMenu` instance with custom trigger content.
+    ///
+    /// - Parameters:
+    ///   - data: Configuration data model for the simple menu.
+    ///   - trigger: Closure returning custom elements to render inside the trigger button.
+    public init(
+        _ data: SimpleMenuData,
+        @Builder<Element> trigger: () -> [Element]
+    ) {
+        self.data = data
+        self.customTriggerContent = trigger()
     }
 
     @Builder<Element>
     private func showTriggerContent() -> [Element] {
-        if let icon = data.triggerIcon {
-            Svg.icon(icon, width: 16, height: 16)
+        if let customTriggerContent, !customTriggerContent.isEmpty {
+            customTriggerContent
         }
-        if let bindTriggerText = data.bindTriggerText {
-            Span("")
-                .setAttribute(name: "x-text", value: bindTriggerText)
-        }
-        else if !data.triggerText.isEmpty {
-            Span(data.triggerText)
-        }
-        if data.hasTriggerChevron {
-            Svg.icon(.chevron_down, width: 14, height: 14)
+        else {
+            if let icon = data.triggerIcon {
+                Svg.icon(icon, width: 16, height: 16)
+            }
+            if let bindTriggerText = data.bindTriggerText {
+                Span("")
+                    .setAttribute(name: "x-text", value: bindTriggerText)
+            }
+            else if !data.triggerText.isEmpty {
+                Span(data.triggerText)
+            }
+            if data.hasTriggerChevron {
+                Svg.icon(.chevron_down, width: 14, height: 14)
+            }
         }
     }
 
@@ -55,6 +75,9 @@ public struct SimpleMenu: TemplateRepresentable {
         if let href = option.href {
             // SSR Link mode
             A {
+                if let icon = option.icon {
+                    Svg.icon(icon, width: 16, height: 16)
+                }
                 Span(option.title)
                 if option.isSelected {
                     Svg.icon(.check_lg, width: 16, height: 16)
@@ -71,6 +94,9 @@ public struct SimpleMenu: TemplateRepresentable {
         else {
             // Alpine / client mode
             Button {
+                if let icon = option.icon {
+                    Svg.icon(icon, width: 16, height: 16)
+                }
                 Span(option.title)
                 if let bindSelected = option.bindSelected {
                     Svg.icon(.check_lg, width: 16, height: 16)

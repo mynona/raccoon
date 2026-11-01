@@ -13,12 +13,51 @@ if (!window.__themeSwitcherLoaded) {
             activeIndex: -1,
             dropUp: false,
 
+            init() {
+               this.$root.addEventListener('keydown', (event) => {
+                  if (event.key === 'Tab' && this.open) {
+                     this.onTab(event);
+                  }
+               }, true);
+            },
+
             menuItems() {
                return Array.from(this.$refs.panel ? this.$refs.panel.querySelectorAll('[role^="menuitem"], a, button') : []);
             },
 
             items() {
                return this.menuItems();
+            },
+
+            onTab(event) {
+               if (!this.open) return;
+               event.preventDefault();
+               event.stopPropagation();
+
+               const panel = this.$refs.panel;
+               const btn = this.$refs.button || this.$root.querySelector('[x-ref="button"]');
+
+               const focusable = Array.from(document.querySelectorAll(
+                  'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+               )).filter(el => !el.disabled && el.offsetParent !== null && !panel?.contains(el));
+
+               const btnIndex = focusable.indexOf(btn);
+               this.close();
+
+               if (event.shiftKey) {
+                  if (panel && panel.contains(document.activeElement)) {
+                     btn?.focus();
+                  } else {
+                     const prev = btnIndex > 0 ? focusable[btnIndex - 1] : btn;
+                     prev?.focus();
+                  }
+               } else {
+                  if (btnIndex !== -1 && btnIndex + 1 < focusable.length) {
+                     focusable[btnIndex + 1].focus();
+                  } else {
+                     btn?.focus();
+                  }
+               }
             },
 
             updatePlacement() {
@@ -113,6 +152,7 @@ if (!window.__themeSwitcherLoaded) {
             currentTheme: defaultTheme,
 
             init() {
+               base.init?.call(this);
                try {
                   if (window.localStorage) {
                      let stored = localStorage.getItem('theme');

@@ -146,4 +146,34 @@ struct SimpleMenuTests {
         #expect(html.contains("w-64"))
         #expect(html.contains("x-transition.origin.top.right"))
     }
+
+    @Test("renders custom trigger content when provided via builder closure")
+    func rendersCustomTriggerContent() async throws {
+        let data = SimpleMenuData(
+            options: [SimpleMenuOption(id: "1", title: "Item")]
+        )
+        let menu = SimpleMenu(data) {
+            Span("Custom Avatar Trigger")
+        }
+        let html = renderHTML(menu.render())
+
+        #expect(html.contains("Custom Avatar Trigger"))
+    }
+
+    @Test("renders leading icon in options when specified")
+    func rendersOptionLeadingIcon() async throws {
+        let options = [
+            SimpleMenuOption(
+                id: "profile",
+                title: "Account settings",
+                href: "/profile",
+                icon: .person_fill
+            )
+        ]
+        let data = SimpleMenuData(options: options)
+        let html = renderHTML(SimpleMenu(data).render())
+
+        #expect(html.contains("<svg"))
+        #expect(html.contains("Account settings"))
+    }
 }
