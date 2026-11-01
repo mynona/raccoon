@@ -13,23 +13,51 @@ public struct DataTableStyles {
     // MARK: - Layout
     public static let root: String = "pt-12 pb-14"
     public static let toolbar: String =
-        "flex flex-row justify-between w-full items-center px-3 pb-6"
+        "flex flex-row justify-between w-full items-center px-3 pb-3"
     public static let toolbarActions: String =
         "flex flex-row items-center space-x-4"
+
+    // MARK: - Filter bar (proposal A)
+    public static let filterBar: String = [
+        "flex flex-row items-center justify-between w-full px-3 py-1",
+        TableStyles.tableBorder,
+        TableStyles.tableBorderColor,
+    ]
+    .joined(separator: " ")
+    public static let filterBarLeft: String =
+        "flex flex-row items-center"
+    public static let filterBarRight: String =
+        "flex flex-row items-center ml-auto"
+    public static let filterToggle: String = [
+        CommonStyles.cursorPointer,
+        ActionButtonStyles.font,
+        CommonStyles.textSizeSmall,
+        "inline-flex flex-row items-center space-x-2 py-1.5 px-2 rounded",
+        "hover:bg-tertiary",
+        CommonStyles.focusDefault,
+    ]
+    .joined(separator: " ")
     public static let filterToggleContent: String =
         "flex flex-row items-center space-x-2"
     public static let filterCount: String = [
-        "inline-flex items-center justify-center h-5 px-2",
+        "inline-flex items-center justify-center min-w-5 h-5 px-1.5 text-xs font-semibold rounded-full",
         MultiSelectStyles.optionSelected,
     ]
     .joined(separator: " ")
-    public static let clearAllButton: String =
-        "flex flex-row items-center space-x-2"
+    public static let clearAllButton: String = [
+        CommonStyles.cursorPointer,
+        ActionButtonStyles.font,
+        CommonStyles.textSizeSmall,
+        "ml-3 pl-3 border-l",
+        TableStyles.tableBorderColor,
+        "underline text-on-surface-dim hover:text-on-surface",
+        CommonStyles.focusDefault,
+    ]
+    .joined(separator: " ")
 
     // MARK: - Filter panel
     public static let filterPanel: String = [
-        "grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-3 pb-6",
-        "border-b",
+        "grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-3 py-5 border-b",
         TableStyles.tableBorderColor,
     ]
     .joined(separator: " ")
@@ -38,8 +66,11 @@ public struct DataTableStyles {
     public static let dateRange: String = "grid grid-cols-2 gap-2"
 
     // MARK: - Filter chips (same look as selected MultiSelect options)
-    public static let chipList: String =
-        "flex flex-wrap items-center gap-3 border-b border-gray-300 py-4 px-3"
+    public static let chipList: String = [
+        "flex flex-wrap items-center gap-3 py-3 px-3 border-b",
+        TableStyles.tableBorderColor,
+    ]
+    .joined(separator: " ")
     public static let chip: String = [
         "inline-flex items-center p-1 px-2 cursor-pointer",
         MultiSelectStyles.optionSelected,
@@ -91,12 +122,7 @@ public struct DataTableStyles {
         SimpleTableStyles.emptyStateTextColor,
     ]
     .joined(separator: " ")
-    public static let errorBanner: String = [
-        "flex flex-row items-center justify-between space-x-4 px-3 py-3 mb-4 border",
-        CommonStyles.borderColorError,
-        CommonStyles.textColorError,
-    ]
-    .joined(separator: " ")
+    public static let errorBanner: String = "mb-4"
     public static let linkButton: String = [
         "underline cursor-pointer",
         CommonStyles.focusDefault,

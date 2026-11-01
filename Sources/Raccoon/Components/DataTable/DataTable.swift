@@ -77,7 +77,7 @@ public struct DataTable: TemplateRepresentable {
             .class(styles.filterToggleContent)
         }
         .type(.button)
-        .class(styles.iconButton)
+        .class(styles.filterToggle)
         .setAttribute(name: "x-ref", value: "filterToggle")
         .setAttribute(
             name: "@click",
@@ -90,15 +90,11 @@ public struct DataTable: TemplateRepresentable {
 
     @Builder<Element>
     private func clearAllButton() -> [Element] {
-        Button {
-            Svg.icon(.x_lg, width: 16, height: 16)
-            Span(data.labels.clearAll)
-        }
-        .type(.button)
-        .class(styles.iconButton)
-        .addClass(styles.clearAllButton)
-        .setAttribute(name: "x-show", value: "activeFilterCount > 0")
-        .setAttribute(name: "@click", value: "clearFilters()")
+        Button(data.labels.clearAll)
+            .type(.button)
+            .class(styles.clearAllButton)
+            .setAttribute(name: "x-show", value: "activeFilterCount > 0")
+            .setAttribute(name: "@click", value: "clearFilters()")
     }
 
     @Builder<Element>
@@ -129,19 +125,29 @@ public struct DataTable: TemplateRepresentable {
                 .addClass(tableStyles.captionTextColor)
                 .addClass(tableStyles.captionTextSize)
                 .ariaHidden("true")
+        }
+        .class(styles.toolbar)
+    }
 
+    @Builder<Element>
+    private func filterBar() -> [Element] {
+        Div {
             Div {
                 if hasFilters {
-                    clearAllButton()
                     filterToggle()
+                    clearAllButton()
                 }
+            }
+            .class(styles.filterBarLeft)
+
+            Div {
                 if data.hasColumnConfigurator {
                     columnConfigurator()
                 }
             }
-            .class(styles.toolbarActions)
+            .class(styles.filterBarRight)
         }
-        .class(styles.toolbar)
+        .class(styles.filterBar)
     }
 
     // MARK: - Filters
@@ -168,6 +174,7 @@ public struct DataTable: TemplateRepresentable {
             .setAttribute(name: ":key", value: "chip.key")
         }
         .class(styles.chipList)
+        .setAttribute(name: "aria-label", value: "Active filters")
         .setAttribute(name: "x-show", value: "activeFilterCount > 0")
     }
 
@@ -818,14 +825,16 @@ public struct DataTable: TemplateRepresentable {
     @Builder<Element>
     private func errorBanner() -> [Element] {
         Div {
-            Span(data.labels.error)
-            Button(data.labels.retry)
-                .type(.button)
-                .class(styles.linkButton)
-                .setAttribute(name: "@click", value: "load()")
+            Notification(
+                NotificationData(
+                    title: LocalizedText(verbatim: data.labels.error),
+                    text: nil,
+                    type: .error
+                )
+            )
+            .render()
         }
         .class(styles.errorBanner)
-        .setAttribute(name: "role", value: "alert")
         .setAttribute(name: "x-show", value: "status === 'error'")
     }
 
@@ -856,9 +865,13 @@ public struct DataTable: TemplateRepresentable {
 
             toolbar()
 
+            if hasFilters || data.hasColumnConfigurator {
+                filterBar()
+            }
+
             if hasFilters {
-                filterPanel()
                 chips()
+                filterPanel()
             }
 
             errorBanner()
@@ -871,6 +884,10 @@ public struct DataTable: TemplateRepresentable {
             .setAttribute(name: "aria-label", value: attribute(data.caption))
             .setAttribute(name: "tabindex", value: "0")
             .setAttribute(name: ":style", value: "minHeightStyle")
+            .setAttribute(
+                name: "x-show",
+                value: "status !== 'error' || rows.length > 0"
+            )
 
             Div {}
                 .class("sr-only")

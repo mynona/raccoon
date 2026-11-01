@@ -404,6 +404,31 @@ struct DataTableTests {
         #expect(html.contains("clearFilters()"))
     }
 
+    @Test("renders filter bar with toggle, clear all, chips and error notification")
+    func filterBarAndErrorNotification() {
+        let html = renderHTML(DataTable(makeData()).render())
+        // Filter bar container
+        #expect(html.contains(DataTableStyles.filterBar))
+        #expect(html.contains(DataTableStyles.filterBarLeft))
+        #expect(html.contains(DataTableStyles.filterBarRight))
+        // Filter toggle & pill count
+        #expect(html.contains(DataTableStyles.filterToggle))
+        #expect(html.contains(DataTableStyles.filterCount))
+        // Clear all link button
+        #expect(html.contains(DataTableStyles.clearAllButton))
+        // Column configurator in the right side of the filter bar
+        #expect(html.contains("openColumnModal()"))
+        // Active filter chips row
+        #expect(html.contains(DataTableStyles.chipList))
+        #expect(html.contains("aria-label=\"Active filters\""))
+        // Error notification component
+        #expect(html.contains("x-show=\"status === &#39;error&#39;\"") || html.contains("x-show=\"status === 'error'\""))
+        #expect(html.contains(NotificationStyles.borderError))
+        #expect(html.contains(NotificationStyles.backgroundColorError))
+        // Scroll region visibility for empty/error state exclusivity
+        #expect(html.contains("status !== &#39;error&#39; || rows.length &gt; 0") || html.contains("status !== 'error' || rows.length > 0"))
+    }
+
     @Test("client config round-trips through base64 JSON")
     func clientConfig() throws {
         let html = renderHTML(DataTable(makeData()).render())
