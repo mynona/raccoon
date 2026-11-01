@@ -42,6 +42,21 @@ struct LabelView: TemplateRepresentable {
                 xhtml: "'xhtml-test'"
             )
         ),
+        #previewVariant(
+            """
+            // Title with translations (en, de, fr)
+            """,
+            LabelData(
+                id: "field-4",
+                title: LocalizedText(
+                    en: "Email address",
+                    translations: [
+                        "de": "E-Mail-Adresse", "fr": "Adresse e-mail",
+                    ]
+                ),
+                isRequired: true
+            )
+        ),
     ]
 
     func makeHtml(ctx: LabelData) -> String {

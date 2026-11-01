@@ -33,6 +33,21 @@ struct ErrorMessageView: TemplateRepresentable {
                 hasIcon: false
             )
         ),
+        #previewVariant(
+            """
+            // Messages with translations (en, de)
+            """,
+            ErrorMessageData(
+                id: "err4",
+                errorMessages: [
+                    LocalizedText(
+                        en: "This field is required.",
+                        translations: ["de": "Dieses Feld ist erforderlich."]
+                    )
+                ],
+                hasIcon: true
+            )
+        ),
     ]
 
     func makeHtml(ctx: ErrorMessageData) -> String {

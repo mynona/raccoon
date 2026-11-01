@@ -76,6 +76,20 @@ public struct Basic: TemplateRepresentable {
                         )
                     )
                     .render()
+
+                    LanguageSwitcher(
+                        LanguageSwitcherData(
+                            languages: [
+                                LanguageOption(code: "en", name: "English"),
+                                LanguageOption(code: "de", name: "Deutsch"),
+                                LanguageOption(code: "fr", name: "Français"),
+                                LanguageOption(code: "es", name: "Español"),
+                                LanguageOption(code: "it", name: "Italiano"),
+                            ],
+                            fallbackLanguage: PreviewRequest.lang
+                        )
+                    )
+                    .render()
                 }
                 .class(styles.sidebarControls)
             }
@@ -246,6 +260,10 @@ public struct Basic: TemplateRepresentable {
                 // Alpine bundle
                 I18n.scripts()
                 Script().src("/js/bundle-min.js")
+                // Preview only: remember the language for the next page (the server renders it from the cookie)
+                Script(
+                    "new MutationObserver(function(){document.cookie='preview-lang='+document.documentElement.lang+'; path=/; max-age=31536000'}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});"
+                )
             }
             .class(styles.body)
         }
