@@ -69,6 +69,38 @@ public struct DatePicker: TemplateRepresentable {
     let data: DatePickerData
     typealias styles = DatePickerStyles
 
+    /// Texts that `datepicker.js` shows (validation messages). The script asks the i18n store for them,
+    /// so they are recorded here to land in the page dictionary.
+    private static let scriptTexts: [LocalizedText] = [
+        LocalizedText("datepicker.errDay", "Day must be between 1 and 31"),
+        LocalizedText("datepicker.errMonth", "Month must be between 1 and 12"),
+        LocalizedText("datepicker.errYear", "Year must be between 0 and 3000"),
+        LocalizedText(
+            "datepicker.errMonthDays",
+            "{{month}} only has {{days}} days in {{year}}"
+        ),
+        LocalizedText(
+            "datepicker.errFebruary",
+            "February only has 28 or 29 days"
+        ),
+        LocalizedText(
+            "datepicker.errMonthDaysNoYear",
+            "{{month}} only has {{days}} days"
+        ),
+        LocalizedText(
+            "datepicker.errFormat",
+            "Invalid date format. Expected {{format}}"
+        ),
+        LocalizedText(
+            "datepicker.errComplete",
+            "Please enter a complete date ({{format}})"
+        ),
+    ]
+
+    private static func recordScriptTexts() {
+        for text in scriptTexts { text.recordUse() }
+    }
+
     private static let dd = LocalizedText("datepicker.dd", "DD")
     private static let mm = LocalizedText("datepicker.mm", "MM")
     private static let yyyy = LocalizedText("datepicker.yyyy", "YYYY")
@@ -1305,6 +1337,7 @@ public struct DatePicker: TemplateRepresentable {
     @Builder<Element>
     public func render() -> [Element] {
         DebugComment("Datepicker")
+        let _ = Self.recordScriptTexts()
         switch data.state {
 
         case .enabled:

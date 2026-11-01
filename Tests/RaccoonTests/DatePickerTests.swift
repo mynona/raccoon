@@ -552,4 +552,19 @@ struct DatePickerTests {
         #expect(german.contains(">Di</span>"))
         #expect(german.contains(">So</span>"))
     }
+
+    @Test("the texts that datepicker.js shows land in the page dictionary")
+    func scriptTextsAreRegistered() {
+        let ctx = makeData(label: LabelData(id: "d", title: "Date"))
+        let html = I18n.render(language: "de", collectsUsedKeys: true) {
+            _ = renderHTML(DatePicker(ctx).render())
+            return renderHTML(I18n.scripts())
+        }
+        #expect(
+            html.contains(
+                "\"errMonthDays\":\"Der {{month}} hat im Jahr {{year}} nur {{days}} Tage\""
+            )
+        )
+        #expect(html.contains("\"errComplete\""))
+    }
 }

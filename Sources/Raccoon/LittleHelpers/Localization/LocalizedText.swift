@@ -85,6 +85,12 @@ public struct LocalizedText: Sendable, Equatable, ExpressibleByStringLiteral,
         }
     }
 
+    /// Marks a built-in text as used by the page without resolving it (for texts that a script shows),
+    /// so that it lands in the page dictionary.
+    func recordUse() {
+        if !key.isEmpty { I18n.context.record(key) }
+    }
+
     /// The text in the language of the page that is rendered right now (`I18n.context`).
     /// Falls back to the English text. Plain texts are returned as given.
     public var resolved: String {

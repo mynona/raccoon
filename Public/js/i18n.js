@@ -188,7 +188,9 @@ if (!window.RaccoonI18n) {
       /** Picks a consumer text: pick({ en: 'Save', de: 'Speichern' }, null, 'Save') */
       pick: (values, variables, fallback) => pick(values, variables, fallback),
       apply: apply,
+      // Reading the language inside an Alpine expression makes it follow live language changes
       get language() {
+        track();
         return currentLanguage();
       },
     };

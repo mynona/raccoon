@@ -71,4 +71,12 @@ struct I18nStoreTests {
         #expect(Self.source.contains("Alpine.reactive"))
         #expect(Self.source.contains("function notify()"))
     }
+
+    @Test("the language getter is reactive for Alpine expressions")
+    func languageIsTracked() {
+        #expect(Self.source.contains("get language()"))
+        let getter =
+            Self.source.components(separatedBy: "get language()").last ?? ""
+        #expect(getter.prefix(120).contains("track();"))
+    }
 }

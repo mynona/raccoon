@@ -1,4 +1,4 @@
-// V2.0
+// V2.1
 
 // Guard against double registration if the script is included twice
 if (!window.__datePickerLoaded) {
@@ -9,6 +9,28 @@ if (!window.__datePickerLoaded) {
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
   const DEFAULT_DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+  // Texts come from the i18n store (translations are registered by the page); the English
+  // fallback is used when the store is not loaded.
+  const t = (key, vars, fallback) =>
+    window.RaccoonI18n ? window.RaccoonI18n.t(key, vars, fallback) : fallback;
+
+  // Month names in the language of the page, from the browser (Intl). Reading
+  // RaccoonI18n.language makes Alpine bindings follow a live language switch.
+  const monthNameCache = {};
+  const monthNames = () => {
+    const language = (window.RaccoonI18n ? window.RaccoonI18n.language : '')
+      || (document.documentElement.lang || 'en').split(/[-_]/)[0].toLowerCase();
+    if (!monthNameCache[language]) {
+      try {
+        const format = new Intl.DateTimeFormat(language, { month: 'long' });
+        monthNameCache[language] = Array.from({ length: 12 }, (_, i) => format.format(new Date(2000, i, 1)));
+      } catch (error) {
+        monthNameCache[language] = DEFAULT_MONTH_NAMES;
+      }
+    }
+    return monthNameCache[language];
+  };
 
   const LOCALES = {
     'DD.MM.YYYY': {
@@ -73,7 +95,9 @@ if (!window.__datePickerLoaded) {
         calendarRows: [],
         calendarRows2: [],
         DAYS: DEFAULT_DAYS,
-        MONTH_NAMES: DEFAULT_MONTH_NAMES,
+        get MONTH_NAMES() {
+          return monthNames();
+        },
         selectedDate: null,
         // Day number of the currently tab-reachable cell (roving tabindex)
         focusedDate: null,
@@ -734,7 +758,7 @@ if (!window.__datePickerLoaded) {
           const d = Number(dayStr);
           if (d < 1 || d > 31) {
             this.hasError = true;
-            this.errorMessage = 'Day must be between 1 and 31';
+            this.errorMessage = t('datepicker.errDay', null, 'Day must be between 1 and 31');
             if (this.$refs.date) this.$refs.date.value = '';
             return;
           }
@@ -745,7 +769,7 @@ if (!window.__datePickerLoaded) {
           const m = Number(monthStr);
           if (m < 1 || m > 12) {
             this.hasError = true;
-            this.errorMessage = 'Month must be between 1 and 12';
+            this.errorMessage = t('datepicker.errMonth', null, 'Month must be between 1 and 12');
             if (this.$refs.date) this.$refs.date.value = '';
             return;
           }
@@ -756,7 +780,7 @@ if (!window.__datePickerLoaded) {
           const y = Number(yearStr);
           if (isNaN(y) || y < 0 || y > 3000) {
             this.hasError = true;
-            this.errorMessage = 'Year must be between 0 and 3000';
+            this.errorMessage = t('datepicker.errYear', null, 'Year must be between 0 and 3000');
             if (this.$refs.date) this.$refs.date.value = '';
             return;
           }
@@ -768,7 +792,7 @@ if (!window.__datePickerLoaded) {
           const m = Number(monthStr);
           if (m >= 1 && m <= 12) {
             const hasCompleteYear = yearStr.length === 4;
-            const monthName = DEFAULT_MONTH_NAMES[m - 1] || 'This month';
+            const monthName = monthNames()[m - 1];
 
             if (hasCompleteYear) {
               const y = Number(yearStr);
@@ -776,7 +800,7 @@ if (!window.__datePickerLoaded) {
                 const maxDays = this.getMaxDays(y, m);
                 if (d > maxDays) {
                   this.hasError = true;
-                  this.errorMessage = `${monthName} only has ${maxDays} days in ${y}`;
+                  this.errorMessage = t('datepicker.errMonthDays', { month: monthName, days: maxDays, year: y }, `${monthName} only has ${maxDays} days in ${y}`);
                   if (this.$refs.date) this.$refs.date.value = '';
                   return;
                 }
@@ -787,8 +811,8 @@ if (!window.__datePickerLoaded) {
               if (d > maxPossibleDays) {
                 this.hasError = true;
                 this.errorMessage = (m === 2)
-                  ? 'February only has 28 or 29 days'
-                  : `${monthName} only has ${maxPossibleDays} days`;
+                  ? t('datepicker.errFebruary', null, 'February only has 28 or 29 days')
+                  : t('datepicker.errMonthDaysNoYear', { month: monthName, days: maxPossibleDays }, `${monthName} only has ${maxPossibleDays} days`);
                 if (this.$refs.date) this.$refs.date.value = '';
                 return;
               }
@@ -813,12 +837,12 @@ if (!window.__datePickerLoaded) {
               return;
             } else {
               this.hasError = true;
-              const monthName = DEFAULT_MONTH_NAMES[m - 1] || 'This month';
+              const monthName = monthNames()[m - 1];
               const maxDays = this.getMaxDays(y, m);
               if (d > maxDays) {
-                this.errorMessage = `${monthName} only has ${maxDays} days in ${y}`;
+                this.errorMessage = t('datepicker.errMonthDays', { month: monthName, days: maxDays, year: y }, `${monthName} only has ${maxDays} days in ${y}`);
               } else {
-                this.errorMessage = `Invalid date format. Expected ${this.format}`;
+                this.errorMessage = t('datepicker.errFormat', { format: this.format }, `Invalid date format. Expected ${this.format}`);
               }
               if (this.$refs.date) this.$refs.date.value = '';
               return;
@@ -871,7 +895,7 @@ if (!window.__datePickerLoaded) {
         if (!this.hasError) {
           if (!this.dayInput || !this.monthInput || this.yearInput.length !== 4) {
             this.hasError = true;
-            this.errorMessage = `Please enter a complete date (${this.format})`;
+            this.errorMessage = t('datepicker.errComplete', { format: this.format }, `Please enter a complete date (${this.format})`);
             if (this.$refs.date) this.$refs.date.value = '';
           }
         }
@@ -946,7 +970,7 @@ if (!window.__datePickerLoaded) {
         } else {
           // Input was not a valid date
           this.hasError = true;
-          this.errorMessage = `Invalid date format. Expected ${this.format}`;
+          this.errorMessage = t('datepicker.errFormat', { format: this.format }, `Invalid date format. Expected ${this.format}`);
           if (this.$refs.date) {
             this.$refs.date.value = '';
           }
