@@ -328,6 +328,33 @@ if (!window.__dataTableLoaded) {
       },
       tableHref(row, template) { return this.tableTemplate(row, template, true); },
 
+      // Flips a boolean toggle cell optimistically, saves it and reverts on failure
+      async toggleRow(row, key, url) {
+        if (!url || row.__saving) return;
+        const previous = Boolean(row[key]);
+        row[key] = !previous;
+        row.__saving = true;
+        try {
+          const response = await fetch(url, {
+            method: "POST",
+            credentials: "same-origin",
+            headers: { "Content-Type": "application/json", Accept: "application/json", ...config.endpoint.headers },
+            body: JSON.stringify({ value: !previous }),
+          });
+          if (response.status === 401 || response.status === 403 || response.redirected) {
+            row[key] = previous;
+            this.reloadForLogin();
+            return;
+          }
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        } catch (error) {
+          row[key] = previous;
+          this.announcement = config.labels.toggleFailed;
+        } finally {
+          row.__saving = false;
+        }
+      },
+
       /* ------------------------------------------------------------------
        FILTERS
        ------------------------------------------------------------------ */

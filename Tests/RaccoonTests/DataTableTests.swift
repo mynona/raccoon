@@ -331,6 +331,33 @@ struct DataTableTests {
         #expect(html.contains("x-if=\"row.canEdit\""))
     }
 
+    @Test("toggle cell is an accessible switch that saves through toggleRow")
+    func toggleCell() {
+        let data = makeData(columns: [
+            DataTableColumn(
+                key: "status",
+                label: "Status",
+                cellType: .custom(
+                    .toggle(
+                        key: "status",
+                        apiURL: "/cms/toggle-status/page/{id}",
+                        labelKey: "menu_title"
+                    )
+                ),
+                hasSorting: true
+            )
+        ])
+        let html = renderHTML(DataTable(data).render())
+        #expect(html.contains("role=\"switch\""))
+        #expect(html.contains(":aria-checked=\"row['status'] ? 'true' : 'false'\""))
+        #expect(html.contains("row['menu_title']"))
+        #expect(
+            html.contains(
+                "@click.stop=\"toggleRow(row, 'status', tableHref(row, '/cms/toggle-status/page/{id}'))\""
+            )
+        )
+    }
+
     @Test("empty values are explained for screen readers")
     func emptyValues() {
         let html = renderHTML(DataTable(makeData()).render())

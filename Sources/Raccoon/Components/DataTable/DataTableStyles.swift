@@ -114,5 +114,10 @@ public struct DataTableStyles {
     public static let cellList: String = "list-disc pl-4"
     public static let actionList: String = "flex flex-row flex-wrap gap-2"
     public static let icon: String = "w-4 h-4 inline-block"
+    public static let toggle: String = [
+        "relative inline-flex py-1 w-9 flex-none cursor-pointer transition",
+        CommonStyles.cornerRadiusFull,
+        CommonStyles.focusDefault,
+    ].joined(separator: " ")
     public static let iconCell: String = "inline-flex items-center space-x-2"
 }

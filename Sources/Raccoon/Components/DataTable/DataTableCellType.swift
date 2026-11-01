@@ -122,6 +122,57 @@ extension DataTableCellTemplate {
         }
     }
 
+    /// Boolean value shown as a switch that saves every change with a `POST` and rolls back on failure.
+    ///
+    /// The request body is `{"value": true|false}`. The cell stays in sync with the row, so sorting and
+    /// paging keep the new state.
+    ///
+    /// - Parameters:
+    ///   - key: Row property holding the boolean.
+    ///   - apiURL: Endpoint receiving the change. `{field}` placeholders are replaced by the URL encoded row value.
+    ///   - ariaLabel: Accessible name of the switch.
+    ///   - labelKey: Optional row property appended to the accessible name, e.g. the title of the row.
+    public static func toggle(
+        key: String,
+        apiURL: String,
+        ariaLabel: String = "Status",
+        labelKey: String? = nil
+    ) -> DataTableCellTemplate {
+        let name =
+            labelKey.map {
+                "'\(js(ariaLabel)): ' + (row['\(js($0))'] ?? '')"
+            } ?? "'\(js(ariaLabel))'"
+        return DataTableCellTemplate {
+            Button {
+                Span {}
+                    .class("h-3 w-3 \(ToggleSwitchStyles.toggleKnob)")
+                    .setAttribute(
+                        name: ":class",
+                        value:
+                            "row['\(js(key))'] ? 'translate-x-5' : 'translate-x-1'"
+                    )
+            }
+            .type(.button)
+            .setAttribute(name: "role", value: "switch")
+            .class(styles.toggle)
+            .setAttribute(
+                name: ":aria-checked",
+                value: "row['\(js(key))'] ? 'true' : 'false'"
+            )
+            .setAttribute(name: ":aria-label", value: name)
+            .setAttribute(
+                name: ":class",
+                value:
+                    "row['\(js(key))'] ? '\(ToggleSwitchStyles.toggleChecked)' : '\(ToggleSwitchStyles.toggleUnchecked)'"
+            )
+            .setAttribute(
+                name: "@click.stop",
+                value:
+                    "toggleRow(row, '\(js(key))', tableHref(row, '\(js(apiURL))'))"
+            )
+        }
+    }
+
     /// Array of strings shown as a list.
     ///
     /// - Parameter key: Row property holding the array.

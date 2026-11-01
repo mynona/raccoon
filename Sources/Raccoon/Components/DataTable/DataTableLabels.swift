@@ -42,6 +42,8 @@ public struct DataTableLabels: Sendable, Encodable {
     public let retry: String
     /// Screen reader text for missing cell values.
     public let emptyValue: String
+    /// Announcement when saving a toggle cell failed and the change was reverted.
+    public let toggleFailed: String
 
     /// Creates the label set. All parameters default to English.
     ///
@@ -65,6 +67,7 @@ public struct DataTableLabels: Sendable, Encodable {
     ///   - error: Error message.
     ///   - retry: Retry button text.
     ///   - emptyValue: Screen reader text for missing cell values.
+    ///   - toggleFailed: Announcement when saving a toggle cell failed.
     public init(
         rowNumberHeader: String = "#",
         filters: String = "Filters",
@@ -84,7 +87,8 @@ public struct DataTableLabels: Sendable, Encodable {
         noData: String = "No data available",
         error: String = "The data could not be loaded.",
         retry: String = "Try again",
-        emptyValue: String = "No data"
+        emptyValue: String = "No data",
+        toggleFailed: String = "The change could not be saved."
     ) {
         self.rowNumberHeader = rowNumberHeader
         self.filters = filters
@@ -105,5 +109,6 @@ public struct DataTableLabels: Sendable, Encodable {
         self.error = error
         self.retry = retry
         self.emptyValue = emptyValue
+        self.toggleFailed = toggleFailed
     }
 }
