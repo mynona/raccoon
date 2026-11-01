@@ -36,13 +36,6 @@ public struct BasicStyles {
     public static let sidebarControls: String =
         "flex items-center gap-2 shrink-0"
 
-    public static let sidebarTitle: String = [
-        "text-base font-bold tracking-tight",
-        CommonStyles.textColorEmphasized,
-        "hover:text-on-theme transition-colors",
-    ]
-    .joined(separator: " ")
-
     // MARK: - Search Field (SearchFieldStyles)
     public static let searchContainerPadding: String = SearchFieldStyles
         .searchContainerPadding

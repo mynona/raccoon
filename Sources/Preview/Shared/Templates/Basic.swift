@@ -57,12 +57,8 @@ public struct Basic: TemplateRepresentable {
         let currentPath = normalizedPath(PreviewRequest.path)
 
         Aside {
-            // Header: Title + DarkLightModeToggle & ThemeSwitcher
+            // Header: DarkLightModeToggle, ThemeSwitcher & LanguageSwitcher
             Div {
-                A("Raccoon")
-                    .href("/")
-                    .class(styles.sidebarTitle)
-
                 Div {
                     DarkLightModeToggle(
                         DarkLightModeToggleData(matomoStatus: .DEACTIVATED)
