@@ -16,9 +16,9 @@ public struct ByMeACoffee: TemplateRepresentable {
     @Builder<Element>
     public func render() -> [Element] {
 
-        let bmc = "Buy me a coffee"
+        let bmc = LocalizedText("bymeacoffee.buy", "Buy me a coffee")
 
-        DebugComment(bmc)
+        DebugComment(bmc.english)
         Div {
 
             A {
@@ -42,10 +42,7 @@ public struct ByMeACoffee: TemplateRepresentable {
             .addClass(styles.focusReset)
             .addClass(styles.focusDefault)
             .addClass(styles.hoverDefault)
-            .setAttribute(
-                name: "aria-label",
-                value: bmc
-            )
+            .localized(.ariaLabel, bmc)
             // Matomo
             .if(data.matomoStatus == .ACCEPTED || data.matomoStatus == .BANNER)
             {

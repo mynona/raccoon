@@ -68,4 +68,38 @@ struct ReferencesTests {
         )
         #expect(html.contains("<div"))
     }
+
+    // MARK: localization
+
+    @Test(
+        "a blank title shows the built-in translated heading; a given title stays"
+    )
+    func localizedHeading() {
+        let blank = ReferencesData(title: "  ", contentAsMarkdown: "1. A.")
+        let german = I18n.render(language: "de") {
+            renderHTML(References(blank).render())
+        }
+        #expect(german.contains("Quellen und weiterführende Literatur"))
+        #expect(german.contains("data-i18n=\"references.title\""))
+
+        let own = ReferencesData(
+            title: LocalizedText(
+                en: "Sources",
+                translations: ["de": "Quellen"]
+            ),
+            contentAsMarkdown: "1. A."
+        )
+        let custom = I18n.render(language: "de") {
+            renderHTML(References(own).render())
+        }
+        #expect(custom.contains(">Quellen</p>"))
+
+        let plain = renderHTML(
+            References(
+                ReferencesData(title: "Refs", contentAsMarkdown: "1. A.")
+            )
+            .render()
+        )
+        #expect(!plain.contains("data-i18n"))
+    }
 }

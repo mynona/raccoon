@@ -1,0 +1,81 @@
+extension Translations {
+    static let keyboardkey: [String: [String: String]] = [
+        "shift": [
+            "en": "Shift key",
+            "de": "Umschalttaste",
+            "fr": "Touche Maj",
+            "es": "Tecla Mayús",
+            "it": "Tasto Maiusc",
+        ],
+        "command": [
+            "en": "Command key",
+            "de": "Befehlstaste",
+            "fr": "Touche Commande",
+            "es": "Tecla Comando",
+            "it": "Tasto Comando",
+        ],
+        "ctrl": [
+            "en": "Control key",
+            "de": "Strg-Taste",
+            "fr": "Touche Contrôle",
+            "es": "Tecla Control",
+            "it": "Tasto Controllo",
+        ],
+        "option": [
+            "en": "Option key",
+            "de": "Wahltaste",
+            "fr": "Touche Option",
+            "es": "Tecla Opción",
+            "it": "Tasto Opzione",
+        ],
+        "cursorUp": [
+            "en": "Cursor Up key",
+            "de": "Pfeiltaste nach oben",
+            "fr": "Touche flèche haut",
+            "es": "Tecla flecha arriba",
+            "it": "Tasto freccia su",
+        ],
+        "cursorDown": [
+            "en": "Cursor Down key",
+            "de": "Pfeiltaste nach unten",
+            "fr": "Touche flèche bas",
+            "es": "Tecla flecha abajo",
+            "it": "Tasto freccia giù",
+        ],
+        "cursorLeft": [
+            "en": "Cursor Left key",
+            "de": "Pfeiltaste nach links",
+            "fr": "Touche flèche gauche",
+            "es": "Tecla flecha izquierda",
+            "it": "Tasto freccia sinistra",
+        ],
+        "cursorRight": [
+            "en": "Cursor Right key",
+            "de": "Pfeiltaste nach rechts",
+            "fr": "Touche flèche droite",
+            "es": "Tecla flecha derecha",
+            "it": "Tasto freccia destra",
+        ],
+        "backspace": [
+            "en": "Backspace key",
+            "de": "Rücktaste",
+            "fr": "Touche Retour arrière",
+            "es": "Tecla Retroceso",
+            "it": "Tasto Backspace",
+        ],
+        "capslock": [
+            "en": "Caps Lock key",
+            "de": "Feststelltaste",
+            "fr": "Touche Verrouillage majuscules",
+            "es": "Tecla Bloq Mayús",
+            "it": "Tasto Blocco maiuscole",
+        ],
+        "indent": [
+            "en": "Tabulator key",
+            "de": "Tabulatortaste",
+            "fr": "Touche Tabulation",
+            "es": "Tecla Tabulador",
+            "it": "Tasto Tabulazione",
+        ],
+    ]
+}

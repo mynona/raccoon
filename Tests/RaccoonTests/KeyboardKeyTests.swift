@@ -73,4 +73,34 @@ struct KeyboardKeyTests {
         #expect(html.contains("role") || html.contains("kbd"))
         #expect(html.contains("focus") || html.contains("outline"))
     }
+
+    // MARK: localization
+
+    @Test(
+        "every named key has a built-in, translated aria-label; text keys have none"
+    )
+    func localizedAriaLabels() {
+        let keys: [KeyboardKeyData.KbdKey] = [
+            .shift, .ctrl, .command, .option, .cursorUp, .cursorDown,
+            .cursorLeft, .cursorRight, .backspace, .capslock, .indent,
+        ]
+        for key in keys {
+            let english = renderHTML(
+                KeyboardKey(KeyboardKeyData(key: key)).render()
+            )
+            #expect(
+                english.contains("data-i18n-aria-label=\"keyboardkey."),
+                "\(key)"
+            )
+        }
+        let german = I18n.render(language: "de") {
+            renderHTML(KeyboardKey(KeyboardKeyData(key: .shift)).render())
+        }
+        #expect(german.contains("aria-label=\"Umschalttaste\""))
+
+        let text = renderHTML(
+            KeyboardKey(KeyboardKeyData(key: .text("Esc"))).render()
+        )
+        #expect(!text.contains("aria-label"))
+    }
 }

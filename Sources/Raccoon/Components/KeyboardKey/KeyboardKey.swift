@@ -13,6 +13,27 @@ public struct KeyboardKey: TemplateRepresentable {
         self.data = data
     }
 
+    /// The spoken name of a key. Characters and other text keys have none.
+    static func ariaLabel(for key: KeyboardKeyData.KbdKey) -> LocalizedText? {
+        switch key {
+        case .shift: LocalizedText("keyboardkey.shift", "Shift key")
+        case .command: LocalizedText("keyboardkey.command", "Command key")
+        case .ctrl: LocalizedText("keyboardkey.ctrl", "Control key")
+        case .option: LocalizedText("keyboardkey.option", "Option key")
+        case .cursorUp: LocalizedText("keyboardkey.cursorUp", "Cursor Up key")
+        case .cursorDown:
+            LocalizedText("keyboardkey.cursorDown", "Cursor Down key")
+        case .cursorLeft:
+            LocalizedText("keyboardkey.cursorLeft", "Cursor Left key")
+        case .cursorRight:
+            LocalizedText("keyboardkey.cursorRight", "Cursor Right key")
+        case .backspace: LocalizedText("keyboardkey.backspace", "Backspace key")
+        case .capslock: LocalizedText("keyboardkey.capslock", "Caps Lock key")
+        case .indent: LocalizedText("keyboardkey.indent", "Tabulator key")
+        case .text: nil
+        }
+    }
+
     @Builder<Element>
     public func render() -> [Element] {
 
@@ -72,41 +93,8 @@ public struct KeyboardKey: TemplateRepresentable {
                 .addClass("p-1 h-full")
                 .addClass(styles.border)
         }
-        .if(data.key == .shift) {
-            $0.ariaLabel("Shift key")
-        }
-        .if(data.key == .command) {
-            $0.ariaLabel("Command key")
-        }
-        .if(data.key == .ctrl) {
-            $0.ariaLabel("Control key")
-        }
-        .if(data.key == .command) {
-            $0.ariaLabel("Command key")
-        }
-        .if(data.key == .option) {
-            $0.ariaLabel("Option key")
-        }
-        .if(data.key == .cursorUp) {
-            $0.ariaLabel("Cursor Up key")
-        }
-        .if(data.key == .cursorDown) {
-            $0.ariaLabel("Cursor Down key")
-        }
-        .if(data.key == .cursorLeft) {
-            $0.ariaLabel("Cursor Left key")
-        }
-        .if(data.key == .cursorRight) {
-            $0.ariaLabel("Cursor Right key")
-        }
-        .if(data.key == .backspace) {
-            $0.ariaLabel("Backspace key")
-        }
-        .if(data.key == .capslock) {
-            $0.ariaLabel("Caps Lock key")
-        }
-        .if(data.key == .indent) {
-            $0.ariaLabel("Tabulator key")
+        .if(Self.ariaLabel(for: data.key) != nil) {
+            $0.localized(.ariaLabel, Self.ariaLabel(for: data.key)!)
         }
 
     }

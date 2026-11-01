@@ -24,6 +24,19 @@ public struct ViewMaskedSecret: TemplateRepresentable {
         self.data = data
     }
 
+    private static let hide = LocalizedText(
+        "viewmaskedsecret.hide",
+        "Hide secret"
+    )
+    private static let show = LocalizedText(
+        "viewmaskedsecret.show",
+        "Show secret"
+    )
+    private static let toggle = LocalizedText(
+        "viewmaskedsecret.toggle",
+        "Show/Hide secret"
+    )
+
     @Builder<Element>
     func showRevealHideButton() -> [Element] {
         // MARK: reveal button (eye / eye-slash)
@@ -56,16 +69,14 @@ public struct ViewMaskedSecret: TemplateRepresentable {
         )
         .setAttribute(
             name: ":aria-label",
-            value: "visible ? 'Hide secret' : 'Show secret'"
+            value:
+                "visible ? \(Self.hide.alpineExpression) : \(Self.show.alpineExpression)"
         )
         .setAttribute(
             name: ":aria-pressed",
             value: "visible"
         )
-        .setAttribute(
-            name: "title",
-            value: "Show/Hide secret"
-        )
+        .localized(.title, Self.toggle)
     }
 
     @Builder<Element>

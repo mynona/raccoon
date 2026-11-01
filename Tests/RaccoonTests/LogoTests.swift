@@ -64,4 +64,17 @@ struct LogoTests {
     private func renderHTML(_ elements: [any SGML.Element]) -> String {
         elements.map { Document(root: $0).render(indent: 0) }.joined()
     }
+
+    // MARK: localization
+
+    @Test("the aria-label is built in and translated")
+    func localizedAriaLabel() {
+        let english = renderHTML(Logo(LogoData()).render())
+        #expect(english.contains("aria-label=\"Go to home\""))
+        #expect(english.contains("data-i18n-aria-label=\"logo.home\""))
+        let german = I18n.render(language: "de") {
+            renderHTML(Logo(LogoData()).render())
+        }
+        #expect(german.contains("aria-label=\"Zur Startseite\""))
+    }
 }

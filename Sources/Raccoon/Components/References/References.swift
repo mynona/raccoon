@@ -17,14 +17,19 @@ public struct References: TemplateRepresentable {
     public func render() -> [Element] {
 
         let headingTitle =
-            data.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-            ? "References and further reading"
+            data.title.english.trimmingCharacters(in: .whitespacesAndNewlines)
+                .isEmpty
+            ? LocalizedText(
+                "references.title",
+                "References and further reading"
+            )
             : data.title
 
         DebugComment("References")
         Div {
 
-            P(headingTitle)
+            P(headingTitle.resolved)
+                .localized(headingTitle)
                 .class(styles.fontWeightBold)
 
             Div {

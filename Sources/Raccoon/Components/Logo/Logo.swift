@@ -23,9 +23,9 @@ public struct Logo: TemplateRepresentable {
                 Span { Svg.logo() }
 
             }
-            .setAttribute(
-                name: "aria-label",
-                value: "Go to home"
+            .localized(
+                .ariaLabel,
+                LocalizedText("logo.home", "Go to home")
             )
             .href(data.destination)
             .class("inline-flex")

@@ -101,4 +101,22 @@ struct ByMeACoffeeTests {
         #expect(html.contains("rel=\"noopener noreferrer\""))
         #expect(html.contains("flex-initial"))
     }
+
+    // MARK: localization
+
+    @Test("the aria-label is built in and translated")
+    func localizedAriaLabel() {
+        let data = ByMeACoffeeData(
+            dataSlug: "u",
+            imageSrc: "https://example.com/i.png",
+            imageHeight: 60,
+            imageWidth: 210
+        )
+        let english = renderHTML(ByMeACoffee(data).render())
+        #expect(english.contains("data-i18n-aria-label=\"bymeacoffee.buy\""))
+        let german = I18n.render(language: "de") {
+            renderHTML(ByMeACoffee(data).render())
+        }
+        #expect(german.contains("aria-label=\"Spendiere mir einen Kaffee\""))
+    }
 }

@@ -20,7 +20,7 @@ struct ViewMaskedSecretTests {
         )
         #expect(
             html.contains(
-                ":aria-label=\"visible ? 'Hide secret' : 'Show secret'\""
+                ":aria-label=\"visible ? (window.RaccoonI18n?RaccoonI18n.t('viewmaskedsecret.hide',null,'Hide secret'):'Hide secret') : (window.RaccoonI18n?RaccoonI18n.t('viewmaskedsecret.show',null,'Show secret'):'Show secret')\""
             )
         )
         #expect(html.contains(":aria-pressed=\"visible\""))
@@ -120,5 +120,29 @@ struct ViewMaskedSecretTests {
             .render()
         )
         #expect(html.contains("&lt;123&gt;&amp;&#39;&quot;"))
+    }
+
+    // MARK: localization
+
+    @Test("the toggle texts are built in and follow the language")
+    func localizedToggleTexts() {
+        let data = ViewMaskedSecretData(secret: "s")
+        let german = I18n.render(language: "de") {
+            renderHTML(ViewMaskedSecret(data).render())
+        }
+        #expect(german.contains("title=\"Geheimnis anzeigen/verbergen\""))
+        #expect(german.contains("data-i18n-title=\"viewmaskedsecret.toggle\""))
+        // Alpine picks the text in the browser and falls back to the rendered one
+        #expect(
+            german.contains(
+                "RaccoonI18n.t('viewmaskedsecret.hide',null,'Geheimnis verbergen')"
+            )
+        )
+        #expect(
+            german.contains(
+                "RaccoonI18n.t('viewmaskedsecret.show',null,'Geheimnis anzeigen')"
+            )
+        )
+        #expect(german.contains(":aria-label=\"visible ? (window.RaccoonI18n?"))
     }
 }
