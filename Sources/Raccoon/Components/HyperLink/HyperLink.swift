@@ -19,7 +19,7 @@ public struct HyperLink: TemplateRepresentable {
             Tooltip(
                 TooltipData(
                     id: "content\(contentId)",
-                    text: LocalizedText(verbatim: tooltip)  // i18n-todo
+                    text: tooltip
                 )
             )
             .render()
@@ -37,7 +37,8 @@ public struct HyperLink: TemplateRepresentable {
     @Builder<Element>
     func showLabel() -> [Element] {
         if let label = data.label {
-            Span(label)
+            Span(label.resolved)
+                .localized(label)
                 .class("min-w-0 break-words leading-normal")
                 .if(isCentered()) {
                     $0.addClass("text-center")
@@ -65,7 +66,8 @@ public struct HyperLink: TemplateRepresentable {
             if data.tooltip != nil {
                 data.tooltipId
                     ?? StableIdentifier.unique(
-                        data.tooltip ?? data.label ?? data.href
+                        data.tooltip?.english ?? data.label?.english
+                            ?? data.href
                     )
             }
             else {
@@ -112,10 +114,7 @@ public struct HyperLink: TemplateRepresentable {
             }
             // aria
             .if(data.ariaLabel != nil) {
-                $0.setAttribute(
-                    name: "aria-label",
-                    value: data.ariaLabel!
-                )
+                $0.localized(.ariaLabel, data.ariaLabel!)
             }
             // alignment
             .if(isCentered()) {

@@ -9,9 +9,9 @@ public struct HyperLinkData: Sendable {
     }
 
     // MARK: - 2. Content & Accessibility
-    public let label: String?
-    public let ariaLabel: String?
-    public let tooltip: String?
+    public let label: LocalizedText?
+    public let ariaLabel: LocalizedText?
+    public let tooltip: LocalizedText?
     public let tooltipId: String?
     public let href: String
     public let target: TargetAttributeValue?
@@ -47,13 +47,13 @@ public struct HyperLinkData: Sendable {
     ///   - contentTracker: Matomo content tracking configuration.
     public init(
         // 2. Content & Accessibility
-        label: String? = nil,
-        ariaLabel: String? = nil,
+        label: LocalizedText? = nil,
+        ariaLabel: LocalizedText? = nil,
         href: String,
         target: TargetAttributeValue? = nil,
         rel: RelAttributeValue? = nil,
         tooltipId: String? = nil,
-        tooltip: String? = nil,
+        tooltip: LocalizedText? = nil,
 
         // 5. Presentation & State
         icon: SvgIcon? = nil,

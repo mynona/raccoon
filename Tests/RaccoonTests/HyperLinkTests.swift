@@ -244,4 +244,53 @@ struct HyperLinkTests {
         #expect(html.contains("max-w-full"))
         #expect(html.contains("break-words"))
     }
+
+    // MARK: localization
+
+    @Test(
+        "label, aria-label and tooltip take LocalizedText; literals stay plain"
+    )
+    func localizedTexts() {
+        let data = HyperLinkData(
+            label: LocalizedText(
+                en: "Read more",
+                translations: ["de": "Weiterlesen"]
+            ),
+            ariaLabel: LocalizedText(
+                en: "Read the post",
+                translations: ["de": "Beitrag lesen"]
+            ),
+            href: "/blog/",
+            tooltip: LocalizedText(
+                en: "Opens the post",
+                translations: ["de": "Öffnet den Beitrag"]
+            ),
+            isFocusable: true,
+            isUnderlined: true,
+            contentTracker: tracker
+        )
+        let html = I18n.render(language: "de") {
+            renderHTML(HyperLink(data).render())
+        }
+        #expect(html.contains(">Weiterlesen</span>"))
+        #expect(html.contains("aria-label=\"Beitrag lesen\""))
+        #expect(html.contains("'Öffnet den Beitrag'"))
+
+        let plain = I18n.render(language: "de") {
+            renderHTML(
+                HyperLink(
+                    HyperLinkData(
+                        label: "Plain",
+                        href: "/x",
+                        isFocusable: true,
+                        isUnderlined: true,
+                        contentTracker: tracker
+                    )
+                )
+                .render()
+            )
+        }
+        #expect(plain.contains(">Plain</span>"))
+        #expect(!plain.contains("data-i18n"))
+    }
 }
