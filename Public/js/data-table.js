@@ -253,9 +253,17 @@ if (!window.__dataTableLoaded) {
       /* ------------------------------------------------------------------
        SORT / PAGING (server side)
        ------------------------------------------------------------------ */
+      // Cycles ascending → descending → no sort (the backend default order applies)
       sort(key) {
-        this.sortDirection = this.sortKey === key && this.sortDirection === "asc" ? "desc" : "asc";
-        this.sortKey = key;
+        if (this.sortKey !== key) {
+          this.sortKey = key;
+          this.sortDirection = "asc";
+        } else if (this.sortDirection === "asc") {
+          this.sortDirection = "desc";
+        } else {
+          this.sortKey = null;
+          this.sortDirection = null;
+        }
         this.page = 1;
         this.load();
       },
