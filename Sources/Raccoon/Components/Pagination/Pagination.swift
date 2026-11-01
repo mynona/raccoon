@@ -16,16 +16,25 @@ public struct Pagination: TemplateRepresentable {
         case first, last
     }
 
+    private static let navigation = LocalizedText(
+        "pagination.navigation",
+        "Pagination"
+    )
+    private static let story = LocalizedText(
+        "pagination.story",
+        "Story pagination"
+    )
+
     @Builder<Element>
     func showMainLink() -> [Element] {
         if let tableOfContent = data.tableOfContent {
             Div {
                 LinkButton(
                     LinkButtonData(
-                        label: LocalizedText(verbatim: tableOfContent.title),  // i18n-todo
+                        label: LocalizedText(verbatim: tableOfContent.title),
                         ariaLabel: LocalizedText(
                             verbatim: tableOfContent.title
-                        ),  // i18n-todo
+                        ),
                         href: data.hrefBase,
                         buttonType: .tertiary,
                         icon: .newspaper,
@@ -54,14 +63,20 @@ public struct Pagination: TemplateRepresentable {
             LinkButton(
                 LinkButtonData(
                     label: nil,
-                    ariaLabel: LocalizedText(  // i18n-todo
-                        verbatim: (direction == .first)
-                            ? "First page: \(title)" : "Last page: \(title)"
-                    ),
-                    tooltip: LocalizedText(  // i18n-todo
-                        verbatim: (direction == .first)
-                            ? "First page" : "Last page"
-                    ),
+                    ariaLabel: (direction == .first)
+                        ? LocalizedText(
+                            "pagination.firstPageAria",
+                            "First page: {{title}}",
+                            variables: ["title": title]
+                        )
+                        : LocalizedText(
+                            "pagination.lastPageAria",
+                            "Last page: {{title}}",
+                            variables: ["title": title]
+                        ),
+                    tooltip: (direction == .first)
+                        ? LocalizedText("pagination.firstPage", "First page")
+                        : LocalizedText("pagination.lastPage", "Last page"),
                     tooltipPosition: .bottom,
                     href: destination,
                     buttonType: .secondary,
@@ -82,7 +97,13 @@ public struct Pagination: TemplateRepresentable {
     @Builder<Element>
     func showSelectedItem(title: String, index: Int) -> [Element] {
         Li {
-            Span("Current page: \(title), page number: \(index)")
+            let current = LocalizedText(
+                "pagination.current",
+                "Current page: {{title}}, page number: {{number}}",
+                variables: ["title": title, "number": "\(index)"]
+            )
+            Span(current.resolved)
+                .localized(current)
                 .class("sr-only")
             Span("\(index)")
         }
@@ -106,10 +127,11 @@ public struct Pagination: TemplateRepresentable {
             LinkButton(
                 LinkButtonData(
                     label: LocalizedText(verbatim: "\(pageNumber)"),
-                    ariaLabel: LocalizedText(  // i18n-todo
-                        verbatim: "Page \(pageNumber): \(page.element.title)"
+                    tooltip: LocalizedText(
+                        "pagination.page",
+                        "Page {{number}}",
+                        variables: ["number": "\(pageNumber)"]
                     ),
-                    tooltip: LocalizedText(verbatim: "Page \(pageNumber)"),  // i18n-todo
                     tooltipPosition: .bottom,
                     href: "\(data.hrefBase)/\(page.element.friendly_url)",
                     buttonType: .secondary,
@@ -204,7 +226,7 @@ public struct Pagination: TemplateRepresentable {
                         }
 
                     }
-                    .setAttribute(name: "aria-label", value: "Story pagination")
+                    .localized(.ariaLabel, Self.story)
                     .class("flex flex-row space-x-2 items-center")
 
                 }
@@ -213,7 +235,7 @@ public struct Pagination: TemplateRepresentable {
                 )
 
             }
-            .ariaLabel("Pagination")
+            .localized(.ariaLabel, Self.navigation)
             .class("mt-12 print:hidden grid justify-items-start w-full")
 
         }

@@ -120,6 +120,7 @@ public enum Translations {
         "actionbutton": actionbutton,
         "copytoclipboard": copytoclipboard,
         "linkbutton": linkbutton,
+        "pagination": pagination,
         "searchfield": searchfield,
     ]
 

@@ -337,4 +337,90 @@ struct PaginationTests {
 
         #expect(html.contains("truncate max-w-xs md:max-w-none md:text-clip"))
     }
+
+    // MARK: localization
+
+    private func render(language: String = "en") -> String {
+        let data = PaginationData(pages: pages, hrefBase: "/stories")
+        return I18n.render(language: language) {
+            renderHTML(Pagination(data).render())
+        }
+    }
+
+    @Test("English: texts with variables are marked and keep their values")
+    func englishMarkers() {
+        let html = render()
+        #expect(html.contains("data-i18n-aria-label=\"pagination.navigation\""))
+        #expect(html.contains("data-i18n-aria-label=\"pagination.story\""))
+        #expect(
+            html.contains("data-i18n-aria-label=\"pagination.firstPageAria\"")
+        )
+        #expect(
+            html.contains("data-i18n-aria-label=\"pagination.lastPageAria\"")
+        )
+        #expect(html.contains("data-i18n=\"pagination.current\""))
+        // The variables travel with the element, never as HTML
+        #expect(
+            html.contains(
+                "data-i18n-vars=\"{&quot;title&quot;:&quot;First Page&quot;}\""
+            )
+        )
+        #expect(
+            html.contains(
+                "{&quot;number&quot;:&quot;2&quot;,&quot;title&quot;:&quot;Second Page&quot;}"
+            )
+        )
+    }
+
+    @Test("German: every fixed text and the variables are rendered")
+    func germanTexts() {
+        let html = render(language: "de")
+        #expect(html.contains("aria-label=\"Seitennavigation\""))
+        #expect(html.contains("aria-label=\"Seitennavigation der Story\""))
+        #expect(html.contains("aria-label=\"Erste Seite: First Page\""))
+        #expect(html.contains("aria-label=\"Letzte Seite: Third Page\""))
+        #expect(
+            html.contains(
+                ">Aktuelle Seite: Second Page, Seitennummer: 2</span>"
+            )
+        )
+        #expect(!html.contains("Current page"))
+    }
+
+    @Test("the page title stays caller data and is not translated")
+    func pageTitleIsPlain() {
+        let html = render(language: "fr")
+        #expect(html.contains("Première page : First Page"))
+    }
+
+    @Test("a page item has a translated tooltip")
+    func pageItemTooltip() {
+        let data = PaginationData(
+            pages: [
+                PaginationItem(
+                    title: "A",
+                    order: 1,
+                    friendly_url: "a",
+                    selected: true
+                ),
+                PaginationItem(
+                    title: "B",
+                    order: 2,
+                    friendly_url: "b",
+                    selected: false
+                ),
+            ],
+            hrefBase: "/s"
+        )
+        let html = I18n.render(language: "de") {
+            renderHTML(Pagination(data).render())
+        }
+        #expect(html.contains("get tooltipText() { return"))
+        #expect(html.contains("Seite 2"))
+        #expect(
+            html.contains(
+                "RaccoonI18n.t('pagination.page',{number:'2'},'Seite 2')"
+            )
+        )
+    }
 }
