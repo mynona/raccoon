@@ -63,10 +63,13 @@ All preview views render inside the standalone `Basic` template (`Sources/Previe
 - **Skip Link**:
   - Renders `SkipLink().render()` at the very top of `<body>`.
   - The main content area has `id="main"` and `role="main"` to receive skip link focus.
-- **Sidebar Architecture**:
-  - Sticky on the left: `w-60 shrink-0 h-screen sticky top-0 flex flex-col border-r`.
-  - Has an explicit `style("width: 17rem; min-width: 17rem;")` for a stable 272px width.
-  - Independent vertical scroll with `overflow-y-auto`.
+- **Top Bar & Sidebar Architecture**:
+  - Full-width top bar (`<header role="banner">`) stretching across the viewport with theme border (`CommonStyles.borderColorTheme`).
+  - Top bar controls: hamburger menu button (visible on `< lg`, hidden on `lg+`), `DarkLightModeToggle`, and `ThemeSwitcher` on the left; `LanguageSwitcher` aligned to the right.
+  - When the sidebar is visible (`lg+`), the menu icons start at the width of the sidebar plus the padding of the content area (`topbar-sidebar-padding`), perfectly aligning with the content title.
+  - Responsive drawer/sidebar behavior matching `TemplateCms`:
+    - Below `lg` (< 1024px): sidebar is hidden in an accessible off-canvas drawer (`<nav id="burger-menu">` with `x-trap.noscroll` dialog) triggered by the hamburger button, with sticky close button (`x_lg`).
+    - At `lg+` (≥ 1024px): persistent fixed desktop sidebar (`lg:fixed lg:inset-y-0 lg:w-80`) with independent vertical scrolling (`overflow-y-auto overscroll-contain`).
   - Light mode readability: uses `CommonStyles.backgroundLight` (pure white in light mode), `CommonStyles.textColorHighContrast` (near-black text), and `text-black dark:text-gray-200` for links.
 - **Sidebar Search Field**:
   - Directly uses the canonical `SearchField` component:

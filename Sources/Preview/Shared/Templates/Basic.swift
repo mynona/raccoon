@@ -64,96 +64,228 @@ public struct Basic: TemplateRepresentable {
     }
 
     @Builder<Element>
-    private func renderSidebar() -> [Element] {
-        let currentPath = normalizedPath(PreviewRequest.path)
-
-        Aside {
-            // Header: DarkLightModeToggle & ThemeSwitcher on left, LanguageSwitcher on right
+    private func renderHeader() -> [Element] {
+        HTML.Header {
             Div {
                 Div {
-                    DarkLightModeToggle(
-                        DarkLightModeToggleData(matomoStatus: .DEACTIVATED)
-                    )
-                    .render()
-
-                    ThemeSwitcher(
-                        ThemeSwitcherData(
-                            align: .left,
-                            matomoStatus: .DEACTIVATED
-                        )
-                    )
-                    .render()
-                }
-                .class(styles.sidebarControls)
-
-                LanguageSwitcher(
-                    LanguageSwitcherData(
-                        languages: LanguageOption.builtIn,
-                        fallbackLanguage: PreviewRequest.lang
-                    )
-                )
-                .render()
-            }
-            .class(styles.sidebarHeader)
-
-            // Search filter field
-            Div {
-                SearchField(
-                    SearchFieldData(
-                        name: "sidebarSearchInput",
-                        bindModel: "search",
-                        bindRef: "searchInput",
-                        placeholder: PreviewTexts.filterPlaceholder,
-                        ariaLabel: PreviewTexts.filterLabel,
-                        size: .sm
-                    )
-                )
-                .render()
-            }
-            .class("px-4 pt-3 pb-2 shrink-0")
-
-            // Navigation
-            Nav {
-                Ul {
-                    for group in PreviewNavigation.groups {
-                        for section in group.sections {
-                            for item in section.items {
-                                let option = SimpleMenuOption(
-                                    id: item.url,
-                                    // Component names are fixed terms
-                                    title: LocalizedText(
-                                        verbatim: item.title
-                                    ),
-                                    isSelected: item.url == currentPath,
-                                    href: item.url,
-                                    icon: item.isOpenInNewTab
-                                        ? .arrow_up_right_square : nil,
-                                    role: nil
-                                )
-
-                                Li {
-                                    showSidebarOption(
-                                        option,
-                                        isOpenInNewTab: item
-                                            .isOpenInNewTab
-                                    )
-                                }
-                                .setAttribute(
-                                    name: "x-show",
-                                    value:
-                                        "!search || '\(item.title.lowercased())'.includes(search.toLowerCase().trim())"
+                    Div {
+                        // Left controls: hamburger button, dark/light toggle, theme switcher
+                        Div {
+                            // Hamburger menu button (hidden on lg+)
+                            Button {
+                                Svg.icon(
+                                    .list,
+                                    width: 20,
+                                    height: 20
                                 )
                             }
+                            .setAttribute(
+                                name: "@click",
+                                value:
+                                    "showNavigation = !showNavigation; drawerOpen = true;"
+                            )
+                            .setAttribute(
+                                name: ":aria-expanded",
+                                value: "showNavigation"
+                            )
+                            .setAttribute(
+                                name: "aria-controls",
+                                value: "burger-menu"
+                            )
+                            .localized(.ariaLabel, PreviewTexts.openMainMenu)
+                            .class(styles.burgerButton)
+
+                            // Dark-Light-Mode
+                            DarkLightModeToggle(
+                                DarkLightModeToggleData(
+                                    matomoStatus: .DEACTIVATED
+                                )
+                            )
+                            .render()
+
+                            // Theme Switcher
+                            ThemeSwitcher(
+                                ThemeSwitcherData(
+                                    align: .left,
+                                    matomoStatus: .DEACTIVATED
+                                )
+                            )
+                            .render()
+                        }
+                        .class(styles.topBarControls)
+
+                        // Right controls: Language Switcher
+                        Div {
+                            LanguageSwitcher(
+                                LanguageSwitcherData(
+                                    languages: LanguageOption.builtIn,
+                                    fallbackLanguage: PreviewRequest.lang
+                                )
+                            )
+                            .render()
+                        }
+                        .class(styles.topBarRight)
+                    }
+                    .class(styles.headerRow)
+                }
+                .class(styles.headerContent)
+            }
+            .class(styles.headerContainer)
+
+            // Drawers container
+            Div {
+                showMobileDrawer()
+                showDesktopSidebar()
+            }
+            .class("relative")
+        }
+        .setAttribute(name: "role", value: "banner")
+        .class(styles.banner)
+        .id("page-header")
+    }
+
+    @Builder<Element>
+    private func showMobileDrawer() -> [Element] {
+        Nav {
+            Div {
+                Div {
+                    Div {
+                        // Sticky close button
+                        Div {
+                            Button {
+                                Svg.icon(
+                                    .x_lg,
+                                    width: 20,
+                                    height: 20
+                                )
+                            }
+                            .setAttribute(
+                                name: "@click",
+                                value:
+                                    "showNavigation = false; drawerOpen = false"
+                            )
+                            .setAttribute(
+                                name: ":aria-expanded",
+                                value: "showNavigation"
+                            )
+                            .setAttribute(
+                                name: "aria-controls",
+                                value: "burger-menu"
+                            )
+                            .localized(.ariaLabel, PreviewTexts.closeNavigation)
+                            .class(styles.closeButton)
+                        }
+                        .class(styles.stickyCloseButtonWrapper)
+
+                        Div {
+                            showSidebarContent(isMobile: true)
+                        }
+                        .class(styles.sidebarBodyContent)
+                    }
+                    .class(styles.mobileContentWrapper)
+                }
+                .class(styles.mobileScrollArea)
+            }
+            .id("drawer-menu")
+            .setAttribute(name: "role", value: "dialog")
+            .setAttribute(
+                name: "@keydown.escape.window",
+                value: "showNavigation = false; drawerOpen = false"
+            )
+            .class(styles.mobileDialog)
+        }
+        .id("burger-menu")
+        .setAttribute(name: ":hidden", value: "!showNavigation")
+        .flagAttribute("x-cloak")
+        .setAttribute(name: "x-trap.noscroll", value: "drawerOpen")
+        .localized(.ariaLabel, PreviewTexts.mainNavigation)
+        .class(styles.mobileContainer)
+        .setAttribute(
+            name: "@resize.window.debounce",
+            value:
+                "if (window.innerWidth >= 1024) { showNavigation = false; drawerOpen = false; }"
+        )
+    }
+
+    @Builder<Element>
+    private func showDesktopSidebar() -> [Element] {
+        Div {
+            Div {
+                Div {
+                    showSidebarContent(isMobile: false)
+                }
+                .class(styles.sidebarBodyContent)
+            }
+            .class(styles.desktopSidebarContent)
+        }
+        .class(styles.desktopSidebar)
+    }
+
+    @Builder<Element>
+    private func showSidebarContent(isMobile: Bool) -> [Element] {
+        let currentPath = normalizedPath(PreviewRequest.path)
+
+        // Search filter field
+        Div {
+            SearchField(
+                SearchFieldData(
+                    name: isMobile ? "mobileSearchInput" : "sidebarSearchInput",
+                    bindModel: "search",
+                    bindRef: isMobile ? "mobileSearchInput" : "searchInput",
+                    placeholder: PreviewTexts.filterPlaceholder,
+                    ariaLabel: PreviewTexts.filterLabel,
+                    size: .sm
+                )
+            )
+            .render()
+        }
+        .class("pb-4 shrink-0")
+
+        // Navigation
+        Nav {
+            Ul {
+                for group in PreviewNavigation.groups {
+                    for section in group.sections {
+                        for item in section.items {
+                            let option = SimpleMenuOption(
+                                id: item.url,
+                                // Component names are fixed terms
+                                title: LocalizedText(
+                                    verbatim: item.title
+                                ),
+                                isSelected: item.url == currentPath,
+                                href: item.url,
+                                icon: item.isOpenInNewTab
+                                    ? .arrow_up_right_square : nil,
+                                role: nil
+                            )
+
+                            Li {
+                                showSidebarOption(
+                                    option,
+                                    isOpenInNewTab: item
+                                        .isOpenInNewTab
+                                )
+                            }
+                            .setAttribute(
+                                name: "x-show",
+                                value:
+                                    "!search || '\(item.title.lowercased())'.includes(search.toLowerCase().trim())"
+                            )
                         }
                     }
                 }
-                .class(styles.navList)
             }
-            .ariaLabel("Component preview navigation")
-            .class(styles.sidebarNav)
+            .class(styles.navList)
+            .if(isMobile) {
+                $0.setAttribute(
+                    name: "@click",
+                    value: "showNavigation = false; drawerOpen = false"
+                )
+            }
         }
-        .class(styles.sidebar)
-        .style("width: 17rem; min-width: 17rem;")
+        .ariaLabel("Component preview navigation")
+        .class(styles.sidebarNav)
     }
 
     @Builder<Element>
@@ -226,31 +358,37 @@ public struct Basic: TemplateRepresentable {
             }
 
             Body {
-                Style("[x-cloak] { display: none !important; }")
+                Style(
+                    """
+                    [x-cloak] { display: none !important; }
+                    @media (min-width: 1024px) {
+                        .topbar-sidebar-padding {
+                            padding-left: 2.5rem;
+                        }
+                    }
+                    """
+                )
 
                 // Skip link (from Raccoon)
                 SkipLink().render()
 
-                // Main layout: Sidebar on left + Main Content on right
-                Div {
-                    renderSidebar()
+                // Top bar header with controls, drawer, and desktop sidebar
+                renderHeader()
 
-                    Main {
-                        if contentPadding {
-                            Div {
-                                TEMPLATE_MAIN
-                            }
-                            .class(styles.contentContainer)
-                        } else {
+                // Main CMS / Preview Workspace
+                Main {
+                    if contentPadding {
+                        Div {
                             TEMPLATE_MAIN
                         }
+                        .class(styles.contentContainer)
+                    } else {
+                        TEMPLATE_MAIN
                     }
-                    .id("main")
-                    .setAttribute(name: "role", value: "main")
-                    .class(contentPadding ? styles.main : styles.mainNoPadding)
                 }
-                .class(styles.layout)
-                .setAttribute(name: "x-data", value: "{ search: '' }")
+                .id("main")
+                .setAttribute(name: "role", value: "main")
+                .class(contentPadding ? styles.main : styles.mainNoPadding)
 
                 // Alpine bundle
                 I18n.scripts()
@@ -261,6 +399,25 @@ public struct Basic: TemplateRepresentable {
                     "(function(){var first=document.documentElement.lang;new MutationObserver(function(){var l=document.documentElement.lang;if(l===first)return;document.cookie='preview-lang='+l+'; path=/; max-age=31536000';var u=new URL(location.href);u.searchParams.delete('lang');location.replace(u.toString())}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']})})();"
                 )
             }
+            .setAttribute(
+                name: "x-data",
+                value: """
+                    {
+                    showNavigation: false,
+                    drawerOpen: false,
+                    search: '',
+                    init() {
+                        const mq = window.matchMedia('(min-width: 1024px)');
+                        mq.addEventListener('change', (e) => {
+                            if (e.matches) {
+                                this.showNavigation = false;
+                                this.drawerOpen = false;
+                            }
+                        });
+                    }
+                    }
+                    """
+            )
             .class(styles.body)
         }
         .lang(PreviewRequest.lang)

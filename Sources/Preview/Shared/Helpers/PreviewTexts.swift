@@ -23,6 +23,18 @@ enum PreviewTexts {
         "preview.filterLabel",
         "Filter components"
     )
+    static let openMainMenu = LocalizedText(
+        "preview.openMainMenu",
+        "Open main menu"
+    )
+    static let closeNavigation = LocalizedText(
+        "preview.closeNavigation",
+        "Close navigation"
+    )
+    static let mainNavigation = LocalizedText(
+        "preview.mainNavigation",
+        "Component preview navigation"
+    )
     static let sectionComponents = LocalizedText(
         "preview.sectionComponents",
         "Components"
