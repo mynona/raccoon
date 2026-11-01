@@ -107,3 +107,18 @@ enum PreviewTexts {
         "Page Bottom (100% scroll)"
     )
 }
+
+/// A demo text with all languages of the Preview. Every text that a variant passes into a component
+/// uses it, so that nothing is missed (`Translations` for the built-in texts do not apply to demo content).
+func tr(
+    _ en: String,
+    de: String,
+    fr: String,
+    es: String,
+    it: String
+) -> LocalizedText {
+    LocalizedText(
+        en: en,
+        translations: ["de": de, "fr": fr, "es": es, "it": it]
+    )
+}

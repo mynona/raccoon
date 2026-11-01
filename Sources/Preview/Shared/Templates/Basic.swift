@@ -267,9 +267,10 @@ public struct Basic: TemplateRepresentable {
                 // Alpine bundle
                 I18n.scripts()
                 Script().src("/js/bundle-min.js")
-                // Preview only: remember the language for the next page (the server renders it from the cookie)
+                // Preview only: a language switch is remembered in a cookie and the page is rendered again,
+                // because demo content (HTML, markdown) can only be translated on the server
                 Script(
-                    "new MutationObserver(function(){document.cookie='preview-lang='+document.documentElement.lang+'; path=/; max-age=31536000'}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});"
+                    "(function(){var first=document.documentElement.lang;new MutationObserver(function(){var l=document.documentElement.lang;if(l===first)return;document.cookie='preview-lang='+l+'; path=/; max-age=31536000';var u=new URL(location.href);u.searchParams.delete('lang');location.replace(u.toString())}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']})})();"
                 )
             }
             .class(styles.body)
