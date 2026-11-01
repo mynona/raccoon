@@ -43,4 +43,20 @@ struct SkipLinkTests {
         let html = renderHTML(SkipLink(data).render())
         #expect(html.contains("href=\"#main-content\""))
     }
+
+    @Test("the default text is built in and translated; a literal stays plain")
+    func localizedText() {
+        let english = renderHTML(SkipLink().render())
+        #expect(english.contains("data-i18n=\"skiplink.jump\""))
+        let german = I18n.render(language: "de") {
+            renderHTML(SkipLink().render())
+        }
+        #expect(german.contains(">Direkt zum Hauptinhalt springen</a>"))
+
+        let own = I18n.render(language: "de") {
+            renderHTML(SkipLink(SkipLinkData(text: "Zum Inhalt")).render())
+        }
+        #expect(own.contains(">Zum Inhalt</a>"))
+        #expect(!own.contains("data-i18n"))
+    }
 }

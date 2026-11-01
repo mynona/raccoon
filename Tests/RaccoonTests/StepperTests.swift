@@ -283,7 +283,9 @@ struct StepperTests {
         #expect(!htmlDisabled.contains("data-track-content"))
     }
 
-    @Test("Renders Matomo tracking attributes on vertical stepper when clickable")
+    @Test(
+        "Renders Matomo tracking attributes on vertical stepper when clickable"
+    )
     func rendersMatomoTrackingOnVerticalStepper() async throws {
 
         let data = StepperData(
@@ -500,7 +502,9 @@ struct StepperTests {
         #expect(!html.contains("tabindex=\"0\""))
     }
 
-    @Test("Vertical static step with tooltip is not keyboard focusable via tabindex")
+    @Test(
+        "Vertical static step with tooltip is not keyboard focusable via tabindex"
+    )
     func verticalStaticStepWithTooltipDoesNotHaveTabIndex() async throws {
 
         let data = StepperData(
@@ -540,8 +544,16 @@ struct StepperTests {
         #expect(html.contains("<a href=\"/step-1\""))
         #expect(html.contains(StepperStyles.circleComplete))
         #expect(html.contains(StepperStyles.interactiveFocus))
-        #expect(html.contains("<span class=\"\(StepperStyles.srOnly)\">Step 1</span>"))
-        #expect(html.contains("<span class=\"\(StepperStyles.circleWrapperVertical)\">"))
+        #expect(
+            html.contains(
+                "<span class=\"\(StepperStyles.srOnly)\">Step 1</span>"
+            )
+        )
+        #expect(
+            html.contains(
+                "<span class=\"\(StepperStyles.circleWrapperVertical)\">"
+            )
+        )
     }
 
     @Test(
@@ -666,5 +678,58 @@ struct StepperTests {
 
         #expect(html.contains(">1</span>"))
         #expect(html.contains(">2</span>"))
+    }
+
+    // MARK: localization
+
+    @Test("the default label is built in; step texts follow the language")
+    func localizedTexts() {
+        let data = StepperData(
+            steps: [
+                StepperStepData(
+                    title: LocalizedText(
+                        en: "Account",
+                        translations: ["de": "Konto"]
+                    ),
+                    description: LocalizedText(
+                        en: "Create",
+                        translations: ["de": "Erstellen"]
+                    ),
+                    status: .current
+                ),
+                StepperStepData(title: "Plain", status: .upcoming),
+            ],
+            orientation: .vertical
+        )
+        let english = renderHTML(Stepper(data).render())
+        #expect(english.contains("data-i18n-aria-label=\"stepper.progress\""))
+        let german = I18n.render(language: "de") {
+            renderHTML(Stepper(data).render())
+        }
+        #expect(german.contains("aria-label=\"Fortschritt\""))
+        #expect(german.contains(">Konto</span>"))
+        #expect(german.contains(">Erstellen</span>"))
+        #expect(german.contains(">Plain</span>"))
+    }
+
+    @Test("the tooltip of a step is translated through the tooltip getter")
+    func localizedTooltip() {
+        let data = StepperData(
+            steps: [
+                StepperStepData(
+                    title: "One",
+                    tooltip: LocalizedText(
+                        en: "Start",
+                        translations: ["de": "Beginnen"]
+                    ),
+                    status: .current
+                )
+            ]
+        )
+        let html = I18n.render(language: "de") {
+            renderHTML(Stepper(data).render())
+        }
+        #expect(html.contains("RaccoonI18n.pick("))
+        #expect(html.contains("'Beginnen'"))
     }
 }

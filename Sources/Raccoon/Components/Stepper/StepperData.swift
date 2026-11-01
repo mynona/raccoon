@@ -12,7 +12,8 @@ public struct StepperData: Sendable {
     // MARK: - 2. Content & Accessibility
 
     /// Accessible label for the `<nav>` landmark (defaults to `"Progress"`).
-    public let ariaLabel: String
+    /// `nil` shows the built-in, translated "Progress".
+    public let ariaLabel: LocalizedText?
 
     // MARK: - 3. Value & Options
 
@@ -64,7 +65,7 @@ public struct StepperData: Sendable {
         bindId: String? = nil,
 
         // 2. Content & Accessibility
-        ariaLabel: String = "Progress",
+        ariaLabel: LocalizedText? = nil,
 
         // 3. Value & Options
         steps: [StepperStepData] = [],

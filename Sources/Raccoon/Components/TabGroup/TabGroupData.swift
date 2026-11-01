@@ -65,9 +65,9 @@ public struct TabItemData: Sendable {
 
     // MARK: - 2. Content & Accessibility
     /// Visible tab button title.
-    public let label: String
+    public let label: LocalizedText
     /// Accessible name override for screen readers.
-    public let ariaLabel: String?
+    public let ariaLabel: LocalizedText?
     /// Optional tooltip text shown on hover/focus.
     public let tooltip: String?
     /// Position of the tooltip relative to the tab button.
@@ -124,8 +124,8 @@ public struct TabItemData: Sendable {
         bindId: String? = nil,
 
         // 2. Content & Accessibility
-        label: String,
-        ariaLabel: String? = nil,
+        label: LocalizedText,
+        ariaLabel: LocalizedText? = nil,
         tooltip: String? = nil,
         tooltipPosition: ComponentPosition? = nil,
 
@@ -197,8 +197,8 @@ public struct TabItemData: Sendable {
         bindId: String? = nil,
 
         // 2. Content & Accessibility
-        label: String,
-        ariaLabel: String? = nil,
+        label: LocalizedText,
+        ariaLabel: LocalizedText? = nil,
         tooltip: String? = nil,
         tooltipPosition: ComponentPosition? = nil,
 
@@ -251,8 +251,8 @@ public struct TabGroupData: Sendable {
     public let bindSelectedTab: String?
 
     // MARK: - 2. Content & Accessibility
-    /// Accessible label for the `tablist` element (e.g. "Account Settings Tabs").
-    public let ariaLabel: String
+    /// Accessible label for the `tablist` element (e.g. "Account Settings Tabs"). `nil` shows the built-in, translated "Tab options".
+    public let ariaLabel: LocalizedText?
 
     // MARK: - 3. Value & Options
     /// Collection of `TabItemData` instances defining the tabs and their panels.
@@ -312,7 +312,7 @@ public struct TabGroupData: Sendable {
         bindSelectedTab: String? = nil,
 
         // 2. Content & Accessibility
-        ariaLabel: String = "Tab options",
+        ariaLabel: LocalizedText? = nil,
 
         // 3. Value & Options
         tabs: [TabItemData],

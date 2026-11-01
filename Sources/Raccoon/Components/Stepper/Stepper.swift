@@ -11,6 +11,11 @@ public struct Stepper: TemplateRepresentable {
     let data: StepperData
     typealias styles = StepperStyles
 
+    private static let progress = LocalizedText(
+        "stepper.progress",
+        "Progress"
+    )
+
     /// Creates a new `Stepper` component instance.
     ///
     /// - Parameter data: Configuration data defining the steps, orientation, and layout options.
@@ -37,11 +42,11 @@ public struct Stepper: TemplateRepresentable {
         if let stepperId = data.id {
             return "tooltip-\(stepperId)-\(index + 1)"
         }
-        let seed = step.tooltip ?? step.title
+        let seed = (step.tooltip ?? step.title).english
         return "tooltip-\(StableIdentifier.hash(seed))-\(index + 1)"
     }
 
-    private func tooltipText(for step: StepperStepData) -> String {
+    private func tooltipText(for step: StepperStepData) -> LocalizedText {
         step.tooltip ?? step.title
     }
 
@@ -56,11 +61,11 @@ public struct Stepper: TemplateRepresentable {
         referenceId: String
     ) -> [Element] {
         let text = tooltipText(for: step)
-        if data.hasTooltip && step.hasTooltip && !text.isEmpty {
+        if data.hasTooltip && step.hasTooltip && !text.english.isEmpty {
             Tooltip(
                 TooltipData(
                     id: referenceId,
-                    text: LocalizedText(verbatim: text),  // i18n-todo
+                    text: text,
                     position: tooltipPosition(for: step),
                     hasArrow: true
                 )
@@ -138,10 +143,11 @@ public struct Stepper: TemplateRepresentable {
     func renderHorizontalStepInner(
         _ step: StepperStepData,
         index: Int,
-        accessibleLabel: String
+        accessibleLabel: LocalizedText
     ) -> [Element] {
         renderCircleIndicator(for: step, index: index)
-        Span(accessibleLabel)
+        Span(accessibleLabel.resolved)
+            .localized(accessibleLabel)
             .class(styles.srOnly)
     }
 
@@ -214,7 +220,7 @@ public struct Stepper: TemplateRepresentable {
                 guard let tracker = step.contentTracker ?? data.contentTracker
                 else {
                     let piece = step.id ?? "step-\(index + 1)"
-                    let target = step.href ?? step.title
+                    let target = step.href ?? step.title.english
                     return
                         $0
                         .flagAttribute("data-track-content")
@@ -307,7 +313,7 @@ public struct Stepper: TemplateRepresentable {
         let tooltipId = tooltipReference(for: step, index: index)
         let hasTooltip =
             data.hasTooltip && step.hasTooltip
-            && !tooltipText(for: step).isEmpty
+            && !tooltipText(for: step).english.isEmpty
 
         Li {
             if !isLast {
@@ -371,10 +377,11 @@ public struct Stepper: TemplateRepresentable {
                 case .upcoming: return styles.titleUpcoming
                 }
             }()
-            Span(step.title)
+            Span(step.title.resolved)
+                .localized(step.title)
                 .class(titleClass)
 
-            if let description = step.description, !description.isEmpty {
+            if let description = step.description, !description.english.isEmpty {
                 let descClass: String = {
                     switch step.status {
                     case .complete: return styles.descriptionComplete
@@ -382,7 +389,8 @@ public struct Stepper: TemplateRepresentable {
                     case .upcoming: return styles.descriptionUpcoming
                     }
                 }()
-                Span(description)
+                Span(description.resolved)
+                    .localized(description)
                     .class(descClass)
             }
         }
@@ -411,7 +419,8 @@ public struct Stepper: TemplateRepresentable {
                     Span {
                         A {
                             renderCircleIndicator(for: step, index: index)
-                            Span(accessibleLabel)
+                            Span(accessibleLabel.resolved)
+                                .localized(accessibleLabel)
                                 .class(styles.srOnly)
                         }
                         .href(href)
@@ -459,7 +468,7 @@ public struct Stepper: TemplateRepresentable {
                             guard let tracker = step.contentTracker ?? data.contentTracker
                             else {
                                 let piece = step.id ?? "step-\(index + 1)"
-                                let target = step.href ?? step.title
+                                let target = step.href ?? step.title.english
                                 return
                                     $0
                                     .flagAttribute("data-track-content")
@@ -573,7 +582,7 @@ public struct Stepper: TemplateRepresentable {
         let tooltipId = tooltipReference(for: step, index: index)
         let hasTooltip =
             data.hasTooltip && step.hasTooltip
-            && !tooltipText(for: step).isEmpty
+            && !tooltipText(for: step).english.isEmpty
 
         Li {
             if !isLast {
@@ -628,7 +637,7 @@ public struct Stepper: TemplateRepresentable {
                     $0.class(styles.listVertical)
                 }
             }
-            .setAttribute(name: "aria-label", value: data.ariaLabel)
+            .localized(.ariaLabel, data.ariaLabel ?? Self.progress)
             .if(data.id != nil) { $0.id(data.id!) }
             .if(data.bindId != nil) {
                 $0.setAttribute(name: "x-bind:id", value: data.bindId!)

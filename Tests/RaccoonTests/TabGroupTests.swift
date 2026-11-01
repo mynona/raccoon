@@ -358,4 +358,39 @@ struct TabGroupTests {
         #expect(html.contains("data-content-piece=\"tab.button\""))
         #expect(html.contains("data-content-target=\"Stats\""))
     }
+
+    // MARK: localization
+
+    @Test(
+        "the tablist default label is built in and translated; tab labels follow the language"
+    )
+    func localizedLabels() {
+        let data = TabGroupData(
+            tabs: [
+                TabItemData(
+                    id: "a",
+                    label: LocalizedText(
+                        en: "Overview",
+                        translations: ["de": "Übersicht"]
+                    ),
+                    content: .html("<p>x</p>")
+                ),
+                TabItemData(
+                    id: "b",
+                    label: "Plain",
+                    content: .html("<p>y</p>")
+                ),
+            ]
+        )
+        let english = renderHTML(TabGroup(data).render())
+        #expect(
+            english.contains("data-i18n-aria-label=\"tabgroup.tabOptions\"")
+        )
+        let german = I18n.render(language: "de") {
+            renderHTML(TabGroup(data).render())
+        }
+        #expect(german.contains("aria-label=\"Tab-Optionen\""))
+        #expect(german.contains(">Übersicht</span>"))
+        #expect(german.contains(">Plain</span>"))
+    }
 }

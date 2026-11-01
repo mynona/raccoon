@@ -6,6 +6,11 @@ public struct SkipLink: TemplateRepresentable {
     let data: SkipLinkData
     typealias styles = SkipLinkStyles
 
+    private static let jump = LocalizedText(
+        "skiplink.jump",
+        "Jump directly to the main content"
+    )
+
     public init(
         _ data: SkipLinkData = .init()
     ) {
@@ -17,7 +22,9 @@ public struct SkipLink: TemplateRepresentable {
         DebugComment("Skip link")
         let targetHref =
             data.targetId.hasPrefix("#") ? data.targetId : "#\(data.targetId)"
-        A(data.text)
+        let text = data.text ?? Self.jump
+        A(text.resolved)
+            .localized(text)
             .href(targetHref)
             .class(styles.skipLink)
     }

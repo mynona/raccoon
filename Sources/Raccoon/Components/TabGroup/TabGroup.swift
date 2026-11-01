@@ -8,6 +8,11 @@ public struct TabGroup: TemplateRepresentable {
     let data: TabGroupData
     typealias styles = TabGroupStyles
 
+    private static let tabOptions = LocalizedText(
+        "tabgroup.tabOptions",
+        "Tab options"
+    )
+
     /// Initializes a new `TabGroup` with the specified configuration data.
     ///
     /// - Parameter data: Configuration data defining the tabs, styles, and options.
@@ -101,7 +106,8 @@ public struct TabGroup: TemplateRepresentable {
                 Svg.icon(icon, width: 18, height: 18)
             }
 
-            Span(tab.label)
+            Span(tab.label.resolved)
+                .localized(tab.label)
 
             if let icon = tab.icon, tab.iconPosition == .right {
                 Svg.icon(icon, width: 18, height: 18)
@@ -114,7 +120,7 @@ public struct TabGroup: TemplateRepresentable {
         .setAttribute(name: "role", value: "tab")
         .setAttribute(name: "aria-controls", value: panelId)
         .if(tab.ariaLabel != nil) {
-            $0.setAttribute(name: "aria-label", value: tab.ariaLabel!)
+            $0.localized(.ariaLabel, tab.ariaLabel!)
         }
         .if(isDisabled) {
             $0
@@ -158,7 +164,10 @@ public struct TabGroup: TemplateRepresentable {
                 .flagAttribute("data-track-content")
                 .setAttribute(name: "data-content-name", value: "tabgroup")
                 .setAttribute(name: "data-content-piece", value: "tab.button")
-                .setAttribute(name: "data-content-target", value: tab.label)
+                .setAttribute(
+                    name: "data-content-target",
+                    value: tab.label.english
+                )
         }
     }
 
@@ -184,7 +193,7 @@ public struct TabGroup: TemplateRepresentable {
             }
         }
         .setAttribute(name: "role", value: "tablist")
-        .setAttribute(name: "aria-label", value: data.ariaLabel)
+        .localized(.ariaLabel, data.ariaLabel ?? Self.tabOptions)
         .setAttribute(
             name: "aria-orientation",
             value: isVertical ? "vertical" : "horizontal"
@@ -255,13 +264,17 @@ public struct TabGroup: TemplateRepresentable {
 
     @Builder<Element>
     public func render() -> [Element] {
-        DebugComment("TabGroup: \(data.ariaLabel)")
+        DebugComment("TabGroup: \((data.ariaLabel ?? Self.tabOptions).english)")
 
         Script()
             .src("/js/tab-group.js")
             .setAttribute(name: "type", value: "text/javascript")
 
-        let componentId = data.id ?? StableIdentifier.unique(data.ariaLabel)
+        let componentId =
+            data.id
+            ?? StableIdentifier.unique(
+                (data.ariaLabel ?? Self.tabOptions).english
+            )
         let defaultTabLit = JavaScriptEscaper.alpineStringLiteral(
             resolvedDefaultTabId
         )

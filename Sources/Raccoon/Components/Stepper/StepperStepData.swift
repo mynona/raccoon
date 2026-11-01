@@ -15,16 +15,16 @@ public struct StepperStepData: Sendable {
     // MARK: - 2. Content & Accessibility
 
     /// Visible title of the step in vertical orientation, or accessible label in horizontal orientation.
-    public let title: String
+    public let title: LocalizedText
 
     /// Optional descriptive subtitle or explanation text displayed below the title in vertical orientation.
-    public let description: String?
+    public let description: LocalizedText?
 
     /// Accessible name override for screen readers.
-    public let ariaLabel: String?
+    public let ariaLabel: LocalizedText?
 
     /// Optional tooltip text displayed on hover or focus. If omitted and tooltips are enabled, the step's `title` is displayed.
-    public let tooltip: String?
+    public let tooltip: LocalizedText?
 
     /// Optional stable identifier for the tooltip element.
     public let tooltipId: String?
@@ -95,10 +95,10 @@ public struct StepperStepData: Sendable {
         bindId: String? = nil,
 
         // 2. Content & Accessibility
-        title: String,
-        description: String? = nil,
-        ariaLabel: String? = nil,
-        tooltip: String? = nil,
+        title: LocalizedText,
+        description: LocalizedText? = nil,
+        ariaLabel: LocalizedText? = nil,
+        tooltip: LocalizedText? = nil,
         tooltipId: String? = nil,
         tooltipPosition: ComponentPosition? = nil,
         hasTooltip: Bool = true,
