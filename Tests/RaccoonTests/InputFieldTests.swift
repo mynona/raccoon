@@ -83,8 +83,11 @@ func rendersAllValidationTypes() async throws {
     for (id, type, validation, placeholder) in cases {
         let data = InputFieldData(
             id: id,
-            label: LabelData(id: id, title: LocalizedText(verbatim: id.capitalized)),
-            placeholder: placeholder,
+            label: LabelData(
+                id: id,
+                title: LocalizedText(verbatim: id.capitalized)
+            ),
+            placeholder: LocalizedText(verbatim: placeholder),
             validation: validation,
             type: type
         )
@@ -270,5 +273,26 @@ struct InputFieldTests {
         #expect(html.contains("Paste the integration token"))
         #expect(html.contains("data-matomo-mask"))
         #expect(html.contains("data-matomo-name=\"Token\""))
+    }
+
+    // MARK: localization
+
+    @Test(
+        "a consumer placeholder follows the language; a literal stays plain; none keeps the blank"
+    )
+    func localizedPlaceholder() {
+        func render(_ placeholder: LocalizedText?, _ language: String) -> String
+        {
+            let data = InputFieldData(id: "f", placeholder: placeholder)
+            return I18n.render(language: language) {
+                renderHTML(InputField(data).render())
+            }
+        }
+        let own = LocalizedText(en: "Name", translations: ["de": "Name (voll)"])
+        #expect(render(own, "de").contains("placeholder=\"Name (voll)\""))
+        #expect(render(own, "de").contains("data-i18n-placeholder-values="))
+        #expect(render("Plain", "de").contains("placeholder=\"Plain\""))
+        #expect(!render("Plain", "de").contains("data-i18n-placeholder"))
+        #expect(render(nil, "de").contains("placeholder=\" \""))
     }
 }

@@ -242,4 +242,26 @@ struct TextAreaFieldTests {
         #expect(htmlLarge.contains("min-height:calc(10 * 1.5em)"))
         #expect(htmlLarge.contains("max-height:calc(10 * 1.5em)"))
     }
+
+    // MARK: localization
+
+    @Test("a consumer placeholder follows the language; none keeps the blank")
+    func localizedPlaceholder() {
+        let own = LocalizedText(
+            en: "Message",
+            translations: ["de": "Nachricht"]
+        )
+        let withText = I18n.render(language: "de") {
+            renderHTML(
+                TextAreaField(TextAreaFieldData(id: "t", placeholder: own))
+                    .render()
+            )
+        }
+        #expect(withText.contains("placeholder=\"Nachricht\""))
+        #expect(withText.contains("data-i18n-placeholder-values="))
+        let without = renderHTML(
+            TextAreaField(TextAreaFieldData(id: "t")).render()
+        )
+        #expect(without.contains("placeholder=\" \""))
+    }
 }

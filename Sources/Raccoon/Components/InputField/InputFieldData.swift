@@ -8,7 +8,7 @@ public struct InputFieldData: Sendable {
 
     // MARK: - 2. Content & Accessibility
     public let label: LabelData?
-    public let placeholder: String?
+    public let placeholder: LocalizedText?
 
     // MARK: - 3. Value & Options
     public let value: String?
@@ -54,7 +54,7 @@ public struct InputFieldData: Sendable {
 
         // 2. Content & Accessibility
         label: LabelData? = nil,
-        placeholder: String? = nil,
+        placeholder: LocalizedText? = nil,
 
         // 3. Value & Options
         value: String? = nil,

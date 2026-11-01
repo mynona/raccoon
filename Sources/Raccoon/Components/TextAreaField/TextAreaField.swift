@@ -116,7 +116,11 @@ public struct TextAreaField: TemplateRepresentable {
                     .flagAttribute(required)
                     .id(data.id)
                     .name(data.id)
-                    .placeholder(data.placeholder ?? " ")
+                    .if(data.placeholder != nil) {
+                        $0.localized(.placeholder, data.placeholder!)
+                    } else: {
+                        $0.placeholder(" ")
+                    }
                     .if(getAriaDescribedBy() != nil) {
                         $0.ariaDescribedBy(getAriaDescribedBy())
                     }

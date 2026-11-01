@@ -220,7 +220,7 @@ public struct DataTable: TemplateRepresentable {
                         InputFieldData(
                             id: controlId,
                             label: label(controlId, title),
-                            placeholder: filter.placeholder,
+                            placeholder: filter.placeholder.map(LocalizedText.init(verbatim:)),
                             type: type
                         )
                     )

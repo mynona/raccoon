@@ -6,7 +6,7 @@ public struct TextAreaFieldData: Sendable {
     public let id: String
     public let label: LabelData?
     public let rows: UInt
-    public let placeholder: String?
+    public let placeholder: LocalizedText?
     public let value: String?
     public let errorMessages: ErrorMessageData?
     public let helperText: HelperTextData?
@@ -36,7 +36,7 @@ public struct TextAreaFieldData: Sendable {
     public init(
         id: String,
         label: LabelData? = nil,
-        placeholder: String? = nil,
+        placeholder: LocalizedText? = nil,
         rows: UInt = 4,
         value: String? = nil,
         validation: ValidationType? = nil,

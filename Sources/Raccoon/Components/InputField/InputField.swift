@@ -75,7 +75,11 @@ public struct InputField: TemplateRepresentable {
                     .id(data.id)
                     .name(data.id)
                     .value(data.value)
-                    .placeholder(data.placeholder ?? " ")
+                    .if(data.placeholder != nil) {
+                        $0.localized(.placeholder, data.placeholder!)
+                    } else: {
+                        $0.placeholder(" ")
+                    }
                     .setAttribute(
                         name: "autocomplete",
                         value: data.autocomplete
