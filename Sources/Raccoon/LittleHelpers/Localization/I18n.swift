@@ -125,6 +125,7 @@ public enum Translations {
         "bymeacoffee": bymeacoffee,
         "checkboxselect": checkboxselect,
         "darklightmodetoggle": darklightmodetoggle,
+        "fieldvalidation": fieldvalidation,
         "datepicker": datepicker,
         "inputlist": inputlist,
         "passwordinput": passwordinput,

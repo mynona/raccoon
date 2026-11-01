@@ -93,7 +93,7 @@ public struct TextAreaField: TemplateRepresentable {
             } ?? "null"
         let errorMessage =
             data.validationMessage.map {
-                JavaScriptEscaper.alpineStringLiteral($0)
+                JavaScriptEscaper.alpineStringLiteral($0.resolved)
             } ?? "''"
         let hasInitialValue = data.value != nil && !data.value!.isEmpty
         let hasServerError = data.errorMessages?.errorMessages != nil

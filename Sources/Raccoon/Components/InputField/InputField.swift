@@ -45,7 +45,7 @@ public struct InputField: TemplateRepresentable {
         let required = getRequired()
         // Pass regexPattern as a valid JS string (no double escaping)
         let regexPattern = data.validationRegex ?? ""
-        let errorMessage = data.validationMessage ?? ""
+        let errorMessage = data.validationMessage?.resolved ?? ""
         let hasInitialValue = data.value != nil && !data.value!.isEmpty
         let hasServerError = data.errorMessages?.errorMessages != nil
 

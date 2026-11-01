@@ -17,8 +17,8 @@ public struct TextAreaFieldData: Sendable {
         validation?.regex
     }
 
-    public var validationMessage: String? {
-        validation?.errorMessage(labelTitle: label?.title?.english)
+    public var validationMessage: LocalizedText? {
+        validation?.errorMessage(labelTitle: label?.title)
     }
 
     /// Creates a new configuration instance for `TextAreaField`.

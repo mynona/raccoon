@@ -415,7 +415,7 @@ public struct InputList: TemplateRepresentable {
         .setAttribute(
             name: "x-data",
             value:
-                "inputListForm(\(JavaScriptEscaper.htmlAttributeEscape(jsonInitialValues())), \(JavaScriptEscaper.alpineStringLiteral(data.validationRegEx)), \(JavaScriptEscaper.alpineStringLiteral(data.validationMessage)))"
+                "inputListForm(\(JavaScriptEscaper.htmlAttributeEscape(jsonInitialValues())), \(JavaScriptEscaper.alpineStringLiteral(data.validationRegEx)), \(JavaScriptEscaper.alpineStringLiteral(data.validationMessage.resolved)))"
         )
         .setAttribute(
             name: "x-init",

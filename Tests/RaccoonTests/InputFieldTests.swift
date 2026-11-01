@@ -100,7 +100,7 @@ func rendersAllValidationTypes() async throws {
         #expect(html.contains(id.capitalized))
         // Check error message is present in validationMessage
         if let msg = data.validationMessage {
-            #expect(msg.count > 0)
+            #expect(msg.english.count > 0)
         }
     }
 }

@@ -11,7 +11,7 @@ public struct InputListData: Sendable {
         /// A numeric amount (integer or decimal with up to 2 decimal places).
         case amount
         /// A custom validation with a regex pattern and error message.
-        case custom(pattern: String, message: String)
+        case custom(pattern: String, message: LocalizedText)
 
         /// The regex string used to validate the input value.
         public var regex: String {
@@ -32,14 +32,23 @@ public struct InputListData: Sendable {
         }
 
         /// The default error message shown when validation fails.
-        public var errorMessage: String {
+        public var errorMessage: LocalizedText {
             switch self {
             case .url:
-                return "Please enter a valid http:// or https:// URL."
+                return LocalizedText(
+                    "inputlist.errUrl",
+                    "Please enter a valid http:// or https:// URL."
+                )
             case .email:
-                return "Please enter a valid email address."
+                return LocalizedText(
+                    "inputlist.errEmail",
+                    "Please enter a valid email address."
+                )
             case .amount:
-                return "Please enter a valid amount (e.g. 10 or 10.50)."
+                return LocalizedText(
+                    "inputlist.errAmount",
+                    "Please enter a valid amount (e.g. 10 or 10.50)."
+                )
             case .custom(_, let message):
                 return message
             }
@@ -64,7 +73,7 @@ public struct InputListData: Sendable {
     }
 
     /// The error message derived from the `validationType`.
-    public var validationMessage: String {
+    public var validationMessage: LocalizedText {
         validationType.errorMessage
     }
 

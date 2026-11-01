@@ -12,7 +12,7 @@ public enum FieldValidationType: Sendable {
     case phoneNumber
     case ip4vAddress
     case friendlyUrl
-    case custom(pattern: String, message: String)
+    case custom(pattern: String, message: LocalizedText)
 
     private static func isValidRegex(_ pattern: String) -> Bool {
         do {
@@ -51,31 +51,103 @@ public enum FieldValidationType: Sendable {
         }
     }
 
-    public func errorMessage(labelTitle: String?) -> String {
-        let labelPrefix =
-            (labelTitle?.isEmpty == false)
-            ? "\(labelTitle ?? "Field") " : ""
+    /// The message for an invalid value, as a built-in text in the page language. With a label title the
+    /// message starts with it ("Email is not a valid email address."), without one it starts with "This".
+    public func errorMessage(labelTitle: LocalizedText?) -> LocalizedText {
+        let label = labelTitle?.resolved
+        let hasLabel = label?.isEmpty == false
         switch self {
         case .firstLastName:
-            return
-                "\(labelPrefix)has less than 2 valid characters (no spaces at the start or end)."
+            return hasLabel
+                ? LocalizedText(
+                    "fieldvalidation.firstLastNameWithLabel",
+                    "{{label}} has less than 2 valid characters (no spaces at the start or end).",
+                    variables: ["label": label ?? ""]
+                )
+                : LocalizedText(
+                    "fieldvalidation.firstLastName",
+                    "Must have at least 2 valid characters (no spaces at the start or end)."
+                )
         case .email:
-            return "\(labelPrefix)is not a valid email address."
+            return hasLabel
+                ? LocalizedText(
+                    "fieldvalidation.emailWithLabel",
+                    "{{label}} is not a valid email address.",
+                    variables: ["label": label ?? ""]
+                )
+                : LocalizedText(
+                    "fieldvalidation.email",
+                    "This is not a valid email address."
+                )
         case .url:
-            return
-                "\(labelPrefix)is not a valid URL starting with http:// or https://."
+            return hasLabel
+                ? LocalizedText(
+                    "fieldvalidation.urlWithLabel",
+                    "{{label}} is not a valid URL starting with http:// or https://.",
+                    variables: ["label": label ?? ""]
+                )
+                : LocalizedText(
+                    "fieldvalidation.url",
+                    "This is not a valid URL starting with http:// or https://."
+                )
         case .integer:
-            return "\(labelPrefix)is not a valid integer number."
+            return hasLabel
+                ? LocalizedText(
+                    "fieldvalidation.integerWithLabel",
+                    "{{label}} is not a valid integer number.",
+                    variables: ["label": label ?? ""]
+                )
+                : LocalizedText(
+                    "fieldvalidation.integer",
+                    "This is not a valid integer number."
+                )
         case .amount:
-            return "\(labelPrefix)is not a valid amount with 2 decimal numbers."
+            return hasLabel
+                ? LocalizedText(
+                    "fieldvalidation.amountWithLabel",
+                    "{{label}} is not a valid amount with 2 decimal numbers.",
+                    variables: ["label": label ?? ""]
+                )
+                : LocalizedText(
+                    "fieldvalidation.amount",
+                    "This is not a valid amount with 2 decimal numbers."
+                )
         case .phoneNumber:
-            return "\(labelPrefix)is not a valid phone number (E.164 standard)."
+            return hasLabel
+                ? LocalizedText(
+                    "fieldvalidation.phoneNumberWithLabel",
+                    "{{label}} is not a valid phone number (E.164 standard).",
+                    variables: ["label": label ?? ""]
+                )
+                : LocalizedText(
+                    "fieldvalidation.phoneNumber",
+                    "This is not a valid phone number (E.164 standard)."
+                )
         case .ip4vAddress:
-            return "\(labelPrefix)is not a valid IPv4 address."
+            return hasLabel
+                ? LocalizedText(
+                    "fieldvalidation.ip4vAddressWithLabel",
+                    "{{label}} is not a valid IPv4 address.",
+                    variables: ["label": label ?? ""]
+                )
+                : LocalizedText(
+                    "fieldvalidation.ip4vAddress",
+                    "This is not a valid IPv4 address."
+                )
         case .friendlyUrl:
-            return "\(labelPrefix)can only have lowercase letters and hyphens."
+            return hasLabel
+                ? LocalizedText(
+                    "fieldvalidation.friendlyUrlWithLabel",
+                    "{{label}} can only have lowercase letters and hyphens.",
+                    variables: ["label": label ?? ""]
+                )
+                : LocalizedText(
+                    "fieldvalidation.friendlyUrl",
+                    "This can only have lowercase letters and hyphens."
+                )
         case .custom(let pattern, let message):
-            return Self.isValidRegex(pattern) ? message : ""
+            return Self.isValidRegex(pattern)
+                ? message : LocalizedText(verbatim: "")
         }
     }
 }
