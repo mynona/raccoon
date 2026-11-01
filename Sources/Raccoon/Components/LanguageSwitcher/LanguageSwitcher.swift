@@ -19,6 +19,11 @@ public struct LanguageSwitcher: TemplateRepresentable {
         self.data = data
     }
 
+    private static let language = LocalizedText(
+        "languageswitcher.language",
+        "Language"
+    )
+
     @Builder<Element>
     public func render() -> [Element] {
         DebugComment("Language switcher")
@@ -30,9 +35,13 @@ public struct LanguageSwitcher: TemplateRepresentable {
             OptionValue(title: $0.name, value: $0.code, lang: $0.code)
         }
 
+        // The script builds "<label>: <language>" for the button, so the label is a plain text
+        // in the page language (a marker would overwrite it with the label alone).
+        let ariaLabel = (data.ariaLabel ?? Self.language).resolved
+
         let dropdown = DropdownData(
             id: data.id,
-            placeholderAriaLabelText: data.ariaLabel,
+            placeholderAriaLabelText: LocalizedText(verbatim: ariaLabel),
             value: data.initialCode,
             options: options,
             state: data.state,
@@ -42,7 +51,7 @@ public struct LanguageSwitcher: TemplateRepresentable {
         let fallback = JavaScriptEscaper.escapeSingleQuotedString(
             data.initialCode
         )
-        let label = JavaScriptEscaper.escapeSingleQuotedString(data.ariaLabel)
+        let label = JavaScriptEscaper.escapeSingleQuotedString(ariaLabel)
 
         Div {
             Dropdown(dropdown).render()

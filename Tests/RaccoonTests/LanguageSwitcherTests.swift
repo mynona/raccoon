@@ -57,4 +57,18 @@ struct LanguageSwitcherTests {
         #expect(!without.contains("gap-2"))
         #expect(with.contains("gap-2"))
     }
+
+    // MARK: localization
+
+    @Test("the built-in label is rendered in the page language as plain text")
+    func localizedLabel() {
+        let data = LanguageSwitcherData(languages: languages)
+        let german = I18n.render(language: "de") {
+            renderHTML(LanguageSwitcher(data).render())
+        }
+        #expect(german.contains("ariaLabel: 'Sprache'"))
+        #expect(german.contains("aria-label=\"Sprache\""))
+        // The script composes "<label>: <language>", so the label carries no marker
+        #expect(!german.contains("data-i18n-aria-label"))
+    }
 }

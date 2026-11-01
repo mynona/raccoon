@@ -19,6 +19,15 @@ import WebBuilders
 public struct SingleSelect: TemplateRepresentable {
     let data: SingleSelectData
     typealias styles = SingleSelectStyles
+
+    static let searchOrSelect = LocalizedText(
+        "singleselect.searchOrSelect",
+        "Search or select"
+    )
+    static let searchOrSelectAria = LocalizedText(
+        "singleselect.searchOrSelectAria",
+        "Search by entering values or select with arrow down"
+    )
     typealias inputFieldStyles = InputFieldStyles
     typealias buttonStyles = ActionButtonStyles
 
@@ -108,8 +117,14 @@ public struct SingleSelect: TemplateRepresentable {
                 value:
                     "isOpen && $combobox.activeIndex !== null ? `${id}-option-${$combobox.activeIndex}` : null"
             )
-            .placeholder(data.placeholderText)
-            .ariaLabel(data.placeholderAriaLabelText)
+            .localized(
+                .placeholder,
+                data.placeholderText ?? Self.searchOrSelect
+            )
+            .localized(
+                .ariaLabel,
+                data.placeholderAriaLabelText ?? Self.searchOrSelectAria
+            )
             .setAttribute(
                 name: "x-model",
                 value: "query"

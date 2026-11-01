@@ -18,13 +18,13 @@ public struct DropdownData: Sendable {
     public let label: LabelData?
 
     /// Placeholder text shown when no value is selected.
-    public let placeholder: String?
+    public let placeholder: LocalizedText?
 
-    /// Prompt text displayed when empty.
-    public let placeholderText: String?
+    /// Prompt text displayed when empty. `nil` shows the built-in, translated "Select an option".
+    public let placeholderText: LocalizedText?
 
-    /// Accessible instructions for screen readers.
-    public let placeholderAriaLabelText: String?
+    /// Accessible instructions for screen readers. `nil` uses the prompt text.
+    public let placeholderAriaLabelText: LocalizedText?
 
     // MARK: - 3. Value & Options
 
@@ -73,9 +73,9 @@ public struct DropdownData: Sendable {
         id: String,
         name: String? = nil,
         label: LabelData? = nil,
-        placeholder: String? = nil,
-        placeholderText: String? = "Select an option",
-        placeholderAriaLabelText: String? = "Select an option",
+        placeholder: LocalizedText? = nil,
+        placeholderText: LocalizedText? = nil,
+        placeholderAriaLabelText: LocalizedText? = nil,
         value: String? = nil,
         options: [OptionValue]? = nil,
         errorMessages: ErrorMessageData? = nil,
@@ -108,8 +108,11 @@ public struct DropdownData: Sendable {
             name: data.name,
             label: data.label,
             placeholder: data.placeholder,
-            placeholderText: data.placeholderText,
-            placeholderAriaLabelText: data.placeholderAriaLabelText,
+            // Keeps the prompt of the `SingleSelect` this data came from
+            placeholderText: data.placeholderText
+                ?? SingleSelect.searchOrSelect,
+            placeholderAriaLabelText: data.placeholderAriaLabelText
+                ?? SingleSelect.searchOrSelectAria,
             value: data.value,
             options: data.options,
             errorMessages: data.errorMessages,

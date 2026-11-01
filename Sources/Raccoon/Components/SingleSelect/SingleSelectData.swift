@@ -1,4 +1,3 @@
-
 /// Context for the SingleSelect component, providing all data needed to render a single-select dropdown UI.
 public struct SingleSelectData: Sendable {
     // MARK: - 1. Identity & Alpine Bindings
@@ -11,9 +10,11 @@ public struct SingleSelectData: Sendable {
     /// Optional label context for the select input.
     public let label: LabelData?
     /// Placeholder text shown when no value is selected.
-    public let placeholder: String?
-    public let placeholderText: String?
-    public let placeholderAriaLabelText: String?
+    public let placeholder: LocalizedText?
+    /// `nil` shows the built-in, translated "Search or select".
+    public let placeholderText: LocalizedText?
+    /// `nil` shows the built-in, translated instructions.
+    public let placeholderAriaLabelText: LocalizedText?
 
     // MARK: - 3. Value & Options
     /// The currently selected value (option value).
@@ -51,10 +52,9 @@ public struct SingleSelectData: Sendable {
         id: String,
         name: String? = nil,
         label: LabelData? = nil,
-        placeholder: String? = nil,
-        placeholderText: String? = "Search or select",
-        placeholderAriaLabelText: String? =
-            "Search by entering values or select with arrow down",
+        placeholder: LocalizedText? = nil,
+        placeholderText: LocalizedText? = nil,
+        placeholderAriaLabelText: LocalizedText? = nil,
         value: String? = nil,
         options: [OptionValue]? = nil,
         errorMessages: ErrorMessageData? = nil,

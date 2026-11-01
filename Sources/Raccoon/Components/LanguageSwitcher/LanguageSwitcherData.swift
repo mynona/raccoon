@@ -35,7 +35,8 @@ public struct LanguageSwitcherData: Sendable {
     // MARK: - 2. Content & Accessibility
 
     /// Accessible name of the switcher, e.g. "Language". The current language name is appended.
-    public let ariaLabel: String
+    /// `nil` shows the built-in, translated "Language".
+    public let ariaLabel: LocalizedText?
 
     // MARK: - 3. Value & Options
 
@@ -61,7 +62,7 @@ public struct LanguageSwitcherData: Sendable {
     ///   - state: State of the component.
     public init(
         id: String = "language-switcher",
-        ariaLabel: String = "Language",
+        ariaLabel: LocalizedText? = nil,
         languages: [LanguageOption],
         fallbackLanguage: String = "en",
         state: ComponentState = .enabled

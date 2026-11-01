@@ -116,4 +116,23 @@ struct SingleSelectTests {
         #expect(html.contains("role=\"listbox\""))
         #expect(html.contains("Clear selection"))
     }
+
+    // MARK: localization
+
+    @Test("the search prompts are built in and translated")
+    func localizedPrompts() {
+        let ctx = SingleSelectData(id: "s", options: [], state: .enabled)
+        let english = renderHTML(SingleSelect(ctx).render())
+        #expect(english.contains("placeholder=\"Search or select\""))
+        #expect(
+            english.contains(
+                "data-i18n-placeholder=\"singleselect.searchOrSelect\""
+            )
+        )
+        let german = I18n.render(language: "de") {
+            renderHTML(SingleSelect(ctx).render())
+        }
+        #expect(german.contains("placeholder=\"Suchen oder auswählen\""))
+        #expect(german.contains("Durch Eingabe von Werten suchen"))
+    }
 }

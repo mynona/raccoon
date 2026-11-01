@@ -34,12 +34,20 @@ public struct Dropdown: TemplateRepresentable {
         return ""
     }
 
-    private var initialTitle: String {
+    private static let selectAnOption = LocalizedText(
+        "dropdown.selectAnOption",
+        "Select an option"
+    )
+
+    /// The text of the selected option (caller data) or the placeholder.
+    /// The trigger text is bound to Alpine's `selectedTitle`, which is set once, so a placeholder
+    /// follows the page language of the render but not a later live language switch.
+    private var initialTitle: LocalizedText {
         let title = getTitle(forValue: data.value ?? "")
         if !title.isEmpty {
-            return title
+            return LocalizedText(verbatim: title)
         }
-        return data.placeholder ?? data.placeholderText ?? "Select an option"
+        return data.placeholder ?? data.placeholderText ?? Self.selectAnOption
     }
 
     @Builder<Element>
@@ -47,7 +55,7 @@ public struct Dropdown: TemplateRepresentable {
         let text =
             bound
             ? Span("").setAttribute(name: "x-text", value: "selectedTitle")
-            : Span(initialTitle)
+            : Span(initialTitle.resolved).localized(initialTitle)
         if let icon = data.icon {
             Div {
                 Svg.icon(icon, width: 16, height: 16)
@@ -72,7 +80,7 @@ public struct Dropdown: TemplateRepresentable {
                     .name(data.name ?? data.id)
                     .value(data.value ?? "")
             }
-            P(initialTitle)
+            P(initialTitle.resolved).localized(initialTitle)
         }
         .class("pb-1.5 pt-2.5")
         .addClass(styles.infoBorder)
@@ -170,7 +178,7 @@ public struct Dropdown: TemplateRepresentable {
             && !(data.errorMessages?.errorMessages?.isEmpty ?? true)
         let initialVal = data.value ?? ""
         let escapedTitle = JavaScriptEscaper.escapeSingleQuotedString(
-            initialTitle
+            initialTitle.resolved
         )
         let escapedVal = JavaScriptEscaper.escapeSingleQuotedString(initialVal)
 
@@ -204,9 +212,10 @@ public struct Dropdown: TemplateRepresentable {
                 }
                 .type(.button)
                 .id("\(data.id)-trigger")
-                .ariaLabel(
+                .localized(
+                    .ariaLabel,
                     data.placeholderAriaLabelText ?? data.placeholderText
-                        ?? "Select"
+                        ?? Self.selectAnOption
                 )
                 .setAttribute(name: "x-ref", value: "button")
                 .setAttribute(name: "@click", value: "open = !open")

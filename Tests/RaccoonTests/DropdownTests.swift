@@ -174,4 +174,53 @@ struct DropdownTests {
             !html.contains("<button type=\"button\" id=\"info_field-trigger\"")
         )
     }
+
+    // MARK: localization
+
+    @Test(
+        "the default prompt is built in and translated; own prompts replace it"
+    )
+    func localizedPrompt() {
+        let data = DropdownData(id: "d", options: sampleOptions)
+        let english = renderHTML(Dropdown(data).render())
+        #expect(
+            english.contains("data-i18n-aria-label=\"dropdown.selectAnOption\"")
+        )
+        #expect(english.contains("selectedTitle: 'Select an option'"))
+
+        let german = I18n.render(language: "de") {
+            renderHTML(Dropdown(data).render())
+        }
+        #expect(german.contains("aria-label=\"Option auswählen\""))
+        #expect(german.contains("selectedTitle: 'Option auswählen'"))
+
+        let own = DropdownData(
+            id: "d",
+            placeholderText: LocalizedText(
+                en: "Pick",
+                translations: ["de": "Wählen"]
+            ),
+            options: sampleOptions
+        )
+        let custom = I18n.render(language: "de") {
+            renderHTML(Dropdown(own).render())
+        }
+        #expect(custom.contains("aria-label=\"Wählen\""))
+    }
+
+    @Test("a selected option title is caller data and gets no marker")
+    func selectedOptionIsPlain() {
+        let data = DropdownData(id: "d", value: "beta", options: sampleOptions)
+        let html = I18n.render(language: "de") {
+            renderHTML(Dropdown(data).render())
+        }
+        #expect(!html.contains("selectedTitle: 'Option auswählen'"))
+    }
+
+    @Test("a dropdown created from SingleSelectData keeps the search prompt")
+    func fromSingleSelectKeepsPrompt() {
+        let select = SingleSelectData(id: "s", options: sampleOptions, state: .enabled)
+        let html = renderHTML(Dropdown(select).render())
+        #expect(html.contains("selectedTitle: 'Search or select'"))
+    }
 }
