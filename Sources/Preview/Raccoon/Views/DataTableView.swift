@@ -133,6 +133,10 @@ struct DataTableView: TemplateRepresentable {
             ],
             fixedQuery: hasFailure ? ["fail": "1"] : [:],
             defaultSort: DataTableSort(key: "name"),
+            search: DataTableSearch(
+                label: "Search raccoons",
+                placeholder: "Search by name or range (min. 3 characters)…"
+            ),
             hasFilterMode: true
         )
     }

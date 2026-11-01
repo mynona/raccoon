@@ -48,6 +48,12 @@ extension SimulationController {
         let matchesAny = value("filterMode") == "or"
 
         var records = RaccoonFacts.all
+        if let term = value("q")?.lowercased(), !term.isEmpty {
+            records = records.filter {
+                $0.name.lowercased().contains(term)
+                    || $0.range.lowercased().contains(term)
+            }
+        }
         if !conditions.isEmpty {
             records = records.filter { record in
                 let results = conditions.map { matches(record, $0) }

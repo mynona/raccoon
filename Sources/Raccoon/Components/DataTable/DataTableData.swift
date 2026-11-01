@@ -41,6 +41,9 @@ public struct DataTableData: Sendable {
     /// Initial sort state.
     public let defaultSort: DataTableSort?
 
+    /// Free-text search above the table. Without it no search field is shown.
+    public let search: DataTableSearch?
+
     // MARK: - 5. Presentation & State
     /// Whether a `#` column with continuous row numbers is shown.
     public let hasRowNumbers: Bool
@@ -76,6 +79,7 @@ public struct DataTableData: Sendable {
     ///   - pageSizeOptions: Selectable page sizes.
     ///   - defaultPageSize: Initially selected page size.
     ///   - defaultSort: Initial sort state.
+    ///   - search: Free-text search above the table.
     ///   - hasRowNumbers: Whether a `#` column is shown.
     ///   - hasPagination: Whether data is paginated.
     ///   - hasColumnConfigurator: Whether users can show, hide and reorder columns.
@@ -98,6 +102,7 @@ public struct DataTableData: Sendable {
         pageSizeOptions: [Int] = [5, 10, 20, 50, 100],
         defaultPageSize: Int = 20,
         defaultSort: DataTableSort? = nil,
+        search: DataTableSearch? = nil,
 
         // 5. Presentation & State
         hasRowNumbers: Bool = true,
@@ -124,6 +129,7 @@ public struct DataTableData: Sendable {
         self.pageSizeOptions = pageSizeOptions
         self.defaultPageSize = defaultPageSize
         self.defaultSort = defaultSort
+        self.search = search
 
         // 5. Presentation & State
         self.hasRowNumbers = hasRowNumbers

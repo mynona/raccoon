@@ -33,6 +33,31 @@ public struct DataTable: TemplateRepresentable {
         JavaScriptEscaper.htmlAttributeEscape(value)
     }
 
+    // MARK: - Search
+
+    @Builder<Element>
+    private func searchField(_ search: DataTableSearch) -> [Element] {
+        Div {
+            SearchField(
+                SearchFieldData(
+                    id: "\(data.id)-search",
+                    name: "\(data.id)-search",
+                    bindModel: "searchTerm",
+                    bindRef: "searchInput",
+                    bindKeyup: "onSearchInput()",
+                    bindClearAction: "clearSearch()",
+                    placeholder: search.placeholder,
+                    ariaLabel: search.label,
+                    clearAriaLabel: search.clearLabel,
+                    loadingBind: "isLoading"
+                )
+            )
+            .render()
+        }
+        .class("pb-4")
+        .setAttribute(name: "role", value: "search")
+    }
+
     // MARK: - Toolbar
 
     @Builder<Element>
@@ -751,6 +776,27 @@ public struct DataTable: TemplateRepresentable {
                     name: "x-show",
                     value: "status === 'ready' && rows.length === 0"
                 )
+
+                Tr {
+                    Td {
+                        Div {
+                            Svg.icon(.info_circle)
+                                .class("w-5 h-5")
+                                .setAttribute(
+                                    name: "aria-hidden",
+                                    value: "true"
+                                )
+                            P {}
+                                .setAttribute(
+                                    name: "x-text",
+                                    value: "searchHint"
+                                )
+                        }
+                        .class(styles.emptyState)
+                    }
+                    .setAttribute(name: ":colspan", value: "columnCount")
+                }
+                .setAttribute(name: "x-show", value: "status === 'idle'")
             }
         }
         .class(styles.table)
@@ -792,6 +838,10 @@ public struct DataTable: TemplateRepresentable {
     public func render() -> [Element] {
         DebugComment("Data table")
         Div {
+            if let search = data.search {
+                searchField(search)
+            }
+
             toolbar()
 
             if hasFilters {

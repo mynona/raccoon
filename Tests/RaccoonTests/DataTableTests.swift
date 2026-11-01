@@ -358,6 +358,36 @@ struct DataTableTests {
         )
     }
 
+    @Test("search field and idle hint only exist with a search definition")
+    func search() throws {
+        let without = renderHTML(DataTable(makeData()).render())
+        #expect(!without.contains("role=\"search\""))
+        #expect(try decodedConfig(without)["search"] == nil)
+
+        var data = makeData()
+        data = DataTableData(
+            id: data.id,
+            endpoint: data.endpoint,
+            caption: data.caption,
+            columns: data.columns,
+            search: DataTableSearch(
+                label: "Search facts",
+                hint: "Type {min} letters.",
+                minLength: 4
+            )
+        )
+        let html = renderHTML(DataTable(data).render())
+        #expect(html.contains("role=\"search\""))
+        #expect(html.contains("x-model=\"searchTerm\""))
+        #expect(html.contains("onSearchInput()"))
+        #expect(html.contains("clearSearch()"))
+        #expect(html.contains("status === 'idle'"))
+        let search = try #require(decodedConfig(html)["search"] as? [String: Any])
+        #expect(search["param"] as? String == "q")
+        #expect(search["minLength"] as? Int == 4)
+        #expect(search["hint"] as? String == "Type 4 letters.")
+    }
+
     @Test("empty values are explained for screen readers")
     func emptyValues() {
         let html = renderHTML(DataTable(makeData()).render())

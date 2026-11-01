@@ -44,6 +44,14 @@ struct DataTableClientConfig: Encodable {
         let direction: String
     }
 
+    struct Search: Encodable {
+        let param: String
+        let minLength: Int
+        let hint: String
+    }
+
+    let search: Search?
+
     let id: String
     let endpoint: Endpoint
     let fixedQuery: [String: String]
@@ -93,6 +101,16 @@ struct DataTableClientConfig: Encodable {
             Sort(key: $0.key, direction: $0.direction.rawValue)
         }
         hasRowNumbers = data.hasRowNumbers
+        search = data.search.map {
+            Search(
+                param: $0.param,
+                minLength: $0.minLength,
+                hint: $0.hint.replacingOccurrences(
+                    of: "{min}",
+                    with: String($0.minLength)
+                )
+            )
+        }
         hasPagination = data.hasPagination
         hasColumnConfigurator = data.hasColumnConfigurator
         hasFilterMode = data.hasFilterMode

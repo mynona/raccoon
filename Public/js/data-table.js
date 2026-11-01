@@ -60,7 +60,9 @@ if (!window.__dataTableLoaded) {
     const table = Object.defineProperties({}, Object.getOwnPropertyDescriptors(base));
 
     const state = {
-      status: "loading", // loading | ready | error
+      status: config.search ? "idle" : "loading", // idle (search term too short) | loading | ready | error
+      searchTerm: "",
+      appliedSearch: "",
       announcement: "",
       page: 1,
       per: config.defaultPageSize,
@@ -147,6 +149,9 @@ if (!window.__dataTableLoaded) {
           this.sortDirection = direction;
         }
         if (params.get(e.filterModeParam) === "or") this.filterMode = "or";
+        if (config.search) {
+          this.searchTerm = this.appliedSearch = (params.get(config.search.param) || "").trim();
+        }
 
         for (const [name, value] of params) {
           const match = filterParamPattern.exec(name);
@@ -177,6 +182,7 @@ if (!window.__dataTableLoaded) {
           params.set(e.sizeParam, this.per);
         }
         if (this.sortKey) params.set(e.sortParam, `${this.sortKey}:${this.sortDirection}`);
+        if (config.search && this.appliedSearch) params.set(config.search.param, this.appliedSearch);
         for (const [key, filter] of Object.entries(this.applied)) {
           params.set(e.filterParam.replace("{key}", key).replace("{op}", filter.op), filter.value);
         }
@@ -187,6 +193,7 @@ if (!window.__dataTableLoaded) {
       },
 
       async load() {
+        if (!this.searchReady) { this.goIdle(); return; }
         if (this.controller) this.controller.abort();
         const controller = new AbortController();
         this.controller = controller;
@@ -311,7 +318,43 @@ if (!window.__dataTableLoaded) {
       get skeletonRows() { return Array.from({ length: config.hasPagination ? this.per : 5 }, (_, i) => i); },
       get minHeightStyle() { return this.minHeight ? `min-height: ${this.minHeight}px` : ""; },
       get emptyText() {
-        return this.activeFilterCount > 0 ? config.labels.noResults : config.labels.noData;
+        return this.activeFilterCount > 0 || this.appliedSearch ? config.labels.noResults : config.labels.noData;
+      },
+
+      /* ------------------------------------------------------------------
+       SEARCH
+       ------------------------------------------------------------------ */
+      get searchReady() {
+        return !config.search || this.appliedSearch.length >= config.search.minLength;
+      },
+      get searchHint() { return config.search ? config.search.hint : ""; },
+
+      // Called while typing (debounced). Only a changed term asks the backend again.
+      onSearchInput() {
+        if (!config.search) return;
+        const term = this.searchTerm.trim();
+        if (term === this.appliedSearch) return;
+        this.appliedSearch = term;
+        this.page = 1;
+        this.load();
+      },
+
+      clearSearch() {
+        this.searchTerm = "";
+        this.onSearchInput();
+        this.$nextTick(() => this.$refs.searchInput?.focus());
+      },
+
+      // Search term too short: no request, rows are removed and the hint is shown
+      goIdle() {
+        if (this.controller) this.controller.abort();
+        this.requestId++;
+        this.rows = [];
+        this.total = 0;
+        this.page = 1;
+        this.status = "idle";
+        this.announcement = this.appliedSearch ? config.search.hint : "";
+        this.writeUrl();
       },
 
       rowNumber(index) { return (this.page - 1) * this.per + index + 1; },
