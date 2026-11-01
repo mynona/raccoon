@@ -7,7 +7,7 @@ public struct SimpleMenuOption: Sendable {
     public let id: String
 
     /// Visible display title of the option.
-    public let title: String
+    public let title: LocalizedText
 
     /// Whether this option is currently selected (used in SSR mode).
     public let isSelected: Bool
@@ -34,7 +34,8 @@ public struct SimpleMenuOption: Sendable {
     ///
     /// - Parameters:
     ///   - id: Unique identifier for the option.
-    ///   - title: Visible display title.
+    ///   - title: Visible display title. A string literal is shown as given in every language; pass a
+    ///     `LocalizedText(en:translations:)` to provide translations.
     ///   - isSelected: Whether this option is currently selected (SSR).
     ///   - href: Optional navigation URL for SSR mode.
     ///   - clickAction: Optional Alpine.js click handler expression.
@@ -44,7 +45,7 @@ public struct SimpleMenuOption: Sendable {
     ///   - bindAriaChecked: Optional dynamic Alpine.js expression for `:aria-checked`.
     public init(
         id: String,
-        title: String,
+        title: LocalizedText,
         isSelected: Bool = false,
         href: String? = nil,
         clickAction: String? = nil,

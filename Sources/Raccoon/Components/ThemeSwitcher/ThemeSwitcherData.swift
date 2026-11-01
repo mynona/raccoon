@@ -39,8 +39,8 @@ public struct ThemeSwitcherData: Sendable {
 
     // MARK: - 2. Content & Accessibility
 
-    /// Accessible name for screen readers.
-    public let ariaLabel: String
+    /// Accessible name for screen readers. `nil` shows the built-in, translated "Select color theme".
+    public let ariaLabel: LocalizedText?
 
     // MARK: - 3. Value & Options
 
@@ -71,7 +71,7 @@ public struct ThemeSwitcherData: Sendable {
     ///   - matomoStatus: Matomo tracking consent status.
     public init(
         id: String? = nil,
-        ariaLabel: String = "Select color theme",
+        ariaLabel: LocalizedText? = nil,
         defaultTheme: AppTheme = .emeraldMine,
         themes: [AppTheme] = AppTheme.allCases,
         align: ComponentPosition = .left,

@@ -13,6 +13,35 @@ public struct TablePaginator: TemplateRepresentable {
     let data: TablePaginatorData
     typealias styles = TablePaginatorStyles
 
+    private static let navigation = LocalizedText(
+        "tablepaginator.navigation",
+        "Pagination"
+    )
+    private static let itemsPerPageDefault = LocalizedText(
+        "tablepaginator.itemsPerPage",
+        "Items per page:"
+    )
+    private static let firstPage = LocalizedText(
+        "tablepaginator.firstPage",
+        "First page"
+    )
+    private static let previousPage = LocalizedText(
+        "tablepaginator.previousPage",
+        "Previous page"
+    )
+    private static let nextPage = LocalizedText(
+        "tablepaginator.nextPage",
+        "Next page"
+    )
+    private static let lastPage = LocalizedText(
+        "tablepaginator.lastPage",
+        "Last page"
+    )
+
+    private var itemsPerPage: LocalizedText {
+        data.itemsPerPageLabel ?? Self.itemsPerPageDefault
+    }
+
     /// Creates a new `TablePaginator` component instance.
     ///
     /// - Parameter data: Configuration data model for the paginator.
@@ -40,7 +69,7 @@ public struct TablePaginator: TemplateRepresentable {
     @Builder<Element>
     private func showNavigationButton(
         icon: SvgIcon,
-        label: String,
+        label: LocalizedText,
         click: String?,
         disabled: String
     ) -> [Element] {
@@ -48,7 +77,7 @@ public struct TablePaginator: TemplateRepresentable {
             Svg.icon(icon, width: 16, height: 16)
         }
         .type(.button)
-        .ariaLabel(label)
+        .localized(.ariaLabel, label)
         .if(click != nil) {
             guard let click else { return $0 }
             return $0.setAttribute(name: "@click", value: click)
@@ -65,7 +94,7 @@ public struct TablePaginator: TemplateRepresentable {
     @Builder<Element>
     private func showLinkNavigationButton(
         icon: SvgIcon,
-        label: String,
+        label: LocalizedText,
         url: String?,
         isEnabled: Bool
     ) -> [Element] {
@@ -74,7 +103,7 @@ public struct TablePaginator: TemplateRepresentable {
                 Svg.icon(icon, width: 16, height: 16)
             }
             .href(url)
-            .ariaLabel(label)
+            .localized(.ariaLabel, label)
             .class(styles.navigationButtonEnabled)
         }
         else {
@@ -82,7 +111,7 @@ public struct TablePaginator: TemplateRepresentable {
                 Svg.icon(icon, width: 16, height: 16)
             }
             .type(.button)
-            .ariaLabel(label)
+            .localized(.ariaLabel, label)
             .disabled()
             .class(styles.navigationButtonDisabled)
         }
@@ -95,7 +124,8 @@ public struct TablePaginator: TemplateRepresentable {
         switch data.mode {
         case .alpine:
             Div {
-                Span(data.itemsPerPageLabel)
+                Span(itemsPerPage.resolved)
+                    .localized(itemsPerPage)
                     .class(styles.label)
 
                 let options = data.pageSizeOptions.map { size in
@@ -105,7 +135,7 @@ public struct TablePaginator: TemplateRepresentable {
                         : "\(size)"
                     return SimpleMenuOption(
                         id: String(size),
-                        title: String(size),
+                        title: LocalizedText(verbatim: String(size)),
                         clickAction: "changePageSize(\(changeHandler))",
                         bindSelected: "\(size) === \(data.bindPer)"
                     )
@@ -115,7 +145,7 @@ public struct TablePaginator: TemplateRepresentable {
                     SimpleMenuData(
                         id: data.selectId,
                         bindTriggerText: data.bindPer,
-                        ariaLabel: data.itemsPerPageLabel,
+                        ariaLabel: itemsPerPage,
                         options: options,
                         width: "w-28"
                     )
@@ -127,7 +157,8 @@ public struct TablePaginator: TemplateRepresentable {
         case .link(let basePath, let queryParams):
             if let info = data.info {
                 Div {
-                    Span(data.itemsPerPageLabel)
+                    Span(itemsPerPage.resolved)
+                        .localized(itemsPerPage)
                         .class(styles.label)
 
                     let options = data.pageSizeOptions.map { size in
@@ -139,7 +170,7 @@ public struct TablePaginator: TemplateRepresentable {
                         )
                         return SimpleMenuOption(
                             id: String(size),
-                            title: String(size),
+                            title: LocalizedText(verbatim: String(size)),
                             isSelected: size == info.per,
                             href: url
                         )
@@ -148,8 +179,10 @@ public struct TablePaginator: TemplateRepresentable {
                     SimpleMenu(
                         SimpleMenuData(
                             id: data.selectId,
-                            ariaLabel: data.itemsPerPageLabel,
-                            triggerText: String(info.per),
+                            ariaLabel: itemsPerPage,
+                            triggerText: LocalizedText(
+                                verbatim: String(info.per)
+                            ),
                             options: options,
                             width: "w-28"
                         )
@@ -190,27 +223,27 @@ public struct TablePaginator: TemplateRepresentable {
             Div {
                 showNavigationButton(
                     icon: .skip_start,
-                    label: data.firstPageAriaLabel,
+                    label: data.firstPageAriaLabel ?? Self.firstPage,
                     click: data.onFirstPage,
                     disabled:
                         "!(\(data.bindHasPrevious)) || \(data.bindIsLoading)"
                 )
                 showNavigationButton(
                     icon: .chevron_left,
-                    label: data.previousPageAriaLabel,
+                    label: data.previousPageAriaLabel ?? Self.previousPage,
                     click: data.onPreviousPage,
                     disabled:
                         "!(\(data.bindHasPrevious)) || \(data.bindIsLoading)"
                 )
                 showNavigationButton(
                     icon: .chevron_right,
-                    label: data.nextPageAriaLabel,
+                    label: data.nextPageAriaLabel ?? Self.nextPage,
                     click: data.onNextPage,
                     disabled: "!(\(data.bindHasNext)) || \(data.bindIsLoading)"
                 )
                 showNavigationButton(
                     icon: .skip_end,
-                    label: data.lastPageAriaLabel,
+                    label: data.lastPageAriaLabel ?? Self.lastPage,
                     click: data.onLastPage,
                     disabled: "!(\(data.bindHasNext)) || \(data.bindIsLoading)"
                 )
@@ -247,25 +280,25 @@ public struct TablePaginator: TemplateRepresentable {
                 Div {
                     showLinkNavigationButton(
                         icon: .skip_start,
-                        label: data.firstPageAriaLabel,
+                        label: data.firstPageAriaLabel ?? Self.firstPage,
                         url: firstUrl,
                         isEnabled: info.hasPrevious
                     )
                     showLinkNavigationButton(
                         icon: .chevron_left,
-                        label: data.previousPageAriaLabel,
+                        label: data.previousPageAriaLabel ?? Self.previousPage,
                         url: prevUrl,
                         isEnabled: info.hasPrevious
                     )
                     showLinkNavigationButton(
                         icon: .chevron_right,
-                        label: data.nextPageAriaLabel,
+                        label: data.nextPageAriaLabel ?? Self.nextPage,
                         url: nextUrl,
                         isEnabled: info.hasNext
                     )
                     showLinkNavigationButton(
                         icon: .skip_end,
-                        label: data.lastPageAriaLabel,
+                        label: data.lastPageAriaLabel ?? Self.lastPage,
                         url: lastUrl,
                         isEnabled: info.hasNext
                     )
@@ -284,7 +317,7 @@ public struct TablePaginator: TemplateRepresentable {
             showRangeLabel()
             showNavigationButtons()
         }
-        .ariaLabel(data.ariaLabel)
+        .localized(.ariaLabel, data.ariaLabel ?? Self.navigation)
         .if(data.bindShow != nil) {
             guard let bindShow = data.bindShow else { return $0 }
             return $0.setAttribute(name: "x-show", value: bindShow)

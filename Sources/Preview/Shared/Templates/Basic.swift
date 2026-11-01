@@ -125,7 +125,10 @@ public struct Basic: TemplateRepresentable {
                                     for item in section.items {
                                         let option = SimpleMenuOption(
                                             id: item.url,
-                                            title: item.title,
+                                            // Component names are fixed terms
+                                            title: LocalizedText(
+                                                verbatim: item.title
+                                            ),
                                             isSelected: item.url == currentPath,
                                             href: item.url,
                                             icon: item.isOpenInNewTab
@@ -139,7 +142,8 @@ public struct Basic: TemplateRepresentable {
                                                 isOpenInNewTab: item
                                                     .isOpenInNewTab
                                             )
-                                        }.class("py-2")
+                                        }
+                                        .class("py-2")
                                     }
                                 }
                                 .class(styles.navList)
@@ -163,7 +167,7 @@ public struct Basic: TemplateRepresentable {
     ) -> [Element] {
         if let href = option.href {
             A {
-                Span(option.title)
+                Span(option.title.english)
 
                 Span {
                     if isOpenInNewTab {
@@ -205,7 +209,7 @@ public struct Basic: TemplateRepresentable {
             .setAttribute(
                 name: "x-show",
                 value:
-                    "!search || '\(option.title.lowercased())'.includes(search.toLowerCase())"
+                    "!search || '\(option.title.english.lowercased())'.includes(search.toLowerCase())"
             )
         }
     }

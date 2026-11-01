@@ -188,4 +188,52 @@ struct SimpleMenuTests {
         // Checkmark is also present on selected option
         #expect(html.contains(SimpleMenuStyles.activeIcon))
     }
+
+    // MARK: localization
+
+    @Test(
+        "the default aria-label is built in and translated; literals stay plain"
+    )
+    func localizedDefaults() {
+        let data = SimpleMenuData(
+            triggerText: "Actions",
+            options: [SimpleMenuOption(id: "o", title: "Option")]
+        )
+        let english = renderHTML(SimpleMenu(data).render())
+        #expect(
+            english.contains("data-i18n-aria-label=\"simplemenu.dropdownMenu\"")
+        )
+        let german = I18n.render(language: "de") {
+            renderHTML(SimpleMenu(data).render())
+        }
+        #expect(german.contains("aria-label=\"Dropdown-Menü\""))
+        #expect(german.contains(">Actions</span>"))
+        #expect(german.contains(">Option</span>"))
+        #expect(!german.contains("data-i18n=\""))
+    }
+
+    @Test("consumer option titles and trigger text are translated with markers")
+    func consumerTexts() {
+        let data = SimpleMenuData(
+            triggerText: LocalizedText(
+                en: "Actions",
+                translations: ["de": "Aktionen"]
+            ),
+            options: [
+                SimpleMenuOption(
+                    id: "o",
+                    title: LocalizedText(
+                        en: "Edit",
+                        translations: ["de": "Bearbeiten"]
+                    )
+                )
+            ]
+        )
+        let html = I18n.render(language: "de") {
+            renderHTML(SimpleMenu(data).render())
+        }
+        #expect(html.contains(">Aktionen</span>"))
+        #expect(html.contains(">Bearbeiten</span>"))
+        #expect(html.contains("data-i18n-values="))
+    }
 }

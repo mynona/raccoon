@@ -14,6 +14,11 @@ public struct SimpleMenu: TemplateRepresentable {
     let customTriggerContent: [Element]?
     typealias styles = SimpleMenuStyles
 
+    private static let dropdownMenu = LocalizedText(
+        "simplemenu.dropdownMenu",
+        "Dropdown menu"
+    )
+
     /// Creates a new `SimpleMenu` instance.
     ///
     /// - Parameter data: Configuration data model for the simple menu.
@@ -48,8 +53,9 @@ public struct SimpleMenu: TemplateRepresentable {
                 Span("")
                     .setAttribute(name: "x-text", value: bindTriggerText)
             }
-            else if !data.triggerText.isEmpty {
-                Span(data.triggerText)
+            else if !data.triggerText.english.isEmpty {
+                Span(data.triggerText.resolved)
+                    .localized(data.triggerText)
             }
             if data.hasTriggerChevron {
                 Svg.icon(.chevron_down, width: 14, height: 14)
@@ -61,7 +67,7 @@ public struct SimpleMenu: TemplateRepresentable {
         if let custom = data.triggerClass {
             return custom
         }
-        if data.triggerIcon != nil && data.triggerText.isEmpty
+        if data.triggerIcon != nil && data.triggerText.english.isEmpty
             && data.bindTriggerText == nil
         {
             return styles.iconButton
@@ -75,12 +81,14 @@ public struct SimpleMenu: TemplateRepresentable {
             Span {
                 Svg.icon(icon, width: 16, height: 16)
                     .class(styles.optionIcon)
-                Span(option.title)
+                Span(option.title.resolved)
+                    .localized(option.title)
             }
             .class(styles.itemContent)
         }
         else {
-            Span(option.title)
+            Span(option.title.resolved)
+                .localized(option.title)
         }
     }
 
@@ -152,7 +160,10 @@ public struct SimpleMenu: TemplateRepresentable {
                 guard let id = data.id else { return $0 }
                 return $0.id(id)
             }
-            .ariaLabel(data.triggerAriaLabel ?? data.ariaLabel)
+            .localized(
+                .ariaLabel,
+                data.triggerAriaLabel ?? data.ariaLabel ?? Self.dropdownMenu
+            )
             .setAttribute(name: "x-ref", value: "button")
             .setAttribute(name: "@click", value: toggleAction)
             .setAttribute(

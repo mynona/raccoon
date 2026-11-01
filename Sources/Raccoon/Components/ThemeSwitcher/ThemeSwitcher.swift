@@ -15,6 +15,11 @@ public struct ThemeSwitcher: TemplateRepresentable {
     let data: ThemeSwitcherData
     typealias styles = ThemeSwitcherStyles
 
+    private static let selectColorTheme = LocalizedText(
+        "themeswitcher.selectColorTheme",
+        "Select color theme"
+    )
+
     /// Must stay inline in `<head>`: it sets the `data-theme` attribute before first paint.
     /// Loading it via `src` would run too late and flash the default theme.
     public static let detectThemeScript: String = """
@@ -69,7 +74,8 @@ public struct ThemeSwitcher: TemplateRepresentable {
         let options = data.themes.map { theme in
             SimpleMenuOption(
                 id: theme.rawValue,
-                title: theme.displayName,
+                // Theme names are fixed terms and are not translated
+                title: LocalizedText(verbatim: theme.displayName),
                 clickAction: "setTheme('\(theme.rawValue)')",
                 bindSelected: "currentTheme === '\(theme.rawValue)'",
                 role: "menuitemradio",
@@ -83,7 +89,7 @@ public struct ThemeSwitcher: TemplateRepresentable {
             bindOpen: "open",
             bindAlpineData:
                 "themeSwitcher('\(data.defaultTheme.rawValue)', \(data.matomoStatus == .ACCEPTED))",
-            ariaLabel: data.ariaLabel,
+            ariaLabel: data.ariaLabel ?? Self.selectColorTheme,
             options: options,
             align: data.align,
             triggerIcon: .palette2,

@@ -58,23 +58,23 @@ public struct TablePaginatorData: Sendable {
 
     // MARK: - 2. Content & Accessibility
 
-    /// Accessible label for the `<nav>` region.
-    public let ariaLabel: String
+    /// Accessible label for the `<nav>` region. `nil` shows the built-in, translated text (the same for the labels below).
+    public let ariaLabel: LocalizedText?
 
     /// Label displayed next to the page size select element.
-    public let itemsPerPageLabel: String
+    public let itemsPerPageLabel: LocalizedText?
 
     /// Accessible label for the first page button.
-    public let firstPageAriaLabel: String
+    public let firstPageAriaLabel: LocalizedText?
 
     /// Accessible label for the previous page button.
-    public let previousPageAriaLabel: String
+    public let previousPageAriaLabel: LocalizedText?
 
     /// Accessible label for the next page button.
-    public let nextPageAriaLabel: String
+    public let nextPageAriaLabel: LocalizedText?
 
     /// Accessible label for the last page button.
-    public let lastPageAriaLabel: String
+    public let lastPageAriaLabel: LocalizedText?
 
     // MARK: - 3. Value & Options
 
@@ -147,12 +147,12 @@ public struct TablePaginatorData: Sendable {
         onLastPage: String? = "goToPage(totalPages)",
 
         // 2. Content & Accessibility
-        ariaLabel: String = "Pagination",
-        itemsPerPageLabel: String = "Items per page:",
-        firstPageAriaLabel: String = "First page",
-        previousPageAriaLabel: String = "Previous page",
-        nextPageAriaLabel: String = "Next page",
-        lastPageAriaLabel: String = "Last page",
+        ariaLabel: LocalizedText? = nil,
+        itemsPerPageLabel: LocalizedText? = nil,
+        firstPageAriaLabel: LocalizedText? = nil,
+        previousPageAriaLabel: LocalizedText? = nil,
+        nextPageAriaLabel: LocalizedText? = nil,
+        lastPageAriaLabel: LocalizedText? = nil,
 
         // 3. Value & Options
         mode: TablePaginatorMode = .alpine,

@@ -179,12 +179,12 @@ struct TablePaginatorTests {
         // First page: previous & first disabled button, next & last enabled link
         #expect(
             html.contains(
-                "<button type=\"button\" aria-label=\"First page\" disabled"
+                "<button type=\"button\" aria-label=\"First page\" data-i18n-aria-label=\"tablepaginator.firstPage\" disabled"
             )
         )
         #expect(
             html.contains(
-                "<button type=\"button\" aria-label=\"Previous page\" disabled"
+                "<button type=\"button\" aria-label=\"Previous page\" data-i18n-aria-label=\"tablepaginator.previousPage\" disabled"
             )
         )
         #expect(
@@ -255,13 +255,44 @@ struct TablePaginatorTests {
         )
         #expect(
             html.contains(
-                "<button type=\"button\" aria-label=\"Next page\" disabled"
+                "<button type=\"button\" aria-label=\"Next page\" data-i18n-aria-label=\"tablepaginator.nextPage\" disabled"
             )
         )
         #expect(
             html.contains(
-                "<button type=\"button\" aria-label=\"Last page\" disabled"
+                "<button type=\"button\" aria-label=\"Last page\" data-i18n-aria-label=\"tablepaginator.lastPage\" disabled"
             )
         )
+    }
+
+    // MARK: localization
+
+    @Test("all defaults are built in and translated")
+    func localizedDefaults() {
+        let data = TablePaginatorData(mode: .alpine)
+        let english = renderHTML(TablePaginator(data).render())
+        for key in [
+            "navigation", "itemsPerPage", "firstPage", "previousPage",
+            "nextPage", "lastPage",
+        ] {
+            #expect(english.contains("tablepaginator.\(key)"), "\(key)")
+        }
+        let german = I18n.render(language: "de") {
+            renderHTML(TablePaginator(data).render())
+        }
+        #expect(german.contains("aria-label=\"Seitennavigation\""))
+        #expect(german.contains(">Einträge pro Seite:</span>"))
+        #expect(german.contains("aria-label=\"Vorherige Seite\""))
+        #expect(german.contains("aria-label=\"Letzte Seite\""))
+    }
+
+    @Test("own labels replace the defaults and stay plain")
+    func ownLabels() {
+        let data = TablePaginatorData(ariaLabel: "Seiten", mode: .alpine)
+        let html = I18n.render(language: "de") {
+            renderHTML(TablePaginator(data).render())
+        }
+        #expect(html.contains("<nav"))
+        #expect(html.contains("aria-label=\"Seiten\""))
     }
 }

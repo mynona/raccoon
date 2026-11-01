@@ -171,7 +171,9 @@ struct ThemeSwitcherTests {
             )
         )
         #expect(script.contains("localStorage.getItem('theme')"))
-        #expect(script.contains("localStorage.setItem('theme', 'emerald-mine')"))
+        #expect(
+            script.contains("localStorage.setItem('theme', 'emerald-mine')")
+        )
         #expect(script.contains("stored === 'raumnebenan'"))
     }
 
@@ -204,5 +206,19 @@ struct ThemeSwitcherTests {
         )
         #expect(!withoutId.contains("id=\"themeSwitcherId\""))
         #expect(!withoutId.contains("data-track-content"))
+    }
+
+    // MARK: localization
+
+    @Test("the default aria-label is translated; theme names are fixed terms")
+    func localizedLabelAndFixedNames() {
+        let data = ThemeSwitcherData()
+        let german = I18n.render(language: "de") {
+            renderHTML(ThemeSwitcher(data).render())
+        }
+        #expect(german.contains("aria-label=\"Farbschema auswählen\""))
+        #expect(german.contains(">emerald mine</span>"))
+        #expect(german.contains(">black and white</span>"))
+        #expect(german.contains(">beacon blue</span>"))
     }
 }

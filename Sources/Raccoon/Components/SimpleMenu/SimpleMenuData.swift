@@ -33,16 +33,16 @@ public struct SimpleMenuData: Sendable {
     // MARK: - 2. Content & Accessibility
 
     /// Optional visible label rendered beside the dropdown trigger.
-    public let label: String?
+    public let label: LocalizedText?
 
-    /// Accessible name for the dropdown menu region.
-    public let ariaLabel: String
+    /// Accessible name for the dropdown menu region. `nil` shows the built-in, translated "Dropdown menu".
+    public let ariaLabel: LocalizedText?
 
     /// Static label text displayed on the trigger button.
-    public let triggerText: String
+    public let triggerText: LocalizedText
 
     /// Accessible label for the trigger button.
-    public let triggerAriaLabel: String?
+    public let triggerAriaLabel: LocalizedText?
 
     // MARK: - 3. Value & Options
 
@@ -113,10 +113,10 @@ public struct SimpleMenuData: Sendable {
         onClose: String? = nil,
 
         // 2. Content & Accessibility
-        label: String? = nil,
-        ariaLabel: String = "Dropdown menu",
-        triggerText: String = "",
-        triggerAriaLabel: String? = nil,
+        label: LocalizedText? = nil,
+        ariaLabel: LocalizedText? = nil,
+        triggerText: LocalizedText = "",
+        triggerAriaLabel: LocalizedText? = nil,
 
         // 3. Value & Options
         options: [SimpleMenuOption] = [],
