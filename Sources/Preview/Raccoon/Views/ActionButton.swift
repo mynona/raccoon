@@ -10,6 +10,43 @@ struct ButtonView: TemplateRepresentable {
     let variants: [PreviewVariant<ActionButtonData>] = [
         #previewVariant(
             """
+            With translations (en, de, fr) and an icon-only button with the built-in fallback label
+            """,
+            ActionButtonData(
+                id: "btn-i18n",
+                label: LocalizedText(
+                    en: "Save",
+                    translations: ["de": "Speichern", "fr": "Enregistrer"]
+                ),
+                tooltip: LocalizedText(
+                    en: "Save your changes",
+                    translations: [
+                        "de": "Änderungen speichern",
+                        "fr": "Enregistrer vos modifications",
+                    ]
+                ),
+                tooltipPosition: .bottom,
+                htmlType: .button,
+                buttonType: .primary,
+                icon: .airplane,
+                matomoStatus: .DEACTIVATED,
+                contentTracker: tracker
+            )
+        ),
+        #previewVariant(
+            """
+            Icon only, no texts: the aria-label "Action" is built in and translated
+            """,
+            ActionButtonData(
+                id: "btn-i18n-fallback",
+                htmlType: .button,
+                buttonType: .icon,
+                matomoStatus: .DEACTIVATED,
+                contentTracker: tracker
+            )
+        ),
+        #previewVariant(
+            """
             Primary Button
             """,
             ActionButtonData(

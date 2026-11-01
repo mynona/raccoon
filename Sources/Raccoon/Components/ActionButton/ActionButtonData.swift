@@ -19,11 +19,11 @@ public struct ActionButtonData: Sendable {
     public let bindAriaPressed: String?
 
     // MARK: - 2. Content & Accessibility
-    public let label: String?
-    public let ariaLabel: String?
+    public let label: LocalizedText?
+    public let ariaLabel: LocalizedText?
     public let tooltipId: String?
     public let bindTooltipId: String?
-    public let tooltip: String?
+    public let tooltip: LocalizedText?
     public let tooltipPosition: ComponentPosition?
 
     // MARK: - 5. Presentation & State
@@ -50,7 +50,8 @@ public struct ActionButtonData: Sendable {
     ///   - method: HTTP method paired with `action`.
     ///   - bindAriaExpanded: Optional Alpine expression bound to `:aria-expanded`.
     ///   - bindAriaPressed: Optional Alpine expression bound to `:aria-pressed`.
-    ///   - label: Label of the button.
+    ///   - label: Label of the button. A string literal is shown as given in every language; pass
+    ///     `LocalizedText(en:translations:)` to provide translations. The same applies to `ariaLabel` and `tooltip`.
     ///   - ariaLabel: Accessibility label override for screen readers.
     ///   - tooltipId: Optional stable id for the tooltip reference. Falls back to a deterministic hash when not provided.
     ///   - bindTooltipId: Dynamic Alpine binding for the tooltip reference.
@@ -77,11 +78,11 @@ public struct ActionButtonData: Sendable {
         bindAriaPressed: String? = nil,
 
         // 2. Content & Accessibility
-        label: String? = nil,
-        ariaLabel: String? = nil,
+        label: LocalizedText? = nil,
+        ariaLabel: LocalizedText? = nil,
         tooltipId: String? = nil,
         bindTooltipId: String? = nil,
-        tooltip: String? = nil,
+        tooltip: LocalizedText? = nil,
         tooltipPosition: ComponentPosition? = nil,
 
         // 5. Presentation & State

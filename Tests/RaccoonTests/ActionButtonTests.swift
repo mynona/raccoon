@@ -150,7 +150,7 @@ struct ActionButtonTests {
         let html = renderHTML(
             ActionButton(
                 ActionButtonData(
-                    label: longLabel,
+                    label: LocalizedText(verbatim: longLabel),
                     buttonType: .primary,
                     contentTracker: tracker
                 )
@@ -420,5 +420,83 @@ struct ActionButtonTests {
         #expect(html.contains("break-words"))
         #expect(html.contains("flex-none shrink-0"))
         #expect(html.contains("aria-hidden=\"true\""))
+    }
+
+    // MARK: localization
+
+    private func render(_ data: ActionButtonData, language: String = "en")
+        -> String
+    {
+        I18n.render(language: language) {
+            renderHTML(ActionButton(data).render())
+        }
+    }
+
+    @Test(
+        "a button without texts and icon falls back to the built-in 'Action' label"
+    )
+    func fallbackAriaLabelIsLocalized() {
+        let data = ActionButtonData(
+            buttonType: .primary,
+            contentTracker: tracker
+        )
+        let english = render(data)
+        #expect(english.contains("aria-label=\"Action\""))
+        #expect(
+            english.contains("data-i18n-aria-label=\"actionbutton.action\"")
+        )
+        #expect(render(data, language: "de").contains("aria-label=\"Aktion\""))
+    }
+
+    @Test("an icon name stays a plain aria-label without marker")
+    func iconNameIsPlain() {
+        let data = ActionButtonData(
+            buttonType: .icon,
+            icon: .airplane,
+            contentTracker: tracker
+        )
+        let html = render(data, language: "de")
+        #expect(html.contains("aria-label=\"airplane\""))
+        #expect(!html.contains("data-i18n"))
+    }
+
+    @Test("a consumer label is rendered in the page language with its marker")
+    func consumerLabel() {
+        let data = ActionButtonData(
+            label: LocalizedText(en: "Save", translations: ["de": "Speichern"]),
+            buttonType: .primary,
+            contentTracker: tracker
+        )
+        let html = render(data, language: "de")
+        #expect(html.contains(">Speichern</span>"))
+        #expect(html.contains("data-i18n-values="))
+    }
+
+    @Test(
+        "a consumer tooltip is the aria-label of an icon-only button and follows the language"
+    )
+    func consumerTooltip() {
+        let data = ActionButtonData(
+            tooltip: LocalizedText(en: "Open", translations: ["de": "Öffnen"]),
+            buttonType: .icon,
+            icon: .airplane,
+            contentTracker: tracker
+        )
+        let html = render(data, language: "de")
+        #expect(html.contains("aria-label=\"Öffnen\""))
+        #expect(html.contains("data-i18n-aria-label-values="))
+        #expect(html.contains("RaccoonI18n.pick("))
+    }
+
+    @Test("a literal label stays plain in every language")
+    func literalLabelIsPlain() {
+        let data = ActionButtonData(
+            label: "Home",
+            buttonType: .primary,
+            contentTracker: tracker
+        )
+        let html = render(data, language: "de")
+        #expect(html.contains(">Home</span>"))
+        #expect(!html.contains("data-i18n"))
     }
 }

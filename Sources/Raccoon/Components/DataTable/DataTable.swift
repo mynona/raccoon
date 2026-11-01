@@ -353,7 +353,7 @@ public struct DataTable: TemplateRepresentable {
                     ActionButtonData(
                         id: "\(data.id)-apply",
                         clickAction: "applyFilters()",
-                        label: data.labels.apply,
+                        label: LocalizedText(verbatim: data.labels.apply),
                         htmlType: .button,
                         buttonType: .primary,
                         contentTracker: MatomoContentTracker(

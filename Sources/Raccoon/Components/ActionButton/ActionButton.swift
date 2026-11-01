@@ -31,7 +31,7 @@ public struct ActionButton: TemplateRepresentable {
                 TooltipData(
                     id: referenceId,
                     bindId: data.bindTooltipId,
-                    text: LocalizedText(verbatim: tooltipText),  // i18n-todo
+                    text: tooltipText,
                     position: getTooltipPosition(),
                     hasArrow: true
                 )
@@ -58,7 +58,8 @@ public struct ActionButton: TemplateRepresentable {
         if let icon = data.icon {
             let iconSize = getIconSize()
             let isDecorative =
-                (data.label?.trimmingCharacters(in: .whitespacesAndNewlines)
+                (data.label?.english
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
                     .isEmpty == false)
             Div {
                 Svg.icon(icon, width: iconSize, height: iconSize)
@@ -72,22 +73,29 @@ public struct ActionButton: TemplateRepresentable {
 
     // MARK: label
 
-    func computedAriaLabel() -> String? {
+    func computedAriaLabel() -> LocalizedText? {
         if let ariaLabel = data.ariaLabel {
             return ariaLabel
         }
         if data.label == nil
-            || data.label?.trimmingCharacters(in: .whitespacesAndNewlines)
+            || data.label?.english
+                .trimmingCharacters(in: .whitespacesAndNewlines)
                 .isEmpty == true
         {
-            if let tooltip = data.tooltip, !tooltip.isEmpty {
+            if let tooltip = data.tooltip, !tooltip.english.isEmpty {
                 return tooltip
             }
             else if let icon = data.icon {
-                return icon.rawValue.replacingOccurrences(of: "_", with: " ")
+                // The icon name is an identifier, not a translatable text
+                return LocalizedText(
+                    verbatim: icon.rawValue.replacingOccurrences(
+                        of: "_",
+                        with: " "
+                    )
+                )
             }
             else {
-                return "Action"
+                return LocalizedText("actionbutton.action", "Action")
             }
         }
         return nil
@@ -102,7 +110,8 @@ public struct ActionButton: TemplateRepresentable {
                 case .base: styles.textSizeBase
                 case .xl: styles.textSizeLarge
                 }
-            Span(label)
+            Span(label.resolved)
+                .localized(label)
                 .class(
                     "flex-1 min-w-0 break-words text-left leading-normal tracking-wide"
                 )
@@ -117,7 +126,7 @@ public struct ActionButton: TemplateRepresentable {
         let tooltipReference: String? =
             if data.tooltip != nil {
                 data.tooltipId
-                    ?? "tooltip-\(StableIdentifier.unique(data.tooltip ?? data.label ?? data.icon?.rawValue ?? data.id ?? "button"))"
+                    ?? "tooltip-\(StableIdentifier.unique(data.tooltip?.english ?? data.label?.english ?? data.icon?.rawValue ?? data.id ?? "button"))"
             }
             else {
                 nil
@@ -215,7 +224,7 @@ public struct ActionButton: TemplateRepresentable {
             }
             .if(ariaLabelText != nil) {
                 if let ariaLabelText {
-                    return $0.ariaLabel(ariaLabelText)
+                    return $0.localized(.ariaLabel, ariaLabelText)
                 }
                 return $0
             }

@@ -117,6 +117,7 @@ public enum I18n {
 public enum Translations {
     public static let all: [String: [String: [String: String]]] = [
         "label": label,
+        "actionbutton": actionbutton,
         "linkbutton": linkbutton,
     ]
 
