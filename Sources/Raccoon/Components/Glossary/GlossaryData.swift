@@ -1,4 +1,3 @@
-
 /// Configuration data for the `Glossary` component.
 public struct GlossaryData: Sendable {
 
@@ -6,9 +5,10 @@ public struct GlossaryData: Sendable {
     public let id: String?
 
     // MARK: - 2. Content & Accessibility
-    public let searchPlaceholder: String
-    public let searchAriaLabel: String
-    public let noResultsText: String
+    /// `nil` shows the built-in, translated defaults.
+    public let searchPlaceholder: LocalizedText?
+    public let searchAriaLabel: LocalizedText?
+    public let noResultsText: LocalizedText?
 
     // MARK: - 3. Value & Options
     public let entries: [GlossaryEntryData]
@@ -30,17 +30,17 @@ public struct GlossaryData: Sendable {
     ///
     /// - Parameters:
     ///   - id: Optional identifier for the glossary container.
-    ///   - searchPlaceholder: Placeholder text for the search filter input.
+    ///   - searchPlaceholder: Placeholder text for the search filter input. Defaults to the built-in, translated "Search glossary".
     ///   - searchAriaLabel: Accessible description for the search filter input.
-    ///   - noResultsText: Text to display when no glossary entries match the search filter.
+    ///   - noResultsText: Text to display when no glossary entries match the search filter. Defaults to the built-in, translated text.
     ///   - entries: Array of glossary entries to present in the glossary list.
     ///   - hasSearch: Whether to render an in-page search filter bar above the entries.
     ///   - matomoStatus: Matomo tracking consent status.
     public init(
         id: String? = nil,
-        searchPlaceholder: String = "Search glossary",
-        searchAriaLabel: String = "Search glossary",
-        noResultsText: String = "No matching glossary entries found",
+        searchPlaceholder: LocalizedText? = nil,
+        searchAriaLabel: LocalizedText? = nil,
+        noResultsText: LocalizedText? = nil,
         entries: [GlossaryEntryData],
         hasSearch: Bool = true,
         matomoStatus: MatomoStatus = .DEACTIVATED

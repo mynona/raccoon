@@ -76,7 +76,13 @@ public struct DarkLightModeToggle: TemplateRepresentable {
                 }
                 return $0
             }
-            .ariaLabel("Switch dark and light mode")
+            .localized(
+                .ariaLabel,
+                LocalizedText(
+                    "darklightmodetoggle.switch",
+                    "Switch dark and light mode"
+                )
+            )
             .flagAttribute("x-cloak")
             .setAttribute(name: "@click", value: "toggle()")
             .class(styles.button)

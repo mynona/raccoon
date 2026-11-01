@@ -122,6 +122,8 @@ public enum Translations {
         "breadcrumb": breadcrumb,
         "toggleswitch": toggleswitch,
         "copytoclipboard": copytoclipboard,
+        "darklightmodetoggle": darklightmodetoggle,
+        "glossary": glossary,
         "linkbutton": linkbutton,
         "pagination": pagination,
         "searchfield": searchfield,

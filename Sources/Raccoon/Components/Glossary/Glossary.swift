@@ -13,6 +13,16 @@ public struct Glossary: TemplateRepresentable {
         self.data = data
     }
 
+    private static let title = LocalizedText("glossary.title", "Glossary")
+    private static let search = LocalizedText(
+        "glossary.search",
+        "Search glossary"
+    )
+    private static let noResults = LocalizedText(
+        "glossary.noResults",
+        "No matching glossary entries found"
+    )
+
     @Builder<Element>
     private func showSearchField() -> [Element] {
         Div {
@@ -21,10 +31,8 @@ public struct Glossary: TemplateRepresentable {
                     name: "glossarySearchInput",
                     bindModel: "search",
                     bindRef: "searchInput",
-                    placeholder: LocalizedText(
-                        verbatim: data.searchPlaceholder
-                    ),  // i18n-todo
-                    ariaLabel: LocalizedText(verbatim: data.searchAriaLabel)  // i18n-todo
+                    placeholder: data.searchPlaceholder ?? Self.search,
+                    ariaLabel: data.searchAriaLabel ?? Self.search
                 )
             )
             .render()
@@ -35,7 +43,9 @@ public struct Glossary: TemplateRepresentable {
     @Builder<Element>
     private func showNoResultsNotice() -> [Element] {
         Div {
-            P(data.noResultsText)
+            let noResults = data.noResultsText ?? Self.noResults
+            P(noResults.resolved)
+                .localized(noResults)
                 .addClass(styles.textColorNoResults)
         }
         .setAttribute(
@@ -189,7 +199,7 @@ public struct Glossary: TemplateRepresentable {
                 renderEntries()
             }
         }
-        .ariaLabel("Glossary")
+        .localized(.ariaLabel, Self.title)
         .if(data.id != nil) {
             $0.id(data.id!)
         }

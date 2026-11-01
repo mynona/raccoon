@@ -141,4 +141,37 @@ struct GlossaryTests {
         // Check that redundant keyboard shortcut kbd icon is omitted from accordions
         #expect(!html.contains("<kbd"))
     }
+
+    // MARK: localization
+
+    @Test("the defaults are built in and translated; own texts replace them")
+    func localizedDefaults() {
+        let entries = [GlossaryEntryData(term: "Alpha", definition: "First")]
+        let data = GlossaryData(entries: entries)
+        let english = renderHTML(Glossary(data).render())
+        #expect(english.contains("placeholder=\"Search glossary\""))
+        #expect(english.contains("data-i18n-aria-label=\"glossary.title\""))
+        #expect(english.contains("data-i18n=\"glossary.noResults\""))
+
+        let german = I18n.render(language: "de") {
+            renderHTML(Glossary(data).render())
+        }
+        #expect(german.contains("placeholder=\"Glossar durchsuchen\""))
+        #expect(german.contains("aria-label=\"Glossar\""))
+        #expect(
+            german.contains(">Keine passenden Glossareinträge gefunden</p>")
+        )
+
+        let own = GlossaryData(
+            searchPlaceholder: LocalizedText(
+                en: "Find",
+                translations: ["de": "Finden"]
+            ),
+            entries: entries
+        )
+        let custom = I18n.render(language: "de") {
+            renderHTML(Glossary(own).render())
+        }
+        #expect(custom.contains("placeholder=\"Finden\""))
+    }
 }

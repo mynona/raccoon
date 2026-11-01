@@ -98,4 +98,27 @@ struct DarkLightModeToggleTests {
         #expect(script.contains("prefers-color-scheme:dark"))
         #expect(script.contains("localStorage.setItem('colorMode', 'dark')"))
     }
+
+    // MARK: localization
+
+    @Test("the aria-label is built in and translated")
+    func localizedAriaLabel() {
+        let english = renderHTML(
+            DarkLightModeToggle(DarkLightModeToggleData()).render()
+        )
+        #expect(english.contains("aria-label=\"Switch dark and light mode\""))
+        #expect(
+            english.contains(
+                "data-i18n-aria-label=\"darklightmodetoggle.switch\""
+            )
+        )
+        let german = I18n.render(language: "de") {
+            renderHTML(DarkLightModeToggle(DarkLightModeToggleData()).render())
+        }
+        #expect(
+            german.contains(
+                "aria-label=\"Zwischen dunklem und hellem Modus wechseln\""
+            )
+        )
+    }
 }
