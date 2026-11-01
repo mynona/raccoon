@@ -99,8 +99,8 @@ struct LinkButtonTests {
         let html = renderHTML(
             LinkButton(
                 LinkButtonData(
-                    label: label,
-                    ariaLabel: label,
+                    label: LocalizedText(verbatim: label),
+                    ariaLabel: LocalizedText(verbatim: label),
                     href: "/long/",
                     buttonType: .primary,
                     contentTracker: tracker
@@ -189,8 +189,8 @@ struct LinkButtonTests {
         let html = renderHTML(
             LinkButton(
                 LinkButtonData(
-                    label: label,
-                    ariaLabel: ariaLabel,
+                    label: label.map(LocalizedText.init(verbatim:)),
+                    ariaLabel: LocalizedText(verbatim: ariaLabel),
                     href: href,
                     hreflang: hreflang,
                     buttonType: type,
@@ -356,5 +356,107 @@ struct LinkButtonTests {
             )
         )
         #expect(html.contains("w-full"))
+    }
+
+    // MARK: localization
+
+    private func render(_ data: LinkButtonData, language: String = "en")
+        -> String
+    {
+        I18n.render(language: language) {
+            renderHTML(LinkButton(data).render())
+        }
+    }
+
+    @Test(
+        "an icon-only button without texts falls back to the built-in 'Link' label"
+    )
+    func fallbackAriaLabelIsLocalized() {
+        let data = LinkButtonData(
+            href: "/x",
+            buttonType: .primary,
+            contentTracker: tracker
+        )
+        let english = render(data)
+        #expect(english.contains("aria-label=\"Link\""))
+        #expect(english.contains("data-i18n-aria-label=\"linkbutton.link\""))
+        let french = render(data, language: "fr")
+        #expect(french.contains("aria-label=\"Lien\""))
+    }
+
+    @Test("an icon name stays a plain aria-label without marker")
+    func iconNameIsPlain() {
+        let data = LinkButtonData(
+            href: "/x",
+            buttonType: .icon,
+            icon: .airplane,
+            contentTracker: tracker
+        )
+        let html = render(data, language: "de")
+        #expect(html.contains("aria-label=\"airplane\""))
+        #expect(!html.contains("data-i18n"))
+    }
+
+    @Test("a consumer label is rendered in the page language with its marker")
+    func consumerLabel() {
+        let data = LinkButtonData(
+            label: LocalizedText(en: "Save", translations: ["de": "Speichern"]),
+            href: "/x",
+            buttonType: .primary,
+            contentTracker: tracker
+        )
+        let html = render(data, language: "de")
+        #expect(html.contains(">Speichern</span>"))
+        #expect(html.contains("data-i18n-values="))
+    }
+
+    @Test("a consumer tooltip is used as aria-label of an icon-only button")
+    func consumerTooltipAsAriaLabel() {
+        let data = LinkButtonData(
+            tooltip: LocalizedText(en: "Open", translations: ["de": "Öffnen"]),
+            href: "/x",
+            buttonType: .icon,
+            icon: .airplane,
+            contentTracker: tracker
+        )
+        let html = render(data, language: "de")
+        #expect(html.contains("aria-label=\"Öffnen\""))
+        #expect(html.contains("data-i18n-aria-label-values="))
+        #expect(html.contains("RaccoonI18n.pick("))
+    }
+
+    @Test("a literal label stays plain in every language")
+    func literalLabelIsPlain() {
+        let data = LinkButtonData(
+            label: "Home",
+            href: "/x",
+            buttonType: .primary,
+            contentTracker: tracker
+        )
+        let html = render(data, language: "de")
+        #expect(html.contains(">Home</span>"))
+        #expect(!html.contains("data-i18n"))
+    }
+
+    @Test(
+        "the tooltip id is derived from the English text and does not change per language"
+    )
+    func tooltipIdIsStable() {
+        let data = LinkButtonData(
+            tooltip: LocalizedText(en: "Open", translations: ["de": "Öffnen"]),
+            href: "/x",
+            buttonType: .icon,
+            icon: .airplane,
+            contentTracker: tracker
+        )
+        // The id is "tooltip-<hash of the English text>-<random suffix>"
+        func tooltipIdPrefix(_ html: String) -> String? {
+            html.components(separatedBy: "x-ref=\"tooltip-").dropFirst().first?
+                .components(separatedBy: "-").first
+        }
+        let english = render(data)
+        let german = render(data, language: "de")
+        #expect(tooltipIdPrefix(english) != nil)
+        #expect(tooltipIdPrefix(english) == tooltipIdPrefix(german))
     }
 }

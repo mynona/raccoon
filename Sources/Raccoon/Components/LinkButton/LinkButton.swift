@@ -28,7 +28,7 @@ public struct LinkButton: TemplateRepresentable {
             Tooltip(
                 TooltipData(
                     id: referenceId,
-                    text: LocalizedText(verbatim: tooltipText),  // i18n-todo
+                    text: tooltipText,
                     position: getTooltipPosition(),
                     hasArrow: true
                 )
@@ -55,22 +55,30 @@ public struct LinkButton: TemplateRepresentable {
 
     // MARK: label
 
-    func computedAriaLabel() -> String? {
-        let hasVisibleLabel = !(data.label ?? "")
+    func computedAriaLabel() -> LocalizedText? {
+        let hasVisibleLabel = !(data.label?.english ?? "")
             .trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         if hasVisibleLabel { return nil }
-        if let ariaLabel = data.ariaLabel, !ariaLabel.isEmpty {
+        if let ariaLabel = data.ariaLabel, !ariaLabel.english.isEmpty {
             return ariaLabel
         }
-        if let tooltip = data.tooltip, !tooltip.isEmpty { return tooltip }
-        return data.icon?.rawValue.replacingOccurrences(of: "_", with: " ")
-            ?? "Link"
+        if let tooltip = data.tooltip, !tooltip.english.isEmpty {
+            return tooltip
+        }
+        if let icon = data.icon {
+            // The icon name is an identifier, not a translatable text
+            return LocalizedText(
+                verbatim: icon.rawValue.replacingOccurrences(of: "_", with: " ")
+            )
+        }
+        return LocalizedText("linkbutton.link", "Link")
     }
 
     @Builder<Element>
     func showLabel() -> [Element] {
         if let label = data.label {
-            Span(label)
+            Span(label.resolved)
+                .localized(label)
                 .class("flex-1")
                 .if(data.hasTruncation) {
                     $0.addClass("truncate max-w-xs md:max-w-none md:text-clip")
@@ -88,7 +96,7 @@ public struct LinkButton: TemplateRepresentable {
         let tooltipReference: String? =
             if data.tooltip != nil {
                 data.tooltipId
-                    ?? "tooltip-\(StableIdentifier.unique(data.tooltip ?? data.label ?? data.href))"
+                    ?? "tooltip-\(StableIdentifier.unique(data.tooltip?.english ?? data.label?.english ?? data.href))"
             }
             else {
                 nil
@@ -130,7 +138,7 @@ public struct LinkButton: TemplateRepresentable {
             .addClass("rounded-md")
             .addClass(variantClass)
             .if(computedAriaLabel() != nil) {
-                $0.setAttribute(name: "aria-label", value: computedAriaLabel()!)
+                $0.localized(.ariaLabel, computedAriaLabel()!)
             }
             // Tooltip
             .if(tooltipReference != nil) {

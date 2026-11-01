@@ -17,8 +17,8 @@ public struct LinkList: TemplateRepresentable {
     func showLink(key: String, value: String) -> [Element] {
         LinkButton(
             LinkButtonData(
-                label: key,
-                ariaLabel: key,
+                label: LocalizedText(verbatim: key),  // i18n-todo
+                ariaLabel: LocalizedText(verbatim: key),  // i18n-todo
                 href: value,
                 hreflang: AppValues.lang,
                 buttonType: .tertiary,

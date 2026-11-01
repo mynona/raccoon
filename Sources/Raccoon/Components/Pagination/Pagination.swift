@@ -22,8 +22,10 @@ public struct Pagination: TemplateRepresentable {
             Div {
                 LinkButton(
                     LinkButtonData(
-                        label: tableOfContent.title,
-                        ariaLabel: tableOfContent.title,
+                        label: LocalizedText(verbatim: tableOfContent.title),  // i18n-todo
+                        ariaLabel: LocalizedText(
+                            verbatim: tableOfContent.title
+                        ),  // i18n-todo
                         href: data.hrefBase,
                         hreflang: AppValues.lang,
                         buttonType: .tertiary,
@@ -53,9 +55,14 @@ public struct Pagination: TemplateRepresentable {
             LinkButton(
                 LinkButtonData(
                     label: nil,
-                    ariaLabel: (direction == .first)
-                        ? "First page: \(title)" : "Last page: \(title)",
-                    tooltip: (direction == .first) ? "First page" : "Last page",
+                    ariaLabel: LocalizedText(  // i18n-todo
+                        verbatim: (direction == .first)
+                            ? "First page: \(title)" : "Last page: \(title)"
+                    ),
+                    tooltip: LocalizedText(  // i18n-todo
+                        verbatim: (direction == .first)
+                            ? "First page" : "Last page"
+                    ),
                     tooltipPosition: .bottom,
                     href: destination,
                     hreflang: AppValues.lang,
@@ -100,9 +107,11 @@ public struct Pagination: TemplateRepresentable {
         Li {
             LinkButton(
                 LinkButtonData(
-                    label: "\(pageNumber)",
-                    ariaLabel: "Page \(pageNumber): \(page.element.title)",
-                    tooltip: "Page \(pageNumber)",
+                    label: LocalizedText(verbatim: "\(pageNumber)"),
+                    ariaLabel: LocalizedText(  // i18n-todo
+                        verbatim: "Page \(pageNumber): \(page.element.title)"
+                    ),
+                    tooltip: LocalizedText(verbatim: "Page \(pageNumber)"),  // i18n-todo
                     tooltipPosition: .bottom,
                     href: "\(data.hrefBase)/\(page.element.friendly_url)",
                     hreflang: AppValues.lang,

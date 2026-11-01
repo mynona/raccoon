@@ -10,6 +10,45 @@ struct LinkButtonView: TemplateRepresentable {
     let variants: [PreviewVariant<LinkButtonData>] = [
         #previewVariant(
             """
+            // With translations (en, de, fr) and icon-only with the built-in fallback label
+            """,
+            LinkButtonData(
+                label: LocalizedText(
+                    en: "Save",
+                    translations: ["de": "Speichern", "fr": "Enregistrer"]
+                ),
+                tooltip: LocalizedText(
+                    en: "Save your changes",
+                    translations: [
+                        "de": "Änderungen speichern",
+                        "fr": "Enregistrer vos modifications",
+                    ]
+                ),
+                tooltipPosition: .bottom,
+                href: "#",
+                hreflang: "en-US",
+                buttonType: .primary,
+                icon: .airplane,
+                iconSize: 16,
+                hasFullWidth: false,
+                contentTracker: tracker
+            )
+        ),
+        #previewVariant(
+            """
+            // Icon only, no texts: the aria-label "Link" is built in and translated
+            """,
+            LinkButtonData(
+                href: "#",
+                hreflang: "en-US",
+                buttonType: .icon,
+                icon: nil,
+                iconSize: nil,
+                contentTracker: tracker
+            )
+        ),
+        #previewVariant(
+            """
             // .primary
             """,
             LinkButtonData(

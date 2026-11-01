@@ -116,7 +116,8 @@ public enum I18n {
 /// Built-in translations: `[namespace: [key: [language: text]]]`. One table per component, listed in `all`.
 public enum Translations {
     public static let all: [String: [String: [String: String]]] = [
-        "label": label
+        "label": label,
+        "linkbutton": linkbutton,
     ]
 
     static let label: [String: [String: String]] = [

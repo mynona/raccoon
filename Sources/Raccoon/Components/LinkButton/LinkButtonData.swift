@@ -18,11 +18,11 @@ import SVG
 public struct LinkButtonData: Sendable {
 
     /// Optional visible label for the button. If `nil`, only the icon is shown.
-    public let label: String?
+    public let label: LocalizedText?
     /// Optional accessibility label override. Only used when there is no visible `label`
     /// (falls back to `tooltip`, then the icon name); ignored otherwise so the visible text
     /// stays the accessible name (WCAG 2.5.3 Label in Name).
-    public let ariaLabel: String?
+    public let ariaLabel: LocalizedText?
     /// Optional stable id used for the tooltip reference. Falls back to a deterministic
     /// hash of the tooltip/label/href when not provided.
     public let tooltipId: String?
@@ -43,10 +43,13 @@ public struct LinkButtonData: Sendable {
     public let hasTruncation: Bool
     public let matomoStatus: MatomoStatus
     public let contentTracker: MatomoContentTracker
-    public let tooltip: String?
+    public let tooltip: LocalizedText?
     public let tooltipPosition: ComponentPosition?
 
     /// Creates a new configuration instance for `LinkButton`.
+    ///
+    /// The texts (`label`, `ariaLabel`, `tooltip`) take a string literal (shown as given in every language)
+    /// or a `LocalizedText(en:translations:)`.
     ///
     /// - Parameters:
     ///   - label: Optional visible label for the button.
@@ -64,10 +67,10 @@ public struct LinkButtonData: Sendable {
     ///   - matomoStatus: Matomo tracking consent status.
     ///   - contentTracker: Matomo content tracking configuration.
     public init(
-        label: String? = nil,
-        ariaLabel: String? = nil,
+        label: LocalizedText? = nil,
+        ariaLabel: LocalizedText? = nil,
         tooltipId: String? = nil,
-        tooltip: String? = nil,
+        tooltip: LocalizedText? = nil,
         tooltipPosition: ComponentPosition? = nil,
         href: String,
         hreflang: String? = AppValues.lang,
