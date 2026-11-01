@@ -107,52 +107,42 @@ public struct Basic: TemplateRepresentable {
             }
             .class("px-4 pt-3 pb-2 shrink-0")
 
-            // Navigation groups
+            // Navigation
             Nav {
-                for group in PreviewNavigation.groups {
-                    Div {
-                        H2(group.name)
-                            .class(styles.groupTitle)
-
+                Ul {
+                    for group in PreviewNavigation.groups {
                         for section in group.sections {
-                            Div {
-                                if let sectionTitle = section.title {
-                                    H3(sectionTitle.resolved)
-                                        .localized(sectionTitle)
-                                        .class(styles.subGroupTitle)
-                                }
+                            for item in section.items {
+                                let option = SimpleMenuOption(
+                                    id: item.url,
+                                    // Component names are fixed terms
+                                    title: LocalizedText(
+                                        verbatim: item.title
+                                    ),
+                                    isSelected: item.url == currentPath,
+                                    href: item.url,
+                                    icon: item.isOpenInNewTab
+                                        ? .arrow_up_right_square : nil,
+                                    role: nil
+                                )
 
-                                Ul {
-                                    for item in section.items {
-                                        let option = SimpleMenuOption(
-                                            id: item.url,
-                                            // Component names are fixed terms
-                                            title: LocalizedText(
-                                                verbatim: item.title
-                                            ),
-                                            isSelected: item.url == currentPath,
-                                            href: item.url,
-                                            icon: item.isOpenInNewTab
-                                                ? .arrow_up_right_square : nil,
-                                            role: nil
-                                        )
-
-                                        Li {
-                                            showSidebarOption(
-                                                option,
-                                                isOpenInNewTab: item
-                                                    .isOpenInNewTab
-                                            )
-                                        }
-                                        .class("py-2")
-                                    }
+                                Li {
+                                    showSidebarOption(
+                                        option,
+                                        isOpenInNewTab: item
+                                            .isOpenInNewTab
+                                    )
                                 }
-                                .class(styles.navList)
+                                .setAttribute(
+                                    name: "x-show",
+                                    value:
+                                        "!search || '\(item.title.lowercased())'.includes(search.toLowerCase().trim())"
+                                )
                             }
-                            .class(styles.navSection)
                         }
                     }
                 }
+                .class(styles.navList)
             }
             .ariaLabel("Component preview navigation")
             .class(styles.sidebarNav)
@@ -207,11 +197,6 @@ public struct Basic: TemplateRepresentable {
                         value: "noopener noreferrer"
                     )
             }
-            .setAttribute(
-                name: "x-show",
-                value:
-                    "!search || '\(option.title.english.lowercased())'.includes(search.toLowerCase())"
-            )
         }
     }
 
