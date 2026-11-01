@@ -33,7 +33,7 @@ public struct ErrorMessage: TemplateRepresentable {
                 for (index, error) in errors.enumerated() {
                     Div {
                         if data.hasIcon { showIcon() }
-                        Div { P("\(error)") }.class("flex-1")
+                        Div { P(error.resolved).localized(error) }.class("flex-1")
                     }
                     .if(data.id != nil) {
                         if let id = data.id {

@@ -49,7 +49,7 @@ struct ErrorMessageTests {
         let longMsg = String(repeating: "E", count: 256)
         let ctxLong = ErrorMessageData(
             id: "long",
-            errorMessages: [longMsg]
+            errorMessages: [LocalizedText(verbatim: longMsg)]
         )
         let htmlEmpty = renderHTML(ErrorMessage(ctxEmpty).render())
         let htmlLong = renderHTML(ErrorMessage(ctxLong).render())
@@ -109,5 +109,30 @@ struct ErrorMessageTests {
         #expect(htmlNil.contains("<!-- Error Message -->"))
         #expect(!htmlNil.contains("role=\"alert\""))
         #expect(!htmlEmpty.contains("role=\"alert\""))
+    }
+
+    @Test("a literal error is a plain text without marker")
+    func literalErrorHasNoMarker() {
+        let data = ErrorMessageData(id: "e", errorMessages: ["Required"])
+        let html = I18n.render(language: "de") {
+            renderHTML(ErrorMessage(data).render())
+        }
+        #expect(html.contains(">Required</p>"))
+        #expect(!html.contains("data-i18n"))
+    }
+
+    @Test("a consumer error is rendered in the page language with its values")
+    func consumerErrorIsTranslated() {
+        let data = ErrorMessageData(
+            id: "e",
+            errorMessages: [
+                LocalizedText(en: "Required", translations: ["de": "Pflichtfeld"])
+            ]
+        )
+        let html = I18n.render(language: "de") {
+            renderHTML(ErrorMessage(data).render())
+        }
+        #expect(html.contains(">Pflichtfeld</p>"))
+        #expect(html.contains("data-i18n-values="))
     }
 }
