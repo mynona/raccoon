@@ -46,9 +46,9 @@ public struct DataTable: TemplateRepresentable {
                     bindRef: "searchInput",
                     bindKeyup: "onSearchInput()",
                     bindClearAction: "clearSearch()",
-                    placeholder: search.placeholder,
-                    ariaLabel: search.label,
-                    clearAriaLabel: search.clearLabel,
+                    placeholder: LocalizedText(verbatim: search.placeholder),
+                    ariaLabel: LocalizedText(verbatim: search.label),
+                    clearAriaLabel: LocalizedText(verbatim: search.clearLabel),
                     loadingBind: "isLoading"
                 )
             )
@@ -186,7 +186,11 @@ public struct DataTable: TemplateRepresentable {
     }
 
     private func label(_ id: String, _ title: String) -> LabelData {
-        LabelData(id: id, title: LocalizedText(verbatim: title), isRequired: false)
+        LabelData(
+            id: id,
+            title: LocalizedText(verbatim: title),
+            isRequired: false
+        )
     }
 
     private func dropdownOptions(

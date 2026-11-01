@@ -16,6 +16,25 @@ struct SearchFieldView: TemplateRepresentable {
         ),
         #previewVariant(
             """
+            // Own texts with translations (en, de, fr)
+            """,
+            SearchFieldData(
+                placeholder: LocalizedText(
+                    en: "Find articles",
+                    translations: [
+                        "de": "Artikel finden", "fr": "Trouver des articles",
+                    ]
+                ),
+                ariaLabel: LocalizedText(
+                    en: "Find articles",
+                    translations: [
+                        "de": "Artikel finden", "fr": "Trouver des articles",
+                    ]
+                )
+            )
+        ),
+        #previewVariant(
+            """
             // Small size variant (.sm) for compact sidebars and headers
             """,
             SearchFieldData(

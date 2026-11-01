@@ -33,14 +33,14 @@ public struct SearchFieldData: Sendable {
 
     // MARK: - 2. Content & Accessibility
 
-    /// Placeholder ghost text displayed when the input is empty.
-    public let placeholder: String
+    /// Placeholder ghost text displayed when the input is empty. `nil` shows the built-in, translated "Search".
+    public let placeholder: LocalizedText?
 
-    /// Accessible name for the search input (`aria-label`).
-    public let ariaLabel: String
+    /// Accessible name for the search input (`aria-label`). `nil` shows the built-in, translated "Search".
+    public let ariaLabel: LocalizedText?
 
-    /// Accessible name for the clear button (`aria-label`).
-    public let clearAriaLabel: String
+    /// Accessible name for the clear button (`aria-label`). `nil` shows the built-in, translated "Clear search".
+    public let clearAriaLabel: LocalizedText?
 
     /// Optional identifier of the element whose contents are controlled by this search input (`aria-controls`).
     public let ariaControls: String?
@@ -99,9 +99,9 @@ public struct SearchFieldData: Sendable {
     ///   - bindClearAction: Optional custom Alpine.js expression to evaluate on clear button click.
     ///   - bindClearShow: Optional custom Alpine.js visibility expression for the clear button.
     ///   - tabindex: Optional tabindex attribute value for the input element.
-    ///   - placeholder: Placeholder ghost text displayed when the input is empty.
+    ///   - placeholder: Placeholder ghost text displayed when the input is empty. Defaults to the built-in, translated "Search".
     ///   - ariaLabel: Accessible name for the search input (`aria-label`).
-    ///   - clearAriaLabel: Accessible name for the clear button (`aria-label`).
+    ///   - clearAriaLabel: Accessible name for the clear button (`aria-label`). Defaults to the built-in, translated "Clear search".
     ///   - ariaControls: Optional identifier of the element controlled by this search input (`aria-controls`).
     ///   - iconTitle: Optional accessible title forwarded to the leading SVG icon.
     ///   - value: Pre-filled string value for the search input.
@@ -126,9 +126,9 @@ public struct SearchFieldData: Sendable {
         tabindex: String? = nil,
 
         // 2. Content & Accessibility
-        placeholder: String = "Search",
-        ariaLabel: String = "Search",
-        clearAriaLabel: String = "Clear search",
+        placeholder: LocalizedText? = nil,
+        ariaLabel: LocalizedText? = nil,
+        clearAriaLabel: LocalizedText? = nil,
         ariaControls: String? = nil,
         iconTitle: String? = nil,
 

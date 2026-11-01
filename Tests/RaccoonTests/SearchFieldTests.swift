@@ -275,4 +275,63 @@ struct SearchFieldTests {
         #expect(html.contains("value=\"Initial text\""))
         #expect(html.contains("disabled=\"\"") || html.contains("disabled"))
     }
+
+    // MARK: localization
+
+    @Test(
+        "the defaults are built-in texts with markers and follow the page language"
+    )
+    func defaultsAreLocalized() {
+        let english = renderHTML(SearchField(SearchFieldData()).render())
+        #expect(
+            english.contains("data-i18n-placeholder=\"searchfield.search\"")
+        )
+        #expect(english.contains("data-i18n-aria-label=\"searchfield.search\""))
+        #expect(english.contains("data-i18n-aria-label=\"searchfield.clear\""))
+
+        let german = I18n.render(language: "de") {
+            renderHTML(SearchField(SearchFieldData()).render())
+        }
+        #expect(german.contains("placeholder=\"Suchen\""))
+        #expect(german.contains("aria-label=\"Suchen\""))
+        #expect(german.contains("aria-label=\"Suche löschen\""))
+    }
+
+    @Test("literal texts stay plain and get no marker for that text")
+    func literalTextsArePlain() {
+        let data = SearchFieldData(
+            placeholder: "Filter",
+            ariaLabel: "Filter items",
+            clearAriaLabel: "Reset"
+        )
+        let html = I18n.render(language: "de") {
+            renderHTML(SearchField(data).render())
+        }
+        #expect(html.contains("placeholder=\"Filter\""))
+        #expect(html.contains("aria-label=\"Filter items\""))
+        #expect(html.contains("aria-label=\"Reset\""))
+        #expect(!html.contains("data-i18n"))
+    }
+
+    @Test("consumer texts with translations replace the defaults")
+    func consumerTexts() {
+        let data = SearchFieldData(
+            placeholder: LocalizedText(
+                en: "Find",
+                translations: ["de": "Finden"]
+            ),
+            ariaLabel: LocalizedText(
+                en: "Find items",
+                translations: ["de": "Elemente finden"]
+            )
+        )
+        let html = I18n.render(language: "de") {
+            renderHTML(SearchField(data).render())
+        }
+        #expect(html.contains("placeholder=\"Finden\""))
+        #expect(html.contains("aria-label=\"Elemente finden\""))
+        #expect(html.contains("data-i18n-placeholder-values="))
+        // The clear button keeps its built-in text
+        #expect(html.contains("aria-label=\"Suche löschen\""))
+    }
 }

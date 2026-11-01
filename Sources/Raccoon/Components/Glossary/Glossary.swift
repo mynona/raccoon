@@ -21,8 +21,10 @@ public struct Glossary: TemplateRepresentable {
                     name: "glossarySearchInput",
                     bindModel: "search",
                     bindRef: "searchInput",
-                    placeholder: data.searchPlaceholder,
-                    ariaLabel: data.searchAriaLabel
+                    placeholder: LocalizedText(
+                        verbatim: data.searchPlaceholder
+                    ),  // i18n-todo
+                    ariaLabel: LocalizedText(verbatim: data.searchAriaLabel)  // i18n-todo
                 )
             )
             .render()

@@ -23,6 +23,12 @@ public struct SearchField: TemplateRepresentable {
         self.data = data
     }
 
+    private static let search = LocalizedText("searchfield.search", "Search")
+    private static let clear = LocalizedText(
+        "searchfield.clear",
+        "Clear search"
+    )
+
     @Builder<Element>
     private func showLeadingIcon() -> [Element] {
         Div {
@@ -77,8 +83,8 @@ public struct SearchField: TemplateRepresentable {
                 }
                 return $0
             }
-            .placeholder(data.placeholder)
-            .ariaLabel(data.ariaLabel)
+            .localized(.placeholder, data.placeholder ?? Self.search)
+            .localized(.ariaLabel, data.ariaLabel ?? Self.search)
             .if(data.ariaControls != nil) {
                 if let ariaControls = data.ariaControls {
                     return $0.ariaControls(ariaControls)
@@ -126,7 +132,7 @@ public struct SearchField: TemplateRepresentable {
                 Svg.icon(.x_circle, width: iconDimension, height: iconDimension)
             }
             .type(.button)
-            .ariaLabel(data.clearAriaLabel)
+            .localized(.ariaLabel, data.clearAriaLabel ?? Self.clear)
             .setAttribute(name: "@click", value: clearExpression)
             .setAttribute(name: "x-show", value: showExpression)
             .class(data.size == .sm ? "p-1 mr-2" : "p-2 min-h-full h-full mr-4")
