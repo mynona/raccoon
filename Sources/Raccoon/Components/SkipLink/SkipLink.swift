@@ -19,9 +19,6 @@ public struct SkipLink: TemplateRepresentable {
             data.targetId.hasPrefix("#") ? data.targetId : "#\(data.targetId)"
         A(data.text)
             .href(targetHref)
-            .if(data.hreflang != nil) {
-                $0.hrefLang(data.hreflang!)
-            }
             .class(styles.skipLink)
     }
 }

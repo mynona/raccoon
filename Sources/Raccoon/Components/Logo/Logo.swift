@@ -28,7 +28,6 @@ public struct Logo: TemplateRepresentable {
                 value: "Go to home"
             )
             .href(data.destination)
-            .hrefLang(AppValues.lang)
             .class("inline-flex")
             .addClass("focus:outline-hidden focus-visible:outline-hidden")
             // Matomo

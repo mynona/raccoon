@@ -93,7 +93,6 @@ public struct Badge: TemplateRepresentable {
                 }
                 .ariaLabel("View all articles tagged as '\(title())'")
                 .href(buildTagUrl(urlTag: urlTag))
-                .hrefLang(AppValues.lang)
                 // Matomo
                 .if(
                     data.matomoStatus == .ACCEPTED

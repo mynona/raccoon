@@ -159,7 +159,6 @@ struct StepperTests {
                 StepperStepData(
                     title: "Step 1",
                     href: "/steps/1",
-                    hreflang: "en-US",
                     target: "_blank",
                     status: .complete
                 ),
@@ -179,7 +178,7 @@ struct StepperTests {
 
         // Links rendered for steps with href
         #expect(html.contains("<a href=\"/steps/1\""))
-        #expect(html.contains("hreflang=\"en-US\""))
+        #expect(!html.contains("hreflang"))
         #expect(html.contains("target=\"_blank\""))
         #expect(html.contains("<a href=\"/steps/2\""))
 

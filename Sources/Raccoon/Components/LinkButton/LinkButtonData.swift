@@ -30,7 +30,6 @@ public struct LinkButtonData: Sendable {
     public let href: String
     /// Optional language hint for the link destination.
     /// Defaults to `"en-US"` if not provided.
-    public let hreflang: String?
     /// Optional icon to display alongside the label.
     public let icon: SvgIcon?
     /// Optional icon size in pixels. Defaults to `16`.
@@ -58,7 +57,6 @@ public struct LinkButtonData: Sendable {
     ///   - tooltip: Text to display in the tooltip.
     ///   - tooltipPosition: Position of the tooltip relative to the button.
     ///   - href: Destination URL for the link.
-    ///   - hreflang: Optional language hint for the link destination.
     ///   - buttonType: Determines the button visual style.
     ///   - icon: Optional SVG icon to display alongside label.
     ///   - iconSize: Optional icon size in pixels.
@@ -73,7 +71,6 @@ public struct LinkButtonData: Sendable {
         tooltip: LocalizedText? = nil,
         tooltipPosition: ComponentPosition? = nil,
         href: String,
-        hreflang: String? = AppValues.lang,
         buttonType: ActionButtonType,
         icon: SvgIcon? = nil,
         iconSize: Int? = 16,
@@ -88,7 +85,6 @@ public struct LinkButtonData: Sendable {
         self.tooltipPosition = tooltipPosition
         self.tooltipId = tooltipId
         self.href = href
-        self.hreflang = hreflang
         self.icon = icon
         self.iconSize = iconSize
         self.buttonType = buttonType

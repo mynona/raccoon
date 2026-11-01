@@ -38,7 +38,6 @@ public struct Breadcrumb: TemplateRepresentable {
                     .class("flex flex-row items-center")
                 }
                 .href(data.homeUrl)
-                .hrefLang(data.homeHreflang)
                 .ariaLabel("Home")
                 .addClass(styles.itemActive)
                 // Matomo
@@ -124,7 +123,6 @@ public struct Breadcrumb: TemplateRepresentable {
 
                 A(path.title)
                     .href(path.href)
-                    .hrefLang(path.hreflang)
                     .class(styles.itemActive)
 
                 Span {

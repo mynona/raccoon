@@ -80,9 +80,6 @@ public struct HyperLink: TemplateRepresentable {
                 showLabel()
             }
             .href(data.href)
-            .if(data.hreflang != nil) {
-                $0.hrefLang(data.hreflang!)
-            }
             .if(data.target != nil) {
                 $0.target(data.target!)
             }

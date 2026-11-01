@@ -154,15 +154,14 @@ struct HyperLinkTests {
         #expect(html.contains("<a"))
     }
 
-    @Test("renders hreflang and tracking attributes")
-    func rendersHreflangAndTrackingAttributes() async throws {
+    @Test("renders tracking attributes and no hreflang")
+    func rendersTrackingAttributesWithoutHreflang() async throws {
 
         let html = renderHTML(
             HyperLink(
                 HyperLinkData(
                     label: "Docs",
                     href: "/docs/",
-                    hreflang: "en-US",
                     isFocusable: true,
                     isUnderlined: true,
                     matomoStatus: .ACCEPTED,
@@ -171,7 +170,7 @@ struct HyperLinkTests {
             )
             .render()
         )
-        #expect(html.contains("hreflang=\"en-US\""))
+        #expect(!html.contains("hreflang"))
         #expect(html.contains("data-track-content"))
         #expect(html.contains("data-content-name=\"test\""))
         #expect(html.contains("data-content-piece=\"link\""))

@@ -18,7 +18,7 @@ struct SkipLinkTests {
         #expect(html.contains("<a"))
         #expect(html.contains("href=\"#main\""))
         #expect(html.contains("Jump directly to the main content"))
-        #expect(html.contains("hreflang=\"\(AppValues.lang)\""))
+        #expect(!html.contains("hreflang"))
         #expect(html.contains("skip-link"))
     }
 
@@ -27,13 +27,11 @@ struct SkipLinkTests {
 
         let data = SkipLinkData(
             text: "Skip to content",
-            targetId: "content-area",
-            hreflang: "de-DE"
+            targetId: "content-area"
         )
         let html = renderHTML(SkipLink(data).render())
         #expect(html.contains("href=\"#content-area\""))
         #expect(html.contains("Skip to content"))
-        #expect(html.contains("hreflang=\"de-DE\""))
     }
 
     @Test("normalizes targetId starting with hash")
@@ -44,15 +42,5 @@ struct SkipLinkTests {
         )
         let html = renderHTML(SkipLink(data).render())
         #expect(html.contains("href=\"#main-content\""))
-    }
-
-    @Test("omits hreflang when nil")
-    func omitsHreflangWhenNil() async throws {
-
-        let data = SkipLinkData(
-            hreflang: nil
-        )
-        let html = renderHTML(SkipLink(data).render())
-        #expect(!html.contains("hreflang"))
     }
 }

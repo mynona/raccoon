@@ -27,7 +27,6 @@ public struct Pagination: TemplateRepresentable {
                             verbatim: tableOfContent.title
                         ),  // i18n-todo
                         href: data.hrefBase,
-                        hreflang: AppValues.lang,
                         buttonType: .tertiary,
                         icon: .newspaper,
                         iconSize: 16,
@@ -65,7 +64,6 @@ public struct Pagination: TemplateRepresentable {
                     ),
                     tooltipPosition: .bottom,
                     href: destination,
-                    hreflang: AppValues.lang,
                     buttonType: .secondary,
                     icon: (direction == .first ? .skip_start : .skip_end),
                     iconSize: 16,
@@ -114,7 +112,6 @@ public struct Pagination: TemplateRepresentable {
                     tooltip: LocalizedText(verbatim: "Page \(pageNumber)"),  // i18n-todo
                     tooltipPosition: .bottom,
                     href: "\(data.hrefBase)/\(page.element.friendly_url)",
-                    hreflang: AppValues.lang,
                     buttonType: .secondary,
                     hasFullWidth: false,
                     contentTracker: MatomoContentTracker(

@@ -34,7 +34,6 @@ struct LinkButtonTests {
                                 label: type == .icon ? nil : "Label",
                                 ariaLabel: "aria-label",
                                 href: "/test/",
-                                hreflang: "en-US",
                                 buttonType: type,
                                 icon: icon,
                                 iconSize: 16,
@@ -154,24 +153,24 @@ struct LinkButtonTests {
         "renders anchor with an accessible name across representative prop combinations",
         arguments: [
             (
-                "Label", "aria-label", "/url", "en-US",
+                "Label", "aria-label", "/url",
                 SvgIcon?.some(.airplane), Int?.some(16),
                 ActionButtonType.primary, true
             ),
             (
-                nil, "special 🚀", "/äöü/", nil, SvgIcon?.some(.airplane),
+                nil, "special 🚀", "/äöü/", SvgIcon?.some(.airplane),
                 Int?.some(32), ActionButtonType.icon, false
             ),
             (
-                "Label", "", "", "de-DE", SvgIcon?.none, Int?.none,
+                "Label", "", "", SvgIcon?.none, Int?.none,
                 ActionButtonType.tertiary, true
             ),
             (
-                nil, "aria-label", "/long-url-with-query?x=1&y=2", nil,
+                nil, "aria-label", "/long-url-with-query?x=1&y=2",
                 SvgIcon?.none, Int?.some(16), ActionButtonType.warning, false
             ),
             (
-                "Label", "special 🚀", "/url", "en-US", SvgIcon?.none, Int?.none,
+                "Label", "special 🚀", "/url", SvgIcon?.none, Int?.none,
                 ActionButtonType.secondary, false
             ),
         ]
@@ -180,7 +179,6 @@ struct LinkButtonTests {
         label: String?,
         ariaLabel: String,
         href: String,
-        hreflang: String?,
         icon: SvgIcon?,
         iconSize: Int?,
         type: ActionButtonType,
@@ -192,7 +190,6 @@ struct LinkButtonTests {
                     label: label.map(LocalizedText.init(verbatim:)),
                     ariaLabel: LocalizedText(verbatim: ariaLabel),
                     href: href,
-                    hreflang: hreflang,
                     buttonType: type,
                     icon: icon,
                     iconSize: iconSize,
@@ -356,6 +353,21 @@ struct LinkButtonTests {
             )
         )
         #expect(html.contains("w-full"))
+    }
+
+    @Test("renders no hreflang attribute")
+    func rendersNoHreflang() {
+        let html = renderHTML(
+            LinkButton(
+                LinkButtonData(
+                    label: "Home",
+                    href: "/",
+                    buttonType: .primary,
+                    contentTracker: tracker
+                )
+            ).render()
+        )
+        #expect(!html.contains("hreflang"))
     }
 
     // MARK: localization

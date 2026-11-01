@@ -124,9 +124,6 @@ public struct LinkButton: TemplateRepresentable {
 
             }
             .href(data.href)
-            .if(data.hreflang != nil) {
-                $0.hrefLang(data.hreflang!)
-            }
             .class(
                 "flex items-center justify-center"
             )

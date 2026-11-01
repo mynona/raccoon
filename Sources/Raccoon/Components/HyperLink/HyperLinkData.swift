@@ -14,7 +14,6 @@ public struct HyperLinkData: Sendable {
     public let tooltip: String?
     public let tooltipId: String?
     public let href: String
-    public let hreflang: String?
     public let target: TargetAttributeValue?
     public let rel: RelAttributeValue?
 
@@ -35,7 +34,6 @@ public struct HyperLinkData: Sendable {
     ///   - label: Visible anchor text.
     ///   - ariaLabel: Accessible name override for screen readers.
     ///   - href: Destination URL for the hyperlink.
-    ///   - hreflang: Language tag for the target URL.
     ///   - target: Anchor `target` attribute (e.g. `_blank`).
     ///   - rel: Anchor `rel` attribute (e.g. `noopener noreferrer`).
     ///   - tooltipId: Optional identifier for tooltip integration.
@@ -52,7 +50,6 @@ public struct HyperLinkData: Sendable {
         label: String? = nil,
         ariaLabel: String? = nil,
         href: String,
-        hreflang: String? = AppValues.lang,
         target: TargetAttributeValue? = nil,
         rel: RelAttributeValue? = nil,
         tooltipId: String? = nil,
@@ -73,7 +70,6 @@ public struct HyperLinkData: Sendable {
         self.label = label
         self.ariaLabel = ariaLabel
         self.href = href
-        self.hreflang = hreflang
         self.target = target
         self.rel = rel
         self.tooltipId = tooltipId

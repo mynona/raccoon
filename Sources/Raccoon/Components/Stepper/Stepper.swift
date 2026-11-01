@@ -170,7 +170,6 @@ public struct Stepper: TemplateRepresentable {
                 )
             }
             .href(href)
-            .if(step.hreflang != nil) { $0.hrefLang(step.hreflang!) }
             .if(step.target != nil) {
                 $0.setAttribute(name: "target", value: step.target!)
             }
@@ -416,7 +415,6 @@ public struct Stepper: TemplateRepresentable {
                                 .class(styles.srOnly)
                         }
                         .href(href)
-                        .if(step.hreflang != nil) { $0.hrefLang(step.hreflang!) }
                         .if(step.target != nil) {
                             $0.setAttribute(name: "target", value: step.target!)
                         }

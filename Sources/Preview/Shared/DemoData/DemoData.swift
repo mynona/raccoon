@@ -6,18 +6,15 @@ public struct DemoData {
     public static let breadcrumbPaths: [BreadcrumbPath] = [
         BreadcrumbPath(
             title: "Donaudampfschifffahrtsgesellschaft",
-            href: "/one",
-            hreflang: "en-US"
+            href: "/one"
         ),
         BreadcrumbPath(
             title: "Level 2",
-            href: "/one/two",
-            hreflang: "en-US"
+            href: "/one/two"
         ),
         BreadcrumbPath(
             title: "Level 3",
             href: "/one/two/three",
-            hreflang: "en-US",
             isCurrentPathSegment: true
         ),
     ]

@@ -20,7 +20,6 @@ public struct LinkList: TemplateRepresentable {
                 label: LocalizedText(verbatim: key),  // i18n-todo
                 ariaLabel: LocalizedText(verbatim: key),  // i18n-todo
                 href: value,
-                hreflang: AppValues.lang,
                 buttonType: .tertiary,
                 icon: data.icon,
                 iconSize: 20,

@@ -15,7 +15,7 @@ struct BreadcrumbTests {
     func rendersPathTitles() async throws {
 
         let ctx = BreadcrumbData(paths: [
-            BreadcrumbPath(title: "Blog", href: "/blog/", hreflang: "en-US")
+            BreadcrumbPath(title: "Blog", href: "/blog/")
         ])
         let html = renderHTML(Breadcrumb(ctx).render())
         #expect(html.contains("Blog"))
@@ -26,7 +26,7 @@ struct BreadcrumbTests {
     func rendersNavElement() async throws {
 
         let ctx = BreadcrumbData(paths: [
-            BreadcrumbPath(title: "Home", href: "/", hreflang: "en-US")
+            BreadcrumbPath(title: "Home", href: "/")
         ])
         let html = renderHTML(Breadcrumb(ctx).render())
         #expect(html.contains("<nav"))
@@ -40,13 +40,12 @@ struct BreadcrumbTests {
 
         let ctx = BreadcrumbData(
             paths: [],
-            homeHreflang: "en-US",
             hasHome: true,
             matomoStatus: .ACCEPTED
         )
         let html = renderHTML(Breadcrumb(ctx).render())
         #expect(html.contains("/home/"))
-        #expect(html.contains("hreflang=\"en-US\""))
+        #expect(!html.contains("hreflang"))
         #expect(html.contains("aria-label=\"Home\""))
         #expect(html.contains("data-content-piece=\"breadcrumb.home\""))
         #expect(html.contains("data-content-target=\"/home\""))
@@ -56,16 +55,14 @@ struct BreadcrumbTests {
     func rendersCurrentSegmentWithPageSemantics() async throws {
 
         let ctx = BreadcrumbData(paths: [
-            BreadcrumbPath(title: "Level 1", href: "/one", hreflang: "en-US"),
+            BreadcrumbPath(title: "Level 1", href: "/one"),
             BreadcrumbPath(
                 title: "Level 2",
-                href: "/one/two",
-                hreflang: "en-US"
+                href: "/one/two"
             ),
             BreadcrumbPath(
                 title: "Level 3",
                 href: "/one/two/three",
-                hreflang: "en-US",
                 isCurrentPathSegment: true
             ),
         ])
@@ -81,11 +78,10 @@ struct BreadcrumbTests {
     func rendersCurrentSegmentTitleForShortTrail() async throws {
 
         let ctx = BreadcrumbData(paths: [
-            BreadcrumbPath(title: "Level 1", href: "/one", hreflang: "en-US"),
+            BreadcrumbPath(title: "Level 1", href: "/one"),
             BreadcrumbPath(
                 title: "Level 2",
                 href: "/one/two",
-                hreflang: "en-US",
                 isCurrentPathSegment: true
             ),
         ])
@@ -102,13 +98,11 @@ struct BreadcrumbTests {
             paths: [
                 BreadcrumbPath(
                     title: "Level 1",
-                    href: "/one",
-                    hreflang: "en-US"
+                    href: "/one"
                 ),
                 BreadcrumbPath(
                     title: "Level 2",
                     href: "/one/two",
-                    hreflang: "en-US",
                     isCurrentPathSegment: true
                 ),
             ],
@@ -132,7 +126,7 @@ struct BreadcrumbTests {
     @Test("handles empty title in path")
     func handlesEmptyTitle() async throws {
         let ctx = BreadcrumbData(paths: [
-            BreadcrumbPath(title: "", href: "/empty/", hreflang: "en-US")
+            BreadcrumbPath(title: "", href: "/empty/")
         ])
         let html = renderHTML(Breadcrumb(ctx).render())
         #expect(html.contains("/empty/"))
@@ -141,23 +135,9 @@ struct BreadcrumbTests {
     @Test("handles missing href in path")
     func handlesMissingHref() async throws {
         let ctx = BreadcrumbData(paths: [
-            BreadcrumbPath(title: "NoHref", href: "", hreflang: "en-US")
+            BreadcrumbPath(title: "NoHref", href: "")
         ])
         let html = renderHTML(Breadcrumb(ctx).render())
         #expect(html.contains("NoHref"))
-    }
-
-    @Test("handles invalid hreflang in path")
-    func handlesInvalidHreflang() async throws {
-        let ctx = BreadcrumbData(paths: [
-            BreadcrumbPath(
-                title: "InvalidLang",
-                href: "/lang/",
-                hreflang: "1234"
-            )
-        ])
-        let html = renderHTML(Breadcrumb(ctx).render())
-        #expect(html.contains("/lang/"))
-        #expect(html.contains("InvalidLang"))
     }
 }

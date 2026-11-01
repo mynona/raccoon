@@ -39,7 +39,6 @@ public struct StepperStepData: Sendable {
     public let href: String?
 
     /// Optional language tag for the target URL.
-    public let hreflang: String?
 
     /// Optional browsing context target (e.g. `"_blank"`) for the step link.
     public let target: String?
@@ -82,7 +81,6 @@ public struct StepperStepData: Sendable {
     ///   - tooltipPosition: Optional placement of the tooltip relative to the step icon.
     ///   - hasTooltip: Whether to display a tooltip on hover and focus for this step.
     ///   - href: Optional destination URL for interactive navigation.
-    ///   - hreflang: Optional language tag for the link destination.
     ///   - target: Optional browsing context target attribute.
     ///   - rel: Optional relationship attribute for the link.
     ///   - status: Current progress status of this step.
@@ -105,7 +103,6 @@ public struct StepperStepData: Sendable {
         tooltipPosition: ComponentPosition? = nil,
         hasTooltip: Bool = true,
         href: String? = nil,
-        hreflang: String? = nil,
         target: String? = nil,
         rel: String? = nil,
 
@@ -132,7 +129,6 @@ public struct StepperStepData: Sendable {
         self.tooltipPosition = tooltipPosition
         self.hasTooltip = hasTooltip
         self.href = href
-        self.hreflang = hreflang
         self.target = target
         self.rel = rel
 
