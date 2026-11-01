@@ -43,4 +43,7 @@ public struct SearchFieldStyles {
     // Action button
     public static let actionButton: String = ActionButtonStyles.iconButton
 
+    // Loading icon
+    public static let loadingIcon: String =
+        "animate-spin motion-reduce:animate-none"
 }

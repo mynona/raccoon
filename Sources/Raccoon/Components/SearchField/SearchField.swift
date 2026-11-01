@@ -42,11 +42,12 @@ public struct SearchField: TemplateRepresentable {
                 .setAttribute(name: "x-show", value: "!\(loadingBind)")
 
                 Svg.icon(
-                    .search_heart,
+                    .arrow_clockwise,
                     title: data.iconTitle,
                     width: iconDimension,
                     height: iconDimension
                 )
+                .addClass(styles.loadingIcon)
                 .setAttribute(name: "x-show", value: "\(loadingBind)")
             }
             else {

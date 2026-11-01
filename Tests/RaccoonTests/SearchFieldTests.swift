@@ -146,11 +146,15 @@ struct SearchFieldTests {
 
         #expect(html.contains("x-show=\"!isLoading\""))
         #expect(html.contains("x-show=\"isLoading\""))
+        #expect(html.contains(SearchFieldStyles.loadingIcon))
+        // Verify arrow_clockwise icon path is rendered for loading state
+        #expect(html.contains("M8 3a5 5 0 1 0 4.546 2.914"))
 
         // When loadingBind is nil, no x-show attributes on leading icon container
         let standardHtml = renderHTML(SearchField().render())
         #expect(!standardHtml.contains("x-show=\"!isLoading\""))
         #expect(!standardHtml.contains("x-show=\"isLoading\""))
+        #expect(!standardHtml.contains("M8 3a5 5 0 1 0 4.546 2.914"))
     }
 
     @Test(
