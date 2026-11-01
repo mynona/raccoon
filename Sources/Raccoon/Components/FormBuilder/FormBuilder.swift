@@ -125,9 +125,7 @@ public struct FormBuilder: TemplateRepresentable {
         .name(data.id)
         .method(data.method)
         .flagAttribute("novalidate")
-        .class(
-            data.layout == .dialog ? styles.formDialog : styles.formPage
-        )
+        .class(styles.form)
         .if(data.action != nil) {
             if let action = data.action {
                 return $0.action(action)

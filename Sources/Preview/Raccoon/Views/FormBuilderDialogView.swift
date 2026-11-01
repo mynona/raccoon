@@ -184,10 +184,12 @@ struct FormBuilderDialogView: TemplateRepresentable {
                 Div {
                     closeButton()
 
+                    // `DialogStyles.title` ends with 1rem; 1rem more matches the 2rem above the actions
                     H2(title.resolved)
                         .localized(title)
                         .setAttribute(name: ":id", value: "$id('modal-title')")
                         .class(DialogStyles.title)
+                        .addClass("mb-4")
 
                     content()
                 }
