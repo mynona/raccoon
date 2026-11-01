@@ -92,7 +92,7 @@ struct SimpleMenuView: TemplateRepresentable {
         ),
         #previewVariant(
             """
-            // Right-Aligned Panel
+            // Right-Aligned Panel with Option Icons
             """,
             SimpleMenuData(
                 ariaLabel: "User options",
@@ -101,15 +101,23 @@ struct SimpleMenuView: TemplateRepresentable {
                     SimpleMenuOption(
                         id: "account",
                         title: "Account settings",
-                        clickAction: "alert('Account')"
+                        clickAction: "alert('Account')",
+                        icon: .person_fill
+                    ),
+                    SimpleMenuOption(
+                        id: "cms",
+                        title: "CMS",
+                        clickAction: "alert('CMS')",
+                        icon: .card_heading
                     ),
                     SimpleMenuOption(
                         id: "logout",
-                        title: "Log out",
-                        clickAction: "alert('Logout')"
+                        title: "Sign out",
+                        clickAction: "alert('Sign out')",
+                        icon: .box_arrow_left
                     ),
                 ],
-                align: .right,
+                align: .left,
                 width: "w-48"
             )
         ),

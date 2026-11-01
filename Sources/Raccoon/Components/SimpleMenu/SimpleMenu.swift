@@ -70,15 +70,27 @@ public struct SimpleMenu: TemplateRepresentable {
     }
 
     @Builder<Element>
+    private func showOptionContent(_ option: SimpleMenuOption) -> [Element] {
+        if let icon = option.icon {
+            Span {
+                Svg.icon(icon, width: 16, height: 16)
+                    .class(styles.optionIcon)
+                Span(option.title)
+            }
+            .class(styles.itemContent)
+        }
+        else {
+            Span(option.title)
+        }
+    }
+
+    @Builder<Element>
     private func showOptionItem(_ option: SimpleMenuOption) -> [Element] {
         let role = option.role ?? "menuitem"
         if let href = option.href {
             // SSR Link mode
             A {
-                if let icon = option.icon {
-                    Svg.icon(icon, width: 16, height: 16)
-                }
-                Span(option.title)
+                showOptionContent(option)
                 if option.isSelected {
                     Svg.icon(.check_lg, width: 16, height: 16)
                         .class(styles.activeIcon)
@@ -94,10 +106,7 @@ public struct SimpleMenu: TemplateRepresentable {
         else {
             // Alpine / client mode
             Button {
-                if let icon = option.icon {
-                    Svg.icon(icon, width: 16, height: 16)
-                }
-                Span(option.title)
+                showOptionContent(option)
                 if let bindSelected = option.bindSelected {
                     Svg.icon(.check_lg, width: 16, height: 16)
                         .setAttribute(name: "x-show", value: bindSelected)

@@ -46,6 +46,12 @@ public struct DropdownStyles {
     // MARK: - Menu Item
     public static let menuItem: String = SimpleMenuStyles.menuItem
 
+    // MARK: - Menu Item Content
+    public static let itemContent: String = SimpleMenuStyles.itemContent
+
+    // MARK: - Option Leading Icon
+    public static let optionIcon: String = SimpleMenuStyles.optionIcon
+
     // MARK: - Active Checkmark Icon
     public static let activeIcon: String = SimpleMenuStyles.activeIcon
 

@@ -166,14 +166,26 @@ struct SimpleMenuTests {
             SimpleMenuOption(
                 id: "profile",
                 title: "Account settings",
+                isSelected: true,
                 href: "/profile",
                 icon: .person_fill
-            )
+            ),
+            SimpleMenuOption(
+                id: "logout",
+                title: "Sign out",
+                clickAction: "signOut()",
+                icon: .box_arrow_left
+            ),
         ]
         let data = SimpleMenuData(options: options)
         let html = renderHTML(SimpleMenu(data).render())
 
-        #expect(html.contains("<svg"))
+        // Leading icon and title wrapped together in itemContent
+        #expect(html.contains(SimpleMenuStyles.itemContent))
+        #expect(html.contains(SimpleMenuStyles.optionIcon))
         #expect(html.contains("Account settings"))
+        #expect(html.contains("Sign out"))
+        // Checkmark is also present on selected option
+        #expect(html.contains(SimpleMenuStyles.activeIcon))
     }
 }

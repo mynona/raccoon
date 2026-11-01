@@ -65,6 +65,12 @@ public struct SimpleMenuStyles {
     ]
     .joined(separator: " ")
 
+    // MARK: - Menu Item Content (Leading Icon + Title)
+    public static let itemContent: String = "flex items-center gap-2 min-w-0"
+
+    // MARK: - Option Leading Icon
+    public static let optionIcon: String = "shrink-0 w-4 h-4"
+
     // MARK: - Active Checkmark Icon
     public static let activeIcon: String = [
         "shrink-0 ml-2 w-4 h-4",
