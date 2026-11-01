@@ -1,6 +1,6 @@
 /// Represents a single path segment in a breadcrumb trail.
 public struct BreadcrumbPath: Sendable {
-    public let title: String
+    public let title: LocalizedText
     public let href: String
     public let isCurrentPathSegment: Bool
 
@@ -11,7 +11,7 @@ public struct BreadcrumbPath: Sendable {
     ///   - href: Target destination URL.
     ///   - isCurrentPathSegment: Whether this segment represents the currently active page.
     public init(
-        title: String,
+        title: LocalizedText,
         href: String,
         isCurrentPathSegment: Bool = false
     ) {

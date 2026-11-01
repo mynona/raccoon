@@ -196,8 +196,8 @@ public struct DataTable: TemplateRepresentable {
     private func dropdownOptions(
         _ options: [DataTableFilterOption]
     ) -> [OptionValue] {
-        [OptionValue(title: data.labels.all, value: "")]
-            + options.map { OptionValue(title: $0.title, value: $0.value) }
+        [OptionValue(title: LocalizedText(verbatim: data.labels.all), value: "")]
+            + options.map { OptionValue(title: LocalizedText(verbatim: $0.title), value: $0.value) }
     }
 
     @Builder<Element>
@@ -337,11 +337,11 @@ public struct DataTable: TemplateRepresentable {
                         value: "and",
                         options: [
                             OptionValue(
-                                title: data.labels.filterModeAnd,
+                                title: LocalizedText(verbatim: data.labels.filterModeAnd),
                                 value: "and"
                             ),
                             OptionValue(
-                                title: data.labels.filterModeOr,
+                                title: LocalizedText(verbatim: data.labels.filterModeOr),
                                 value: "or"
                             ),
                         ]

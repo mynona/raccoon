@@ -1,5 +1,5 @@
 public struct OptionValue: Sendable, Encodable {
-   public var title: String?
+   public var title: LocalizedText?
    public var value: String?
    public var selected: Bool
    public var friendly_url: String?
@@ -7,7 +7,7 @@ public struct OptionValue: Sendable, Encodable {
    public var lang: String?
 
    public init(
-      title: String? = nil,
+      title: LocalizedText? = nil,
       value: String? = nil,
       selected: Bool = false,
       friendly_url: String? = nil,
@@ -18,5 +18,19 @@ public struct OptionValue: Sendable, Encodable {
       self.selected = selected
       self.friendly_url = friendly_url
       self.lang = lang
+   }
+
+   private enum CodingKeys: String, CodingKey {
+      case title, value, selected, friendly_url, lang
+   }
+
+   /// The title is encoded in the language of the page that is rendered (the JSON goes into Alpine state).
+   public func encode(to encoder: Encoder) throws {
+      var container = encoder.container(keyedBy: CodingKeys.self)
+      try container.encodeIfPresent(title?.resolved, forKey: .title)
+      try container.encodeIfPresent(value, forKey: .value)
+      try container.encode(selected, forKey: .selected)
+      try container.encodeIfPresent(friendly_url, forKey: .friendly_url)
+      try container.encodeIfPresent(lang, forKey: .lang)
    }
 }

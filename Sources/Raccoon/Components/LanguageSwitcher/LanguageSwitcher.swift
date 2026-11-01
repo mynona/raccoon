@@ -32,7 +32,7 @@ public struct LanguageSwitcher: TemplateRepresentable {
             .setAttribute(name: "type", value: "text/javascript")
 
         let options = data.languages.map {
-            OptionValue(title: $0.name, value: $0.code, lang: $0.code)
+            OptionValue(title: LocalizedText(verbatim: $0.name), value: $0.code, lang: $0.code)
         }
 
         // The script builds "<label>: <language>" for the button, so the label is a plain text

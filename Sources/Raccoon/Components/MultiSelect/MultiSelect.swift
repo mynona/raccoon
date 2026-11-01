@@ -54,7 +54,7 @@ public struct MultiSelect: TemplateRepresentable {
         let payloads = elements.map {
             OptionPayload(
                 id: $0.value ?? "",
-                name: $0.title ?? "",
+                name: $0.title?.resolved ?? "",
                 disabled: false
             )
         }
@@ -67,7 +67,7 @@ public struct MultiSelect: TemplateRepresentable {
             return LocalizedText(verbatim: "")
         }
         for element in elements where id == element.value {
-            return LocalizedText(verbatim: element.title!)
+            return element.title!
         }
         return Self.noValueSet
     }

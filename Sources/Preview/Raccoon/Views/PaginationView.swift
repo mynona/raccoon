@@ -14,14 +14,26 @@ struct PaginationView: TemplateRepresentable {
             """,
             PaginationData(
                 tableOfContent: PaginationItem(
-                    title: "Table of content",
+                    title: tr(
+                        "Table of content",
+                        de: "Inhaltsverzeichnis",
+                        fr: "Table des matières",
+                        es: "Tabla de contenido",
+                        it: "Indice"
+                    ),
                     order: 0,
                     friendly_url: "table-of-content-link"
                 ),
                 pages: (1...10)
                     .map { i in
                         PaginationItem(
-                            title: "Chapter \(i)",
+                            title: tr(
+                                "Chapter \(i)",
+                                de: "Kapitel \(i)",
+                                fr: "Chapitre \(i)",
+                                es: "Capítulo \(i)",
+                                it: "Capitolo \(i)"
+                            ),
                             order: i,
                             friendly_url: "chapter-\(i)",
                             selected: i == 4
@@ -36,14 +48,26 @@ struct PaginationView: TemplateRepresentable {
             """,
             PaginationData(
                 tableOfContent: PaginationItem(
-                    title: "Table of content",
+                    title: tr(
+                        "Table of content",
+                        de: "Inhaltsverzeichnis",
+                        fr: "Table des matières",
+                        es: "Tabla de contenido",
+                        it: "Indice"
+                    ),
                     order: 0,
                     friendly_url: "table-of-content-link"
                 ),
                 pages: (1...10)
                     .map { i in
                         PaginationItem(
-                            title: "Chapter \(i)",
+                            title: tr(
+                                "Chapter \(i)",
+                                de: "Kapitel \(i)",
+                                fr: "Chapitre \(i)",
+                                es: "Capítulo \(i)",
+                                it: "Capitolo \(i)"
+                            ),
                             order: i,
                             friendly_url: "chapter-\(i)",
                             selected: i == 1
@@ -61,7 +85,13 @@ struct PaginationView: TemplateRepresentable {
                 pages: (1...10)
                     .map { i in
                         PaginationItem(
-                            title: "Chapter \(i)",
+                            title: tr(
+                                "Chapter \(i)",
+                                de: "Kapitel \(i)",
+                                fr: "Chapitre \(i)",
+                                es: "Capítulo \(i)",
+                                it: "Capitolo \(i)"
+                            ),
                             order: i,
                             friendly_url: "chapter-\(i)",
                             selected: i == 2
@@ -79,7 +109,13 @@ struct PaginationView: TemplateRepresentable {
                 pages: (1...10)
                     .map { i in
                         PaginationItem(
-                            title: "Chapter \(i)",
+                            title: tr(
+                                "Chapter \(i)",
+                                de: "Kapitel \(i)",
+                                fr: "Chapitre \(i)",
+                                es: "Capítulo \(i)",
+                                it: "Capitolo \(i)"
+                            ),
                             order: i,
                             friendly_url: "chapter-\(i)",
                             selected: i == 10
@@ -96,13 +132,25 @@ struct PaginationView: TemplateRepresentable {
                 tableOfContent: nil,
                 pages: [
                     PaginationItem(
-                        title: "First",
+                        title: tr(
+                            "First",
+                            de: "Erstes",
+                            fr: "Premier",
+                            es: "Primero",
+                            it: "Primo"
+                        ),
                         order: 1,
                         friendly_url: "first",
                         selected: true
                     ),
                     PaginationItem(
-                        title: "Second",
+                        title: tr(
+                            "Second",
+                            de: "Zweites",
+                            fr: "Deuxième",
+                            es: "Segundo",
+                            it: "Secondo"
+                        ),
                         order: 2,
                         friendly_url: "second",
                         selected: false
@@ -117,14 +165,26 @@ struct PaginationView: TemplateRepresentable {
             """,
             PaginationData(
                 tableOfContent: PaginationItem(
-                    title: "Overview",
+                    title: tr(
+                        "Overview",
+                        de: "Übersicht",
+                        fr: "Aperçu",
+                        es: "Resumen",
+                        it: "Panoramica"
+                    ),
                     order: 0,
                     friendly_url: "overview"
                 ),
                 pages: (1...100)
                     .map { i in
                         PaginationItem(
-                            title: "Chapter \(i)",
+                            title: tr(
+                                "Chapter \(i)",
+                                de: "Kapitel \(i)",
+                                fr: "Chapitre \(i)",
+                                es: "Capítulo \(i)",
+                                it: "Capitolo \(i)"
+                            ),
                             order: i,
                             friendly_url: "chapter-\(i)",
                             selected: i == 42
@@ -139,14 +199,28 @@ struct PaginationView: TemplateRepresentable {
             """,
             PaginationData(
                 tableOfContent: PaginationItem(
-                    title: "Comprehensive Table of Contents for Deep Dive",
+                    title: tr(
+                        "Comprehensive Table of Contents for Deep Dive",
+                        de:
+                            "Ausführliches Inhaltsverzeichnis für die Vertiefung",
+                        fr:
+                            "Table des matières détaillée pour l'approfondissement",
+                        es: "Tabla de contenido completa para profundizar",
+                        it: "Indice completo per l'approfondimento"
+                    ),
                     order: 0,
                     friendly_url: "table-of-content-link"
                 ),
                 pages: (1...10)
                     .map { i in
                         PaginationItem(
-                            title: "Chapter \(i)",
+                            title: tr(
+                                "Chapter \(i)",
+                                de: "Kapitel \(i)",
+                                fr: "Chapitre \(i)",
+                                es: "Capítulo \(i)",
+                                it: "Capitolo \(i)"
+                            ),
                             order: i,
                             friendly_url: "chapter-\(i)",
                             selected: i == 4

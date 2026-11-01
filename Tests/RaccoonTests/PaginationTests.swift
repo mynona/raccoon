@@ -162,7 +162,7 @@ struct PaginationTests {
         let manyPages = (1...100)
             .map { i in
                 PaginationItem(
-                    title: "Page \(i)",
+                    title: LocalizedText(verbatim: "Page \(i)"),
                     order: i,
                     friendly_url: "p\(i)",
                     selected: i == 50
@@ -194,7 +194,7 @@ struct PaginationTests {
         let manyPages = (1...20)
             .map { i in
                 PaginationItem(
-                    title: "Page \(i)",
+                    title: LocalizedText(verbatim: "Page \(i)"),
                     order: i,
                     friendly_url: "p\(i)",
                     selected: i == 1
@@ -218,7 +218,7 @@ struct PaginationTests {
         let manyPages = (1...20)
             .map { i in
                 PaginationItem(
-                    title: "Page \(i)",
+                    title: LocalizedText(verbatim: "Page \(i)"),
                     order: i,
                     friendly_url: "p\(i)",
                     selected: i == 20
@@ -244,7 +244,7 @@ struct PaginationTests {
         let tenPages = (1...10)
             .map { i in
                 PaginationItem(
-                    title: "Page \(i)",
+                    title: LocalizedText(verbatim: "Page \(i)"),
                     order: i,
                     friendly_url: "p\(i)",
                     selected: i == 4
@@ -285,7 +285,7 @@ struct PaginationTests {
         let tenPages = (1...10)
             .map { i in
                 PaginationItem(
-                    title: "Page \(i)",
+                    title: LocalizedText(verbatim: "Page \(i)"),
                     order: i,
                     friendly_url: "p\(i)",
                     selected: i == 4

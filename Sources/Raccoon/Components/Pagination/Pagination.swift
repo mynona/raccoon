@@ -31,10 +31,8 @@ public struct Pagination: TemplateRepresentable {
             Div {
                 LinkButton(
                     LinkButtonData(
-                        label: LocalizedText(verbatim: tableOfContent.title),
-                        ariaLabel: LocalizedText(
-                            verbatim: tableOfContent.title
-                        ),
+                        label: tableOfContent.title,
+                        ariaLabel: tableOfContent.title,
                         href: data.hrefBase,
                         buttonType: .tertiary,
                         icon: .newspaper,
@@ -182,7 +180,7 @@ public struct Pagination: TemplateRepresentable {
                                 direction: .first,
                                 destination:
                                     "\(data.hrefBase)/\(firstPage.friendly_url)",
-                                title: firstPage.title
+                                title: firstPage.title.resolved
                             )
                         }
 
@@ -196,7 +194,7 @@ public struct Pagination: TemplateRepresentable {
                             let page = data.pages[idx]
                             if idx == activeIndex {
                                 showSelectedItem(
-                                    title: page.title,
+                                    title: page.title.resolved,
                                     index: idx + 1
                                 )
                             }
@@ -205,7 +203,7 @@ public struct Pagination: TemplateRepresentable {
                                     page: (
                                         offset: idx,
                                         element: (
-                                            title: page.title,
+                                            title: page.title.resolved,
                                             friendly_url: page.friendly_url
                                         )
                                     ),
@@ -221,7 +219,7 @@ public struct Pagination: TemplateRepresentable {
                                 direction: .last,
                                 destination:
                                     "\(data.hrefBase)/\(lastPage.friendly_url)",
-                                title: lastPage.title
+                                title: lastPage.title.resolved
                             )
                         }
 

@@ -26,12 +26,14 @@ public struct Dropdown: TemplateRepresentable {
         self.data = DropdownData(data)
     }
 
-    private func getTitle(forValue id: String) -> String {
-        guard let elements = data.options else { return "" }
-        for element in elements where id == element.value {
-            return element.title ?? ""
+    private func getTitle(forValue id: String) -> LocalizedText {
+        guard let elements = data.options else {
+            return LocalizedText(verbatim: "")
         }
-        return ""
+        for element in elements where id == element.value {
+            return element.title ?? LocalizedText(verbatim: "")
+        }
+        return LocalizedText(verbatim: "")
     }
 
     private static let selectAnOption = LocalizedText(
@@ -44,8 +46,8 @@ public struct Dropdown: TemplateRepresentable {
     /// follows the page language of the render but not a later live language switch.
     private var initialTitle: LocalizedText {
         let title = getTitle(forValue: data.value ?? "")
-        if !title.isEmpty {
-            return LocalizedText(verbatim: title)
+        if !title.english.isEmpty {
+            return title
         }
         return data.placeholder ?? data.placeholderText ?? Self.selectAnOption
     }
@@ -139,9 +141,9 @@ public struct Dropdown: TemplateRepresentable {
     @Builder<Element>
     private func showOptionItem(_ option: OptionValue) -> [Element] {
         let optVal = option.value ?? ""
-        let optTitle = option.title ?? ""
+        let optTitle = option.title ?? LocalizedText(verbatim: "")
         Button {
-            Span(optTitle)
+            Span(optTitle.resolved).localized(optTitle)
             Svg.icon(.check_lg, width: 16, height: 16)
                 .setAttribute(
                     name: "x-show",

@@ -111,7 +111,8 @@ public struct SimpleTable: TemplateRepresentable {
             Div {
 
                 if let caption = data.caption {
-                    P(caption)
+                    P(caption.resolved)
+                        .localized(caption)
                         .class("text-left border-none")
                         .addClass(tableStyles.captionTextFont)
                         .addClass(tableStyles.captionTextColor)
@@ -190,7 +191,7 @@ public struct SimpleTable: TemplateRepresentable {
                     )
                     .setAttribute(
                         name: "data-content-target",
-                        value: "\(data.caption ?? "untitled")"
+                        value: "\(data.caption?.english ?? "untitled")"
                     )
 
                     // Filter toggle
@@ -234,7 +235,7 @@ public struct SimpleTable: TemplateRepresentable {
                         )
                         .setAttribute(
                             name: "data-content-target",
-                            value: "\(data.caption ?? "untitled")"
+                            value: "\(data.caption?.english ?? "untitled")"
                         )
 
                     }
@@ -283,13 +284,13 @@ public struct SimpleTable: TemplateRepresentable {
                             )
                             .setAttribute(
                                 name: "data-content-target",
-                                value: "\(data.caption ?? "untitled")"
+                                value: "\(data.caption?.english ?? "untitled")"
                             )
 
                         }
 
                         simpleTableColumnConfigurator(
-                            caption: data.caption
+                            caption: data.caption?.english
                         )
 
                     }
@@ -318,7 +319,7 @@ public struct SimpleTable: TemplateRepresentable {
                     contentTracker: MatomoContentTracker(
                         name: "simple-table",
                         piece: "search.clear",
-                        target: data.caption ?? "untitled"
+                        target: data.caption?.english ?? "untitled"
                     )
                 )
             )
@@ -336,7 +337,9 @@ public struct SimpleTable: TemplateRepresentable {
         Table {
 
             if let caption = data.caption {
-                Caption(caption).class("sr-only")
+                Caption(caption.resolved)
+                    .localized(caption)
+                    .class("sr-only")
             }
 
             Thead {

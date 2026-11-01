@@ -3,7 +3,7 @@ public struct SimpleTableData: Sendable {
 
     public let meta: String
     public let rows: String
-    public let caption: String?
+    public let caption: LocalizedText?
 
     public var json: String? {
         do {
@@ -37,7 +37,7 @@ public struct SimpleTableData: Sendable {
     public init(
         meta: String,
         rows: String,
-        caption: String?
+        caption: LocalizedText?
     ) {
         self.meta = meta
         self.rows = rows

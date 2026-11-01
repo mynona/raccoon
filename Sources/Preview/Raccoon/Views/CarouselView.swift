@@ -76,7 +76,7 @@ struct CarouselView: TemplateRepresentable {
             for item in data.carouselItems {
                 Li {
                     Button {
-                        Img(src: item.src, alt: item.alt ?? "")
+                        Img(src: item.src, alt: item.alt?.resolved ?? "")
                             .width(240)
                             .height(150)
                             .loading(.lazy)
@@ -88,7 +88,7 @@ struct CarouselView: TemplateRepresentable {
                         value:
                             "window.dispatchEvent(new CustomEvent('showCarousel', { detail: '\(item.id)' }));"
                     )
-                    .ariaLabel("Open \(item.caption ?? item.id) in carousel")
+                    .ariaLabel("Open \(item.caption?.resolved ?? item.id) in carousel")
                     .class("cursor-pointer")
                     .addClass(CommonStyles.focusDefault)
                 }

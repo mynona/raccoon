@@ -1,12 +1,12 @@
 public struct PaginationItem: Sendable {
 
-   public let title: String
+   public let title: LocalizedText
    public let order: Int
    public let friendly_url: String
    public let selected: Bool
 
    public init(
-      title: String,
+      title: LocalizedText,
       order: Int,
       friendly_url: String,
       selected: Bool = false

@@ -2,8 +2,8 @@
 public struct CarouselItem: Sendable {
     public let id: String
     public let src: String
-    public let alt: String?
-    public let caption: String?
+    public let alt: LocalizedText?
+    public let caption: LocalizedText?
     public let isS3Image: Bool
 
     /// Creates a new `CarouselItem`.
@@ -17,8 +17,8 @@ public struct CarouselItem: Sendable {
     public init(
         id: String,
         src: String,
-        alt: String?,
-        caption: String?,
+        alt: LocalizedText?,
+        caption: LocalizedText?,
         isS3Image: Bool = true
     ) {
         self.id = id
@@ -61,8 +61,8 @@ public struct CarouselData: Sendable {
 
             return CarouselSlidePayload(
                 imgSrc: item.src,
-                imgAlt: item.alt ?? "",
-                imgCaption: item.caption ?? "",
+                imgAlt: item.alt?.resolved ?? "",
+                imgCaption: item.caption?.resolved ?? "",
                 imgId: item.id,
                 avifSrcSet: avifSrcSet,
                 webpSrcSet: webpSrcSet

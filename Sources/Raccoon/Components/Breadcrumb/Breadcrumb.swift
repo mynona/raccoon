@@ -91,23 +91,26 @@ public struct Breadcrumb: TemplateRepresentable {
 
             Li {
 
-                let abbreviation =
+                let abbreviation: LocalizedText =
                     (totalPaths <= 2)
                     ? path.title
-                    : "…"
+                    : LocalizedText(verbatim: "…")
 
                 Span {
                     // Single viewport-independent accessible name for the current segment
-                    Span(path.title)
+                    Span(path.title.resolved)
+                        .localized(path.title)
                         .class("sr-only")
 
-                    Span(abbreviation)
+                    Span(abbreviation.resolved)
+                        .localized(abbreviation)
                         .setAttribute(
                             name: "aria-hidden",
                             value: "true"
                         )
                         .class("inline-block md:hidden")
-                    Span(path.title)
+                    Span(path.title.resolved)
+                        .localized(path.title)
                         .setAttribute(
                             name: "aria-hidden",
                             value: "true"
@@ -128,7 +131,8 @@ public struct Breadcrumb: TemplateRepresentable {
 
             Li {
 
-                A(path.title)
+                A(path.title.resolved)
+                    .localized(path.title)
                     .href(path.href)
                     .class(styles.itemActive)
 
