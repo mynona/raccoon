@@ -9,9 +9,7 @@ struct TabGroupView: TemplateRepresentable {
 
     let variants: [PreviewVariant<TabGroupData>] = [
         #previewVariant(
-            """
-            // Underline Variant (Default) with Icons & Badges
-            """,
+            "Underline with Icons and Badges",
             TabGroupData(
                 id: "tabs-underline-demo",
                 ariaLabel: tr(
@@ -128,9 +126,7 @@ struct TabGroupView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Pills Variant
-            """,
+            "Pills with Disabled Tab",
             TabGroupData(
                 id: "tabs-pills-demo",
                 ariaLabel: tr(
@@ -196,9 +192,7 @@ struct TabGroupView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Vertical Orientation (Pills Variant)
-            """,
+            "Vertical Pills Layout",
             TabGroupData(
                 id: "tabs-vertical-pills-demo",
                 ariaLabel: tr(
@@ -289,9 +283,7 @@ struct TabGroupView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Vertical Orientation (Underline Variant)
-            """,
+            "Vertical Underline Layout",
             TabGroupData(
                 id: "tabs-vertical-underline-demo",
                 ariaLabel: tr(

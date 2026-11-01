@@ -9,9 +9,7 @@ struct ToggleSwitchView: TemplateRepresentable {
 
     let variants: [PreviewVariant<ToggleSwitchData>] = [
         #previewVariant(
-            """
-            // off (value = false)
-            """,
+            "Off State with Label",
             ToggleSwitchData(
                 id: "ts-1",
                 label: LabelData(
@@ -31,9 +29,7 @@ struct ToggleSwitchView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // on (value = true) + disabled
-            """,
+            "On State Disabled without Label",
             ToggleSwitchData(
                 id: "ts-2",
                 label: nil,
@@ -44,9 +40,7 @@ struct ToggleSwitchView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // on (value = true) + size:sm
-            """,
+            "On State Small with Left Label",
             ToggleSwitchData(
                 id: "ts-3",
                 label: LabelData(
@@ -67,9 +61,7 @@ struct ToggleSwitchView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // on (value = true) + size:xl
-            """,
+            "On State Extra Large with Right Label",
             ToggleSwitchData(
                 id: "ts-5",
                 label: LabelData(

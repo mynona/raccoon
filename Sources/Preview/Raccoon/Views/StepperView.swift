@@ -9,9 +9,7 @@ struct StepperView: TemplateRepresentable {
 
     let variants: [PreviewVariant<StepperData>] = [
         #previewVariant(
-            """
-            // Vertical Stepper (Account Registration Flow)
-            """,
+            "Vertical Stepper with Descriptions",
             StepperData(
                 id: "stepper-vertical",
                 ariaLabel: tr(
@@ -94,9 +92,7 @@ struct StepperView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Horizontal Stepper (Compact Circles)
-            """,
+            "Horizontal Compact Numbered Steps",
             StepperData(
                 id: "stepper-horizontal",
                 ariaLabel: tr(
@@ -172,9 +168,7 @@ struct StepperView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Horizontal Stepper (Full Width)
-            """,
+            "Horizontal Full-Width Flow",
             StepperData(
                 id: "stepper-horizontal-full-width",
                 ariaLabel: tr(
@@ -239,9 +233,7 @@ struct StepperView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Static Vertical Stepper (Read-only Order Status)
-            """,
+            "Read-Only Vertical Timeline",
             StepperData(
                 id: "stepper-static-order",
                 ariaLabel: tr(
@@ -335,9 +327,7 @@ struct StepperView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Horizontal Stepper with Custom Tooltips
-            """,
+            "Horizontal Stepper with Tooltips",
             StepperData(
                 id: "stepper-tooltips-demo",
                 ariaLabel: tr(
@@ -445,9 +435,7 @@ struct StepperView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Configurable Icons & Step Numbers (Step 1 Active - Screenshot 1)
-            """,
+            "Mixed Icons and Numbers (Step 1 Active)",
             StepperData(
                 id: "stepper-custom-icons-step1",
                 ariaLabel: tr(
@@ -527,9 +515,7 @@ struct StepperView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Configurable Icons & Step Numbers (Step 1 Completed with Tick - Screenshot 2)
-            """,
+            "Mixed Icons and Numbers (Step 1 Completed)",
             StepperData(
                 id: "stepper-custom-icons-step2",
                 ariaLabel: tr(

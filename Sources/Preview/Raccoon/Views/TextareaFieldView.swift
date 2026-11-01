@@ -9,9 +9,7 @@ struct TextareaFieldView: TemplateRepresentable {
 
     let variants: [PreviewVariant<TextAreaFieldData>] = [
         #previewVariant(
-            """
-            // .firstLastName
-            """,
+            "First & Last Name Validation",
             TextAreaFieldData(
                 id: "tf-1",
                 label: LabelData(
@@ -53,9 +51,7 @@ struct TextareaFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .email
-            """,
+            "Required Email with Validation Errors",
             TextAreaFieldData(
                 id: "tf-2",
                 label: LabelData(
@@ -107,9 +103,7 @@ struct TextareaFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .url
-            """,
+            "URL Validation",
             TextAreaFieldData(
                 id: "tf-3",
                 label: LabelData(
@@ -141,9 +135,7 @@ struct TextareaFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .integer
-            """,
+            "Integer Validation (2 Rows)",
             TextAreaFieldData(
                 id: "tf-4",
                 label: LabelData(
@@ -176,9 +168,7 @@ struct TextareaFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .amount
-            """,
+            "Monospaced Amount Validation",
             TextAreaFieldData(
                 id: "tf-5",
                 label: LabelData(
@@ -211,9 +201,7 @@ struct TextareaFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .phoneNumber
-            """,
+            "Phone Number Validation",
             TextAreaFieldData(
                 id: "tf-6",
                 label: LabelData(
@@ -246,9 +234,7 @@ struct TextareaFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .ip4vAddress
-            """,
+            "Monospaced IPv4 Address Validation",
             TextAreaFieldData(
                 id: "tf-7",
                 label: LabelData(
@@ -281,9 +267,7 @@ struct TextareaFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // .custom
-            """,
+            "Custom Pattern Validation (8 Rows)",
             TextAreaFieldData(
                 id: "tf-8",
                 label: LabelData(

@@ -9,24 +9,18 @@ struct ThemeSwitcherView: TemplateRepresentable {
 
     let variants: [PreviewVariant<ThemeSwitcherData>] = [
         #previewVariant(
-            """
-            // With default context
-            """,
+            "Default Theme Switcher",
             ThemeSwitcherData()
         ),
         #previewVariant(
-            """
-            // With id and Matomo tracking enabled
-            """,
+            "Theme Switcher with Matomo",
             ThemeSwitcherData(
                 id: "themeSwitcher",
                 matomoStatus: .ACCEPTED
             )
         ),
         #previewVariant(
-            """
-            // With custom theme options
-            """,
+            "Custom Theme Options Subset",
             ThemeSwitcherData(
                 defaultTheme: .blackAndWhite,
                 themes: [.blackAndWhite, .emeraldMine]

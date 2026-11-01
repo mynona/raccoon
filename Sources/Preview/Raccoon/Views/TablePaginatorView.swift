@@ -9,18 +9,14 @@ struct TablePaginatorView: TemplateRepresentable {
 
     let variants: [PreviewVariant<TablePaginatorData>] = [
         #previewVariant(
-            """
-            // Alpine.js Client-Side Mode (Interactive with dynamic state)
-            """,
+            "Alpine Client Mode (Interactive)",
             TablePaginatorData(
                 bindShow: "true",
                 mode: .alpine
             )
         ),
         #previewVariant(
-            """
-            // Alpine.js Client-Side Mode (Simulated loading state)
-            """,
+            "Alpine Client Mode (Loading State)",
             TablePaginatorData(
                 bindIsLoading: "true",
                 bindShow: "true",
@@ -28,9 +24,7 @@ struct TablePaginatorView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // SSR Link Mode: First Page (Previous & First disabled)
-            """,
+            "SSR Link Mode (First Page)",
             TablePaginatorData(
                 mode: .link(basePath: "/preview/table-paginator"),
                 info: TablePaginatorInfo(page: 1, per: 10, total: 95),
@@ -38,9 +32,7 @@ struct TablePaginatorView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // SSR Link Mode: Middle Page (All navigation buttons active)
-            """,
+            "SSR Link Mode (Middle Page with Query Params)",
             TablePaginatorData(
                 mode: .link(
                     basePath: "/preview/table-paginator",
@@ -51,9 +43,7 @@ struct TablePaginatorView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // SSR Link Mode: Last Page (Next & Last disabled)
-            """,
+            "SSR Link Mode (Last Page)",
             TablePaginatorData(
                 mode: .link(basePath: "/preview/table-paginator"),
                 info: TablePaginatorInfo(page: 10, per: 10, total: 95),
