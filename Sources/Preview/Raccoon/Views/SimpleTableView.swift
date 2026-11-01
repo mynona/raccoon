@@ -7,8 +7,8 @@ import WebBuilders
 
 struct SimpleTableView: TemplateRepresentable {
 
-    let variants: [(String, SimpleTableData)] = [
-        (
+    let variants: [PreviewVariant<SimpleTableData>] = [
+        #previewVariant(
             """
             // Growth Loops
             SimpleTableData(meta: meta, rows: rows, caption: \"Types of Growth Loops\")
@@ -37,15 +37,15 @@ struct SimpleTableView: TemplateRepresentable {
 
                 showComponentTitle("SimpleTable")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { SimpleTable(ctx).render() }
+                        Div { SimpleTable(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

@@ -7,8 +7,8 @@ import WebBuilders
 
 struct DatePickerView: TemplateRepresentable {
 
-    let variants: [(String, DatePickerData)] = [
-        (
+    let variants: [PreviewVariant<DatePickerData>] = [
+        #previewVariant(
             """
             // DatePicker (Single Date)
             """,
@@ -21,10 +21,10 @@ struct DatePickerView: TemplateRepresentable {
                 value: Date(),
                 state: .enabled,
                 errorMessages: nil,
-                backgroundColor: nil,
+                backgroundColor: nil
             )
         ),
-        (
+        #previewVariant(
             """
             // DatePicker (Date Range)
             """,
@@ -41,7 +41,7 @@ struct DatePickerView: TemplateRepresentable {
                 state: .enabled,
                 errorMessages: nil,
                 isRange: true,
-                backgroundColor: nil,
+                backgroundColor: nil
             )
         ),
     ]
@@ -62,15 +62,15 @@ struct DatePickerView: TemplateRepresentable {
 
                 showComponentTitle("DatePicker")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { DatePicker(ctx).render() }
+                        Div { DatePicker(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

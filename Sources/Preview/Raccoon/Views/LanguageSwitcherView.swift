@@ -7,8 +7,8 @@ import WebBuilders
 
 struct LanguageSwitcherView: TemplateRepresentable {
 
-    let variants: [(String, LanguageSwitcherData)] = [
-        (
+    let variants: [PreviewVariant<LanguageSwitcherData>] = [
+        #previewVariant(
             """
             // English and German
             """,
@@ -19,7 +19,7 @@ struct LanguageSwitcherView: TemplateRepresentable {
                 ]
             )
         ),
-        (
+        #previewVariant(
             """
             // More languages, custom id and fallback
             """,
@@ -52,15 +52,15 @@ struct LanguageSwitcherView: TemplateRepresentable {
 
                 showComponentTitle("Language Switcher")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { LanguageSwitcher(ctx).render() }
+                        Div { LanguageSwitcher(variant.data).render() }
                             .class("mb-28 mt-4")
                     }
 

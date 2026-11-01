@@ -7,8 +7,8 @@ import WebBuilders
 
 struct SingleSelectView: TemplateRepresentable {
 
-    let variants: [(String, SingleSelectData)] = [
-        (
+    let variants: [PreviewVariant<SingleSelectData>] = [
+        #previewVariant(
             """
             // state = .enabled
             """,
@@ -30,7 +30,7 @@ struct SingleSelectView: TemplateRepresentable {
                 backgroundColor: nil,
             )
         ),
-        (
+        #previewVariant(
             """
             // state = .enabled
             """,
@@ -56,7 +56,7 @@ struct SingleSelectView: TemplateRepresentable {
                 backgroundColor: nil,
             )
         ),
-        (
+        #previewVariant(
             """
             // backgroundColor
             """,
@@ -75,7 +75,7 @@ struct SingleSelectView: TemplateRepresentable {
                 backgroundColor: "#4365fc",
             )
         ),
-        (
+        #previewVariant(
             """
             // state: .disabled
             """,
@@ -94,7 +94,7 @@ struct SingleSelectView: TemplateRepresentable {
                 backgroundColor: nil,
             )
         ),
-        (
+        #previewVariant(
             """
             // state: .info
             """,
@@ -113,7 +113,7 @@ struct SingleSelectView: TemplateRepresentable {
                 backgroundColor: nil,
             )
         ),
-        (
+        #previewVariant(
             """
             // no label + no name + no title + no placeholder
             """,
@@ -129,7 +129,7 @@ struct SingleSelectView: TemplateRepresentable {
                 backgroundColor: nil,
             )
         ),
-        (
+        #previewVariant(
             """
             // value set in backend but does not match any value in 
             // the option list, then no option is selected
@@ -153,7 +153,7 @@ struct SingleSelectView: TemplateRepresentable {
                 backgroundColor: nil,
             )
         ),
-        (
+        #previewVariant(
             """
             // value set in backend with a correct value
             """,
@@ -194,15 +194,15 @@ struct SingleSelectView: TemplateRepresentable {
 
                 showComponentTitle("SingleSelect")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { SingleSelect(ctx).render() }
+                        Div { SingleSelect(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

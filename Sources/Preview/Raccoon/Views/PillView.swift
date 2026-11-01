@@ -7,8 +7,8 @@ import WebBuilders
 
 struct PillView: TemplateRepresentable {
 
-    let variants: [(String, PillData)] = [
-        (
+    let variants: [PreviewVariant<PillData>] = [
+        #previewVariant(
             """
             // Neutral Counter Pill (Default)
             """,
@@ -17,7 +17,7 @@ struct PillView: TemplateRepresentable {
                 variant: .neutral
             )
         ),
-        (
+        #previewVariant(
             """
             // Theme Accent Counter Pill
             """,
@@ -26,7 +26,7 @@ struct PillView: TemplateRepresentable {
                 variant: .theme
             )
         ),
-        (
+        #previewVariant(
             """
             // Text Pill with Status Variant
             """,
@@ -36,7 +36,7 @@ struct PillView: TemplateRepresentable {
                 size: .base
             )
         ),
-        (
+        #previewVariant(
             """
             // Large Error Pill
             """,
@@ -61,14 +61,14 @@ struct PillView: TemplateRepresentable {
             Div {
                 showComponentTitle("Pill")
 
-                for (label, ctx) in variants {
-                    showVariantTitle(label, ctx)
+                for variant in variants {
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { Pill(ctx).render() }
+                        Div { Pill(variant.data).render() }
                             .class("mb-4 mt-4")
                     }
                 }

@@ -7,8 +7,8 @@ import WebBuilders
 
 struct LinkListView: TemplateRepresentable {
 
-    let variants: [(String, LinkListData)] = [
-        (
+    let variants: [PreviewVariant<LinkListData>] = [
+        #previewVariant(
             """
             // Default
             """,
@@ -23,7 +23,7 @@ struct LinkListView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // Multiline wrapping
             """,
@@ -55,15 +55,15 @@ struct LinkListView: TemplateRepresentable {
 
                 showComponentTitle("LinkList")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { LinkList(ctx).render() }
+                        Div { LinkList(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

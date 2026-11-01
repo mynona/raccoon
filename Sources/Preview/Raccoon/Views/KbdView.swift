@@ -7,32 +7,32 @@ import WebBuilders
 
 struct KbdView: TemplateRepresentable {
 
-    let variants: [(String, KeyboardKeyData)] = [
-        (
+    let variants: [PreviewVariant<KeyboardKeyData>] = [
+        #previewVariant(
             """
             // Shift
             """,
             KeyboardKeyData(key: .shift)
         ),
-        (
+        #previewVariant(
             """
             // Command
             """,
             KeyboardKeyData(key: .command)
         ),
-        (
+        #previewVariant(
             """
             // Ctrl
             """,
             KeyboardKeyData(key: .ctrl)
         ),
-        (
+        #previewVariant(
             """
             // Custom text
             """,
             KeyboardKeyData(key: .text("K"))
         ),
-        (
+        #previewVariant(
             """
             // Custom text
             """,
@@ -56,15 +56,15 @@ struct KbdView: TemplateRepresentable {
 
                 showComponentTitle("Kbd")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { KeyboardKey(ctx).render() }
+                        Div { KeyboardKey(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

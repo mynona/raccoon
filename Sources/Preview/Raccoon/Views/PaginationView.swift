@@ -7,8 +7,8 @@ import WebBuilders
 
 struct PaginationView: TemplateRepresentable {
 
-    let variants: [(String, PaginationData)] = [
-        (
+    let variants: [PreviewVariant<PaginationData>] = [
+        #previewVariant(
             """
             // Middle page (Page 4 of 10 selected: First | 2 | 3 | 4 | 5 | 6 | Last)
             """,
@@ -30,7 +30,7 @@ struct PaginationView: TemplateRepresentable {
                 hrefBase: "base-url"
             )
         ),
-        (
+        #previewVariant(
             """
             // First page (Page 1 of 10 selected: no pages before, First button omitted)
             """,
@@ -52,7 +52,7 @@ struct PaginationView: TemplateRepresentable {
                 hrefBase: "base-url"
             )
         ),
-        (
+        #previewVariant(
             """
             // Near start (Page 2 of 10 selected: only 1 page before)
             """,
@@ -70,7 +70,7 @@ struct PaginationView: TemplateRepresentable {
                 hrefBase: "base-url"
             )
         ),
-        (
+        #previewVariant(
             """
             // Last page (Page 10 of 10 selected: no pages after, Last button omitted)
             """,
@@ -88,7 +88,7 @@ struct PaginationView: TemplateRepresentable {
                 hrefBase: "base-url"
             )
         ),
-        (
+        #previewVariant(
             """
             // 2 pages (Page 1 selected: First omitted, Last shown)
             """,
@@ -111,7 +111,7 @@ struct PaginationView: TemplateRepresentable {
                 hrefBase: "base-url"
             )
         ),
-        (
+        #previewVariant(
             """
             // 100 pages (Page 42 selected: First | 40 | 41 | 42 | 43 | 44 | Last)
             """,
@@ -133,7 +133,7 @@ struct PaginationView: TemplateRepresentable {
                 hrefBase: "base-url"
             )
         ),
-        (
+        #previewVariant(
             """
             // Long Table of content title (> 15 characters, truncated)
             """,
@@ -173,15 +173,15 @@ struct PaginationView: TemplateRepresentable {
 
                 showComponentTitle("Pagination")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { Pagination(ctx).render() }
+                        Div { Pagination(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

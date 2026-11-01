@@ -14,19 +14,23 @@ struct RadioGroupView: TemplateRepresentable {
         ]
     }
 
-    let variants: [(String, RadioGroupData)] = [
-        (
+    let variants: [PreviewVariant<RadioGroupData>] = [
+        #previewVariant(
             """
             // No selection
             """,
             RadioGroupData(
                 id: "group-1",
                 name: "plan-1",
-                label: LabelData(id: "group-1", title: "Plan", isRequired: false),
+                label: LabelData(
+                    id: "group-1",
+                    title: "Plan",
+                    isRequired: false
+                ),
                 options: plans("g1")
             )
         ),
-        (
+        #previewVariant(
             """
             // Preselected, required legend
             """,
@@ -38,14 +42,18 @@ struct RadioGroupView: TemplateRepresentable {
                 options: plans("g2")
             )
         ),
-        (
+        #previewVariant(
             """
             // Helper text
             """,
             RadioGroupData(
                 id: "group-3",
                 name: "plan-3",
-                label: LabelData(id: "group-3", title: "Plan", isRequired: false),
+                label: LabelData(
+                    id: "group-3",
+                    title: "Plan",
+                    isRequired: false
+                ),
                 selectedValue: "free",
                 options: plans("g3"),
                 helperText: HelperTextData(
@@ -54,7 +62,7 @@ struct RadioGroupView: TemplateRepresentable {
                 )
             )
         ),
-        (
+        #previewVariant(
             """
             // Group error
             """,
@@ -74,14 +82,18 @@ struct RadioGroupView: TemplateRepresentable {
                 )
             )
         ),
-        (
+        #previewVariant(
             """
             // One option disabled, option helper text
             """,
             RadioGroupData(
                 id: "group-5",
                 name: "plan-5",
-                label: LabelData(id: "group-5", title: "Plan", isRequired: false),
+                label: LabelData(
+                    id: "group-5",
+                    title: "Plan",
+                    isRequired: false
+                ),
                 selectedValue: "free",
                 options: [
                     RadioData(id: "plan-5-free", label: "Free", value: "free"),
@@ -89,21 +101,28 @@ struct RadioGroupView: TemplateRepresentable {
                         id: "plan-5-pro",
                         label: "Pro",
                         value: "pro",
-                        helperText: HelperTextData(id: "plan-5-pro", text: "Includes support."),
+                        helperText: HelperTextData(
+                            id: "plan-5-pro",
+                            text: "Includes support."
+                        ),
                         state: .disabled
                     ),
                     RadioData(id: "plan-5-team", label: "Team", value: "team"),
                 ]
             )
         ),
-        (
+        #previewVariant(
             """
             // Whole group disabled
             """,
             RadioGroupData(
                 id: "group-6",
                 name: "plan-6",
-                label: LabelData(id: "group-6", title: "Plan", isRequired: false),
+                label: LabelData(
+                    id: "group-6",
+                    title: "Plan",
+                    isRequired: false
+                ),
                 selectedValue: "pro",
                 options: plans("g6"),
                 state: .disabled
@@ -127,15 +146,15 @@ struct RadioGroupView: TemplateRepresentable {
 
                 showComponentTitle("RadioGroup")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { RadioGroup(ctx).render() }
+                        Div { RadioGroup(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

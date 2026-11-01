@@ -7,8 +7,8 @@ import WebBuilders
 
 struct StepperView: TemplateRepresentable {
 
-    let variants: [(String, StepperData)] = [
-        (
+    let variants: [PreviewVariant<StepperData>] = [
+        #previewVariant(
             """
             // Vertical Stepper (Account Registration Flow)
             """,
@@ -57,7 +57,7 @@ struct StepperView: TemplateRepresentable {
                 orientation: .vertical
             )
         ),
-        (
+        #previewVariant(
             """
             // Horizontal Stepper (Compact Circles)
             """,
@@ -99,7 +99,7 @@ struct StepperView: TemplateRepresentable {
                 orientation: .horizontal
             )
         ),
-        (
+        #previewVariant(
             """
             // Horizontal Stepper (Full Width)
             """,
@@ -136,7 +136,7 @@ struct StepperView: TemplateRepresentable {
                 hasFullWidth: true
             )
         ),
-        (
+        #previewVariant(
             """
             // Static Vertical Stepper (Read-only Order Status)
             """,
@@ -170,7 +170,7 @@ struct StepperView: TemplateRepresentable {
                 orientation: .vertical
             )
         ),
-        (
+        #previewVariant(
             """
             // Horizontal Stepper with Custom Tooltips
             """,
@@ -215,7 +215,7 @@ struct StepperView: TemplateRepresentable {
                 orientation: .horizontal
             )
         ),
-        (
+        #previewVariant(
             """
             // Configurable Icons & Step Numbers (Step 1 Active - Screenshot 1)
             """,
@@ -251,7 +251,7 @@ struct StepperView: TemplateRepresentable {
                 orientation: .horizontal
             )
         ),
-        (
+        #previewVariant(
             """
             // Configurable Icons & Step Numbers (Step 1 Completed with Tick - Screenshot 2)
             """,
@@ -302,14 +302,14 @@ struct StepperView: TemplateRepresentable {
             Div {
                 showComponentTitle("Stepper")
 
-                for (label, ctx) in variants {
-                    showVariantTitle(label, ctx)
+                for variant in variants {
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { Stepper(ctx).render() }
+                        Div { Stepper(variant.data).render() }
                             .class("mb-4 mt-4")
                     }
                 }

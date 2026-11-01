@@ -7,8 +7,8 @@ import WebBuilders
 
 struct AvatarView: TemplateRepresentable {
 
-    let variants: [(String, AvatarData)] = [
-        (
+    let variants: [PreviewVariant<AvatarData>] = [
+        #previewVariant(
             """
             //
             """,
@@ -18,7 +18,7 @@ struct AvatarView: TemplateRepresentable {
                 size: .sm
             )
         ),
-        (
+        #previewVariant(
             """
             //
             """,
@@ -28,7 +28,7 @@ struct AvatarView: TemplateRepresentable {
                 size: .base
             )
         ),
-        (
+        #previewVariant(
             """
             //
             """,
@@ -38,7 +38,7 @@ struct AvatarView: TemplateRepresentable {
                 size: .xl
             )
         ),
-        (
+        #previewVariant(
             """
             //
             """,
@@ -46,13 +46,13 @@ struct AvatarView: TemplateRepresentable {
                 firstName: "Andreas"
             )
         ),
-        (
+        #previewVariant(
             """
             // No name
             """,
             AvatarData()
         ),
-        (
+        #previewVariant(
             """
             //
             """,
@@ -79,15 +79,15 @@ struct AvatarView: TemplateRepresentable {
 
                 showComponentTitle("Avatar")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { Avatar(ctx).render() }
+                        Div { Avatar(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

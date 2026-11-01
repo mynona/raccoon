@@ -7,8 +7,8 @@ import WebBuilders
 
 struct ToggleSwitchView: TemplateRepresentable {
 
-    let variants: [(String, ToggleSwitchData)] = [
-        (
+    let variants: [PreviewVariant<ToggleSwitchData>] = [
+        #previewVariant(
             """
             // off (value = false)
             """,
@@ -24,7 +24,7 @@ struct ToggleSwitchView: TemplateRepresentable {
                 apiURL: nil
             )
         ),
-        (
+        #previewVariant(
             """
             // on (value = true) + disabled
             """,
@@ -37,7 +37,7 @@ struct ToggleSwitchView: TemplateRepresentable {
                 apiURL: nil
             )
         ),
-        (
+        #previewVariant(
             """
             // on (value = true) + size:sm
             """,
@@ -54,7 +54,7 @@ struct ToggleSwitchView: TemplateRepresentable {
                 apiURL: "some-api-url"
             )
         ),
-        (
+        #previewVariant(
             """
             // on (value = true) + size:xl
             """,
@@ -89,15 +89,15 @@ struct ToggleSwitchView: TemplateRepresentable {
 
                 showComponentTitle("ToggleSwitch")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { ToggleSwitch(ctx).render() }
+                        Div { ToggleSwitch(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

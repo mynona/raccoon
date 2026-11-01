@@ -14,8 +14,8 @@ struct DropdownView: TemplateRepresentable {
         OptionValue(title: "Engineering Culture", value: "culture"),
     ]
 
-    let variants: [(String, DropdownData)] = [
-        (
+    let variants: [PreviewVariant<DropdownData>] = [
+        #previewVariant(
             """
             // Standard Enabled Dropdown with Pre-selected Value
             """,
@@ -30,7 +30,7 @@ struct DropdownView: TemplateRepresentable {
                 )
             )
         ),
-        (
+        #previewVariant(
             """
             // Dropdown with Validation Error
             """,
@@ -51,7 +51,7 @@ struct DropdownView: TemplateRepresentable {
                 )
             )
         ),
-        (
+        #previewVariant(
             """
             // Initialized Directly from SingleSelectData (Drop-in Interchangeable)
             """,
@@ -68,7 +68,7 @@ struct DropdownView: TemplateRepresentable {
                 )
             )
         ),
-        (
+        #previewVariant(
             """
             // Disabled State
             """,
@@ -83,7 +83,7 @@ struct DropdownView: TemplateRepresentable {
                 state: .disabled
             )
         ),
-        (
+        #previewVariant(
             """
             // Info State (Read-only Summary)
             """,
@@ -113,15 +113,15 @@ struct DropdownView: TemplateRepresentable {
             Div {
                 showComponentTitle("Dropdown")
 
-                for (label, ctx) in variants {
-                    showVariantTitle(label, ctx)
+                for variant in variants {
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
                         Div {
-                            Dropdown(ctx).render()
+                            Dropdown(variant.data).render()
                         }
                         .class("mb-32 mt-4 max-w-md")
                     }

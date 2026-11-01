@@ -7,8 +7,8 @@ import WebBuilders
 
 struct LinkButtonView: TemplateRepresentable {
 
-    let variants: [(String, LinkButtonData)] = [
-        (
+    let variants: [PreviewVariant<LinkButtonData>] = [
+        #previewVariant(
             """
             // .primary
             """,
@@ -26,7 +26,7 @@ struct LinkButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // .primary + no icon
             """,
@@ -42,7 +42,7 @@ struct LinkButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // .primary + fullWidth
             """,
@@ -60,7 +60,7 @@ struct LinkButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // .primary + inverted
             """,
@@ -77,7 +77,7 @@ struct LinkButtonView: TemplateRepresentable {
             )
         ),
         // secondary
-        (
+        #previewVariant(
             """
             // .secondary
             """,
@@ -93,7 +93,7 @@ struct LinkButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             //
             """,
@@ -109,7 +109,7 @@ struct LinkButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             //
             """,
@@ -125,7 +125,7 @@ struct LinkButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             //
             """,
@@ -142,7 +142,7 @@ struct LinkButtonView: TemplateRepresentable {
             )
         ),
         // tertiary
-        (
+        #previewVariant(
             """
             // .tertiary
             """,
@@ -158,7 +158,7 @@ struct LinkButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // .tertiary + no icon
             """,
@@ -174,7 +174,7 @@ struct LinkButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // .tertiary + fullWidth
             """,
@@ -190,7 +190,7 @@ struct LinkButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // .tertiary + inverted
             """,
@@ -207,7 +207,7 @@ struct LinkButtonView: TemplateRepresentable {
             )
         ),
         // warning
-        (
+        #previewVariant(
             """
             // .warning
             """,
@@ -225,7 +225,7 @@ struct LinkButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // .warning + no icon
             """,
@@ -241,7 +241,7 @@ struct LinkButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // .warning + fullWidth
             """,
@@ -257,7 +257,7 @@ struct LinkButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // .warning + inverted
             """,
@@ -274,7 +274,7 @@ struct LinkButtonView: TemplateRepresentable {
             )
         ),
         // icon
-        (
+        #previewVariant(
             """
             // .icon
             """,
@@ -292,7 +292,7 @@ struct LinkButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // .icon + fullWidth
             """,
@@ -310,7 +310,7 @@ struct LinkButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // .icon + inverted
             """,
@@ -326,7 +326,7 @@ struct LinkButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // Multiline wrapping with icon
             """,
@@ -361,15 +361,15 @@ struct LinkButtonView: TemplateRepresentable {
 
                 showComponentTitle("LinkButton")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { LinkButton(ctx).render() }
+                        Div { LinkButton(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

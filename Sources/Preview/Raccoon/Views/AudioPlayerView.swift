@@ -7,8 +7,8 @@ import WebBuilders
 
 struct AudioPlayerView: TemplateRepresentable {
 
-    let variants: [(String, AudioPlayerData)] = [
-        (
+    let variants: [PreviewVariant<AudioPlayerData>] = [
+        #previewVariant(
             """
             //
             """,
@@ -20,7 +20,7 @@ struct AudioPlayerView: TemplateRepresentable {
                 hasProgressBar: true
             )
         ),
-        (
+        #previewVariant(
             """
             // with Matomo
             """,
@@ -49,15 +49,15 @@ struct AudioPlayerView: TemplateRepresentable {
 
                 showComponentTitle("AudioPlayer")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { AudioPlayer(ctx).render() }
+                        Div { AudioPlayer(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

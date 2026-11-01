@@ -7,14 +7,14 @@ import WebBuilders
 
 struct DarkLightModeToggleView: TemplateRepresentable {
 
-    let variants: [(String, DarkLightModeToggleData)] = [
-        (
+    let variants: [PreviewVariant<DarkLightModeToggleData>] = [
+        #previewVariant(
             """
             // With default context
             """,
             DarkLightModeToggleData()
         ),
-        (
+        #previewVariant(
             """
             // With id and Matomo tracking enabled
             """,
@@ -41,15 +41,15 @@ struct DarkLightModeToggleView: TemplateRepresentable {
 
                 showComponentTitle("Dark Light Mode Toggle")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { DarkLightModeToggle(ctx).render() }
+                        Div { DarkLightModeToggle(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

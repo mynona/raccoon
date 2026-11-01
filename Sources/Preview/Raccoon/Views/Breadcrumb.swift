@@ -7,8 +7,8 @@ import WebBuilders
 
 struct BreadcrumbView: TemplateRepresentable {
 
-    let variants: [(String, BreadcrumbData)] = [
-        (
+    let variants: [PreviewVariant<BreadcrumbData>] = [
+        #previewVariant(
             """
             //
             """,
@@ -16,7 +16,7 @@ struct BreadcrumbView: TemplateRepresentable {
                 paths: DemoData.breadcrumbPaths
             )
         ),
-        (
+        #previewVariant(
             """
             // with Matomo
             """,
@@ -44,15 +44,15 @@ struct BreadcrumbView: TemplateRepresentable {
 
                 showComponentTitle("Breadcrumb")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { Breadcrumb(ctx).render() }
+                        Div { Breadcrumb(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

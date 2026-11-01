@@ -7,8 +7,8 @@ import WebBuilders
 
 struct RatingView: TemplateRepresentable {
 
-    let variants: [(String, RatingData)] = [
-        (
+    let variants: [PreviewVariant<RatingData>] = [
+        #previewVariant(
             """
             // .thumbsUpDown
             //
@@ -22,7 +22,7 @@ struct RatingView: TemplateRepresentable {
                 ratingType: .thumbsUpDown
             )
         ),
-        (
+        #previewVariant(
             """
             // .fiveStars
             //
@@ -52,15 +52,15 @@ struct RatingView: TemplateRepresentable {
 
                 showComponentTitle("Rating")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { Rating(ctx).render() }
+                        Div { Rating(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

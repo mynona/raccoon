@@ -1,30 +1,10 @@
 import HTML
 import Raccoon
 import SGML
-import SwiftSoup
 import Vapor
 
 func prettyHTML(_ html: String) -> String {
-    do {
-        let doc = try SwiftSoup.parseBodyFragment(html)
-
-        let settings = doc.outputSettings()
-        settings.prettyPrint(pretty: true)
-        settings.indentAmount(indentAmount: 4)
-        settings.outline(outlineMode: true)
-        settings.syntax(syntax: .html)
-        settings.escapeMode(.base)
-
-        // Extract only the fragment inside <body>
-        if let body = doc.body() {
-            return try body.html()
-        }
-
-        return html
-    }
-    catch {
-        return html
-    }
+    html
 }
 
 // MARK: - code display
@@ -137,12 +117,12 @@ func previewPage(
 /// The elements are `@autoclosure`d so the render itself happens inside the suspended scope:
 /// these fragments are shown as source samples, not inserted into the document, so they must not
 /// trip the duplicate-id warning.
-func renderFragments(_ elements: @autoclosure () -> [any SGML.Element])
-    -> String
-{
-
-    elements().map { Document(root: $0).render(indent: 0) }.joined()
-
+func renderFragments(
+    _ elements: @autoclosure () -> [any SGML.Element],
+    indent: UInt8 = 4
+) -> String {
+    elements().map { Document(root: $0).render(indent: indent) }
+        .joined(separator: "\n")
 }
 
 /// Wraps rendered HTML in a labelled variant block.

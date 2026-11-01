@@ -7,8 +7,8 @@ import WebBuilders
 
 struct TabGroupView: TemplateRepresentable {
 
-    let variants: [(String, TabGroupData)] = [
-        (
+    let variants: [PreviewVariant<TabGroupData>] = [
+        #previewVariant(
             """
             // Underline Variant (Default) with Icons & Badges
             """,
@@ -57,7 +57,7 @@ struct TabGroupView: TemplateRepresentable {
                 variant: .underline
             )
         ),
-        (
+        #previewVariant(
             """
             // Pills Variant
             """,
@@ -103,7 +103,7 @@ struct TabGroupView: TemplateRepresentable {
                 variant: .pills
             )
         ),
-        (
+        #previewVariant(
             """
             // Vertical Orientation (Pills Variant)
             """,
@@ -142,7 +142,7 @@ struct TabGroupView: TemplateRepresentable {
                 orientation: .vertical
             )
         ),
-        (
+        #previewVariant(
             """
             // Vertical Orientation (Underline Variant)
             """,
@@ -197,14 +197,14 @@ struct TabGroupView: TemplateRepresentable {
             Div {
                 showComponentTitle("TabGroup")
 
-                for (label, ctx) in variants {
-                    showVariantTitle(label, ctx)
+                for variant in variants {
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { TabGroup(ctx).render() }
+                        Div { TabGroup(variant.data).render() }
                             .class("mb-4 mt-4")
                     }
                 }

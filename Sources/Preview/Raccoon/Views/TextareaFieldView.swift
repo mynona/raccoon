@@ -7,8 +7,8 @@ import WebBuilders
 
 struct TextareaFieldView: TemplateRepresentable {
 
-    let variants: [(String, TextAreaFieldData)] = [
-        (
+    let variants: [PreviewVariant<TextAreaFieldData>] = [
+        #previewVariant(
             """
             // .firstLastName
             """,
@@ -34,7 +34,7 @@ struct TextareaFieldView: TemplateRepresentable {
                 isMonospaced: false
             )
         ),
-        (
+        #previewVariant(
             """
             // .email
             """,
@@ -61,7 +61,7 @@ struct TextareaFieldView: TemplateRepresentable {
                 isMonospaced: false
             )
         ),
-        (
+        #previewVariant(
             """
             // .url
             """,
@@ -85,7 +85,7 @@ struct TextareaFieldView: TemplateRepresentable {
                 isMonospaced: false
             )
         ),
-        (
+        #previewVariant(
             """
             // .integer
             """,
@@ -108,7 +108,7 @@ struct TextareaFieldView: TemplateRepresentable {
                 isMonospaced: false
             )
         ),
-        (
+        #previewVariant(
             """
             // .amount
             """,
@@ -131,7 +131,7 @@ struct TextareaFieldView: TemplateRepresentable {
                 isMonospaced: true
             )
         ),
-        (
+        #previewVariant(
             """
             // .phoneNumber
             """,
@@ -154,7 +154,7 @@ struct TextareaFieldView: TemplateRepresentable {
                 isMonospaced: false
             )
         ),
-        (
+        #previewVariant(
             """
             // .ip4vAddress
             """,
@@ -177,7 +177,7 @@ struct TextareaFieldView: TemplateRepresentable {
                 isMonospaced: true
             )
         ),
-        (
+        #previewVariant(
             """
             // .custom
             """,
@@ -221,15 +221,15 @@ struct TextareaFieldView: TemplateRepresentable {
 
                 showComponentTitle("TextAreaField")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { TextAreaField(ctx).render() }
+                        Div { TextAreaField(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

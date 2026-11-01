@@ -7,8 +7,8 @@ import WebBuilders
 
 struct ViewMasekedSecretView: TemplateRepresentable {
 
-    let variants: [(String, ViewMaskedSecretData)] = [
-        (
+    let variants: [PreviewVariant<ViewMaskedSecretData>] = [
+        #previewVariant(
             """
             // Without copy
             """,
@@ -18,7 +18,7 @@ struct ViewMasekedSecretView: TemplateRepresentable {
                 hasCopyToClipboard: false
             )
         ),
-        (
+        #previewVariant(
             """
             // With copy
             """,
@@ -46,15 +46,15 @@ struct ViewMasekedSecretView: TemplateRepresentable {
 
                 showComponentTitle("ViewMaskedSecret")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { ViewMaskedSecret(ctx).render() }
+                        Div { ViewMaskedSecret(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

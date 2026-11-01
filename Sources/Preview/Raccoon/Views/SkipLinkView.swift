@@ -6,14 +6,14 @@ import WebBuilders
 
 struct SkipLinkView: TemplateRepresentable {
 
-    let variants: [(String, SkipLinkData)] = [
-        (
+    let variants: [PreviewVariant<SkipLinkData>] = [
+        #previewVariant(
             """
             // Default configuration
             """,
             SkipLinkData()
         ),
-        (
+        #previewVariant(
             """
             // Custom target and text
             """,
@@ -40,13 +40,13 @@ struct SkipLinkView: TemplateRepresentable {
 
                 showComponentTitle("SkipLink")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
                         Div {
                             P(
@@ -55,7 +55,7 @@ struct SkipLinkView: TemplateRepresentable {
                             .class(
                                 "mb-2 text-sm text-gray-500 dark:text-gray-400"
                             )
-                            SkipLink(ctx).render()
+                            SkipLink(variant.data).render()
                         }
                         .class("mb-4 mt-12")
                     }

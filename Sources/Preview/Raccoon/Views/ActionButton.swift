@@ -7,8 +7,8 @@ import WebBuilders
 
 struct ButtonView: TemplateRepresentable {
 
-    let variants: [(String, ActionButtonData)] = [
-        (
+    let variants: [PreviewVariant<ActionButtonData>] = [
+        #previewVariant(
             """
             Primary Button
             """,
@@ -30,7 +30,7 @@ struct ButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // with Matomo
             """,
@@ -51,7 +51,7 @@ struct ButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             //
             """,
@@ -72,7 +72,7 @@ struct ButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             //
             """,
@@ -93,7 +93,7 @@ struct ButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             //
             """,
@@ -114,7 +114,7 @@ struct ButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // .icon
             """,
@@ -135,7 +135,7 @@ struct ButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             /// action + method:
             /// Sets the button's formaction and formmethod (native form submission).
@@ -160,7 +160,7 @@ struct ButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             /// bindAction:
             /// Sets x-bind:formaction to a JS expression so the button's target can change at runtime.
@@ -185,7 +185,7 @@ struct ButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // state: .disabled — primary
             """,
@@ -207,7 +207,7 @@ struct ButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // state: .disabled — secondary
             """,
@@ -220,7 +220,7 @@ struct ButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // state: .disabled — tertiary
             """,
@@ -233,7 +233,7 @@ struct ButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // state: .disabled — warning
             """,
@@ -246,7 +246,7 @@ struct ButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // state: .disabled — icon only
             """,
@@ -261,7 +261,7 @@ struct ButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // No explicit id and no tooltipId — identical to the two below.
             // Hovering one icon button must show exactly one tooltip.
@@ -275,7 +275,7 @@ struct ButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // No explicit id, second of three
             """,
@@ -288,7 +288,7 @@ struct ButtonView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // Multiline wrapping with icon
             """,
@@ -322,17 +322,17 @@ struct ButtonView: TemplateRepresentable {
 
                 showComponentTitle("Button")
 
-                for (index, (label, ctx)) in variants.enumerated() {
+                for (index, variant) in variants.enumerated() {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
                         id: "btn-\(index)",
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
                         Form {
-                            Div { ActionButton(ctx).render() }
+                            Div { ActionButton(variant.data).render() }
                                 .class("flex")
                         }
                         .setAttribute(

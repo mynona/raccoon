@@ -7,8 +7,8 @@ import WebBuilders
 
 struct SimpleMenuView: TemplateRepresentable {
 
-    let variants: [(String, SimpleMenuData)] = [
-        (
+    let variants: [PreviewVariant<SimpleMenuData>] = [
+        #previewVariant(
             """
             // Action Menu with text
             """,
@@ -35,7 +35,7 @@ struct SimpleMenuView: TemplateRepresentable {
                 width: "w-48"
             )
         ),
-        (
+        #previewVariant(
             """
             // SSR Link Mode with Pre-rendered Checkmark
             """,
@@ -65,7 +65,7 @@ struct SimpleMenuView: TemplateRepresentable {
                 width: "w-36"
             )
         ),
-        (
+        #previewVariant(
             """
             // Icon-Only Trigger Button
             """,
@@ -90,7 +90,7 @@ struct SimpleMenuView: TemplateRepresentable {
                 hasTriggerChevron: false
             )
         ),
-        (
+        #previewVariant(
             """
             // Right-Aligned Panel
             """,
@@ -128,15 +128,15 @@ struct SimpleMenuView: TemplateRepresentable {
             Div {
                 showComponentTitle("Simple Menu")
 
-                for (label, ctx) in variants {
-                    showVariantTitle(label, ctx)
+                for variant in variants {
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
                         Div {
-                            SimpleMenu(ctx).render()
+                            SimpleMenu(variant.data).render()
                         }
                         .class("mb-32 mt-4")
                     }

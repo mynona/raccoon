@@ -5,26 +5,26 @@ import WebBuilders
 
 struct RadioView: TemplateRepresentable {
 
-    let variants: [(String, RadioData)] = [
-        (
+    let variants: [PreviewVariant<RadioData>] = [
+        #previewVariant(
             """
             // Default
             """,
             RadioData(id: "radio-1", label: "Accept terms")
         ),
-        (
+        #previewVariant(
             """
             // Selected
             """,
             RadioData(id: "radio-2", label: "Accept terms", isSelected: true)
         ),
-        (
+        #previewVariant(
             """
             // Disabled
             """,
             RadioData(id: "radio-3", label: "Accept terms", state: .disabled)
         ),
-        (
+        #previewVariant(
             """
             // Disabled and selected
             """,
@@ -35,7 +35,7 @@ struct RadioView: TemplateRepresentable {
                 isSelected: true
             )
         ),
-        (
+        #previewVariant(
             """
             // Helper text
             """,
@@ -45,7 +45,7 @@ struct RadioView: TemplateRepresentable {
                 helperText: HelperTextData(id: "radio-5", text: "helper text")
             )
         ),
-        (
+        #previewVariant(
             """
             // Error
             """,
@@ -78,15 +78,15 @@ struct RadioView: TemplateRepresentable {
 
                 showComponentTitle("Radio")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { Radio(ctx).render() }
+                        Div { Radio(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

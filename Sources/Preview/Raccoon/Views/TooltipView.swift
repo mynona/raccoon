@@ -7,8 +7,8 @@ import WebBuilders
 
 struct TooltipView: TemplateRepresentable {
 
-    let variants: [(String, TooltipData)] = [
-        (
+    let variants: [PreviewVariant<TooltipData>] = [
+        #previewVariant(
             """
             // Top
             """,
@@ -19,7 +19,7 @@ struct TooltipView: TemplateRepresentable {
                 hasArrow: true
             )
         ),
-        (
+        #previewVariant(
             """
             // Bottom
             """,
@@ -48,9 +48,9 @@ struct TooltipView: TemplateRepresentable {
 
                 showComponentTitle("Tooltip")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     /// ## Tooltip Usage
                     ///
@@ -105,29 +105,29 @@ struct TooltipView: TemplateRepresentable {
                     ///
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
                         Div {
 
-                            Button(ctx.text)
+                            Button(variant.data.text)
                                 .setAttribute(
                                     name: "x-ref",
-                                    value: ctx.id
+                                    value: variant.data.id
                                 )
                                 .setAttribute(
                                     name: "x-on:mouseenter",
                                     value:
-                                        "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: '\(ctx.id)' } }))"
+                                        "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: '\(variant.data.id)' } }))"
                                 )
                                 .setAttribute(
                                     name: "x-on:mouseleave",
                                     value:
-                                        "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: '\(ctx.id)' } }))"
+                                        "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: '\(variant.data.id)' } }))"
                                 )
                                 .class("inline-block")
 
-                            Tooltip(ctx).render()
+                            Tooltip(variant.data).render()
 
                         }
                         .class("relative inline-block mb-4 mt-12")

@@ -7,8 +7,8 @@ import WebBuilders
 
 struct MarkdownBlockView: TemplateRepresentable {
 
-    let variants: [(String, MarkdownBlockData)] = [
-        (
+    let variants: [PreviewVariant<MarkdownBlockData>] = [
+        #previewVariant(
             """
             // hasProse == true
             """,
@@ -16,7 +16,7 @@ struct MarkdownBlockView: TemplateRepresentable {
                 markdown: DemoData.markdownText,
                 isProse: true
             )
-        ),
+        )
     ]
 
     func makeHtml(ctx: MarkdownBlockData) -> String {
@@ -35,15 +35,15 @@ struct MarkdownBlockView: TemplateRepresentable {
 
                 showComponentTitle("MarkdownBlock")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { MarkdownBlock(ctx).render() }
+                        Div { MarkdownBlock(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

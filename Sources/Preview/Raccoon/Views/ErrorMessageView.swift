@@ -7,8 +7,8 @@ import WebBuilders
 
 struct ErrorMessageView: TemplateRepresentable {
 
-    let variants: [(String, ErrorMessageData)] = [
-        (
+    let variants: [PreviewVariant<ErrorMessageData>] = [
+        #previewVariant(
             """
             // With error messages
             """,
@@ -21,7 +21,7 @@ struct ErrorMessageView: TemplateRepresentable {
                 hasIcon: true
             )
         ),
-        (
+        #previewVariant(
             """
             // With error messages
             """,
@@ -51,15 +51,15 @@ struct ErrorMessageView: TemplateRepresentable {
 
                 showComponentTitle("ErrorMessage")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { ErrorMessage(ctx).render() }
+                        Div { ErrorMessage(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

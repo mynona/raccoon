@@ -7,8 +7,8 @@ import WebBuilders
 
 struct LinkView: TemplateRepresentable {
 
-    let variants: [(String, HyperLinkData)] = [
-        (
+    let variants: [PreviewVariant<HyperLinkData>] = [
+        #previewVariant(
             """
             // .center
             """,
@@ -28,7 +28,7 @@ struct LinkView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // .left
             """,
@@ -46,7 +46,7 @@ struct LinkView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // .left + not underlined + no aria label + iconSize(48)
             """,
@@ -63,7 +63,7 @@ struct LinkView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // focusable = false
             """,
@@ -80,7 +80,7 @@ struct LinkView: TemplateRepresentable {
                 contentTracker: tracker
             )
         ),
-        (
+        #previewVariant(
             """
             // Multiline wrapping
             """,
@@ -116,15 +116,15 @@ struct LinkView: TemplateRepresentable {
 
                 showComponentTitle("Hyperlink")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { HyperLink(ctx).render() }
+                        Div { HyperLink(variant.data).render() }
                             .class("mb-4 mt-12 flex justify-center")
                     }
 

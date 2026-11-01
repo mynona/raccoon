@@ -7,8 +7,8 @@ import WebBuilders
 
 struct HelperTextView: TemplateRepresentable {
 
-    let variants: [(String, HelperTextData)] = [
-        (
+    let variants: [PreviewVariant<HelperTextData>] = [
+        #previewVariant(
             """
             // With helper text
             """,
@@ -35,15 +35,15 @@ struct HelperTextView: TemplateRepresentable {
 
                 showComponentTitle("HelperText")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { HelperText(ctx).render() }
+                        Div { HelperText(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

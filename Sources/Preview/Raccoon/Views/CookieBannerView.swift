@@ -7,8 +7,8 @@ import WebBuilders
 
 struct CookieBannerView: TemplateRepresentable {
 
-    let variants: [(String, CookieBannerData)] = [
-        (
+    let variants: [PreviewVariant<CookieBannerData>] = [
+        #previewVariant(
             """
             // With default url
             """,
@@ -39,15 +39,15 @@ struct CookieBannerView: TemplateRepresentable {
                     """
                 )
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { CookieBanner(ctx).render() }
+                        Div { CookieBanner(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

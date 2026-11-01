@@ -7,14 +7,14 @@ import WebBuilders
 
 struct SearchFieldView: TemplateRepresentable {
 
-    let variants: [(String, SearchFieldData)] = [
-        (
+    let variants: [PreviewVariant<SearchFieldData>] = [
+        #previewVariant(
             """
             // Default search field
             """,
             SearchFieldData()
         ),
-        (
+        #previewVariant(
             """
             // Small size variant (.sm) for compact sidebars and headers
             """,
@@ -24,7 +24,7 @@ struct SearchFieldView: TemplateRepresentable {
                 size: .sm
             )
         ),
-        (
+        #previewVariant(
             """
             // Loading state (animated heart icon while querying server)
             """,
@@ -34,7 +34,7 @@ struct SearchFieldView: TemplateRepresentable {
                 loadingBind: "isLoading"
             )
         ),
-        (
+        #previewVariant(
             """
             // Disabled state
             """,
@@ -44,7 +44,7 @@ struct SearchFieldView: TemplateRepresentable {
                 state: .disabled
             )
         ),
-        (
+        #previewVariant(
             """
             // Custom Alpine bindings and clear actions
             """,
@@ -56,7 +56,7 @@ struct SearchFieldView: TemplateRepresentable {
                 ariaLabel: "Custom search"
             )
         ),
-        (
+        #previewVariant(
             """
             // Transparent container background
             """,
@@ -84,16 +84,16 @@ struct SearchFieldView: TemplateRepresentable {
 
                 showComponentTitle("SearchField")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
                         Div {
-                            SearchField(ctx).render()
+                            SearchField(variant.data).render()
                         }
                         .setAttribute(
                             name: "x-data",

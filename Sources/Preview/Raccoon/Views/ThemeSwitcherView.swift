@@ -7,14 +7,14 @@ import WebBuilders
 
 struct ThemeSwitcherView: TemplateRepresentable {
 
-    let variants: [(String, ThemeSwitcherData)] = [
-        (
+    let variants: [PreviewVariant<ThemeSwitcherData>] = [
+        #previewVariant(
             """
             // With default context
             """,
             ThemeSwitcherData()
         ),
-        (
+        #previewVariant(
             """
             // With id and Matomo tracking enabled
             """,
@@ -23,7 +23,7 @@ struct ThemeSwitcherView: TemplateRepresentable {
                 matomoStatus: .ACCEPTED
             )
         ),
-        (
+        #previewVariant(
             """
             // With custom theme options
             """,
@@ -50,15 +50,15 @@ struct ThemeSwitcherView: TemplateRepresentable {
 
                 showComponentTitle("Theme Switcher")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { ThemeSwitcher(ctx).render() }
+                        Div { ThemeSwitcher(variant.data).render() }
                             .class("mb-28 mt-4")
                     }
 

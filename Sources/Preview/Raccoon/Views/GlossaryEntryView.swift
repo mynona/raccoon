@@ -7,8 +7,8 @@ import WebBuilders
 
 struct GlossaryEntryView: TemplateRepresentable {
 
-    let variants: [(String, GlossaryEntryData)] = [
-        (
+    let variants: [PreviewVariant<GlossaryEntryData>] = [
+        #previewVariant(
             """
             // Default
             """,
@@ -19,7 +19,7 @@ struct GlossaryEntryView: TemplateRepresentable {
                 hasInitial: true
             )
         ),
-        (
+        #previewVariant(
             """
             // Default
             """,
@@ -48,15 +48,15 @@ struct GlossaryEntryView: TemplateRepresentable {
 
                 showComponentTitle("Glossary Entry")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { GlossaryEntry(ctx).render() }
+                        Div { GlossaryEntry(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

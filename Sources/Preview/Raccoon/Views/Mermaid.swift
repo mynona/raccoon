@@ -7,8 +7,8 @@ import WebBuilders
 
 struct MermaidView: TemplateRepresentable {
 
-    let variants: [(String, MermaidData)] = [
-        (
+    let variants: [PreviewVariant<MermaidData>] = [
+        #previewVariant(
             """
             // Flowchart
             """,
@@ -25,7 +25,7 @@ struct MermaidView: TemplateRepresentable {
                 widthInPercent: 100
             )
         ),
-        (
+        #previewVariant(
             """
             // State diagram
             """,
@@ -43,7 +43,7 @@ struct MermaidView: TemplateRepresentable {
                 widthInPercent: 100
             )
         ),
-        (
+        #previewVariant(
             """
             // Sequence
             """,
@@ -62,7 +62,7 @@ struct MermaidView: TemplateRepresentable {
                 widthInPercent: 100
             )
         ),
-        (
+        #previewVariant(
             """
             // Timeline
             """,
@@ -81,7 +81,7 @@ struct MermaidView: TemplateRepresentable {
                 widthInPercent: 100
             )
         ),
-        (
+        #previewVariant(
             """
             // Class
             """,
@@ -105,7 +105,7 @@ struct MermaidView: TemplateRepresentable {
                 widthInPercent: 100
             )
         ),
-        (
+        #previewVariant(
             """
             // ER diagram
             """,
@@ -131,7 +131,7 @@ struct MermaidView: TemplateRepresentable {
                 widthInPercent: 100
             )
         ),
-        (
+        #previewVariant(
             """
             // User Journey
             """,
@@ -150,7 +150,7 @@ struct MermaidView: TemplateRepresentable {
                 widthInPercent: 100
             )
         ),
-        (
+        #previewVariant(
             """
             // Architecture
             """,
@@ -169,7 +169,7 @@ struct MermaidView: TemplateRepresentable {
                 widthInPercent: 100
             )
         ),
-        (
+        #previewVariant(
             """
             // xychart
             """,
@@ -186,7 +186,7 @@ struct MermaidView: TemplateRepresentable {
                 widthInPercent: 100
             )
         ),
-        (
+        #previewVariant(
             """
             // pie chart
             """,
@@ -203,7 +203,7 @@ struct MermaidView: TemplateRepresentable {
                 widthInPercent: 100
             )
         ),
-        (
+        #previewVariant(
             """
             // quadrant chart
             """,
@@ -225,7 +225,7 @@ struct MermaidView: TemplateRepresentable {
                 widthInPercent: 100
             )
         ),
-        (
+        #previewVariant(
             """
             // gantt chart
             """,
@@ -247,7 +247,7 @@ struct MermaidView: TemplateRepresentable {
                 widthInPercent: 100
             )
         ),
-        (
+        #previewVariant(
             """
             // Mindmap
             """,
@@ -276,7 +276,7 @@ struct MermaidView: TemplateRepresentable {
                 widthInPercent: 100
             )
         ),
-        (
+        #previewVariant(
             """
             // GitGraph
             """,
@@ -313,7 +313,7 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
 
-        (
+        #previewVariant(
             """
             // Radar chart
             """,
@@ -334,7 +334,7 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
 
-        (
+        #previewVariant(
             """
             // Sankey
             """,
@@ -353,7 +353,7 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
 
-        (
+        #previewVariant(
             """
             // Paket
             """,
@@ -373,7 +373,7 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
 
-        (
+        #previewVariant(
             """
             // Kanban board
             """,
@@ -393,7 +393,7 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
 
-        (
+        #previewVariant(
             """
             // Treemap
             """,
@@ -414,7 +414,7 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
 
-        (
+        #previewVariant(
             """
             // Event modeling
             """,
@@ -451,15 +451,15 @@ struct MermaidView: TemplateRepresentable {
 
                 showComponentTitle("Mermaid")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { Mermaid(ctx).render() }
+                        Div { Mermaid(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

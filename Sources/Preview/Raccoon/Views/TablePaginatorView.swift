@@ -7,8 +7,8 @@ import WebBuilders
 
 struct TablePaginatorView: TemplateRepresentable {
 
-    let variants: [(String, TablePaginatorData)] = [
-        (
+    let variants: [PreviewVariant<TablePaginatorData>] = [
+        #previewVariant(
             """
             // Alpine.js Client-Side Mode (Interactive with dynamic state)
             """,
@@ -17,7 +17,7 @@ struct TablePaginatorView: TemplateRepresentable {
                 mode: .alpine
             )
         ),
-        (
+        #previewVariant(
             """
             // Alpine.js Client-Side Mode (Simulated loading state)
             """,
@@ -27,7 +27,7 @@ struct TablePaginatorView: TemplateRepresentable {
                 mode: .alpine
             )
         ),
-        (
+        #previewVariant(
             """
             // SSR Link Mode: First Page (Previous & First disabled)
             """,
@@ -37,7 +37,7 @@ struct TablePaginatorView: TemplateRepresentable {
                 pageSizeOptions: [5, 10, 20, 50, 100]
             )
         ),
-        (
+        #previewVariant(
             """
             // SSR Link Mode: Middle Page (All navigation buttons active)
             """,
@@ -50,7 +50,7 @@ struct TablePaginatorView: TemplateRepresentable {
                 pageSizeOptions: [5, 10, 20, 50, 100]
             )
         ),
-        (
+        #previewVariant(
             """
             // SSR Link Mode: Last Page (Next & Last disabled)
             """,
@@ -75,15 +75,15 @@ struct TablePaginatorView: TemplateRepresentable {
             Div {
                 showComponentTitle("Table Paginator")
 
-                for (label, ctx) in variants {
-                    showVariantTitle(label, ctx)
+                for variant in variants {
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
                         Div {
-                            TablePaginator(ctx).render()
+                            TablePaginator(variant.data).render()
                         }
                         .setAttribute(
                             name: "x-data",

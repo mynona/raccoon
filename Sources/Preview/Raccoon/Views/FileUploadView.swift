@@ -7,8 +7,8 @@ import WebBuilders
 
 struct FileUploadView: TemplateRepresentable {
 
-    let variants: [(String, SingleFileUploadData)] = [
-        (
+    let variants: [PreviewVariant<SingleFileUploadData>] = [
+        #previewVariant(
             """
             //
             """,
@@ -21,7 +21,7 @@ struct FileUploadView: TemplateRepresentable {
                 errorMessages: nil
             )
         ),
-        (
+        #previewVariant(
             """
             //
             """,
@@ -38,7 +38,7 @@ struct FileUploadView: TemplateRepresentable {
                 )
             )
         ),
-        (
+        #previewVariant(
             """
             // noLabel
 
@@ -136,15 +136,15 @@ struct FileUploadView: TemplateRepresentable {
                 .method(.post)
                 .setAttribute(name: "enctype", value: "multipart/form-data")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { SingleFileUpload(ctx).render() }
+                        Div { SingleFileUpload(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

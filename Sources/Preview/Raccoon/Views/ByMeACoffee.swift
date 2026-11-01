@@ -7,8 +7,8 @@ import WebBuilders
 
 struct ByMeACoffeeView: TemplateRepresentable {
 
-    let variants: [(String, ByMeACoffeeData)] = [
-        (
+    let variants: [PreviewVariant<ByMeACoffeeData>] = [
+        #previewVariant(
             """
             // With default data
             """,
@@ -19,7 +19,7 @@ struct ByMeACoffeeView: TemplateRepresentable {
                 imageWidth: 210
             )
         ),
-        (
+        #previewVariant(
             """
             // With Matomo
             """,
@@ -49,15 +49,15 @@ struct ByMeACoffeeView: TemplateRepresentable {
 
                 showComponentTitle("ByMeACoffee")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { ByMeACoffee(ctx).render() }
+                        Div { ByMeACoffee(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

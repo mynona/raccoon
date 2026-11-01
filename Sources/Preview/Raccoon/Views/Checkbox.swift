@@ -7,8 +7,8 @@ import WebBuilders
 
 struct CheckboxView: TemplateRepresentable {
 
-    let variants: [(String, CheckData)] = [
-        (
+    let variants: [PreviewVariant<CheckData>] = [
+        #previewVariant(
             """
             //
             """,
@@ -25,7 +25,7 @@ struct CheckboxView: TemplateRepresentable {
                 )
             )
         ),
-        (
+        #previewVariant(
             """
             //
             """,
@@ -39,7 +39,7 @@ struct CheckboxView: TemplateRepresentable {
                 helperText: nil
             )
         ),
-        (
+        #previewVariant(
             """
             //
             """,
@@ -53,7 +53,7 @@ struct CheckboxView: TemplateRepresentable {
                 helperText: nil
             )
         ),
-        (
+        #previewVariant(
             """
             //
             """,
@@ -93,15 +93,15 @@ struct CheckboxView: TemplateRepresentable {
 
                 showComponentTitle("Checkbox")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { Check(ctx).render() }
+                        Div { Check(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

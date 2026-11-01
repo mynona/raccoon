@@ -1,4 +1,5 @@
 // swift-tools-version:6.3
+import CompilerPluginSupport
 import PackageDescription
 
 let package = Package(
@@ -26,8 +27,8 @@ let package = Package(
             from: "0.9.0"
         ),
         .package(
-            url: "https://github.com/scinfu/SwiftSoup.git",
-            from: "2.6.0"
+            url: "https://github.com/swiftlang/swift-syntax.git",
+            from: "600.0.0"
         ),
         // swift-collections 1.7.0 needs the Swift 6.4 runtime symbol
         // `swift_initBorrow`, which macOS 26 does not ship.
@@ -35,8 +36,22 @@ let package = Package(
             url: "https://github.com/apple/swift-collections.git",
             "1.1.0"..<"1.7.0"
         ),
-    ], 
+    ],
     targets: [
+        .macro(
+            name: "PreviewMacros",
+            dependencies: [
+                .product(
+                    name: "SwiftSyntaxMacros",
+                    package: "swift-syntax"
+                ),
+                .product(
+                    name: "SwiftCompilerPlugin",
+                    package: "swift-syntax"
+                ),
+            ],
+            path: "Sources/PreviewMacros"
+        ),
         .target(
             name: "Raccoon",
             dependencies: [
@@ -85,9 +100,8 @@ let package = Package(
                 .target(
                     name: "Raccoon"
                 ),
-                .product(
-                    name: "SwiftSoup",
-                    package: "SwiftSoup"
+                .target(
+                    name: "PreviewMacros"
                 ),
                 .product(
                     name: "Vapor",

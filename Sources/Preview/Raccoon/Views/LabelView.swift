@@ -7,8 +7,8 @@ import WebBuilders
 
 struct LabelView: TemplateRepresentable {
 
-    let variants: [(String, LabelData)] = [
-        (
+    let variants: [PreviewVariant<LabelData>] = [
+        #previewVariant(
             """
             // Required
             """,
@@ -18,7 +18,7 @@ struct LabelView: TemplateRepresentable {
                 isRequired: true
             )
         ),
-        (
+        #previewVariant(
             """
             // Optional
             """,
@@ -29,7 +29,7 @@ struct LabelView: TemplateRepresentable {
                 isRequired: false
             )
         ),
-        (
+        #previewVariant(
             """
             // Optional
             """,
@@ -60,15 +60,15 @@ struct LabelView: TemplateRepresentable {
 
                 showComponentTitle("Label")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { Label(ctx).render() }
+                        Div { Label(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

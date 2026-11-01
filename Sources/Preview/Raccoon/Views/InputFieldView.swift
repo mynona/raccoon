@@ -7,8 +7,8 @@ import WebBuilders
 
 struct InputFieldView: TemplateRepresentable {
 
-    let variants: [(String, InputFieldData)] = [
-        (
+    let variants: [PreviewVariant<InputFieldData>] = [
+        #previewVariant(
 
             "// First & Last Name validation",
             InputFieldData(
@@ -27,7 +27,7 @@ struct InputFieldView: TemplateRepresentable {
                 type: .text
             )
         ),
-        (
+        #previewVariant(
             "// Email validation",
             InputFieldData(
                 id: "email",
@@ -37,7 +37,7 @@ struct InputFieldView: TemplateRepresentable {
                 type: .email
             )
         ),
-        (
+        #previewVariant(
             "// URL validation",
             InputFieldData(
                 id: "website",
@@ -47,7 +47,7 @@ struct InputFieldView: TemplateRepresentable {
                 type: .url
             )
         ),
-        (
+        #previewVariant(
             "// Integer validation",
             InputFieldData(
                 id: "age",
@@ -57,7 +57,7 @@ struct InputFieldView: TemplateRepresentable {
                 type: .number
             )
         ),
-        (
+        #previewVariant(
             "// Amount validation",
             InputFieldData(
                 id: "amount",
@@ -67,7 +67,7 @@ struct InputFieldView: TemplateRepresentable {
                 type: .text
             )
         ),
-        (
+        #previewVariant(
             "// Phone number validation",
             InputFieldData(
                 id: "phone",
@@ -81,7 +81,7 @@ struct InputFieldView: TemplateRepresentable {
             )
         ),
 
-        (
+        #previewVariant(
             "// IPv4 Address validation",
             InputFieldData(
                 id: "ip",
@@ -91,7 +91,7 @@ struct InputFieldView: TemplateRepresentable {
                 type: .text
             )
         ),
-        (
+        #previewVariant(
             "// Friendly URL validation",
             InputFieldData(
                 id: "slug",
@@ -101,7 +101,7 @@ struct InputFieldView: TemplateRepresentable {
                 type: .text
             )
         ),
-        (
+        #previewVariant(
             "// Custom validation: must be 'abc123'",
             InputFieldData(
                 id: "custom",
@@ -135,15 +135,15 @@ struct InputFieldView: TemplateRepresentable {
 
                 showComponentTitle("InputField")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { InputField(ctx).render() }
+                        Div { InputField(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

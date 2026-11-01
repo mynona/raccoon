@@ -5,6 +5,17 @@ import SGML
 import Vapor
 import WebBuilders
 
+private func stripLeadingComments(_ data: String) -> String {
+    var lines = data.components(separatedBy: .newlines)
+    while let first = lines.first,
+        first.trimmingCharacters(in: .whitespaces).hasPrefix("//")
+            || first.trimmingCharacters(in: .whitespaces).isEmpty
+    {
+        lines.removeFirst()
+    }
+    return lines.joined(separator: "\n")
+}
+
 /// Renders a component preview with three tabs: Preview, Data, and HTML.
 @Builder<Element>
 func showComponentPreview(
@@ -14,6 +25,7 @@ func showComponentPreview(
     @Builder<Element> preview: () -> [Element]
 ) -> [Element] {
     let tabGroupId = "tg-\(id)"
+    let cleanData = stripLeadingComments(data)
 
     Div {
         TabGroup(
@@ -37,7 +49,7 @@ func showComponentPreview(
                         label: "API",
                         content: .element {
                             Div {
-                                showCopyableData(data)
+                                showCopyableData(cleanData)
                             }
                         }
                     ),

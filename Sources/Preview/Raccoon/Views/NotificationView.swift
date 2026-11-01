@@ -7,8 +7,8 @@ import WebBuilders
 
 struct NotificationView: TemplateRepresentable {
 
-    let variants: [(String, NotificationData)] = [
-        (
+    let variants: [PreviewVariant<NotificationData>] = [
+        #previewVariant(
             """
             // Info (no text)
             """,
@@ -18,7 +18,7 @@ struct NotificationView: TemplateRepresentable {
                 type: .info
             )
         ),
-        (
+        #previewVariant(
             """
             // Info (with text)
             """,
@@ -28,7 +28,7 @@ struct NotificationView: TemplateRepresentable {
                 type: .info
             )
         ),
-        (
+        #previewVariant(
             """
             // Success
             """,
@@ -38,7 +38,7 @@ struct NotificationView: TemplateRepresentable {
                 type: .success
             )
         ),
-        (
+        #previewVariant(
             """
             // Warning
             """,
@@ -48,7 +48,7 @@ struct NotificationView: TemplateRepresentable {
                 type: .warning
             )
         ),
-        (
+        #previewVariant(
             """
             // Error
             """,
@@ -76,15 +76,15 @@ struct NotificationView: TemplateRepresentable {
 
                 showComponentTitle("Notification")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { Notification(ctx).render() }
+                        Div { Notification(variant.data).render() }
                             .class("mb-4 mt-12")
                     }
 

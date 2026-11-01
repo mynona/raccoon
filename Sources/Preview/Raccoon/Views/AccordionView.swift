@@ -7,8 +7,8 @@ import WebBuilders
 
 struct AccordionView: TemplateRepresentable {
 
-    let variants: [(String, AccordionData)] = [
-        (
+    let variants: [PreviewVariant<AccordionData>] = [
+        #previewVariant(
             """
             // Border 
             """,
@@ -23,7 +23,7 @@ struct AccordionView: TemplateRepresentable {
                 matomoStatus: .DECLINED
             )
         ),
-        (
+        #previewVariant(
             """
             // No border + with Matomo
             """,
@@ -34,7 +34,7 @@ struct AccordionView: TemplateRepresentable {
                 matomoStatus: .ACCEPTED
             )
         ),
-        (
+        #previewVariant(
             """
             // element
             """,
@@ -65,15 +65,15 @@ struct AccordionView: TemplateRepresentable {
 
                 showComponentTitle("Accordion")
 
-                for (label, ctx) in variants {
+                for variant in variants {
 
-                    showVariantTitle(label, ctx)
+                    showVariantTitle(variant.label, variant.data)
 
                     showComponentPreview(
-                        data: label + "\n\n" + prettySwift(ctx),
-                        html: makeHtml(ctx: ctx)
+                        data: variant.code,
+                        html: makeHtml(ctx: variant.data)
                     ) {
-                        Div { Accordion(ctx).render() }
+                        Div { Accordion(variant.data).render() }
                             .class("mb-4 mt-4")
                     }
 
