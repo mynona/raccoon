@@ -16,22 +16,22 @@ struct AccordionView: TemplateRepresentable {
                 AccordionData(
                     label: tr(
                         "What is product thinking?",
-                        de: "Was ist Product Thinking?",
-                        fr: "Qu'est-ce que le product thinking ?",
-                        es: "¿Qué es el product thinking?",
-                        it: "Che cos'è il product thinking?"
+                        de: "Was ist Produktdenken?",
+                        fr: "Qu'est-ce que la réflexion produit ?",
+                        es: "¿Qué es el pensamiento de producto?",
+                        it: "Che cos'è il pensiero di prodotto?"
                     ),
                     content: .html(
                         tr(
                             "Product thinking means solving the <em>right</em> problems, not just building features.",
                             de:
-                                "Product Thinking bedeutet, die <em>richtigen</em> Probleme zu lösen, nicht nur Features zu bauen.",
+                                "Produktdenken bedeutet, die <em>richtigen</em> Probleme zu lösen, nicht nur Features zu bauen.",
                             fr:
-                                "Le product thinking consiste à résoudre les <em>bons</em> problèmes, pas seulement à développer des fonctionnalités.",
+                                "La réflexion produit consiste à résoudre les <em>bons</em> problèmes, pas seulement à développer des fonctionnalités.",
                             es:
-                                "El product thinking consiste en resolver los problemas <em>correctos</em>, no solo en crear funcionalidades.",
+                                "El pensamiento de producto consiste en resolver los problemas <em>correctos</em>, no solo en crear funcionalidades.",
                             it:
-                                "Il product thinking significa risolvere i problemi <em>giusti</em>, non solo sviluppare funzionalità."
+                                "Il pensiero di prodotto significa risolvere i problemi <em>giusti</em>, non solo sviluppare funzionalità."
                         )
                     ),
                     icon: .journal_text,

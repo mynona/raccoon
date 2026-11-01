@@ -15,10 +15,10 @@ struct GlossaryEntryView: TemplateRepresentable {
             GlossaryEntryData(
                 term: tr(
                     "Product Thinking",
-                    de: "Product Thinking",
-                    fr: "Product thinking",
-                    es: "Product thinking",
-                    it: "Product thinking"
+                    de: "Produktdenken",
+                    fr: "Réflexion produit",
+                    es: "Pensamiento de producto",
+                    it: "Pensiero di prodotto"
                 ),
                 definition:
                     tr(
@@ -42,10 +42,10 @@ struct GlossaryEntryView: TemplateRepresentable {
             GlossaryEntryData(
                 term: tr(
                     "Product Thinking",
-                    de: "Product Thinking",
-                    fr: "Product thinking",
-                    es: "Product thinking",
-                    it: "Product thinking"
+                    de: "Produktdenken",
+                    fr: "Réflexion produit",
+                    es: "Pensamiento de producto",
+                    it: "Pensiero di prodotto"
                 ),
                 definition:
                     tr(

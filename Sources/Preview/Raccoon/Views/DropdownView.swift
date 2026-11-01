@@ -21,10 +21,10 @@ struct DropdownView: TemplateRepresentable {
         OptionValue(
             title: tr(
                 "Product Thinking",
-                de: "Product Thinking",
-                fr: "Product thinking",
-                es: "Product thinking",
-                it: "Product thinking"
+                de: "Produktdenken",
+                fr: "Réflexion produit",
+                es: "Pensamiento de producto",
+                it: "Pensiero di prodotto"
             ),
             value: "product"
         ),

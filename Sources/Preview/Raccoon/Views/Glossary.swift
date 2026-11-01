@@ -53,10 +53,10 @@ struct GlossaryView: TemplateRepresentable {
                     GlossaryEntryData(
                         term: tr(
                             "Accordion",
-                            de: "Accordion",
+                            de: "Akkordeon",
                             fr: "Accordéon",
                             es: "Acordeón",
-                            it: "Accordion"
+                            it: "Fisarmonica"
                         ),
                         definition: tr(
                             "A UI element that lets content be expanded and collapsed.",
@@ -153,14 +153,14 @@ struct GlossaryView: TemplateRepresentable {
                     GlossaryEntryData(
                         term: tr(
                             "Logout",
-                            de: "Logout",
+                            de: "Abmeldung",
                             fr: "Déconnexion",
                             es: "Cierre de sesión",
-                            it: "Logout"
+                            it: "Disconnessione"
                         ),
                         definition: tr(
                             "Signing out.",
-                            de: "Das Ausloggen",
+                            de: "Das Abmelden",
                             fr: "Le fait de se déconnecter.",
                             es: "Salir de la cuenta.",
                             it: "L'uscita dall'account."
@@ -169,10 +169,10 @@ struct GlossaryView: TemplateRepresentable {
                     GlossaryEntryData(
                         term: tr(
                             "Lazy loading",
-                            de: "Lazy Loading",
+                            de: "Verzögertes Laden",
                             fr: "Chargement différé",
                             es: "Carga diferida",
-                            it: "Lazy loading"
+                            it: "Caricamento differito"
                         ),
                         definition: tr(
                             "A design pattern in which resources are only loaded when they are actually needed.",
@@ -272,14 +272,14 @@ struct GlossaryView: TemplateRepresentable {
                     GlossaryEntryData(
                         term: tr(
                             "Logout",
-                            de: "Logout",
+                            de: "Abmeldung",
                             fr: "Déconnexion",
                             es: "Cierre de sesión",
-                            it: "Logout"
+                            it: "Disconnessione"
                         ),
                         definition: tr(
                             "Signing out.",
-                            de: "Das Ausloggen",
+                            de: "Das Abmelden",
                             fr: "Le fait de se déconnecter.",
                             es: "Salir de la cuenta.",
                             it: "L'uscita dall'account."
