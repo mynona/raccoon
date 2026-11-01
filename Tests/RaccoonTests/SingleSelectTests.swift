@@ -135,4 +135,33 @@ struct SingleSelectTests {
         #expect(german.contains("placeholder=\"Suchen oder auswählen\""))
         #expect(german.contains("Durch Eingabe von Werten suchen"))
     }
+
+    @Test("messages and titles are built in and translated")
+    func localizedMessages() {
+        let ctx = SingleSelectData(
+            id: "ss",
+            options: [OptionValue(title: "A", value: "a")],
+            state: .enabled
+        )
+        let german = I18n.render(language: "de") {
+            renderHTML(SingleSelect(ctx).render())
+        }
+        #expect(german.contains(">Keine Werte gefunden.</p>"))
+        #expect(german.contains("aria-label=\"Auswahl löschen\""))
+        #expect(german.contains("aria-label=\"ss auswählen\""))
+    }
+
+    @Test("an unknown value shows the built-in '(None)' in the info state")
+    func localizedNone() {
+        let ctx = SingleSelectData(
+            id: "ss",
+            value: "missing",
+            options: [OptionValue(title: "A", value: "a")],
+            state: .info
+        )
+        let german = I18n.render(language: "de") {
+            renderHTML(SingleSelect(ctx).render())
+        }
+        #expect(german.contains("(Keine)"))
+    }
 }

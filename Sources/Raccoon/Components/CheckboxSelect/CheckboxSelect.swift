@@ -33,6 +33,31 @@ public struct CheckboxSelect: TemplateRepresentable {
     let data: CheckboxSelectData
     typealias styles = CheckBoxSelectStyles
 
+    private static let searchOptions = LocalizedText(
+        "checkboxselect.searchOptions",
+        "Search options"
+    )
+    private static let select = LocalizedText(
+        "checkboxselect.select",
+        "Select"
+    )
+    private static let selectAllOptions = LocalizedText(
+        "checkboxselect.selectAllOptions",
+        "Select all options"
+    )
+    private static let option = LocalizedText(
+        "checkboxselect.option",
+        "Option"
+    )
+    private static let selectAll = LocalizedText(
+        "checkboxselect.selectAll",
+        "Select All"
+    )
+    private static let noResults = LocalizedText(
+        "checkboxselect.noResults",
+        "No results found."
+    )
+
     public init(
         _ data: CheckboxSelectData,
         idPrefix: String = UUID().uuidString
@@ -67,10 +92,9 @@ public struct CheckboxSelect: TemplateRepresentable {
                         bindModel: "searchRaw",
                         bindRef: "checkboxSearchInput",
                         tabindex: "0",
-                        placeholder: "Search",
-                        ariaLabel: "Search options",
+                        ariaLabel: Self.searchOptions,
                         ariaControls: "checkbox-options",
-                        iconTitle: "Search",
+                        iconTitle: LocalizedText("searchfield.search", "Search"),
                         hasTransparentBackground: true
                     )
                 )
@@ -100,7 +124,8 @@ public struct CheckboxSelect: TemplateRepresentable {
                             Th {
 
                                 // Accessibility requirement
-                                Span("Select")
+                                Span(Self.select.resolved)
+                                    .localized(Self.select)
                                     .class("sr-only")
 
                                 Input()
@@ -114,10 +139,7 @@ public struct CheckboxSelect: TemplateRepresentable {
                                         name: "@change",
                                         value: "toggleAll()"
                                     )
-                                    .setAttribute(
-                                        name: "aria-label",
-                                        value: "Select all options"
-                                    )
+                                    .localized(.ariaLabel, Self.selectAllOptions)
                                     .setAttribute(
                                         name: "aria-checked",
                                         value:
@@ -137,10 +159,12 @@ public struct CheckboxSelect: TemplateRepresentable {
                             Th {
 
                                 // Accessibility requirement
-                                Span("Option")
+                                Span(Self.option.resolved)
+                                    .localized(Self.option)
                                     .class("sr-only")
 
-                                HTML.Label("Select All")
+                                HTML.Label(Self.selectAll.resolved)
+                                    .localized(Self.selectAll)
                                     .for("\(idPrefix)-selectAll")
                                     .class(styles.textColorLabel)
                             }
@@ -208,7 +232,8 @@ public struct CheckboxSelect: TemplateRepresentable {
 
                     Tr {
                         Td {
-                            Span("No results found.")
+                            Span(Self.noResults.resolved)
+                                .localized(Self.noResults)
                                 .class(styles.textColorNoResults)
                                 .ariaLive(.polite)
                         }

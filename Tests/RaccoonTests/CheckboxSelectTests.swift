@@ -131,4 +131,33 @@ struct CheckboxSelectTests {
         #expect(html.contains("_9_prefix_test-selectAll"))
         #expect(html.contains("_9_prefix_test-hidden"))
     }
+
+    // MARK: localization
+
+    @Test("search texts, headers and messages are built in and translated")
+    func localizedTexts() {
+        let data = CheckboxSelectData(
+            id: "c",
+            label: LabelData(id: "c", title: "C"),
+            values: [OptionValue(title: "Swift", value: "swift")],
+            hasSearch: true,
+            hasSelectAll: true
+        )
+        let english = renderHTML(CheckboxSelect(data).render())
+        for key in [
+            "searchOptions", "select", "selectAllOptions", "option",
+            "selectAll", "noResults",
+        ] {
+            #expect(english.contains("checkboxselect.\(key)"), "\(key)")
+        }
+        let german = I18n.render(language: "de") {
+            renderHTML(CheckboxSelect(data).render())
+        }
+        #expect(german.contains("aria-label=\"Optionen durchsuchen\""))
+        #expect(german.contains("aria-label=\"Alle Optionen auswählen\""))
+        #expect(german.contains(">Alle auswählen</label>"))
+        #expect(german.contains(">Keine Ergebnisse gefunden.</span>"))
+        // The option title is caller data
+        #expect(german.contains("Swift"))
+    }
 }

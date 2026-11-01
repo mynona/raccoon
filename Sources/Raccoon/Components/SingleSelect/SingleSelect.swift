@@ -20,6 +20,25 @@ public struct SingleSelect: TemplateRepresentable {
     let data: SingleSelectData
     typealias styles = SingleSelectStyles
 
+    private static let none = LocalizedText("singleselect.none", "(None)")
+    private static let clearSelection = LocalizedText(
+        "singleselect.clearSelection",
+        "Clear selection"
+    )
+    private static let noValuesFound = LocalizedText(
+        "singleselect.noValuesFound",
+        "No values found."
+    )
+
+    /// "Select {{id}}": the id is caller data and travels as a variable.
+    private static func selectTitle(_ id: String) -> LocalizedText {
+        LocalizedText(
+            "singleselect.select",
+            "Select {{id}}",
+            variables: ["id": id]
+        )
+    }
+
     static let searchOrSelect = LocalizedText(
         "singleselect.searchOrSelect",
         "Search or select"
@@ -57,12 +76,15 @@ public struct SingleSelect: TemplateRepresentable {
         return JavaScriptEscaper.jsonEncode(payloads, fallback: "[]")
     }
 
-    func getTitle(forValue id: String) -> String {
-        guard let elements = data.options else { return "" }
-        for element in elements where id == element.value {
-            return element.title ?? ""
+    /// The title of an option is caller data; the fallback is a built-in, translated text.
+    func getTitle(forValue id: String) -> LocalizedText {
+        guard let elements = data.options else {
+            return LocalizedText(verbatim: "")
         }
-        return "(None)"
+        for element in elements where id == element.value {
+            return LocalizedText(verbatim: element.title ?? "")
+        }
+        return Self.none
     }
 
     func getID(forValue id: String) -> Int {
@@ -152,7 +174,7 @@ public struct SingleSelect: TemplateRepresentable {
             Button {
                 Svg.icon(
                     .chevron_down,
-                    title: LocalizedText(verbatim: "Select \(data.id)"),  // i18n-todo
+                    title: Self.selectTitle(data.id),
                     width: 16,
                     height: 16
                 )
@@ -195,7 +217,7 @@ public struct SingleSelect: TemplateRepresentable {
             name: "@click",
             value: "clearInput()"
         )
-        .ariaLabel("Clear selection")
+        .localized(.ariaLabel, Self.clearSelection)
         .class("flex items-center")
         .class("ml-3")
         .addClass(buttonStyles.iconButton)
@@ -233,7 +255,7 @@ public struct SingleSelect: TemplateRepresentable {
                         Span {
                             Svg.icon(
                                 .check_lg,
-                                title: LocalizedText(verbatim: "Select \(data.id)"),  // i18n-todo
+                                title: Self.selectTitle(data.id),
                                 width: 18,
                                 height: 18,
                                 role: .img
@@ -297,7 +319,8 @@ public struct SingleSelect: TemplateRepresentable {
             //.class("divide-y divide-outline p-4")
             .addClass(styles.borderColorDefault)
 
-            P("No values found.")
+            P(Self.noValuesFound.resolved)
+                .localized(Self.noValuesFound)
                 .setAttribute(
                     name: "x-show",
                     value: "filteredFrameworks.length == 0"
@@ -331,7 +354,8 @@ public struct SingleSelect: TemplateRepresentable {
                         value: "$root.selected ? $root.selected.id : ''"
                     )
             }
-            P(getTitle(forValue: data.value ?? ""))
+            let title = getTitle(forValue: data.value ?? "")
+            P(title.resolved).localized(title)
         }
         .class("pb-1.5 pt-2.5")
         .addClass(styles.infoBorder)
@@ -365,7 +389,7 @@ public struct SingleSelect: TemplateRepresentable {
                     name: "autocomplete",
                     value: "off"
                 )
-                .value(getTitle(forValue: data.value ?? ""))
+                .value(getTitle(forValue: data.value ?? "").resolved)
                 .class(
                     "block w-full p-0 sm:text-sm sm:leading-6 cursor-not-allowed"
                 )

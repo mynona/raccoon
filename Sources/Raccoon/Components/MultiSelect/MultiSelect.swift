@@ -6,6 +6,33 @@ import WebBuilders
 public struct MultiSelect: TemplateRepresentable {
     let data: MultiSelectData
     typealias styles = MultiSelectStyles
+
+    private static let noValueSet = LocalizedText(
+        "multiselect.noValueSet",
+        "(No value set)"
+    )
+    private static let everythingSelected = LocalizedText(
+        "multiselect.everythingSelected",
+        "Everything selected."
+    )
+    private static let noValuesFound = LocalizedText(
+        "multiselect.noValuesFound",
+        "No values found."
+    )
+    private static let remove = LocalizedText("multiselect.remove", "Remove")
+    private static let searchOrSelect = LocalizedText(
+        "multiselect.searchOrSelect",
+        "Search or select"
+    )
+
+    /// "Select {{id}}": the id is caller data and travels as a variable.
+    private static func selectTitle(_ id: String) -> LocalizedText {
+        LocalizedText(
+            "multiselect.select",
+            "Select {{id}}",
+            variables: ["id": id]
+        )
+    }
     typealias inputFieldStyles = InputFieldStyles
     typealias buttonStyles = ActionButtonStyles
 
@@ -34,12 +61,15 @@ public struct MultiSelect: TemplateRepresentable {
         return JavaScriptEscaper.jsonEncode(payloads, fallback: "[]")
     }
 
-    func getTitle(forValue id: String) -> String {
-        guard let elements = data.options else { return "" }
-        for element in elements where id == element.value {
-            return element.title!
+    /// The title of an option is caller data; the fallback is a built-in, translated text.
+    func getTitle(forValue id: String) -> LocalizedText {
+        guard let elements = data.options else {
+            return LocalizedText(verbatim: "")
         }
-        return "(No value set)"
+        for element in elements where id == element.value {
+            return LocalizedText(verbatim: element.title!)
+        }
+        return Self.noValueSet
     }
 
     // Returns indices of preselected values in the options list, e.g. [11,8,10]
@@ -88,7 +118,8 @@ public struct MultiSelect: TemplateRepresentable {
                 Div {
                     for value in values {
                         let title = getTitle(forValue: value)
-                        Span(title)
+                        Span(title.resolved)
+                            .localized(title)
                             .class(
                                 "flex-initial mt-2 mr-2 p-1 px-2 \(styles.optionInfo)"
                             )
@@ -147,7 +178,10 @@ public struct MultiSelect: TemplateRepresentable {
 
                     for value in values {
 
-                        Div { Span(getTitle(forValue: value)) }
+                        let valueTitle = getTitle(forValue: value)
+                        Div {
+                            Span(valueTitle.resolved).localized(valueTitle)
+                        }
                             .class(
                                 "flex-initial mt-2 mr-2 p-1 px-2 \(styles.optionInfo)"
                             )
@@ -198,7 +232,7 @@ public struct MultiSelect: TemplateRepresentable {
                         Span {
                             Svg.icon(
                                 .check_lg,
-                                title: LocalizedText(verbatim: "Select \(data.id)"),  // i18n-todo
+                                title: Self.selectTitle(data.id),
                                 width: 16,
                                 height: 16,
                                 role: .img
@@ -334,7 +368,8 @@ public struct MultiSelect: TemplateRepresentable {
     @Builder<Element>
     func showEverythingSelectedMessage() -> [Element] {
         // Messages (aria-live for announcements)
-        P("Everything selected.")
+        P(Self.everythingSelected.resolved)
+            .localized(Self.everythingSelected)
             .setAttribute(
                 name: "x-show",
                 value:
@@ -355,7 +390,8 @@ public struct MultiSelect: TemplateRepresentable {
 
     @Builder<Element>
     func showNoValueFoundMessage() -> [Element] {
-        P("No values found.")
+        P(Self.noValuesFound.resolved)
+            .localized(Self.noValuesFound)
             .setAttribute(
                 name: "x-show",
                 value:
@@ -392,7 +428,7 @@ public struct MultiSelect: TemplateRepresentable {
                         )
 
                     Span {
-                        Svg.icon(.x_lg, title: "Remove", width: 12, height: 12)
+                        Svg.icon(.x_lg, title: Self.remove, width: 12, height: 12)
                     }
                     .class("pl-1")
 
@@ -456,8 +492,8 @@ public struct MultiSelect: TemplateRepresentable {
                     name: "autocomplete",
                     value: "off"
                 )
-                .placeholder("Search or select")
-                .ariaLabel("Search or select")
+                .localized(.placeholder, Self.searchOrSelect)
+                .localized(.ariaLabel, Self.searchOrSelect)
                 .class("flex-1 p-0 w-full text-sm")
                 .addClass(inputFieldStyles.inputReset)
                 .addClass(inputFieldStyles.textColorInput)

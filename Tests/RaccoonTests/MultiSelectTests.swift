@@ -207,4 +207,39 @@ struct MultiSelectTests {
         #expect(html.contains("x-combobox:button"))
         #expect(html.contains("/js/multi-select.js"))
     }
+
+    // MARK: localization
+
+    @Test(
+        "messages, titles and prompts are built in and translated; ids travel as variables"
+    )
+    func localizedTexts() {
+        let ctx = MultiSelectData(
+            id: "ms",
+            name: "ms",
+            label: LabelData(id: "ms", title: "Tech"),
+            values: ["vapor"],
+            options: options,
+            state: .enabled
+        )
+        let english = renderHTML(MultiSelect(ctx).render())
+        for key in [
+            "everythingSelected", "noValuesFound", "remove", "searchOrSelect",
+            "select",
+        ] {
+            #expect(english.contains("multiselect.\(key)"), "\(key)")
+        }
+        #expect(
+            english.contains(
+                "data-i18n-vars=\"{&quot;id&quot;:&quot;ms&quot;}\""
+            )
+        )
+        let german = I18n.render(language: "de") {
+            renderHTML(MultiSelect(ctx).render())
+        }
+        #expect(german.contains(">Alles ausgewählt.</p>"))
+        #expect(german.contains(">Keine Werte gefunden.</p>"))
+        #expect(german.contains("aria-label=\"ms auswählen\""))
+        #expect(german.contains("placeholder=\"Suchen oder auswählen\""))
+    }
 }
