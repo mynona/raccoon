@@ -58,7 +58,8 @@ struct MultipleFileUploadView: TemplateRepresentable {
 
                 Form {
                     Div {
-                        P("Test live multiple upload against fake endpoint:")
+                        P(PreviewTexts.uploadMultiple.resolved)
+                            .localized(PreviewTexts.uploadMultiple)
                             .class("font-semibold mb-2")
                         Div {
                             InputField(

@@ -233,4 +233,23 @@ struct LocalizedTextTests {
         let html = renderHTML([I18n.pageDictionary()])
         #expect(!html.contains("</script><"))
     }
+
+    @Test(
+        "with(variables:) fills the placeholders of a built-in or consumer text"
+    )
+    func withVariables() {
+        let builtIn = LocalizedText("pagination.page", "Page {{number}}")
+            .with(variables: ["number": "4"])
+        #expect(builtIn.english == "Page 4")
+        #expect(I18n.render(language: "de") { builtIn.resolved } == "Seite 4")
+
+        let consumer = LocalizedText(
+            en: "Hello {{name}}",
+            translations: ["de": "Hallo {{name}}"]
+        )
+        .with(variables: ["name": "Ann"])
+        #expect(
+            I18n.render(language: "de") { consumer.resolved } == "Hallo Ann"
+        )
+    }
 }

@@ -1,4 +1,5 @@
 import Foundation
+import Raccoon
 
 public struct PreviewNavItem: Sendable {
     public let title: String
@@ -13,10 +14,11 @@ public struct PreviewNavItem: Sendable {
 }
 
 public struct PreviewNavSection: Sendable {
-    public let title: String?
+    /// A generic heading, translated. Item titles are component names and stay fixed.
+    public let title: LocalizedText?
     public let items: [PreviewNavItem]
 
-    public init(title: String? = nil, items: [PreviewNavItem]) {
+    public init(title: LocalizedText? = nil, items: [PreviewNavItem]) {
         self.title = title
         self.items = items
     }
@@ -39,7 +41,7 @@ public enum PreviewNavigation {
             name: "Raccoon",
             sections: [
                 PreviewNavSection(
-                    title: "Components",
+                    title: PreviewTexts.sectionComponents,
                     items: [
                         PreviewNavItem(
                             title: "Accordion",

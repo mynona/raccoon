@@ -60,7 +60,8 @@ struct RatingFloatingView: TemplateRepresentable {
                 // Sticky real-time scroll position HUD
                 Div {
                     Div {
-                        Span("Scroll Depth: ")
+                        Span(PreviewTexts.scrollDepth.resolved)
+                            .localized(PreviewTexts.scrollDepth)
                             .class("text-gray-500 dark:text-gray-400")
                         Span {
                             Text("")
@@ -74,7 +75,8 @@ struct RatingFloatingView: TemplateRepresentable {
                     .class("flex items-center gap-1.5")
 
                     Div {
-                        Span("80% Threshold: ")
+                        Span(PreviewTexts.threshold.resolved)
+                            .localized(PreviewTexts.threshold)
                             .class("text-gray-500 dark:text-gray-400")
                         Span {
                             Text("")
@@ -154,7 +156,8 @@ struct RatingFloatingView: TemplateRepresentable {
 
                 // Section 2: Interactive Long Page Test (80% scroll test bed)
                 Div {
-                    H2("Interactive Scroll Test Bed (80% Threshold)")
+                    H2(PreviewTexts.testBed.resolved)
+                        .localized(PreviewTexts.testBed)
                         .class(
                             "text-xl font-bold text-black dark:text-white mb-2"
                         )
@@ -168,7 +171,8 @@ struct RatingFloatingView: TemplateRepresentable {
                     Div {
                         // 0% marker
                         Div {
-                            Span("Page Top (0% scroll)")
+                            Span(PreviewTexts.pageTop.resolved)
+                            .localized(PreviewTexts.pageTop)
                                 .class(
                                     "text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400"
                                 )
@@ -181,7 +185,12 @@ struct RatingFloatingView: TemplateRepresentable {
                         for percent in stride(from: 10, through: 70, by: 10) {
                             Div {
                                 Div {
-                                    Span("Content milestone ~\(percent)%")
+                                    Span(
+                                        PreviewTexts.milestone.with(variables: ["percent": "\(percent)"]).resolved
+                                    )
+                                    .localized(
+                                        PreviewTexts.milestone.with(variables: ["percent": "\(percent)"])
+                                    )
                                         .class(
                                             "text-xs font-semibold px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
                                         )
@@ -212,7 +221,8 @@ struct RatingFloatingView: TemplateRepresentable {
                             Div {
                                 Div {
                                     Svg.icon(.arrow_down, width: 20, height: 20)
-                                    Span("80% SCROLL THRESHOLD REACHED")
+                                    Span(PreviewTexts.reached.resolved)
+                            .localized(PreviewTexts.reached)
                                         .class(
                                             "font-bold tracking-wider text-sm"
                                         )
@@ -238,7 +248,12 @@ struct RatingFloatingView: TemplateRepresentable {
                         for percent in stride(from: 85, through: 95, by: 10) {
                             Div {
                                 Div {
-                                    Span("Content milestone ~\(percent)%")
+                                    Span(
+                                        PreviewTexts.milestone.with(variables: ["percent": "\(percent)"]).resolved
+                                    )
+                                    .localized(
+                                        PreviewTexts.milestone.with(variables: ["percent": "\(percent)"])
+                                    )
                                         .class(
                                             "text-xs font-semibold px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
                                         )
@@ -260,7 +275,8 @@ struct RatingFloatingView: TemplateRepresentable {
                         // In-page dedicated spot where the widget docks on close
                         Div {
                             Div {
-                                Span("Article End — In-Page Docking Spot")
+                                Span(PreviewTexts.articleEnd.resolved)
+                            .localized(PreviewTexts.articleEnd)
                                     .class(
                                         "text-xs font-bold uppercase tracking-wider text-green-700 dark:text-green-300"
                                     )
@@ -286,7 +302,8 @@ struct RatingFloatingView: TemplateRepresentable {
 
                         // Page bottom indicator
                         Div {
-                            Span("Page Bottom (100% scroll)")
+                            Span(PreviewTexts.pageBottom.resolved)
+                            .localized(PreviewTexts.pageBottom)
                                 .class(
                                     "text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500"
                                 )

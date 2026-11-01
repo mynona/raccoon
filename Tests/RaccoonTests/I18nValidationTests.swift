@@ -168,6 +168,7 @@ struct I18nValidationTests {
         let issues = I18nValidator.validate(
             tables: Translations.all,
             swiftSources: Self.readSwiftFiles(in: "Sources/Raccoon")
+                .merging(Self.readSwiftFiles(in: "Sources/Preview")) { first, _ in first }
         )
         #expect(
             issues.isEmpty,

@@ -27,7 +27,7 @@ public struct Basic: TemplateRepresentable {
 
     private func computeTitle() -> String {
         if let title = self.title, !title.isEmpty {
-            return "Preview – \(title)"
+            return Self.pageTitle(title)
         }
         let currentPath = normalizedPath(PreviewRequest.path)
         for group in PreviewNavigation.groups {
@@ -35,14 +35,20 @@ public struct Basic: TemplateRepresentable {
                 if let item = section.items.first(where: {
                     $0.url == currentPath
                 }) {
-                    return "Preview – \(item.title)"
+                    return Self.pageTitle(item.title)
                 }
             }
         }
         if currentPath == "/" || currentPath == "/preview" {
-            return "Raccoon Component Preview"
+            return PreviewTexts.homeTitle
+                .with(variables: ["name": PreviewTexts.productName]).resolved
         }
-        return "Preview"
+        return PreviewTexts.preview.resolved
+    }
+
+    /// "Preview – <name>": the name is fixed, the word around it follows the page language.
+    private static func pageTitle(_ name: String) -> String {
+        PreviewTexts.pageTitle.with(variables: ["title": name]).resolved
     }
 
     private func normalizedPath(_ path: String) -> String {
@@ -98,8 +104,8 @@ public struct Basic: TemplateRepresentable {
                         name: "sidebarSearchInput",
                         bindModel: "search",
                         bindRef: "searchInput",
-                        placeholder: "Filter components...",
-                        ariaLabel: "Filter components",
+                        placeholder: PreviewTexts.filterPlaceholder,
+                        ariaLabel: PreviewTexts.filterLabel,
                         size: .sm
                     )
                 )
@@ -117,7 +123,8 @@ public struct Basic: TemplateRepresentable {
                         for section in group.sections {
                             Div {
                                 if let sectionTitle = section.title {
-                                    H3(sectionTitle)
+                                    H3(sectionTitle.resolved)
+                                        .localized(sectionTitle)
                                         .class(styles.subGroupTitle)
                                 }
 

@@ -81,7 +81,8 @@ struct FileUploadView: TemplateRepresentable {
 
                 Form {
                     Div {
-                        P("Test live single upload against fake endpoint:")
+                        P(PreviewTexts.uploadSingle.resolved)
+                            .localized(PreviewTexts.uploadSingle)
                             .class("font-semibold mb-2")
                         Div {
                             InputField(

@@ -148,12 +148,14 @@ struct DataTableView: TemplateRepresentable {
                 showComponentTitle("DataTable")
 
                 P {
-                    "Rows are loaded from /simulation/raccoons, which answers after half a second. Sorting, filtering and paging run in that endpoint. "
-                    A("Simulate an error")
+                    PreviewTexts.dataTableIntro.resolved
+                    A(PreviewTexts.simulateError.resolved)
+                        .localized(PreviewTexts.simulateError)
                         .href("/preview/data-table?fail=1")
                         .class("underline")
                     " · "
-                    A("Back to normal")
+                    A(PreviewTexts.backToNormal.resolved)
+                        .localized(PreviewTexts.backToNormal)
                         .href("/preview/data-table")
                         .class("underline")
                 }

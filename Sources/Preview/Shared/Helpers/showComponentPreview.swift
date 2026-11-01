@@ -31,11 +31,11 @@ func showComponentPreview(
         TabGroup(
             TabGroupData(
                 id: tabGroupId,
-                ariaLabel: "Preview, API, and HTML code",
+                ariaLabel: PreviewTexts.tabsLabel,
                 tabs: [
                     TabItemData(
                         id: "\(tabGroupId)-preview",
-                        label: "Preview",
+                        label: PreviewTexts.preview,
                         content: .element {
                             Div {
                                 preview()

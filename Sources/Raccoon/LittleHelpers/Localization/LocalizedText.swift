@@ -67,6 +67,19 @@ public struct LocalizedText: Sendable, Equatable, ExpressibleByStringLiteral,
         self.init("", value)
     }
 
+    /// The same text with other values for its `{{placeholders}}`. Use it to declare a text once
+    /// and fill it in where it is shown.
+    public func with(variables: [String: String]) -> LocalizedText {
+        if !key.isEmpty {
+            return LocalizedText(key, template, variables: variables)
+        }
+        return LocalizedText(
+            en: template,
+            translations: translations,
+            variables: variables
+        )
+    }
+
     /// `false` for plain texts: they are never translated and get no marker.
     public var isTranslatable: Bool { !key.isEmpty || !translations.isEmpty }
 

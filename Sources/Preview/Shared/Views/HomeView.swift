@@ -10,31 +10,45 @@ struct HomeView: TemplateRepresentable {
     @Builder<Element>
     func render() -> [Element] {
 
-        Basic(title: "Overview") {
+        let name = ["name": PreviewTexts.productName]
+        let componentCount = PreviewNavigation.groups.flatMap(\.sections)
+            .flatMap(\.items).filter { !$0.isOpenInNewTab }.count
+        let kitText = PreviewTexts.kitText.with(
+            variables: ["count": "\(componentCount)"]
+        )
+
+        Basic(title: PreviewTexts.overview.resolved) {
 
             Div {
 
-                showComponentTitle("Raccoon Component Preview")
-
-                P(
-                    "Welcome to the Raccoon component and template preview environment. Select a component or template from the sidebar to inspect its rendering, data model, and HTML output."
+                showComponentTitle(
+                    PreviewTexts.homeTitle.with(variables: name).resolved
                 )
-                .class("text-base text-gray-700 dark:text-gray-300 mb-8")
+
+                P(PreviewTexts.homeIntro.with(variables: name).resolved)
+                    .localized(PreviewTexts.homeIntro.with(variables: name))
+                    .class("text-base text-gray-700 dark:text-gray-300 mb-8")
 
                 Div {
                     // Card 1: Raccoon UI Kit
                     Div {
-                        H2("Raccoon UI Kit")
+                        H2(PreviewTexts.kitTitle.with(variables: name).resolved)
+                            .localized(
+                                PreviewTexts.kitTitle.with(variables: name)
+                            )
                             .class(
                                 "text-lg font-bold mb-2 text-gray-900 dark:text-white"
                             )
-                        P("Core domain-agnostic UI components (54 components).")
+                        P(kitText.resolved)
+                            .localized(kitText)
                             .class(
                                 "text-sm text-gray-600 dark:text-gray-400 mb-6"
                             )
                         LinkButton(
                             LinkButtonData(
-                                label: "Browse Raccoon Components",
+                                label: PreviewTexts.browse.with(
+                                    variables: name
+                                ),
                                 href: "/preview/accordion",
                                 buttonType: .secondary,
                                 icon: .arrow_right_circle,
