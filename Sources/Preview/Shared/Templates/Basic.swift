@@ -81,9 +81,7 @@ public struct Basic: TemplateRepresentable {
 
                     LanguageSwitcher(
                         LanguageSwitcherData(
-                            languages: PreviewRequest.languages.map {
-                                LanguageOption(code: $0.code, name: $0.name)
-                            },
+                            languages: LanguageOption.builtIn,
                             fallbackLanguage: PreviewRequest.lang
                         )
                     )

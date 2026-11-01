@@ -71,4 +71,19 @@ struct LanguageSwitcherTests {
         // The script composes "<label>: <language>", so the label carries no marker
         #expect(!german.contains("data-i18n-aria-label"))
     }
+
+    @Test("the built-in language list covers every translated language, in alphabetical order")
+    func builtInLanguages() {
+        let options = LanguageOption.builtIn
+        #expect(
+            Set(options.map(\.code)) == Set(I18nValidator.supportedLanguages)
+        )
+        let names = options.map {
+            $0.name.folding(
+                options: [.diacriticInsensitive, .caseInsensitive],
+                locale: nil
+            )
+        }
+        #expect(names == names.sorted())
+    }
 }

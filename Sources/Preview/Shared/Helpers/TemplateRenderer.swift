@@ -8,27 +8,7 @@ enum PreviewRequest {
     @TaskLocal static var path: String = "/"
     @TaskLocal static var lang: String = "en"
 
-    /// Language codes with the name of each language written in that language,
-    /// in alphabetical order of the names (accents ignored, Greek script after Latin).
-    static let languages: [(code: String, name: String)] = [
-        ("en", "English"), ("de", "Deutsch"), ("fr", "Français"),
-        ("es", "Español"), ("it", "Italiano"), ("pt", "Português"),
-        ("nl", "Nederlands"), ("lb", "Lëtzebuergesch"), ("da", "Dansk"),
-        ("sv", "Svenska"), ("nb", "Norsk bokmål"), ("fi", "Suomi"),
-        ("is", "Íslenska"), ("el", "Ελληνικά"), ("tr", "Türkçe"),
-        ("hu", "Magyar"), ("hr", "Hrvatski"), ("pl", "Polski"),
-        ("sk", "Slovenčina"), ("cs", "Čeština"),
-    ]
-    .sorted { sortKey($0.name) < sortKey($1.name) }
-
-    private static func sortKey(_ name: String) -> String {
-        name.folding(
-            options: [.diacriticInsensitive, .caseInsensitive],
-            locale: nil
-        )
-    }
-
-    static let supportedLanguages = languages.map(\.code)
+    static let supportedLanguages = LanguageOption.builtIn.map(\.code)
 }
 
 struct TemplateRenderer {

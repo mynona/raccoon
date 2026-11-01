@@ -20,6 +20,34 @@ public struct LanguageOption: Sendable, Equatable {
     }
 }
 
+extension LanguageOption {
+
+    /// The languages that every built-in Raccoon text is translated into, each named in its own language,
+    /// in alphabetical order of the names (accents ignored, other scripts after Latin).
+    public static let builtIn: [LanguageOption] = [
+        LanguageOption(code: "cs", name: "Čeština"),
+        LanguageOption(code: "da", name: "Dansk"),
+        LanguageOption(code: "de", name: "Deutsch"),
+        LanguageOption(code: "en", name: "English"),
+        LanguageOption(code: "es", name: "Español"),
+        LanguageOption(code: "fr", name: "Français"),
+        LanguageOption(code: "hr", name: "Hrvatski"),
+        LanguageOption(code: "is", name: "Íslenska"),
+        LanguageOption(code: "it", name: "Italiano"),
+        LanguageOption(code: "lb", name: "Lëtzebuergesch"),
+        LanguageOption(code: "hu", name: "Magyar"),
+        LanguageOption(code: "nl", name: "Nederlands"),
+        LanguageOption(code: "nb", name: "Norsk bokmål"),
+        LanguageOption(code: "pl", name: "Polski"),
+        LanguageOption(code: "pt", name: "Português"),
+        LanguageOption(code: "sk", name: "Slovenčina"),
+        LanguageOption(code: "fi", name: "Suomi"),
+        LanguageOption(code: "sv", name: "Svenska"),
+        LanguageOption(code: "tr", name: "Türkçe"),
+        LanguageOption(code: "el", name: "Ελληνικά"),
+    ]
+}
+
 /// Configuration data for the `LanguageSwitcher` component.
 public struct LanguageSwitcherData: Sendable {
 
