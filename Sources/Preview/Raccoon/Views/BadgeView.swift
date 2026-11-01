@@ -14,7 +14,13 @@ struct BadgeView: TemplateRepresentable {
             """,
             BadgeData(
                 id: "badge-1",
-                title: "New"
+                title: tr(
+                    "New",
+                    de: "Neu",
+                    fr: "Nouveau",
+                    es: "Nuevo",
+                    it: "Nuovo"
+                )
             )
         ),
         #previewVariant(
@@ -23,7 +29,13 @@ struct BadgeView: TemplateRepresentable {
             """,
             BadgeData(
                 id: "badge-2",
-                title: "Messages",
+                title: tr(
+                    "Messages",
+                    de: "Nachrichten",
+                    fr: "Messages",
+                    es: "Mensajes",
+                    it: "Messaggi"
+                ),
                 counter: 5
             )
         ),
@@ -33,7 +45,13 @@ struct BadgeView: TemplateRepresentable {
             """,
             BadgeData(
                 id: "badge-3",
-                title: "Article",
+                title: tr(
+                    "Article",
+                    de: "Artikel",
+                    fr: "Article",
+                    es: "Artículo",
+                    it: "Articolo"
+                ),
                 counter: 100,
                 isLink: true
             )

@@ -2,7 +2,7 @@
 public struct BadgeData: Sendable {
 
     public let id: String
-    public let title: String
+    public let title: LocalizedText
     public let counter: Int?
     public let isLink: Bool
     public let tagUrlPrefix: String
@@ -13,7 +13,7 @@ public struct BadgeData: Sendable {
     ///
     /// - Parameters:
     ///   - id: Unique identifier for the badge.
-    ///   - title: Text title displayed inside the badge.
+    ///   - title: Text title displayed inside the badge. The URL slug is built from its English text, so links are the same in every language.
     ///   - counter: Optional numeric counter displayed next to the title.
     ///   - tagUrlPrefix: Base URL prefix used when badge is rendered as a link.
     ///   - isLink: Whether the badge renders as an interactive link.
@@ -21,7 +21,7 @@ public struct BadgeData: Sendable {
     ///   - matomoStatus: Matomo tracking consent status.
     public init(
         id: String,
-        title: String,
+        title: LocalizedText,
         counter: Int? = nil,
         tagUrlPrefix: String = "/tags/",
         isLink: Bool = false,

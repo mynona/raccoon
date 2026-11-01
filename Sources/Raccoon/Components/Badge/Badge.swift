@@ -13,11 +13,22 @@ public struct Badge: TemplateRepresentable {
         self.data = data
     }
 
-    func title() -> String {
-        if data.hasHyphenFormatting {
-            return data.title.replacingOccurrences(of: "-", with: " ")
+    /// The title with the hyphen formatting applied in every language.
+    func title() -> LocalizedText {
+        guard data.hasHyphenFormatting else { return data.title }
+        let title = data.title
+        if title.key.isEmpty {
+            return LocalizedText(
+                en: title.template.replacingOccurrences(of: "-", with: " "),
+                translations: title.translations.mapValues {
+                    $0.replacingOccurrences(of: "-", with: " ")
+                },
+                variables: title.variables
+            )
         }
-        return data.title
+        return LocalizedText(
+            verbatim: title.resolved.replacingOccurrences(of: "-", with: " ")
+        )
     }
 
     func buildTagUrl(urlTag: String) -> String {
@@ -51,7 +62,9 @@ public struct Badge: TemplateRepresentable {
                     LocalizedText(
                         "badge.counter",
                         "Articles tagged '{{title}}': {{count}}",
-                        variables: ["title": title(), "count": "\(counter)"]
+                        variables: [
+                            "title": title().resolved, "count": "\(counter)",
+                        ]
                     )
                 )
         }
@@ -61,7 +74,8 @@ public struct Badge: TemplateRepresentable {
     func showIconWithTitle() -> [Element] {
         Span {
             Svg.icon(.hash, width: 16, height: 16)
-            Span("\(title())")
+            Span(title().resolved)
+                .localized(title())
         }
         .class("flex flex-row gap-1 items-center py-1 px-4")
         .addClass(styles.focusReset)
@@ -82,7 +96,7 @@ public struct Badge: TemplateRepresentable {
         DebugComment("Tag")
         Div {
             if data.isLink,
-                let urlTag = data.title
+                let urlTag = data.title.english
                     .lowercased()
                     .addingPercentEncoding(
                         withAllowedCharacters: .urlPathAllowed
@@ -103,7 +117,7 @@ public struct Badge: TemplateRepresentable {
                     LocalizedText(
                         "badge.viewAll",
                         "View all articles tagged as '{{title}}'",
-                        variables: ["title": title()]
+                        variables: ["title": title().resolved]
                     )
                 )
                 .href(buildTagUrl(urlTag: urlTag))
@@ -149,7 +163,7 @@ public struct Badge: TemplateRepresentable {
                 LocalizedText(
                     "badge.group",
                     "Articles tagged as '{{title}}'",
-                    variables: ["title": title()]
+                    variables: ["title": title().resolved]
                 )
             )
         }
