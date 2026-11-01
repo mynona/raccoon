@@ -9,7 +9,30 @@ struct CookieBannerView: TemplateRepresentable {
 
     let variants: [PreviewVariant<CookieBannerData>] = [
         #previewVariant(
-            "Consent Banner",
+            tr(
+                "Consent Banner",
+                [
+                    "de": "Zustimmungs-Banner",
+                    "fr": "Bannière de consentement",
+                    "es": "Banner de consentimiento",
+                    "it": "Banner di consenso",
+                    "pt": "Banner de consentimento",
+                    "nl": "Toestemmingsbanner",
+                    "da": "Samtykkebanner",
+                    "sv": "Samtyckesbanner",
+                    "nb": "Samtykkebanner",
+                    "fi": "Suostumuspalkki",
+                    "is": "Samþykkisborði",
+                    "el": "Banner συναίνεσης",
+                    "tr": "Rıza başlığı",
+                    "hu": "Hozzájárulási szalaghirdetés",
+                    "hr": "Traka za privolu",
+                    "pl": "Baner zgody",
+                    "sk": "Banner súhlasu",
+                    "cs": "Banner souhlasu",
+                    "lb": "Zoustëmmungs-Banner",
+                ]
+            ),
             CookieBannerData(url: "/test-page", matomoStatus: .BANNER)
         )
     ]

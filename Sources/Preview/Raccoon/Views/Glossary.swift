@@ -9,7 +9,30 @@ struct GlossaryView: TemplateRepresentable {
 
     let variants: [PreviewVariant<GlossaryData>] = [
         #previewVariant(
-            "With In-Page Search",
+            tr(
+                "With In-Page Search",
+                [
+                    "de": "Mit seiteninterner Suche",
+                    "fr": "Avec recherche sur la page",
+                    "es": "Con búsqueda en la página",
+                    "it": "Con ricerca nella pagina",
+                    "pt": "Com busca na página",
+                    "nl": "Met in-pagina zoeken",
+                    "da": "Med søgning på siden",
+                    "sv": "Med sökning på sidan",
+                    "nb": "Med søk på siden",
+                    "fi": "Sivunsisäisellä haulla",
+                    "is": "Með leit á síðu",
+                    "el": "Με αναζήτηση εντός σελίδας",
+                    "tr": "Sayfa içi arama ile",
+                    "hu": "Oldalon belüli kereséssel",
+                    "hr": "S pretraživanjem na stranici",
+                    "pl": "Z wyszukiwaniem na stronie",
+                    "sk": "S vyhľadávaním na stránke",
+                    "cs": "S vyhledáváním na stránce",
+                    "lb": "Mat Säiten-interner Sich",
+                ]
+            ),
             GlossaryData(
                 entries: [
                     GlossaryEntryData(
@@ -206,7 +229,30 @@ struct GlossaryView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Without Search",
+            tr(
+                "Without Search",
+                [
+                    "de": "Ohne Suche",
+                    "fr": "Sans recherche",
+                    "es": "Sin búsqueda",
+                    "it": "Senza ricerca",
+                    "pt": "Sem busca",
+                    "nl": "Zonder zoeken",
+                    "da": "Uden søgning",
+                    "sv": "Utan sökning",
+                    "nb": "Uten søk",
+                    "fi": "Ilman hakua",
+                    "is": "Án leitar",
+                    "el": "Χωρίς αναζήτηση",
+                    "tr": "Aramasız",
+                    "hu": "Keresés nélkül",
+                    "hr": "Bez pretraživanja",
+                    "pl": "Bez wyszukiwania",
+                    "sk": "Bez vyhľadávania",
+                    "cs": "Bez vyhledávání",
+                    "lb": "Ouni Sich",
+                ]
+            ),
             GlossaryData(
                 entries: [
                     GlossaryEntryData(

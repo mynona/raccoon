@@ -9,7 +9,30 @@ struct QuoteView: TemplateRepresentable {
 
     let variants: [PreviewVariant<QuoteData>] = [
         #previewVariant(
-            "With Citation and Quotation Marks",
+            tr(
+                "With Citation and Quotation Marks",
+                [
+                    "de": "Mit Zitatangabe und Anführungszeichen",
+                    "fr": "Avec citation et guillemets",
+                    "es": "Con cita y comillas",
+                    "it": "Con citazione e virgolette",
+                    "pt": "Com citação e aspas",
+                    "nl": "Met citaat en aanhalingstekens",
+                    "da": "Med citat og anførselstegn",
+                    "sv": "Med citat och citattecken",
+                    "nb": "Med sitat og anførselstegn",
+                    "fi": "Lainauksella ja lainausmerkeillä",
+                    "is": "Með tilvitnun og gæsalöppum",
+                    "el": "Με παράθεμα και εισαγωγικά",
+                    "tr": "Alıntı ve tırnak işaretleri ile",
+                    "hu": "Idézettel és idézőjelekkel",
+                    "hr": "S citatom i navodnicima",
+                    "pl": "Z cytatem i cudzysłowami",
+                    "sk": "S citátom a úvodzovkami",
+                    "cs": "S citátem a uvozovkami",
+                    "lb": "Mat Zitatugab an Uféierungszeechen",
+                ]
+            ),
             QuoteData(
                 quote:
                     tr(
@@ -28,7 +51,30 @@ struct QuoteView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "With Citation Without Quotation Marks",
+            tr(
+                "With Citation Without Quotation Marks",
+                [
+                    "de": "Mit Zitatangabe ohne Anführungszeichen",
+                    "fr": "Avec citation sans guillemets",
+                    "es": "Con cita sin comillas",
+                    "it": "Con citazione senza virgolette",
+                    "pt": "Com citação sem aspas",
+                    "nl": "Met citaat zonder aanhalingstekens",
+                    "da": "Med citat uden anførselstegn",
+                    "sv": "Med citat utan citattecken",
+                    "nb": "Med sitat uten anførselstegn",
+                    "fi": "Lainauksella ilman lainausmerkkejä",
+                    "is": "Með tilvitnun án gæsalappa",
+                    "el": "Με παράθεμα χωρίς εισαγωγικά",
+                    "tr": "Tırnak işaretsiz alıntı ile",
+                    "hu": "Idézettel idézőjelek nélkül",
+                    "hr": "S citatom bez navodnika",
+                    "pl": "Z cytatem bez cudzysłowów",
+                    "sk": "S citátom bez úvodzoviek",
+                    "cs": "S citátem bez uvozovek",
+                    "lb": "Mat Zitatugab ouni Uféierungszeechen",
+                ]
+            ),
             QuoteData(
                 quote:
                     tr(
@@ -47,7 +93,30 @@ struct QuoteView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Quote Only Without Citation",
+            tr(
+                "Quote Only Without Citation",
+                [
+                    "de": "Nur Zitat ohne Quellenangabe",
+                    "fr": "Citation seule sans source",
+                    "es": "Solo cita sin referencia",
+                    "it": "Solo citazione senza fonte",
+                    "pt": "Apenas citação sem fonte",
+                    "nl": "Alleen citaat zonder bronvermelding",
+                    "da": "Kun citat uden kildehenvisning",
+                    "sv": "Endast citat utan källhänvisning",
+                    "nb": "Kun sitat uten kildeangivelse",
+                    "fi": "Vain lainaus ilman lähdeviitettä",
+                    "is": "Aðeins tilvitnun án heimildar",
+                    "el": "Μόνο παράθεμα χωρίς αναφορά",
+                    "tr": "Kaynak gösterilmeden yalnızca alıntı",
+                    "hu": "Csak idézet forrás nélkül",
+                    "hr": "Samo citat bez navođenja izvora",
+                    "pl": "Tylko cytat bez podania źródła",
+                    "sk": "Iba citát bez uvedenia zdroja",
+                    "cs": "Pouze citát bez uvedení zdroje",
+                    "lb": "Nëmmen Zitat ouni Quellenugab",
+                ]
+            ),
             QuoteData(
                 quote: tr(
                     "Ship early, learn fast.",

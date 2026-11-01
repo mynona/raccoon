@@ -9,7 +9,30 @@ struct HelperTextView: TemplateRepresentable {
 
     let variants: [PreviewVariant<HelperTextData>] = [
         #previewVariant(
-            "Standard Helper Text",
+            tr(
+                "Standard Helper Text",
+                [
+                    "de": "Standard-Hilfetext",
+                    "fr": "Texte d'aide standard",
+                    "es": "Texto de ayuda estándar",
+                    "it": "Testo di aiuto standard",
+                    "pt": "Texto de ajuda padrão",
+                    "nl": "Standaard hulptekst",
+                    "da": "Standard hjælpetekst",
+                    "sv": "Standard hjälptext",
+                    "nb": "Standard hjelpetekst",
+                    "fi": "Vakioaputeksti",
+                    "is": "Staðlaður hjálpartexti",
+                    "el": "Τυπικό κείμενο βοήθειας",
+                    "tr": "Standart yardımcı metin",
+                    "hu": "Szabványos súgószöveg",
+                    "hr": "Standardni tekst pomoći",
+                    "pl": "Standardowy tekst pomocniczy",
+                    "sk": "Štandardný pomocný text",
+                    "cs": "Standardní pomocný text",
+                    "lb": "Standard-Hëllefstext",
+                ]
+            ),
             HelperTextData(
                 id: "helper",
                 text: tr(

@@ -9,7 +9,30 @@ struct PaginationView: TemplateRepresentable {
 
     let variants: [PreviewVariant<PaginationData>] = [
         #previewVariant(
-            "Middle Page with Table of Contents",
+            tr(
+                "Middle Page with Table of Contents",
+                [
+                    "de": "Mittlere Seite mit Inhaltsverzeichnis",
+                    "fr": "Page centrale avec table des matières",
+                    "es": "Página intermedia con tabla de contenido",
+                    "it": "Pagina intermedia con indice",
+                    "pt": "Página intermediária com sumário",
+                    "nl": "Middelste pagina met inhoudsopgave",
+                    "da": "Midterside med indholdsfortegnelse",
+                    "sv": "Mittensida med innehållsförteckning",
+                    "nb": "Midtre side med innholdsfortegnelse",
+                    "fi": "Keskisivu sisällysluettelolla",
+                    "is": "Miðjusíða með efnisyfirliti",
+                    "el": "Μεσαία σελίδα με πίνακα περιεχομένων",
+                    "tr": "İçindekiler tablolu orta sayfa",
+                    "hu": "Középső oldal tartalomjegyzékkel",
+                    "hr": "Srednja stranica sa sadržajem",
+                    "pl": "Środkowa strona ze spisem treści",
+                    "sk": "Prostredná strana s obsahom",
+                    "cs": "Prostřední stránka s obsahem",
+                    "lb": "Mëttel Säit mat Inhaltsverzeechnes",
+                ]
+            ),
             PaginationData(
                 tableOfContent: PaginationItem(
                     title: tr(
@@ -42,7 +65,30 @@ struct PaginationView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "First Page with Table of Contents",
+            tr(
+                "First Page with Table of Contents",
+                [
+                    "de": "Erste Seite mit Inhaltsverzeichnis",
+                    "fr": "Première page avec table des matières",
+                    "es": "Primera página con tabla de contenido",
+                    "it": "Prima pagina con indice",
+                    "pt": "Primeira página com sumário",
+                    "nl": "Eerste pagina met inhoudsopgave",
+                    "da": "Første side med indholdsfortegnelse",
+                    "sv": "Första sidan med innehållsförteckning",
+                    "nb": "Første side med innholdsfortegnelse",
+                    "fi": "Ensimmäinen sivu sisällysluettelolla",
+                    "is": "Fyrsta síða með efnisyfirliti",
+                    "el": "Πρώτη σελίδα με πίνακα περιεχομένων",
+                    "tr": "İçindekiler tablolu ilk sayfa",
+                    "hu": "Első oldal tartalomjegyzékkel",
+                    "hr": "Prva stranica sa sadržajem",
+                    "pl": "Pierwsza strona ze spisem treści",
+                    "sk": "Prvá strana s obsahom",
+                    "cs": "První stránka s obsahem",
+                    "lb": "Éischt Säit mat Inhaltsverzeechnes",
+                ]
+            ),
             PaginationData(
                 tableOfContent: PaginationItem(
                     title: tr(
@@ -75,7 +121,30 @@ struct PaginationView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Near-Start Page without TOC",
+            tr(
+                "Near-Start Page without TOC",
+                [
+                    "de": "Seite nahe am Anfang ohne Inhaltsverzeichnis",
+                    "fr": "Page proche du début sans table des matières",
+                    "es": "Página cerca del inicio sin tabla de contenido",
+                    "it": "Pagina vicina all'inizio senza indice",
+                    "pt": "Página próxima ao início sem sumário",
+                    "nl": "Pagina nabij begin zonder inhoudsopgave",
+                    "da": "Side tæt på start uden indholdsfortegnelse",
+                    "sv": "Sida nära början utan innehållsförteckning",
+                    "nb": "Side nær starten uten innholdsfortegnelse",
+                    "fi": "Alun lähellä oleva sivu ilman sisällysluetteloa",
+                    "is": "Síða nærri byrjun án efnisyfirlits",
+                    "el": "Σελίδα κοντά στην αρχή χωρίς πίνακα περιεχομένων",
+                    "tr": "İçindekiler tablosuz başa yakın sayfa",
+                    "hu": "Kezdethez közeli oldal tartalomjegyzék nélkül",
+                    "hr": "Stranica blizu početka bez sadržaja",
+                    "pl": "Strona blisko początku bez spisu treści",
+                    "sk": "Strana blízko začiatku bez obsahu",
+                    "cs": "Stránka blízko začátku bez obsahu",
+                    "lb": "Säit no beim Ufank ouni Inhaltsverzeechnes",
+                ]
+            ),
             PaginationData(
                 tableOfContent: nil,
                 pages: (1...10)
@@ -98,7 +167,30 @@ struct PaginationView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Last Page without TOC",
+            tr(
+                "Last Page without TOC",
+                [
+                    "de": "Letzte Seite ohne Inhaltsverzeichnis",
+                    "fr": "Dernière page sans table des matières",
+                    "es": "Última página sin tabla de contenido",
+                    "it": "Ultima pagina senza indice",
+                    "pt": "Última página sem sumário",
+                    "nl": "Laatste pagina zonder inhoudsopgave",
+                    "da": "Sidste side uden indholdsfortegnelse",
+                    "sv": "Sista sidan utan innehållsförteckning",
+                    "nb": "Siste side uten innholdsfortegnelse",
+                    "fi": "Viimeinen sivu ilman sisällysluetteloa",
+                    "is": "Síðasta síða án efnisyfirlits",
+                    "el": "Τελευταία σελίδα χωρίς πίνακα περιεχομένων",
+                    "tr": "İçindekiler tablosuz son sayfa",
+                    "hu": "Utolsó oldal tartalomjegyzék nélkül",
+                    "hr": "Zadnja stranica bez sadržaja",
+                    "pl": "Ostatnia strona bez spisu treści",
+                    "sk": "Posledná strana bez obsahu",
+                    "cs": "Poslední stránka bez obsahu",
+                    "lb": "Lescht Säit ouni Inhaltsverzeechnes",
+                ]
+            ),
             PaginationData(
                 tableOfContent: nil,
                 pages: (1...10)
@@ -121,7 +213,30 @@ struct PaginationView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Two Pages Only",
+            tr(
+                "Two Pages Only",
+                [
+                    "de": "Nur zwei Seiten",
+                    "fr": "Deux pages seulement",
+                    "es": "Solo dos páginas",
+                    "it": "Solo due pagine",
+                    "pt": "Apenas duas páginas",
+                    "nl": "Slechts twee pagina's",
+                    "da": "Kun to sider",
+                    "sv": "Endast två sidor",
+                    "nb": "Kun to sider",
+                    "fi": "Vain kaksi sivua",
+                    "is": "Aðeins tvær síður",
+                    "el": "Μόνο δύο σελίδες",
+                    "tr": "Yalnızca iki sayfa",
+                    "hu": "Csak két oldal",
+                    "hr": "Samo dvije stranice",
+                    "pl": "Tylko dwie strony",
+                    "sk": "Iba dve strany",
+                    "cs": "Pouze dvě stránky",
+                    "lb": "Nëmmen zwou Säiten",
+                ]
+            ),
             PaginationData(
                 tableOfContent: nil,
                 pages: [
@@ -154,7 +269,30 @@ struct PaginationView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Large Dataset (100 Pages Windowed)",
+            tr(
+                "Large Dataset (100 Pages Windowed)",
+                [
+                    "de": "Großer Datensatz (100 Seiten gefenstert)",
+                    "fr": "Grand jeu de données (100 pages fenêtrées)",
+                    "es": "Gran conjunto de datos (100 páginas paginadas)",
+                    "it": "Grande set di dati (100 pagine con finestra)",
+                    "pt": "Grande conjunto de dados (100 páginas paginadas)",
+                    "nl": "Grote gegevensset (100 pagina's met venster)",
+                    "da": "Stort datasæt (100 sider vinduesopdelt)",
+                    "sv": "Stor datamängd (100 sidor fönstrade)",
+                    "nb": "Stort datasett (100 sider vindusdelt)",
+                    "fi": "Suuri aineisto (100 sivua ikkunoitu)",
+                    "is": "Stórt gagnasett (100 síður í gluggum)",
+                    "el": "Μεγάλο σύνολο δεδομένων (100 σελίδες με παράθυρο)",
+                    "tr": "Büyük veri kümesi (100 sayfa pencereli)",
+                    "hu": "Nagy adatkészlet (100 lapozott oldal)",
+                    "hr": "Veliki skup podataka (100 stranica s prozorom)",
+                    "pl": "Duży zbiór danych (100 stron z oknem)",
+                    "sk": "Veľký súbor údajov (100 strán v okne)",
+                    "cs": "Velká datová sada (100 stránek v okně)",
+                    "lb": "Grousse Datesaz (100 Säite gefënstert)",
+                ]
+            ),
             PaginationData(
                 tableOfContent: PaginationItem(
                     title: tr(
@@ -187,7 +325,30 @@ struct PaginationView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Truncated Long TOC Title",
+            tr(
+                "Truncated Long TOC Title",
+                [
+                    "de": "Gekürzter langer Inhaltsverzeichnis-Titel",
+                    "fr": "Titre long de table des matières tronqué",
+                    "es": "Título largo de tabla de contenido truncado",
+                    "it": "Titolo lungo dell'indice troncato",
+                    "pt": "Título longo do sumário truncado",
+                    "nl": "Afgekorte lange inhoudsopgawetitel",
+                    "da": "Afkortet lang indholdsfortegnelsestitel",
+                    "sv": "Avkortad lång innehållsförteckningstitel",
+                    "nb": "Avkortet lang innholdsfortegnelsestittel",
+                    "fi": "Katkaistu pitkä sisällysluettelon otsikko",
+                    "is": "Styttur langur efnisyfirlitstitill",
+                    "el": "Συντομευμένος μεγάλος τίτλος πίνακα περιεχομένων",
+                    "tr": "Kısaltılmış uzun içindekiler tablosu başlığı",
+                    "hu": "Csonkolt hosszú tartalomjegyzék-cím",
+                    "hr": "Skraćeni dugački naslov sadržaja",
+                    "pl": "Skrócony długi tytuł spisu treści",
+                    "sk": "Skrátený dlhý názov obsahu",
+                    "cs": "Zkrácený dlouhý název obsahu",
+                    "lb": "Gekierzte laangen Inhaltsverzeechnes-Titel",
+                ]
+            ),
             PaginationData(
                 tableOfContent: PaginationItem(
                     title: tr(

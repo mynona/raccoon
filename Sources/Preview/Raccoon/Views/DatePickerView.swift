@@ -9,7 +9,30 @@ struct DatePickerView: TemplateRepresentable {
 
     let variants: [PreviewVariant<DatePickerData>] = [
         #previewVariant(
-            "Single Date",
+            tr(
+                "Single Date",
+                [
+                    "de": "Einzelnes Datum",
+                    "fr": "Date unique",
+                    "es": "Fecha única",
+                    "it": "Data singola",
+                    "pt": "Data única",
+                    "nl": "Enkele datum",
+                    "da": "Enkelt dato",
+                    "sv": "Enstaka datum",
+                    "nb": "Enkelt dato",
+                    "fi": "Yksittäinen päivämäärä",
+                    "is": "Stök dagsetning",
+                    "el": "Μονή ημερομηνία",
+                    "tr": "Tek tarih",
+                    "hu": "Egyetlen dátum",
+                    "hr": "Jedan datum",
+                    "pl": "Pojedyncza data",
+                    "sk": "Jeden dátum",
+                    "cs": "Jedno datum",
+                    "lb": "Eenzelt Datum",
+                ]
+            ),
             DatePickerData(
                 id: "date1",
                 label: LabelData(
@@ -29,7 +52,30 @@ struct DatePickerView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Date Range",
+            tr(
+                "Date Range",
+                [
+                    "de": "Datumsbereich",
+                    "fr": "Plage de dates",
+                    "es": "Rango de fechas",
+                    "it": "Intervallo di date",
+                    "pt": "Intervalo de datas",
+                    "nl": "Datumbereik",
+                    "da": "Datointerval",
+                    "sv": "Datumintervall",
+                    "nb": "Datointervall",
+                    "fi": "Päivämääräväli",
+                    "is": "Dagsetningabil",
+                    "el": "Εύρος ημερομηνιών",
+                    "tr": "Tarih aralığı",
+                    "hu": "Dátumtartomány",
+                    "hr": "Raspon datuma",
+                    "pl": "Zakres dat",
+                    "sk": "Rozsah dátumov",
+                    "cs": "Rozsah dat",
+                    "lb": "Datumsberäich",
+                ]
+            ),
             DatePickerData(
                 id: "date2",
                 endId: "date2_end",

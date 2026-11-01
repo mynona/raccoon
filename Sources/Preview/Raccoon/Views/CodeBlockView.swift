@@ -9,7 +9,30 @@ struct CodeBlockView: TemplateRepresentable {
 
     let variants: [PreviewVariant<CodeBlockData>] = [
         #previewVariant(
-            "Short Snippet",
+            tr(
+                "Short Snippet",
+                [
+                    "de": "Kurzer Codeausschnitt",
+                    "fr": "Court extrait",
+                    "es": "Fragmento corto",
+                    "it": "Breve frammento",
+                    "pt": "Trecho curto",
+                    "nl": "Kort fragment",
+                    "da": "Kort kodestykke",
+                    "sv": "Kort kodavsnitt",
+                    "nb": "Kort kodesnutt",
+                    "fi": "Lyhyt katkelma",
+                    "is": "Stuttur bútur",
+                    "el": "Σύντομο απόσπασμα",
+                    "tr": "Kısa kod parçacığı",
+                    "hu": "Rövid kódrészlet",
+                    "hr": "Kratki isječak",
+                    "pl": "Krótki fragment",
+                    "sk": "Krátky fragment kódu",
+                    "cs": "Krátký úryvek kódu",
+                    "lb": "Kuerze Code-Ausschnëtt",
+                ]
+            ),
             CodeBlockData(
                 code:
                     """
@@ -22,7 +45,30 @@ struct CodeBlockView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Long Snippet with Scroll",
+            tr(
+                "Long Snippet with Scroll",
+                [
+                    "de": "Langer Codeausschnitt mit Bildlauf",
+                    "fr": "Long extrait avec défilement",
+                    "es": "Fragmento largo con desplazamiento",
+                    "it": "Frammento lungo con scorrimento",
+                    "pt": "Trecho longo com rolagem",
+                    "nl": "Lang fragment met scrollen",
+                    "da": "Langt kodestykke med rulning",
+                    "sv": "Långt kodavsnitt med rullning",
+                    "nb": "Lang kodesnutt med rulling",
+                    "fi": "Pitkä katkelma vierityksellä",
+                    "is": "Langur bútur með skruni",
+                    "el": "Μεγάλο απόσπασμα με κύλιση",
+                    "tr": "Kaydırmalı uzun kod parçacığı",
+                    "hu": "Hosszú kódrészlet görgetéssel",
+                    "hr": "Duguljasti isječak s pomicanjem",
+                    "pl": "Długi fragment z przewijaniem",
+                    "sk": "Dlhý fragment kódu s posúvaním",
+                    "cs": "Dlouhý úryvek kódu s posouváním",
+                    "lb": "Laange Code-Ausschnëtt mat Scroll",
+                ]
+            ),
             CodeBlockData(
                 code:
                     """

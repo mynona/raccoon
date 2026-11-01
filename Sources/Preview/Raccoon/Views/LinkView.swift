@@ -9,7 +9,30 @@ struct LinkView: TemplateRepresentable {
 
     let variants: [PreviewVariant<HyperLinkData>] = [
         #previewVariant(
-            "Centered External Link with Tooltip",
+            tr(
+                "Centered External Link with Tooltip",
+                [
+                    "de": "Zentrierter externer Link mit Tooltip",
+                    "fr": "Lien externe centré avec infobulle",
+                    "es": "Enlace externo centrado con información",
+                    "it": "Collegamento esterno centrato con tooltip",
+                    "pt": "Link externo centrado com dica",
+                    "nl": "Gecentreerde externe link met tooltip",
+                    "da": "Centreret eksternt link med tooltip",
+                    "sv": "Centrerad extern länk med verktygstips",
+                    "nb": "Sentrert ekstern lenke med verktøytips",
+                    "fi": "Keskitetty ulkoinen linkki työkaluvihjeellä",
+                    "is": "Miðjaður ytri tengill með vísbendingu",
+                    "el": "Κεντραρισμένος εξωτερικός σύνδεσμος με επεξήγηση",
+                    "tr": "İpucu ile ortalanmış harici bağlantı",
+                    "hu": "Középre zárt külső hivatkozás eszköztippel",
+                    "hr": "Centrirana vanjska veza s opisom",
+                    "pl": "Wyśrodkowany link zewnętrzny z etykietą",
+                    "sk": "Vycentrovaný externý odkaz s popisom",
+                    "cs": "Vycentrovaný externí odkaz s nápovědou",
+                    "lb": "Zentréierten externe Link mat Tooltip",
+                ]
+            ),
             HyperLinkData(
                 label: tr(
                     "Some label",
@@ -44,7 +67,30 @@ struct LinkView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Left-Aligned Internal Link",
+            tr(
+                "Left-Aligned Internal Link",
+                [
+                    "de": "Linksbündiger interner Link",
+                    "fr": "Lien interne aligné à gauche",
+                    "es": "Enlace interno alineado a la izquierda",
+                    "it": "Collegamento interno allineato a sinistra",
+                    "pt": "Link interno alinhado à esquerda",
+                    "nl": "Links uitgelijnde interne link",
+                    "da": "Venstrejusteret internt link",
+                    "sv": "Vänsterjusterad intern länk",
+                    "nb": "Venstrejustert intern lenke",
+                    "fi": "Vasemmalle tasattu sisäinen linkki",
+                    "is": "Vinstrijafnaður innri tengill",
+                    "el": "Στοιχισμένος αριστερά εσωτερικός σύνδεσμος",
+                    "tr": "Sola hizalı dahili bağlantı",
+                    "hu": "Balra zárt belső hivatkozás",
+                    "hr": "Lijevo poravnata unutarnja veza",
+                    "pl": "Wyrównany do lewej link wewnętrzny",
+                    "sk": "Vľavo zarovnaný interný odkaz",
+                    "cs": "Vlevo zarovnaný interní odkaz",
+                    "lb": "Lénksbünnegen interne Link",
+                ]
+            ),
             HyperLinkData(
                 label: tr(
                     "Some label",
@@ -77,7 +123,30 @@ struct LinkView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Large Icon without Underline",
+            tr(
+                "Large Icon without Underline",
+                [
+                    "de": "Großes Icon ohne Unterstreichung",
+                    "fr": "Grande icône sans soulignement",
+                    "es": "Icono grande sin subrayar",
+                    "it": "Icona grande non sottolineata",
+                    "pt": "Ícone grande sem sublinhado",
+                    "nl": "Groot pictogram zonder onderstreping",
+                    "da": "Stort ikon uden understregning",
+                    "sv": "Stor ikon utan understrykning",
+                    "nb": "Stort ikon uten understreking",
+                    "fi": "Suuri kuvake ilman alleviivausta",
+                    "is": "Stórt tákn án undirstrikunar",
+                    "el": "Μεγάλο εικονίδιο χωρίς υπογράμμιση",
+                    "tr": "Altçizgisiz büyük simge",
+                    "hu": "Nagy ikon aláhúzás nélkül",
+                    "hr": "Velika ikona bez podcrtavanja",
+                    "pl": "Duża ikona bez podkreślenia",
+                    "sk": "Veľká ikona bez podčiarknutia",
+                    "cs": "Velká ikona bez podtržení",
+                    "lb": "Grousst Ikon ouni Ënnerstrach",
+                ]
+            ),
             HyperLinkData(
                 label: tr(
                     "Some label",
@@ -97,7 +166,30 @@ struct LinkView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Non-Focusable Link",
+            tr(
+                "Non-Focusable Link",
+                [
+                    "de": "Nicht fokussierbarer Link",
+                    "fr": "Lien non focalisable",
+                    "es": "Enlace no enfocable",
+                    "it": "Collegamento non focalizzabile",
+                    "pt": "Link não focalizável",
+                    "nl": "Niet-focusseerbare link",
+                    "da": "Ikke-fokuserbart link",
+                    "sv": "Icke-fokuserbar länk",
+                    "nb": "Ikke-fokuserbar lenke",
+                    "fi": "Ei-tarkennettava linkki",
+                    "is": "Ófókusbær tengill",
+                    "el": "Μη εστιάσιμος σύνδεσμος",
+                    "tr": "Odaklanamayan bağlantı",
+                    "hu": "Nem fókuszálható hivatkozás",
+                    "hr": "Veza bez mogućnosti fokusiranja",
+                    "pl": "Link bez możliwości ustawienia fokusu",
+                    "sk": "Nezamerateľný odkaz",
+                    "cs": "Nezaměřitelný odkaz",
+                    "lb": "Net-fokusséierbare Link",
+                ]
+            ),
             HyperLinkData(
                 label: tr(
                     "Some label",
@@ -117,7 +209,30 @@ struct LinkView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Multiline Text Wrapping with Icon",
+            tr(
+                "Multiline Text Wrapping with Icon",
+                [
+                    "de": "Mehrzeiliger Textumbruch mit Icon",
+                    "fr": "Retour à la ligne multiligne avec icône",
+                    "es": "Ajuste de texto multilínea con icono",
+                    "it": "A capo multilinea con icona",
+                    "pt": "Quebra de texto em várias linhas com ícone",
+                    "nl": "Tekstomloop over meerdere regels met pictogram",
+                    "da": "Tekstombrydning over flere linjer med ikon",
+                    "sv": "Fler raders textbrytning med ikon",
+                    "nb": "Flerlinjet tekstbryting med ikon",
+                    "fi": "Monirivinen tekstinkierto kuvakkeella",
+                    "is": "Margra lína textaskipting með tákni",
+                    "el": "Αναδίπλωση κειμένου πολλών γραμμών με εικονίδιο",
+                    "tr": "Simgeli çok satırlı metin kaydırma",
+                    "hu": "Többsoros szövegtördelés ikonnal",
+                    "hr": "Prijelom teksta u više redaka s ikonom",
+                    "pl": "Wielowierszowe zawijanie tekstu z ikoną",
+                    "sk": "Viacriadkové zalamovanie textu s ikonou",
+                    "cs": "Víceřádkové zalamování textu s ikonou",
+                    "lb": "Méizeilegen Textëmbroch mat Ikon",
+                ]
+            ),
             HyperLinkData(
                 label:
                     tr(

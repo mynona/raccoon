@@ -9,7 +9,30 @@ struct PasswordInputView: TemplateRepresentable {
 
     let variants: [PreviewVariant<PasswordInputData>] = [
         #previewVariant(
-            "Password Input with Toggle Visibility",
+            tr(
+                "Password Input with Toggle Visibility",
+                [
+                    "de": "Passworteingabe mit Sichtbarkeits-Umschalter",
+                    "fr": "Saisie de mot de passe avec bascule de visibilité",
+                    "es": "Campo de contraseña con cambio de visibilidad",
+                    "it": "Input password con attivazione visibilità",
+                    "pt": "Campo de senha com alternância de visibilidade",
+                    "nl": "Wachtwoordinvoer met zichtbaarheidsschakelaar",
+                    "da": "Adgangskodefelt med synlighedsskift",
+                    "sv": "Lösenordsinmatning med synlighetsväxlare",
+                    "nb": "Passordinntasting med synlighetsbryter",
+                    "fi": "Salasanakenttä näkyvyyden vaihtamisella",
+                    "is": "Lykilorðareitur með sýnileikaskiptingu",
+                    "el": "Πεδίο κωδικού πρόσβασης με εναλλαγή ορατότητας",
+                    "tr": "Görünürlük geçişli şifre girişi",
+                    "hu": "Jelszóbeviteli mező láthatósági kapcsolóval",
+                    "hr": "Unos lozinke s prebacivanjem vidljivosti",
+                    "pl": "Pole hasła z przełączaniem widoczności",
+                    "sk": "Zadanie hesla s prepínaním viditeľnosti",
+                    "cs": "Zadání hesla s přepínáním viditelnosti",
+                    "lb": "Passwuert-Agab mat Siichtbarkeets-Ëmschalter",
+                ]
+            ),
             PasswordInputData(
                 passwordId: "password",
                 passwordLabel: LabelData(

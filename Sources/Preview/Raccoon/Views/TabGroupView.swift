@@ -9,7 +9,30 @@ struct TabGroupView: TemplateRepresentable {
 
     let variants: [PreviewVariant<TabGroupData>] = [
         #previewVariant(
-            "Underline with Icons and Badges",
+            tr(
+                "Underline with Icons and Badges",
+                [
+                    "de": "Unterstrichen mit Icons und Badges",
+                    "fr": "Souligné avec icônes et badges",
+                    "es": "Subrayado con iconos e insignias",
+                    "it": "Sottolineato con icone e badge",
+                    "pt": "Sublinhado com ícones e emblemas",
+                    "nl": "Onderstreept met pictogrammen en badges",
+                    "da": "Understreget med ikoner og badges",
+                    "sv": "Understruken med ikoner och märken",
+                    "nb": "Understreket med ikoner og badges",
+                    "fi": "Alleviivaus kuvakkeilla ja merkeillä",
+                    "is": "Undirstrikað með táknum og merkjum",
+                    "el": "Υπογραμμισμένο με εικονίδια και σήματα",
+                    "tr": "Simgeli ve rozetli altçizgili",
+                    "hu": "Aláhúzva ikonokkal és jelvényekkel",
+                    "hr": "Podcrtano s ikonama i značkama",
+                    "pl": "Podkreślone z ikonami i odznakami",
+                    "sk": "Podčiarknuté s ikonami a odznakmi",
+                    "cs": "Podtržené s ikonami a odznaky",
+                    "lb": "Ënnerstrach mat Ikonen a Badgen",
+                ]
+            ),
             TabGroupData(
                 id: "tabs-underline-demo",
                 ariaLabel: tr(
@@ -126,7 +149,30 @@ struct TabGroupView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Pills with Disabled Tab",
+            tr(
+                "Pills with Disabled Tab",
+                [
+                    "de": "Pillen mit deaktiviertem Tab",
+                    "fr": "Pastilles avec onglet désactivé",
+                    "es": "Pastillas con pestaña deshabilitada",
+                    "it": "Pillole con scheda disabilitata",
+                    "pt": "Pílulas com aba desativada",
+                    "nl": "Pills met uitgeschakeld tabblad",
+                    "da": "Piller med deaktiveret fane",
+                    "sv": "Piller med inaktiverad flik",
+                    "nb": "Piller med deaktivert fane",
+                    "fi": "Pillerit pois käytöstä olevalla välilehdellä",
+                    "is": "Pillur með óvirkum flipa",
+                    "el": "Καρτέλες χαπιού με απενεργοποιημένη καρτέλα",
+                    "tr": "Devre dışı sekmeli hap tasarımı",
+                    "hu": "Kapszulák letiltott füllel",
+                    "hr": "Pilule s onemogućenom karticom",
+                    "pl": "Pigułki z wyłączoną kartą",
+                    "sk": "Pilulky so zakázanou kartou",
+                    "cs": "Pilulky se zakázanou kartou",
+                    "lb": "Pëlle mat desaktivéiertem Tab",
+                ]
+            ),
             TabGroupData(
                 id: "tabs-pills-demo",
                 ariaLabel: tr(
@@ -195,7 +241,30 @@ struct TabGroupView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Vertical Pills Layout",
+            tr(
+                "Vertical Pills Layout",
+                [
+                    "de": "Vertikales Pillen-Layout",
+                    "fr": "Disposition en pastilles verticale",
+                    "es": "Diseño vertical de pastillas",
+                    "it": "Disposizione a pillole verticale",
+                    "pt": "Layout vertical de pílulas",
+                    "nl": "Verticale pills-indeling",
+                    "da": "Lodret pillelayout",
+                    "sv": "Vertikal pillerlayout",
+                    "nb": "Vertikalt pilleoppsett",
+                    "fi": "Pystysuuntainen pilleriasettelu",
+                    "is": "Lóðrétt pilluuppsetning",
+                    "el": "Κάθετη διάταξη καρτελών χαπιού",
+                    "tr": "Dikey hap düzeni",
+                    "hu": "Függőleges kapszula elrendezés",
+                    "hr": "Okomiti raspored pilula",
+                    "pl": "Pionowy układ pigułek",
+                    "sk": "Vertikálne rozloženie piluliek",
+                    "cs": "Vertikální rozvržení pilulek",
+                    "lb": "Vertikaalt Pëlle-Layout",
+                ]
+            ),
             TabGroupData(
                 id: "tabs-vertical-pills-demo",
                 ariaLabel: tr(
@@ -286,7 +355,30 @@ struct TabGroupView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Vertical Underline Layout",
+            tr(
+                "Vertical Underline Layout",
+                [
+                    "de": "Vertikales Unterstreichungs-Layout",
+                    "fr": "Disposition soulignée verticale",
+                    "es": "Diseño vertical subrayado",
+                    "it": "Disposizione sottolineata verticale",
+                    "pt": "Layout vertical sublinhado",
+                    "nl": "Verticale onderstrepingsindeling",
+                    "da": "Lodret understreget layout",
+                    "sv": "Vertikal understruken layout",
+                    "nb": "Vertikalt understreket oppsett",
+                    "fi": "Pystysuuntainen alleviivattu asettelu",
+                    "is": "Lóðrétt undirstrikað uppsetning",
+                    "el": "Κάθετη υπογραμμισμένη διάταξη",
+                    "tr": "Dikey altçizgili düzen",
+                    "hu": "Függőleges aláhúzott elrendezés",
+                    "hr": "Okomiti podcrtani raspored",
+                    "pl": "Pionowy układ z podkreśleniem",
+                    "sk": "Vertikálne podčiarknuté rozloženie",
+                    "cs": "Vertikální podtržené rozvržení",
+                    "lb": "Vertikaalt Ënnerstrach-Layout",
+                ]
+            ),
             TabGroupData(
                 id: "tabs-vertical-underline-demo",
                 ariaLabel: tr(

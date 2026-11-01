@@ -9,7 +9,30 @@ struct MermaidView: TemplateRepresentable {
 
     let variants: [PreviewVariant<MermaidData>] = [
         #previewVariant(
-            "Flowchart",
+            tr(
+                "Flowchart",
+                [
+                    "de": "Flussdiagramm",
+                    "fr": "Organigramme",
+                    "es": "Diagrama de flujo",
+                    "it": "Diagramma di flusso",
+                    "pt": "Fluxograma",
+                    "nl": "Stroomschema",
+                    "da": "Rutediagram",
+                    "sv": "Flödesschema",
+                    "nb": "Flytskjema",
+                    "fi": "Vuokaavio",
+                    "is": "Flæðirit",
+                    "el": "Διάγραμμα ροής",
+                    "tr": "Akış şeması",
+                    "hu": "Folyamatábra",
+                    "hr": "Dijagram toka",
+                    "pl": "Schemat blokowy",
+                    "sk": "Vývojový diagram",
+                    "cs": "Vývojový diagram",
+                    "lb": "Flossdiagramm",
+                ]
+            ),
             MermaidData(
                 diagram:
                     """
@@ -24,7 +47,30 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "State Diagram",
+            tr(
+                "State Diagram",
+                [
+                    "de": "Zustandsdiagramm",
+                    "fr": "Diagramme d'état",
+                    "es": "Diagrama de estado",
+                    "it": "Diagramma di stato",
+                    "pt": "Diagrama de estado",
+                    "nl": "Tostandsdiagram",
+                    "da": "Tilstandsdiagram",
+                    "sv": "Tillståndsdiagram",
+                    "nb": "Tilstandsdiagram",
+                    "fi": "Tilakaavio",
+                    "is": "Stöðurit",
+                    "el": "Διάγραμμα κατάστασης",
+                    "tr": "Durum şeması",
+                    "hu": "Állapotdiagram",
+                    "hr": "Dijagram stanja",
+                    "pl": "Diagram stanów",
+                    "sk": "Stavový diagram",
+                    "cs": "Stavový diagram",
+                    "lb": "Zoustandsdiagramm",
+                ]
+            ),
             MermaidData(
                 diagram:
                     """
@@ -40,7 +86,30 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Sequence Diagram",
+            tr(
+                "Sequence Diagram",
+                [
+                    "de": "Sequenzdiagramm",
+                    "fr": "Diagramme de séquence",
+                    "es": "Diagrama de secuencia",
+                    "it": "Diagramma di sequenza",
+                    "pt": "Diagrama de sequência",
+                    "nl": "Sequentiediagram",
+                    "da": "Sekvensdiagram",
+                    "sv": "Sekvensdiagram",
+                    "nb": "Sekvensdiagram",
+                    "fi": "Sekvenssikaavio",
+                    "is": "Rásrit",
+                    "el": "Διάγραμμα ακολουθίας",
+                    "tr": "Sıralama şeması",
+                    "hu": "Szekvenciadiagram",
+                    "hr": "Sekvencijski dijagram",
+                    "pl": "Diagram sekwencji",
+                    "sk": "Sekvenčný diagram",
+                    "cs": "Sekvenční diagram",
+                    "lb": "Sequenzdiagramm",
+                ]
+            ),
             MermaidData(
                 diagram:
                     """
@@ -57,7 +126,30 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Timeline Diagram",
+            tr(
+                "Timeline Diagram",
+                [
+                    "de": "Zeitachsendiagramm",
+                    "fr": "Diagramme chronologique",
+                    "es": "Línea de tiempo",
+                    "it": "Cronologia",
+                    "pt": "Linha do tempo",
+                    "nl": "Tijdlijndiagram",
+                    "da": "Tidslinjediagram",
+                    "sv": "Tidslinjediagram",
+                    "nb": "Tidslinjediagram",
+                    "fi": "Aikajanakaavio",
+                    "is": "Tímalínurit",
+                    "el": "Χρονολόγιο",
+                    "tr": "Zaman çizelgesi şeması",
+                    "hu": "Idővonal-diagram",
+                    "hr": "Vremenski dijagram",
+                    "pl": "Oś czasu",
+                    "sk": "Časový diagram",
+                    "cs": "Časová osa",
+                    "lb": "Zäitleischtendiagramm",
+                ]
+            ),
             MermaidData(
                 diagram:
                     """
@@ -74,7 +166,30 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Class Diagram",
+            tr(
+                "Class Diagram",
+                [
+                    "de": "Klassendiagramm",
+                    "fr": "Diagramme de classes",
+                    "es": "Diagrama de clases",
+                    "it": "Diagramma delle classi",
+                    "pt": "Diagrama de classes",
+                    "nl": "Klassendiagram",
+                    "da": "Klassediagram",
+                    "sv": "Klassdiagram",
+                    "nb": "Klassediagram",
+                    "fi": "Luokkakaavio",
+                    "is": "Klasarit",
+                    "el": "Διάγραμμα κλάσεων",
+                    "tr": "Sınıf şeması",
+                    "hu": "Osztálydiagram",
+                    "hr": "Dijagram klasa",
+                    "pl": "Diagram klas",
+                    "sk": "Triedny diagram",
+                    "cs": "Diagram tříd",
+                    "lb": "Klassendiagramm",
+                ]
+            ),
             MermaidData(
                 diagram:
                     """
@@ -96,7 +211,30 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Entity Relationship Diagram",
+            tr(
+                "Entity Relationship Diagram",
+                [
+                    "de": "Entity-Relationship-Diagramm",
+                    "fr": "Diagramme entité-association",
+                    "es": "Diagrama entidad-relación",
+                    "it": "Diagramma entità-relazione",
+                    "pt": "Diagrama entidade-relacionamento",
+                    "nl": "Entiteit-relatiediagram",
+                    "da": "Entitet-relationsdiagram",
+                    "sv": "Entitetsrelationsdiagram",
+                    "nb": "Entitetsrelasjonsdiagram",
+                    "fi": "Käsitekaavio (ER)",
+                    "is": "Venslarit (ER)",
+                    "el": "Διάγραμμα οντοτήτων-συσχετίσεων",
+                    "tr": "Varlık bağıntı şeması",
+                    "hu": "Egyed-kapcsolat diagram",
+                    "hr": "Dijagram entiteti-veze",
+                    "pl": "Diagram związków encji",
+                    "sk": "Diagram entít a vzťahov",
+                    "cs": "ER diagram",
+                    "lb": "Entitéit-Relatiouns-Diagramm",
+                ]
+            ),
             MermaidData(
                 diagram:
                     """
@@ -120,7 +258,30 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "User Journey Diagram",
+            tr(
+                "User Journey Diagram",
+                [
+                    "de": "User-Journey-Diagramm",
+                    "fr": "Parcours utilisateur",
+                    "es": "Recorrido del usuario",
+                    "it": "Percorso utente",
+                    "pt": "Jornada do usuário",
+                    "nl": "Gebruikersreis-diagram",
+                    "da": "Brugerrejsediagram",
+                    "sv": "Användarresediagram",
+                    "nb": "Brukerreisediagram",
+                    "fi": "Käyttäjäpolkukaavio",
+                    "is": "Notendaferlisrit",
+                    "el": "Διαδρομή χρήστη",
+                    "tr": "Kullanıcı yolculuğu şeması",
+                    "hu": "Felhasználói út diagram",
+                    "hr": "Dijagram korisničkog putovanja",
+                    "pl": "Diagram ścieżki użytkownika",
+                    "sk": "Diagram cesty používateľa",
+                    "cs": "Diagram cesty uživatele",
+                    "lb": "Benotzerrees-Diagramm",
+                ]
+            ),
             MermaidData(
                 diagram:
                     """
@@ -137,7 +298,30 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Architecture Diagram",
+            tr(
+                "Architecture Diagram",
+                [
+                    "de": "Architekturdiagramm",
+                    "fr": "Diagramme d'architecture",
+                    "es": "Diagrama de arquitectura",
+                    "it": "Diagramma di architettura",
+                    "pt": "Diagrama de arquitetura",
+                    "nl": "Architectuurdiagram",
+                    "da": "Arkitekturdiagram",
+                    "sv": "Arkitekturdiagram",
+                    "nb": "Arkitekturdiagram",
+                    "fi": "Arkkitehtuurikaavio",
+                    "is": "Byggingarlagsrit",
+                    "el": "Διάγραμμα αρχιτεκτονικής",
+                    "tr": "Mimari şeması",
+                    "hu": "Architektúra-diagram",
+                    "hr": "Arhitekturni dijagram",
+                    "pl": "Diagram architektury",
+                    "sk": "Architektonický diagram",
+                    "cs": "Diagram architektury",
+                    "lb": "Architekturdiagramm",
+                ]
+            ),
             MermaidData(
                 diagram:
                     """
@@ -154,7 +338,30 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "XY Chart",
+            tr(
+                "XY Chart",
+                [
+                    "de": "XY-Diagramm",
+                    "fr": "Graphique XY",
+                    "es": "Gráfico XY",
+                    "it": "Grafico XY",
+                    "pt": "Gráfico XY",
+                    "nl": "XY-grafiek",
+                    "da": "XY-diagram",
+                    "sv": "XY-diagram",
+                    "nb": "XY-diagram",
+                    "fi": "XY-kaavio",
+                    "is": "XY-rit",
+                    "el": "Διάγραμμα XY",
+                    "tr": "XY grafiği",
+                    "hu": "XY-diagram",
+                    "hr": "XY grafikon",
+                    "pl": "Wykres XY",
+                    "sk": "XY graf",
+                    "cs": "XY graf",
+                    "lb": "XY-Diagramm",
+                ]
+            ),
             MermaidData(
                 diagram:
                     """
@@ -169,7 +376,30 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Pie Chart",
+            tr(
+                "Pie Chart",
+                [
+                    "de": "Kreisdiagramm",
+                    "fr": "Graphique circulaire",
+                    "es": "Gráfico circular",
+                    "it": "Grafico a torta",
+                    "pt": "Gráfico de pizza",
+                    "nl": "Cirkeldiagram",
+                    "da": "Cirkeldiagram",
+                    "sv": "Cirkeldiagram",
+                    "nb": "Kakediagram",
+                    "fi": "Ympyräkaavio",
+                    "is": "Kökurit",
+                    "el": "Κυκλικό διάγραμμα",
+                    "tr": "Pasta grafiği",
+                    "hu": "Kördiagram",
+                    "hr": "Tortni grafikon",
+                    "pl": "Wykres kołowy",
+                    "sk": "Koláčový graf",
+                    "cs": "Koláčový graf",
+                    "lb": "Kreesdiagramm",
+                ]
+            ),
             MermaidData(
                 diagram:
                     """
@@ -184,7 +414,30 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Quadrant Chart",
+            tr(
+                "Quadrant Chart",
+                [
+                    "de": "Quadrantendiagramm",
+                    "fr": "Graphique en quadrants",
+                    "es": "Gráfico de cuadrantes",
+                    "it": "Grafico a quadranti",
+                    "pt": "Gráfico de quadrantes",
+                    "nl": "Kwadrantendiagram",
+                    "da": "Kvadrantdiagram",
+                    "sv": "Kvadrantdiagram",
+                    "nb": "Kvadrantdiagram",
+                    "fi": "Nelikaavio",
+                    "is": "Fjórðungsrit",
+                    "el": "Διάγραμμα τεταρτημορίων",
+                    "tr": "Dört kadran grafiği",
+                    "hu": "Kvadráns-diagram",
+                    "hr": "Kvadrantni grafikon",
+                    "pl": "Wykres ćwiartkowy",
+                    "sk": "Kvadrantový graf",
+                    "cs": "Kvadrantový graf",
+                    "lb": "Quadrantendiagramm",
+                ]
+            ),
             MermaidData(
                 diagram:
                     """
@@ -204,7 +457,30 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Gantt Chart",
+            tr(
+                "Gantt Chart",
+                [
+                    "de": "Gantt-Diagramm",
+                    "fr": "Diagramme de Gantt",
+                    "es": "Diagrama de Gantt",
+                    "it": "Diagramma di Gantt",
+                    "pt": "Gráfico de Gantt",
+                    "nl": "Gantt-diagram",
+                    "da": "Gantt-diagram",
+                    "sv": "Gantt-diagram",
+                    "nb": "Gantt-diagram",
+                    "fi": "Gantt-kaavio",
+                    "is": "Gantt-rit",
+                    "el": "Διάγραμμα Gantt",
+                    "tr": "Gantt şeması",
+                    "hu": "Gantt-diagram",
+                    "hr": "Ganttov dijagram",
+                    "pl": "Wykres Gantta",
+                    "sk": "Ganttov diagram",
+                    "cs": "Ganttův diagram",
+                    "lb": "Gantt-Diagramm",
+                ]
+            ),
             MermaidData(
                 diagram:
                     """
@@ -224,7 +500,30 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Mindmap",
+            tr(
+                "Mindmap",
+                [
+                    "de": "Mindmap",
+                    "fr": "Carte mentale",
+                    "es": "Mapa mental",
+                    "it": "Mappa mentale",
+                    "pt": "Mapa mental",
+                    "nl": "Mindmap",
+                    "da": "Mindmap",
+                    "sv": "Mindmap",
+                    "nb": "Tankekart",
+                    "fi": "Käsitekartta",
+                    "is": "Hugarkort",
+                    "el": "Χάρτης μυαλού",
+                    "tr": "Zihin haritası",
+                    "hu": "Gondolattérkép",
+                    "hr": "Mentalna mapa",
+                    "pl": "Mapa myśli",
+                    "sk": "Myšlienková mapa",
+                    "cs": "Myšlenková mapa",
+                    "lb": "Gedankekaart",
+                ]
+            ),
             MermaidData(
                 diagram:
                     """
@@ -251,7 +550,30 @@ struct MermaidView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Git Graph",
+            tr(
+                "Git Graph",
+                [
+                    "de": "Git-Graph",
+                    "fr": "Graphe Git",
+                    "es": "Gráfico Git",
+                    "it": "Grafico Git",
+                    "pt": "Gráfico Git",
+                    "nl": "Git-grafiek",
+                    "da": "Git-graf",
+                    "sv": "Git-diagram",
+                    "nb": "Git-graf",
+                    "fi": "Git-kaavio",
+                    "is": "Git-línurit",
+                    "el": "Γράφημα Git",
+                    "tr": "Git grafiği",
+                    "hu": "Git-grafikon",
+                    "hr": "Git grafikon",
+                    "pl": "Wykres Gita",
+                    "sk": "Git graf",
+                    "cs": "Git graf",
+                    "lb": "Git-Graf",
+                ]
+            ),
             MermaidData(
                 diagram:
                     """
@@ -286,7 +608,30 @@ struct MermaidView: TemplateRepresentable {
         ),
 
         #previewVariant(
-            "Radar Chart",
+            tr(
+                "Radar Chart",
+                [
+                    "de": "Netzdiagramm",
+                    "fr": "Graphique radar",
+                    "es": "Gráfico de radar",
+                    "it": "Grafico radar",
+                    "pt": "Gráfico de radar",
+                    "nl": "Radardiagram",
+                    "da": "Radardiagram",
+                    "sv": "Radardiagram",
+                    "nb": "Radardiagram",
+                    "fi": "Tutkakaavio",
+                    "is": "Radíuriti",
+                    "el": "Διάγραμμα ραντάρ",
+                    "tr": "Radar grafiği",
+                    "hu": "Pókháló-diagram",
+                    "hr": "Radarski grafikon",
+                    "pl": "Wykres radarowy",
+                    "sk": "Radarový graf",
+                    "cs": "Paprskový graf",
+                    "lb": "Netzdiagramm",
+                ]
+            ),
             MermaidData(
                 diagram:
                     """
@@ -305,7 +650,30 @@ struct MermaidView: TemplateRepresentable {
         ),
 
         #previewVariant(
-            "Sankey Diagram",
+            tr(
+                "Sankey Diagram",
+                [
+                    "de": "Sankey-Diagramm",
+                    "fr": "Diagramme de Sankey",
+                    "es": "Diagrama de Sankey",
+                    "it": "Diagramma di Sankey",
+                    "pt": "Diagrama de Sankey",
+                    "nl": "Sankey-diagram",
+                    "da": "Sankey-diagram",
+                    "sv": "Sankey-diagram",
+                    "nb": "Sankey-diagram",
+                    "fi": "Sankey-kaavio",
+                    "is": "Sankey-rit",
+                    "el": "Διάγραμμα Sankey",
+                    "tr": "Sankey şeması",
+                    "hu": "Sankey-diagram",
+                    "hr": "Sankeyev dijagram",
+                    "pl": "Diagram Sankeya",
+                    "sk": "Sankeyov diagram",
+                    "cs": "Sankeyův diagram",
+                    "lb": "Sankey-Diagramm",
+                ]
+            ),
             MermaidData(
                 diagram:
                     """
@@ -322,7 +690,30 @@ struct MermaidView: TemplateRepresentable {
         ),
 
         #previewVariant(
-            "Packet Diagram",
+            tr(
+                "Packet Diagram",
+                [
+                    "de": "Paketdiagramm",
+                    "fr": "Diagramme de paquets",
+                    "es": "Diagrama de paquetes",
+                    "it": "Diagramma di pacchetto",
+                    "pt": "Diagrama de pacotes",
+                    "nl": "Pakketdiagram",
+                    "da": "Pakkediagram",
+                    "sv": "Paketdiagram",
+                    "nb": "Pakkediagram",
+                    "fi": "Pakettikaavio",
+                    "is": "Pakkadreifirit",
+                    "el": "Διάγραμμα πακέτου",
+                    "tr": "Paket şeması",
+                    "hu": "Csomagdiagram",
+                    "hr": "Paketni dijagram",
+                    "pl": "Diagram pakietów",
+                    "sk": "Balíkový diagram",
+                    "cs": "Paketový diagram",
+                    "lb": "Paketdiagramm",
+                ]
+            ),
             MermaidData(
                 diagram:
                     """
@@ -340,7 +731,30 @@ struct MermaidView: TemplateRepresentable {
         ),
 
         #previewVariant(
-            "Kanban Board",
+            tr(
+                "Kanban Board",
+                [
+                    "de": "Kanban-Board",
+                    "fr": "Tableau Kanban",
+                    "es": "Tablero Kanban",
+                    "it": "Bacheca Kanban",
+                    "pt": "Quadro Kanban",
+                    "nl": "Kanban-bord",
+                    "da": "Kanban-tavle",
+                    "sv": "Kanban-tavla",
+                    "nb": "Kanban-tavle",
+                    "fi": "Kanban-taulu",
+                    "is": "Kanban-tafla",
+                    "el": "Πίνακας Kanban",
+                    "tr": "Kanban panosu",
+                    "hu": "Kanban-tábla",
+                    "hr": "Kanban ploča",
+                    "pl": "Tablica Kanban",
+                    "sk": "Kanban nástenka",
+                    "cs": "Kanbanová tabule",
+                    "lb": "Kanban-Briet",
+                ]
+            ),
             MermaidData(
                 diagram:
                     """
@@ -358,7 +772,30 @@ struct MermaidView: TemplateRepresentable {
         ),
 
         #previewVariant(
-            "Treemap",
+            tr(
+                "Treemap",
+                [
+                    "de": "Kacheldiagramm (Treemap)",
+                    "fr": "Treemap",
+                    "es": "Mapa de árbol",
+                    "it": "Mappa ad albero",
+                    "pt": "Mapa de árvore",
+                    "nl": "Boomdiagram",
+                    "da": "Trædiagram",
+                    "sv": "Trädkarta",
+                    "nb": "Trekart",
+                    "fi": "Puukartta",
+                    "is": "Trjákort",
+                    "el": "Χάρτης δέντρου",
+                    "tr": "Ağaç haritası",
+                    "hu": "Faszerkezetes térkép",
+                    "hr": "Stablokarta",
+                    "pl": "Mapa drzewa",
+                    "sk": "Stromová mapa",
+                    "cs": "Stromová mapa",
+                    "lb": "Kacheldiagramm",
+                ]
+            ),
             MermaidData(
                 diagram:
                     """
@@ -377,7 +814,30 @@ struct MermaidView: TemplateRepresentable {
         ),
 
         #previewVariant(
-            "Event Modeling Diagram",
+            tr(
+                "Event Modeling Diagram",
+                [
+                    "de": "Event-Modeling-Diagramm",
+                    "fr": "Modélisation d'événements",
+                    "es": "Modelado de eventos",
+                    "it": "Modellazione eventi",
+                    "pt": "Modelagem de eventos",
+                    "nl": "Gebeurtenismodellering",
+                    "da": "Hændelsesmodelleringsdiagram",
+                    "sv": "Händelsemodelleringsdiagram",
+                    "nb": "Hendelsesmodelleringsdiagram",
+                    "fi": "Tapahtumamallinnus",
+                    "is": "Atburðalíkangerð",
+                    "el": "Μοντελοποίηση συμβάντων",
+                    "tr": "Olay modelleme şeması",
+                    "hu": "Eseménymodellezés",
+                    "hr": "Modeliranje događaja",
+                    "pl": "Modelowanie zdarzeń",
+                    "sk": "Modelovanie udalostí",
+                    "cs": "Modelování událostí",
+                    "lb": "Event-Modelling-Diagramm",
+                ]
+            ),
             MermaidData(
                 diagram:
                     """

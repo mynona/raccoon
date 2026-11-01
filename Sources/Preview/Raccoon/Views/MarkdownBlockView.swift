@@ -9,7 +9,30 @@ struct MarkdownBlockView: TemplateRepresentable {
 
     let variants: [PreviewVariant<MarkdownBlockData>] = [
         #previewVariant(
-            "Rendered Prose Content",
+            tr(
+                "Rendered Prose Content",
+                [
+                    "de": "Gerenderter Prose-Inhalt",
+                    "fr": "Contenu prose rendu",
+                    "es": "Contenido en prosa procesado",
+                    "it": "Contenuto in prosa renderizzato",
+                    "pt": "Conteúdo em prosa renderizado",
+                    "nl": "Gerenderde proza-inhoud",
+                    "da": "Gengivet prosa-indhold",
+                    "sv": "Renderat prosainnehåll",
+                    "nb": "Gjengitt prosainnhold",
+                    "fi": "Renderöity proosasisältö",
+                    "is": "Myndað textaefni",
+                    "el": "Αποδοθέν περιεχόμενο πεζού κειμένου",
+                    "tr": "İşlenmiş düz metin içeriği",
+                    "hu": "Megjelenített prózai tartalom",
+                    "hr": "Prikazani prozni sadržaj",
+                    "pl": "Wyrenderowana treść prozatorska",
+                    "sk": "Vykreslený prozaický obsah",
+                    "cs": "Vykreslený prozaický obsah",
+                    "lb": "Gerenderte Prose-Inhalt",
+                ]
+            ),
             MarkdownBlockData(
                 markdown: DemoData.markdownText,
                 isProse: true

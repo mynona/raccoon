@@ -9,7 +9,30 @@ struct HiddenFieldView: TemplateRepresentable {
 
     let variants: [PreviewVariant<HiddenFieldData>] = [
         #previewVariant(
-            "Key-Value Hidden Input",
+            tr(
+                "Key-Value Hidden Input",
+                [
+                    "de": "Schlüssel-Wert-verstecktes Eingabefeld",
+                    "fr": "Champ masqué clé-valeur",
+                    "es": "Campo oculto clave-valor",
+                    "it": "Campo nascosto chiave-valore",
+                    "pt": "Campo oculto chave-valor",
+                    "nl": "Verborgen sleutel-waarde invoer",
+                    "da": "Skjult nøgle-værdi-felt",
+                    "sv": "Dolt nyckel-värde-fält",
+                    "nb": "Skjult nøkkel-verdi-felt",
+                    "fi": "Piilotettu avain-arvo-syötekenttä",
+                    "is": "Folið lykill-gildi innsláttarsvæði",
+                    "el": "Κρυφό πεδίο κλειδιού-τιμής",
+                    "tr": "Anahtar-değer gizli giriş",
+                    "hu": "Rejtett kulcs-érték bemenet",
+                    "hr": "Skriveni unos ključ-vrijednost",
+                    "pl": "Ukryte pole klucz-wartość",
+                    "sk": "Skryté vstupné pole kľúč-hodnota",
+                    "cs": "Skryté vstupní pole klíč-hodnota",
+                    "lb": "Schlëssel-Wäert verstoppt Agab",
+                ]
+            ),
             HiddenFieldData(
                 id: "hidden-key",
                 value: "hidden-value",

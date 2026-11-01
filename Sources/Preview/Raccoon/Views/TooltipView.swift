@@ -9,7 +9,30 @@ struct TooltipView: TemplateRepresentable {
 
     let variants: [PreviewVariant<TooltipData>] = [
         #previewVariant(
-            "Top Position with Arrow",
+            tr(
+                "Top Position with Arrow",
+                [
+                    "de": "Oben positioniert mit Pfeil",
+                    "fr": "Position supérieure avec flèche",
+                    "es": "Posición superior con flecha",
+                    "it": "Posizione superiore con freccia",
+                    "pt": "Posição superior com seta",
+                    "nl": "Bovenste positie met pijl",
+                    "da": "Øverste position med pil",
+                    "sv": "Övre position med pil",
+                    "nb": "Topposisjon med pil",
+                    "fi": "Yläasento nuolella",
+                    "is": "Efri staða með ör",
+                    "el": "Πάνω θέση με βέλος",
+                    "tr": "Oklu üst konum",
+                    "hu": "Felső pozíció nyíllal",
+                    "hr": "Gornji položaj sa strelicom",
+                    "pl": "Górna pozycja ze strzałką",
+                    "sk": "Horná pozícia so šípkou",
+                    "cs": "Horní pozice se šipkou",
+                    "lb": "Iewescht Positioun mat Feil",
+                ]
+            ),
             TooltipData(
                 id: "tooltip-1",
                 text: tr(
@@ -24,7 +47,30 @@ struct TooltipView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Bottom Position with Arrow",
+            tr(
+                "Bottom Position with Arrow",
+                [
+                    "de": "Unten positioniert mit Pfeil",
+                    "fr": "Position inférieure avec flèche",
+                    "es": "Posición inferior con flecha",
+                    "it": "Posizione inferiore con freccia",
+                    "pt": "Posição inferior com seta",
+                    "nl": "Onderste positie met pijl",
+                    "da": "Nederste position med pil",
+                    "sv": "Nedre position med pil",
+                    "nb": "Bunnposisjon med pil",
+                    "fi": "Ala-asento nuolella",
+                    "is": "Neðri staða með ör",
+                    "el": "Κάτω θέση με βέλος",
+                    "tr": "Oklu alt konum",
+                    "hu": "Alsó pozíció nyíllal",
+                    "hr": "Donji položaj sa strelicom",
+                    "pl": "Dolna pozycja ze strzałką",
+                    "sk": "Dolná pozícia so šípkou",
+                    "cs": "Dolní pozice se šipkou",
+                    "lb": "Ënnescht Positioun mat Feil",
+                ]
+            ),
             TooltipData(
                 id: "tooltip-2",
                 text: tr(
@@ -39,7 +85,30 @@ struct TooltipView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Localized Text with Arrow",
+            tr(
+                "Localized Text with Arrow",
+                [
+                    "de": "Lokalisierter Text mit Pfeil",
+                    "fr": "Texte localisé avec flèche",
+                    "es": "Texto localizado con flecha",
+                    "it": "Testo localizzato con freccia",
+                    "pt": "Texto localizado com seta",
+                    "nl": "Gelokaliseerde tekst met pijl",
+                    "da": "Lokaliseret tekst med pil",
+                    "sv": "Lokaliserad text med pil",
+                    "nb": "Lokalisert tekst med pil",
+                    "fi": "Lokalisoitu teksti nuolella",
+                    "is": "Staðfærður texti með ör",
+                    "el": "Τοπικοποιημένο κείμενο με βέλος",
+                    "tr": "Oklu yerelleştirilmiş metin",
+                    "hu": "Honosított szöveg nyíllal",
+                    "hr": "Lokalizirani tekst sa strelicom",
+                    "pl": "Zlokalizowany tekst ze strzałką",
+                    "sk": "Lokalizovaný text so šípkou",
+                    "cs": "Lokalizovaný text se šipkou",
+                    "lb": "Lokaliséierten Text mat Feil",
+                ]
+            ),
             TooltipData(
                 id: "tooltip-3",
                 text: tr(

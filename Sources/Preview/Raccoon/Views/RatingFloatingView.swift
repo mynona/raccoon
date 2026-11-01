@@ -17,7 +17,30 @@ struct RatingFloatingView: TemplateRepresentable {
 
     let variants: [PreviewVariant<RatingData>] = [
         #previewVariant(
-            "Scroll-Triggered Floating Feedback Widget",
+            tr(
+                "Scroll-Triggered Floating Feedback Widget",
+                [
+                    "de": "Durch Scrollen ausgelöstes schwebendes Feedback-Widget",
+                    "fr": "Widget de retour flottant déclenché par défilement",
+                    "es": "Widget de valoración flotante activado por desplazamiento",
+                    "it": "Widget di feedback fluttuante attivato dallo scorrimento",
+                    "pt": "Widget de feedback flutuante ativado por rolagem",
+                    "nl": "Door scrollen geactiveerde zwevende feedback-widget",
+                    "da": "Rulningsudløst svævende feedback-widget",
+                    "sv": "Rullningsutlöst svävande feedback-widget",
+                    "nb": "Rulleutløst flytende tilbakemeldings-widget",
+                    "fi": "Vierityksen käynnistämä kelluva palaute-widget",
+                    "is": "Fljótandi endurgjafargræja sem virkjast við skrun",
+                    "el": "Αιωρούμενο γραφικό στοιχείο σχολίων ενεργοποιούμενο από κύλιση",
+                    "tr": "Kaydırma tetiklemeli kayan geri bildirim aracı",
+                    "hu": "Görgetéssel aktivált lebegő visszajelzési modul",
+                    "hr": "Plutajući widget za povratne informacije pokrenut pomicanjem",
+                    "pl": "Pływający widżet opinii uruchamiany przewijaniem",
+                    "sk": "Plávajúci widget spätnej väzby spúšťaný posúvaním",
+                    "cs": "Plovoucí widget zpětné vazby spouštěný posouváním",
+                    "lb": "Duerch Scrollen ausgeléiste schwiewende Feedback-Widget",
+                ]
+            ),
             RatingData(
                 id: "floating-scroll-124",
                 url: "/success",

@@ -9,14 +9,60 @@ struct CopyToClipboardView: TemplateRepresentable {
 
     let variants: [PreviewVariant<CopyToClipboardData>] = [
         #previewVariant(
-            "Horizontal Layout",
+            tr(
+                "Horizontal Layout",
+                [
+                    "de": "Horizontales Layout",
+                    "fr": "Disposition horizontale",
+                    "es": "Diseño horizontal",
+                    "it": "Disposizione orizzontale",
+                    "pt": "Layout horizontal",
+                    "nl": "Horizontale indeling",
+                    "da": "Vandret layout",
+                    "sv": "Horisontell layout",
+                    "nb": "Horisontalt oppsett",
+                    "fi": "Vaakasuuntainen asettelu",
+                    "is": "Lárétt uppsetning",
+                    "el": "Οριζόντια διάταξη",
+                    "tr": "Yatay düzen",
+                    "hu": "Vízszintes elrendezés",
+                    "hr": "Vodoravni raspored",
+                    "pl": "Układ poziomy",
+                    "sk": "Horizontálne rozloženie",
+                    "cs": "Horizontální rozvržení",
+                    "lb": "Horizontaalt Layout",
+                ]
+            ),
             CopyToClipboardData(
                 value: "sk-abc123XYZ",
                 orientation: .horizontal
             )
         ),
         #previewVariant(
-            "Vertical Layout",
+            tr(
+                "Vertical Layout",
+                [
+                    "de": "Vertikales Layout",
+                    "fr": "Disposition verticale",
+                    "es": "Diseño vertical",
+                    "it": "Disposizione verticale",
+                    "pt": "Layout vertical",
+                    "nl": "Verticale indeling",
+                    "da": "Lodret layout",
+                    "sv": "Vertikal layout",
+                    "nb": "Vertikalt oppsett",
+                    "fi": "Pystysuuntainen asettelu",
+                    "is": "Lóðrétt uppsetning",
+                    "el": "Κάθετη διάταξη",
+                    "tr": "Dikey düzen",
+                    "hu": "Függőleges elrendezés",
+                    "hr": "Okomiti raspored",
+                    "pl": "Układ pionowy",
+                    "sk": "Vertikálne rozloženie",
+                    "cs": "Vertikální rozvržení",
+                    "lb": "Vertikaalt Layout",
+                ]
+            ),
             CopyToClipboardData(
                 value: "sk-abc123XYZ",
                 orientation: .vertical

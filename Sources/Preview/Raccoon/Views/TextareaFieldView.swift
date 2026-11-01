@@ -9,7 +9,30 @@ struct TextareaFieldView: TemplateRepresentable {
 
     let variants: [PreviewVariant<TextAreaFieldData>] = [
         #previewVariant(
-            "First & Last Name Validation",
+            tr(
+                "First & Last Name Validation",
+                [
+                    "de": "Vor- und Nachnamens-Validierung",
+                    "fr": "Validation nom et prénom",
+                    "es": "Validación de nombre y apellido",
+                    "it": "Validazione nome e cognome",
+                    "pt": "Validação de nome e sobrenome",
+                    "nl": "Voor- en achternaamvalidatie",
+                    "da": "Validering af for- og efternavn",
+                    "sv": "Validering av för- och efternamn",
+                    "nb": "Validering av for- og etternavn",
+                    "fi": "Etu- ja sukunimen vahvistus",
+                    "is": "Sannprófun fornafns og eftirnafns",
+                    "el": "Επαλήθευση ονόματος και επωνύμου",
+                    "tr": "Ad ve soyad doğrulaması",
+                    "hu": "Kereszt- és vezetéknév érvényesítése",
+                    "hr": "Provjera imena i prezimena",
+                    "pl": "Walidacja imienia i nazwiska",
+                    "sk": "Overenie mena a priezviska",
+                    "cs": "Ověření jména a příjmení",
+                    "lb": "Vir- a Familljennumm-Validéierung",
+                ]
+            ),
             TextAreaFieldData(
                 id: "tf-1",
                 label: LabelData(
@@ -51,7 +74,30 @@ struct TextareaFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Required Email with Validation Errors",
+            tr(
+                "Required Email with Validation Errors",
+                [
+                    "de": "Erforderliche E-Mail mit Validierungsfehlern",
+                    "fr": "E-mail obligatoire avec erreurs de validation",
+                    "es": "Correo obligatorio con errores de validación",
+                    "it": "E-mail obbligatoria con errori di validazione",
+                    "pt": "E-mail obrigatório com erros de validação",
+                    "nl": "Verplichte e-mail met validatiefouten",
+                    "da": "Påkrævet e-mail med valideringsfejl",
+                    "sv": "Obligatorisk e-post med valideringsfel",
+                    "nb": "Obligatorisk e-post med valideringsfeil",
+                    "fi": "Pakollinen sähköposti vahvistusvirheillä",
+                    "is": "Áskilið netfang með villum",
+                    "el": "Απαιτούμενο email με σφάλματα επικύρωσης",
+                    "tr": "Doğrulama hatalı zorunlu e-posta",
+                    "hu": "Kötelező e-mail érvényesítési hibákkal",
+                    "hr": "Obavezna e-pošta s pogreškama provjere",
+                    "pl": "Wymagany adres e-mail z błędami walidacji",
+                    "sk": "Povinný e-mail s chybami overenia",
+                    "cs": "Povinný e-mail s chybami ověření",
+                    "lb": "Erfuerderlech E-Mail mat Validéierungsfeeleren",
+                ]
+            ),
             TextAreaFieldData(
                 id: "tf-2",
                 label: LabelData(
@@ -103,7 +149,30 @@ struct TextareaFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "URL Validation",
+            tr(
+                "URL Validation",
+                [
+                    "de": "URL-Validierung",
+                    "fr": "Validation d'URL",
+                    "es": "Validación de URL",
+                    "it": "Validazione URL",
+                    "pt": "Validação de URL",
+                    "nl": "URL-validatie",
+                    "da": "URL-validering",
+                    "sv": "URL-validering",
+                    "nb": "URL-validering",
+                    "fi": "URL-osoitteen vahvistus",
+                    "is": "Sannprófun vefslóðar",
+                    "el": "Επαλήθευση URL",
+                    "tr": "URL doğrulaması",
+                    "hu": "URL érvényesítése",
+                    "hr": "Provjera URL-a",
+                    "pl": "Walidacja adresu URL",
+                    "sk": "Overenie URL",
+                    "cs": "Ověření URL",
+                    "lb": "URL-Validéierung",
+                ]
+            ),
             TextAreaFieldData(
                 id: "tf-3",
                 label: LabelData(
@@ -135,7 +204,30 @@ struct TextareaFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Integer Validation (2 Rows)",
+            tr(
+                "Integer Validation (2 Rows)",
+                [
+                    "de": "Ganzzahl-Validierung (2 Zeilen)",
+                    "fr": "Validation d'entier (2 lignes)",
+                    "es": "Validación de entero (2 filas)",
+                    "it": "Validazione intero (2 righe)",
+                    "pt": "Validação de inteiro (2 linhas)",
+                    "nl": "Geheel getal-validatie (2 regels)",
+                    "da": "Heltalsvalidering (2 rækker)",
+                    "sv": "Heltalsvalidering (2 rader)",
+                    "nb": "Heltallsvalidering (2 rader)",
+                    "fi": "Kokonaisluvun vahvistus (2 riviä)",
+                    "is": "Sannprófun heiltölu (2 línur)",
+                    "el": "Επαλήθευση ακέραιου αριθμού (2 γραμμές)",
+                    "tr": "Tam sayı doğrulaması (2 satır)",
+                    "hu": "Egész szám érvényesítése (2 sor)",
+                    "hr": "Provjera cijelog broja (2 retka)",
+                    "pl": "Walidacja liczby całkowitej (2 wiersze)",
+                    "sk": "Overenie celého čísla (2 riadky)",
+                    "cs": "Ověření celého čísla (2 řádky)",
+                    "lb": "Ganzzuel-Validéierung (2 Zeilen)",
+                ]
+            ),
             TextAreaFieldData(
                 id: "tf-4",
                 label: LabelData(
@@ -168,7 +260,30 @@ struct TextareaFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Monospaced Amount Validation",
+            tr(
+                "Monospaced Amount Validation",
+                [
+                    "de": "Monospaced Betrags-Validierung",
+                    "fr": "Validation de montant à chasse fixe",
+                    "es": "Validación de importe monoespaciado",
+                    "it": "Validazione importo a spaziatura fissa",
+                    "pt": "Validação de valor com fonte monoespaçada",
+                    "nl": "Monospaced bedragvalidatie",
+                    "da": "Monospace-beløbsvalidering",
+                    "sv": "Beloppsvalidering med fast bredd",
+                    "nb": "Beløpsvalidering med fast tegnbredde",
+                    "fi": "Tasavälisen summan vahvistus",
+                    "is": "Sannprófun upphæðar með jafnbreiðu letri",
+                    "el": "Επαλήθευση ποσού σταθερού πλάτους",
+                    "tr": "Eşaralıklı tutar doğrulaması",
+                    "hu": "Fix szélességű összeg érvényesítése",
+                    "hr": "Provjera iznosa s fiksnom širinom znakova",
+                    "pl": "Walidacja kwoty o stałej szerokości znaków",
+                    "sk": "Overenie sumy s neproporcionálnym písmom",
+                    "cs": "Ověření částky s neproporcionálním písmem",
+                    "lb": "Monospaced Betrags-Validéierung",
+                ]
+            ),
             TextAreaFieldData(
                 id: "tf-5",
                 label: LabelData(
@@ -201,7 +316,30 @@ struct TextareaFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Phone Number Validation",
+            tr(
+                "Phone Number Validation",
+                [
+                    "de": "Telefonnummern-Validierung",
+                    "fr": "Validation de numéro de téléphone",
+                    "es": "Validación de número de teléfono",
+                    "it": "Validazione numero di telefono",
+                    "pt": "Validação de número de telefone",
+                    "nl": "Telefoonnummervalidatie",
+                    "da": "Telefonnummervalidering",
+                    "sv": "Telefonnummervalidering",
+                    "nb": "Telefonnummervalidering",
+                    "fi": "Puhelinnumeron vahvistus",
+                    "is": "Sannprófun símanúmers",
+                    "el": "Επαλήθευση αριθμού τηλεφώνου",
+                    "tr": "Telefon numarası doğrulaması",
+                    "hu": "Telefonszám érvényesítése",
+                    "hr": "Provjera telefonskog broja",
+                    "pl": "Walidacja numeru telefonu",
+                    "sk": "Overenie telefónneho čísla",
+                    "cs": "Ověření telefonního čísla",
+                    "lb": "Telefonsnummer-Validéierung",
+                ]
+            ),
             TextAreaFieldData(
                 id: "tf-6",
                 label: LabelData(
@@ -234,7 +372,30 @@ struct TextareaFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Monospaced IPv4 Address Validation",
+            tr(
+                "Monospaced IPv4 Address Validation",
+                [
+                    "de": "Monospaced IPv4-Adressen-Validierung",
+                    "fr": "Validation d'adresse IPv4 à chasse fixe",
+                    "es": "Validación de dirección IPv4 monoespaciada",
+                    "it": "Validazione indirizzo IPv4 a spaziatura fissa",
+                    "pt": "Validação de endereço IPv4 monoespaçado",
+                    "nl": "Monospaced IPv4-adresvalidatie",
+                    "da": "Monospace IPv4-adressevalidering",
+                    "sv": "IPv4-adressvalidering med fast bredd",
+                    "nb": "IPv4-adressevalidering med fast tegnbredde",
+                    "fi": "Tasavälisen IPv4-osoitteen vahvistus",
+                    "is": "Sannprófun IPv4-vistfangs með jafnbreiðu letri",
+                    "el": "Επαλήθευση διεύθυνσης IPv4 σταθερού πλάτους",
+                    "tr": "Eşaralıklı IPv4 adresi doğrulaması",
+                    "hu": "Fix szélességű IPv4-cím érvényesítése",
+                    "hr": "Provjera IPv4 adrese s fiksnom širinom znakova",
+                    "pl": "Walidacja adresu IPv4 o stałej szerokości znaków",
+                    "sk": "Overenie adresy IPv4 s neproporcionálnym písmom",
+                    "cs": "Ověření adresy IPv4 s neproporcionálním písmem",
+                    "lb": "Monospaced IPv4-Adress-Validéierung",
+                ]
+            ),
             TextAreaFieldData(
                 id: "tf-7",
                 label: LabelData(
@@ -267,7 +428,30 @@ struct TextareaFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Custom Pattern Validation (8 Rows)",
+            tr(
+                "Custom Pattern Validation (8 Rows)",
+                [
+                    "de": "Benutzerdefiniertes Muster (8 Zeilen)",
+                    "fr": "Motif personnalisé (8 lignes)",
+                    "es": "Patrón personalizado (8 filas)",
+                    "it": "Pattern personalizzato (8 righe)",
+                    "pt": "Padrão personalizado (8 linhas)",
+                    "nl": "Aangepast patroon (8 regels)",
+                    "da": "Brugerdefineret mønster (8 rækker)",
+                    "sv": "Anpassat mönster (8 rader)",
+                    "nb": "Egendefinert mønster (8 rader)",
+                    "fi": "Mukautettu kuvio (8 riviä)",
+                    "is": "Sérsniðið mynstur (8 línur)",
+                    "el": "Προσαρμοσμένο μοτίβο (8 γραμμές)",
+                    "tr": "Özel kalıp doğrulaması (8 satır)",
+                    "hu": "Egyéni minta érvényesítése (8 sor)",
+                    "hr": "Prilagođeni uzorak (8 redaka)",
+                    "pl": "Wzorzec niestandardowy (8 wierszy)",
+                    "sk": "Vlastný vzor (8 riadkov)",
+                    "cs": "Vlastní vzor (8 řádků)",
+                    "lb": "Personaliséiert Muster (8 Zeilen)",
+                ]
+            ),
             TextAreaFieldData(
                 id: "tf-8",
                 label: LabelData(

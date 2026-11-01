@@ -9,7 +9,30 @@ struct SimpleTableView: TemplateRepresentable {
 
     let variants: [PreviewVariant<SimpleTableData>] = [
         #previewVariant(
-            "Structured Data Table with Caption",
+            tr(
+                "Structured Data Table with Caption",
+                [
+                    "de": "Strukturierte Datentabelle mit Beschriftung",
+                    "fr": "Tableau de données structurées avec légende",
+                    "es": "Tabla de datos estructurados con leyenda",
+                    "it": "Tabella di dati strutturati con didascalia",
+                    "pt": "Tabela de dados estruturados com legenda",
+                    "nl": "Gestructureerde gegevenstabel met bijschrift",
+                    "da": "Struktureret datatabel med billedtekst",
+                    "sv": "Strukturerad datatabell med bildtext",
+                    "nb": "Strukturert datatabell med bildetekst",
+                    "fi": "Rakenteinen datataulukko kuvatekstillä",
+                    "is": "Skipulögð gagnatafla með skýringatexta",
+                    "el": "Δομημένος πίνακας δεδομένων με λεζάντα",
+                    "tr": "Başlıklı yapılandırılmış veri tablosu",
+                    "hu": "Strukturált adattáblázat képaláírással",
+                    "hr": "Tablica strukturiranih podataka s opisom",
+                    "pl": "Tabela danych ustrukturyzowanych z podpisem",
+                    "sk": "Tabuľka štruktúrovaných údajov s popisom",
+                    "cs": "Tabulka strukturovaných dat s popiskem",
+                    "lb": "Strukturéiert Datentabell mat Iwwerschrëft",
+                ]
+            ),
             SimpleTableData(
                 meta: DemoData.simpleTableMeta,
                 rows: DemoData.simpleTableRows,

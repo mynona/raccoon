@@ -9,7 +9,30 @@ struct DefinitionView: TemplateRepresentable {
 
     let variants: [PreviewVariant<DefinitionData>] = [
         #previewVariant(
-            "Term with Icon",
+            tr(
+                "Term with Icon",
+                [
+                    "de": "Begriff mit Icon",
+                    "fr": "Terme avec icône",
+                    "es": "Término con icono",
+                    "it": "Termine con icona",
+                    "pt": "Termo com ícone",
+                    "nl": "Term met pictogram",
+                    "da": "Begreb med ikon",
+                    "sv": "Term med ikon",
+                    "nb": "Begrep med ikon",
+                    "fi": "Termi kuvakkeella",
+                    "is": "Hugtak með tákni",
+                    "el": "Όρος με εικονίδιο",
+                    "tr": "Simgeli terim",
+                    "hu": "Kifejezés ikonnal",
+                    "hr": "Pojam s ikonom",
+                    "pl": "Termin z ikoną",
+                    "sk": "Pojem s ikonou",
+                    "cs": "Pojem s ikonou",
+                    "lb": "Begrëff mat Ikon",
+                ]
+            ),
             DefinitionData(
                 term: tr(
                     "Product Thinking",

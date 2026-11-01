@@ -9,7 +9,30 @@ struct FileUploadView: TemplateRepresentable {
 
     let variants: [PreviewVariant<SingleFileUploadData>] = [
         #previewVariant(
-            "Standard Upload",
+            tr(
+                "Standard Upload",
+                [
+                    "de": "Standard-Upload",
+                    "fr": "Téléversement standard",
+                    "es": "Subida estándar",
+                    "it": "Caricamento standard",
+                    "pt": "Envio padrão",
+                    "nl": "Standaard upload",
+                    "da": "Standard upload",
+                    "sv": "Standarduppladdning",
+                    "nb": "Standard opplasting",
+                    "fi": "Vakiolataus",
+                    "is": "Staðlað upphleðsla",
+                    "el": "Τυπική μεταφόρτωση",
+                    "tr": "Standart yükleme",
+                    "hu": "Szabványos feltöltés",
+                    "hr": "Standardni prijenos",
+                    "pl": "Standardowe przesyłanie",
+                    "sk": "Štandardné nahrávanie",
+                    "cs": "Standardní nahrávání",
+                    "lb": "Standard-Upload",
+                ]
+            ),
             SingleFileUploadData(
                 id: "file-upload",
                 label: LabelData(
@@ -26,7 +49,30 @@ struct FileUploadView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Upload with Validation Error",
+            tr(
+                "Upload with Validation Error",
+                [
+                    "de": "Upload mit Validierungsfehler",
+                    "fr": "Téléversement avec erreur de validation",
+                    "es": "Subida con error de validación",
+                    "it": "Caricamento con errore di validazione",
+                    "pt": "Envio com erro de validação",
+                    "nl": "Upload met validatiefout",
+                    "da": "Upload med valideringsfejl",
+                    "sv": "Uppladdning med valideringsfel",
+                    "nb": "Opplasting med valideringsfeil",
+                    "fi": "Lataus vahvistusvirheellä",
+                    "is": "Upphleðsla með sannprófunarvillu",
+                    "el": "Μεταφόρτωση με σφάλμα επικύρωσης",
+                    "tr": "Doğrulama hatalı yükleme",
+                    "hu": "Feltöltés érvényesítési hibával",
+                    "hr": "Prijenos s pogreškom provjere",
+                    "pl": "Przesyłanie z błędem walidacji",
+                    "sk": "Nahrávanie s chybou overenia",
+                    "cs": "Nahrávání s chybou ověření",
+                    "lb": "Upload mat Validéierungsfeeler",
+                ]
+            ),
             SingleFileUploadData(
                 id: "file-upload2",
                 label: LabelData(
@@ -55,7 +101,30 @@ struct FileUploadView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Upload without Label",
+            tr(
+                "Upload without Label",
+                [
+                    "de": "Upload ohne Beschriftung",
+                    "fr": "Téléversement sans étiquette",
+                    "es": "Subida sin etiqueta",
+                    "it": "Caricamento senza etichetta",
+                    "pt": "Envio sem etiqueta",
+                    "nl": "Upload zonder label",
+                    "da": "Upload uden etiket",
+                    "sv": "Uppladdning utan etikett",
+                    "nb": "Opplasting uten etikett",
+                    "fi": "Lataus ilman nimikettä",
+                    "is": "Upphleðsla án merkis",
+                    "el": "Μεταφόρτωση χωρίς ετικέτα",
+                    "tr": "Etiketsiz yükleme",
+                    "hu": "Feltöltés címke nélkül",
+                    "hr": "Prijenos bez oznake",
+                    "pl": "Przesyłanie bez etykiety",
+                    "sk": "Nahrávanie bez štítku",
+                    "cs": "Nahrávání bez popisku",
+                    "lb": "Upload ouni Etikett",
+                ]
+            ),
             SingleFileUploadData(
                 id: "file-upload3",
                 errorMessages: ErrorMessageData(

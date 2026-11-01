@@ -9,7 +9,30 @@ struct InputListView: TemplateRepresentable {
 
     let variants: [PreviewVariant<InputListData>] = [
         #previewVariant(
-            "Dynamic URL List",
+            tr(
+                "Dynamic URL List",
+                [
+                    "de": "Dynamische URL-Liste",
+                    "fr": "Liste d'URL dynamique",
+                    "es": "Lista de URL dinámica",
+                    "it": "Elenco URL dinamico",
+                    "pt": "Lista dinâmica de URLs",
+                    "nl": "Dynamische URL-lijst",
+                    "da": "Dynamisk URL-liste",
+                    "sv": "Dynamisk URL-lista",
+                    "nb": "Dynamisk URL-liste",
+                    "fi": "Dynaaminen URL-luettelo",
+                    "is": "Kvikur vefslóðalisti",
+                    "el": "Δυναμική λίστα διευθύνσεων URL",
+                    "tr": "Dinamik URL listesi",
+                    "hu": "Dinamikus URL-lista",
+                    "hr": "Dinamički popis URL-ova",
+                    "pl": "Dynamiczna lista adresów URL",
+                    "sk": "Dynamický zoznam URL",
+                    "cs": "Dynamický seznam URL",
+                    "lb": "Dynamesch URL-Lëscht",
+                ]
+            ),
             InputListData(
                 id: "refs",
                 label: LabelData(id: "refs", title: "References"),

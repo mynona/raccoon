@@ -9,7 +9,30 @@ struct AudioPlayerView: TemplateRepresentable {
 
     let variants: [PreviewVariant<AudioPlayerData>] = [
         #previewVariant(
-            "Full Player with Progress Bar",
+            tr(
+                "Full Player with Progress Bar",
+                [
+                    "de": "Vollständiger Player mit Fortschrittsleiste",
+                    "fr": "Lecteur complet avec barre de progression",
+                    "es": "Reproductor completo con barra de progreso",
+                    "it": "Player completo con barra di avanzamento",
+                    "pt": "Player completo com barra de progresso",
+                    "nl": "Volledige speler met voortgangsbalk",
+                    "da": "Komplet afspiller med statuslinje",
+                    "sv": "Fullständig spelare med förloppsindikator",
+                    "nb": "Full spiller med fremdriftslinje",
+                    "fi": "Täysi soitin edistymispalkilla",
+                    "is": "Heill spilari með framvindustiku",
+                    "el": "Πλήρες πρόγραμμα αναπαραγωγής με γραμμή προόδου",
+                    "tr": "İlerleme çubuklu tam oynatıcı",
+                    "hu": "Teljes lejátszó folyamatjelzővel",
+                    "hr": "Potpuni player s trakom napretka",
+                    "pl": "Pełny odtwarzacz z paskiem postępu",
+                    "sk": "Kompletný prehrávač s indikátorom priebehu",
+                    "cs": "Kompletní přehrávač s indikátorem průběhu",
+                    "lb": "Komplette Player mat Fortschrëttsläischt",
+                ]
+            ),
             AudioPlayerData(
                 title: tr(
                     "Episode 2",
@@ -31,7 +54,30 @@ struct AudioPlayerView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Minimal Player with Matomo",
+            tr(
+                "Minimal Player with Matomo",
+                [
+                    "de": "Minimaler Player mit Matomo",
+                    "fr": "Lecteur minimal avec Matomo",
+                    "es": "Reproductor mínimo con Matomo",
+                    "it": "Player minimale con Matomo",
+                    "pt": "Player mínimo com Matomo",
+                    "nl": "Minimale speler met Matomo",
+                    "da": "Minimal afspiller med Matomo",
+                    "sv": "Minimal spelare med Matomo",
+                    "nb": "Minimal spiller med Matomo",
+                    "fi": "Minimaalinen soitin Matomolla",
+                    "is": "Einfaldur spilari með Matomo",
+                    "el": "Ελάχιστο πρόγραμμα αναπαραγωγής με Matomo",
+                    "tr": "Matomo ile minimal oynatıcı",
+                    "hu": "Minimális lejátszó Matomóval",
+                    "hr": "Minimalni player s Matomom",
+                    "pl": "Minimalny odtwarzacz z Matomo",
+                    "sk": "Minimálny prehrávač s Matomom",
+                    "cs": "Minimální přehrávač s Matomem",
+                    "lb": "Minimale Player mat Matomo",
+                ]
+            ),
             AudioPlayerData(
                 linkToTheAudioFile:
                     "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",

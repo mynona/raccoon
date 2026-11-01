@@ -9,7 +9,30 @@ struct GlossaryEntryView: TemplateRepresentable {
 
     let variants: [PreviewVariant<GlossaryEntryData>] = [
         #previewVariant(
-            "With Initial Letter Badge",
+            tr(
+                "With Initial Letter Badge",
+                [
+                    "de": "Mit Anfangsbuchstaben-Badge",
+                    "fr": "Avec badge de lettre initiale",
+                    "es": "Con insignia de letra inicial",
+                    "it": "Con badge lettera iniziale",
+                    "pt": "Com emblema de letra inicial",
+                    "nl": "Met beginletter-badge",
+                    "da": "Med forbogstavs-badge",
+                    "sv": "Med initialbokstavsbricka",
+                    "nb": "Med forbokstav-badge",
+                    "fi": "Alkukirjainmerkillä",
+                    "is": "Með upphafsstafamerki",
+                    "el": "Με σήμα αρχικού γράμματος",
+                    "tr": "İlk harf rozetli",
+                    "hu": "Kezdőbetűs jelvénnyel",
+                    "hr": "Sa značkom početnog slova",
+                    "pl": "Z odznaką pierwszej litery",
+                    "sk": "S odznakom začiatočného písmena",
+                    "cs": "S odznakem počátečního písmene",
+                    "lb": "Mat Ufanksbuschtawen-Badge",
+                ]
+            ),
             GlossaryEntryData(
                 term: tr(
                     "Product Thinking",
@@ -34,7 +57,30 @@ struct GlossaryEntryView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Without Initial Letter",
+            tr(
+                "Without Initial Letter",
+                [
+                    "de": "Ohne Anfangsbuchstaben",
+                    "fr": "Sans lettre initiale",
+                    "es": "Sin letra inicial",
+                    "it": "Senza lettera iniziale",
+                    "pt": "Sem letra inicial",
+                    "nl": "Zonder beginletter",
+                    "da": "Uden forbogstav",
+                    "sv": "Utan initialbokstav",
+                    "nb": "Uten forbokstav",
+                    "fi": "Ilman alkukirjainta",
+                    "is": "Án upphafsstafs",
+                    "el": "Χωρίς αρχικό γράμμα",
+                    "tr": "İlk harf olmadan",
+                    "hu": "Kezdőbetű nélkül",
+                    "hr": "Bez početnog slova",
+                    "pl": "Bez pierwszej litery",
+                    "sk": "Bez začiatočného písmena",
+                    "cs": "Bez počátečního písmene",
+                    "lb": "Ouni Ufanksbuschtaf",
+                ]
+            ),
             GlossaryEntryData(
                 term: tr(
                     "Product Thinking",

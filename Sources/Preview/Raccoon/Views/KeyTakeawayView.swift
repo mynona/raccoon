@@ -9,7 +9,30 @@ struct KeyTakeawayView: TemplateRepresentable {
 
     let variants: [PreviewVariant<KeyTakeawaysData>] = [
         #previewVariant(
-            "Markdown List with Lightbulb Icon",
+            tr(
+                "Markdown List with Lightbulb Icon",
+                [
+                    "de": "Markdown-Liste mit Glühbirnen-Icon",
+                    "fr": "Liste Markdown avec icône ampoule",
+                    "es": "Lista Markdown con icono de bombilla",
+                    "it": "Elenco Markdown con icona lampadina",
+                    "pt": "Lista Markdown com ícone de lâmpada",
+                    "nl": "Markdown-lijst met gloeilamp-pictogram",
+                    "da": "Markdown-liste med pæreikon",
+                    "sv": "Markdown-lista med glödlampsikon",
+                    "nb": "Markdown-liste med lyspæreikon",
+                    "fi": "Markdown-luettelo hehkulamppukuvakkeella",
+                    "is": "Markdown-listi með ljósaperutákni",
+                    "el": "Λίστα Markdown με εικονίδιο λάμπας",
+                    "tr": "Ampul simgeli Markdown listesi",
+                    "hu": "Markdown lista villanykörte ikonnal",
+                    "hr": "Markdown popis s ikonom žarulje",
+                    "pl": "Lista Markdown z ikoną żarówki",
+                    "sk": "Zoznam Markdown s ikonou žiarovky",
+                    "cs": "Seznam Markdown s ikonou žárovky",
+                    "lb": "Markdown-Lëscht mat Bire-Ikon",
+                ]
+            ),
             KeyTakeawaysData(
                 title: tr(
                     "Key Takeaways",

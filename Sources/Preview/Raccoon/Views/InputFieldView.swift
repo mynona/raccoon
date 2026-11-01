@@ -9,8 +9,30 @@ struct InputFieldView: TemplateRepresentable {
 
     let variants: [PreviewVariant<InputFieldData>] = [
         #previewVariant(
-
-            "First & Last Name Validation",
+            tr(
+                "First & Last Name Validation",
+                [
+                    "de": "Vor- und Nachnamens-Validierung",
+                    "fr": "Validation nom et prénom",
+                    "es": "Validación de nombre y apellido",
+                    "it": "Validazione nome e cognome",
+                    "pt": "Validação de nome e sobrenome",
+                    "nl": "Voor- en achternaamvalidatie",
+                    "da": "Validering af for- og efternavn",
+                    "sv": "Validering av för- och efternamn",
+                    "nb": "Validering av for- og etternavn",
+                    "fi": "Etu- ja sukunimen vahvistus",
+                    "is": "Sannprófun fornafns og eftirnafns",
+                    "el": "Επαλήθευση ονόματος και επωνύμου",
+                    "tr": "Ad ve soyad doğrulaması",
+                    "hu": "Kereszt- és vezetéknév érvényesítése",
+                    "hr": "Provjera imena i prezimena",
+                    "pl": "Walidacja imienia i nazwiska",
+                    "sk": "Overenie mena a priezviska",
+                    "cs": "Ověření jména a příjmení",
+                    "lb": "Vir- a Familljennumm-Validéierung",
+                ]
+            ),
             InputFieldData(
                 id: "fullname",
                 label: LabelData(
@@ -40,7 +62,30 @@ struct InputFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Email Validation",
+            tr(
+                "Email Validation",
+                [
+                    "de": "E-Mail-Validierung",
+                    "fr": "Validation d'e-mail",
+                    "es": "Validación de correo electrónico",
+                    "it": "Validazione e-mail",
+                    "pt": "Validação de e-mail",
+                    "nl": "E-mailvalidatie",
+                    "da": "E-mailvalidering",
+                    "sv": "E-postvalidering",
+                    "nb": "E-postvalidering",
+                    "fi": "Sähköpostin vahvistus",
+                    "is": "Sannprófun netfangs",
+                    "el": "Επαλήθευση email",
+                    "tr": "E-posta doğrulaması",
+                    "hu": "E-mail érvényesítése",
+                    "hr": "Provjera e-pošte",
+                    "pl": "Walidacja adresu e-mail",
+                    "sk": "Overenie e-mailu",
+                    "cs": "Ověření e-mailu",
+                    "lb": "E-Mail-Validéierung",
+                ]
+            ),
             InputFieldData(
                 id: "email",
                 label: LabelData(
@@ -59,7 +104,30 @@ struct InputFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "URL Validation",
+            tr(
+                "URL Validation",
+                [
+                    "de": "URL-Validierung",
+                    "fr": "Validation d'URL",
+                    "es": "Validación de URL",
+                    "it": "Validazione URL",
+                    "pt": "Validação de URL",
+                    "nl": "URL-validatie",
+                    "da": "URL-validering",
+                    "sv": "URL-validering",
+                    "nb": "URL-validering",
+                    "fi": "URL-osoitteen vahvistus",
+                    "is": "Sannprófun vefslóðar",
+                    "el": "Επαλήθευση URL",
+                    "tr": "URL doğrulaması",
+                    "hu": "URL érvényesítése",
+                    "hr": "Provjera URL-a",
+                    "pl": "Walidacja adresu URL",
+                    "sk": "Overenie URL",
+                    "cs": "Ověření URL",
+                    "lb": "URL-Validéierung",
+                ]
+            ),
             InputFieldData(
                 id: "website",
                 label: LabelData(
@@ -78,7 +146,30 @@ struct InputFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Integer Validation",
+            tr(
+                "Integer Validation",
+                [
+                    "de": "Ganzzahl-Validierung",
+                    "fr": "Validation d'entier",
+                    "es": "Validación de entero",
+                    "it": "Validazione numero intero",
+                    "pt": "Validação de número inteiro",
+                    "nl": "Geheel getal-validatie",
+                    "da": "Heltalsvalidering",
+                    "sv": "Heltalsvalidering",
+                    "nb": "Heltallsvalidering",
+                    "fi": "Kokonaisluvun vahvistus",
+                    "is": "Sannprófun heiltölu",
+                    "el": "Επαλήθευση ακέραιου αριθμού",
+                    "tr": "Tam sayı doğrulaması",
+                    "hu": "Egész szám érvényesítése",
+                    "hr": "Provjera cijelog broja",
+                    "pl": "Walidacja liczby całkowitej",
+                    "sk": "Overenie celého čísla",
+                    "cs": "Ověření celého čísla",
+                    "lb": "Ganzzuel-Validéierung",
+                ]
+            ),
             InputFieldData(
                 id: "age",
                 label: LabelData(
@@ -97,7 +188,30 @@ struct InputFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Amount Validation",
+            tr(
+                "Amount Validation",
+                [
+                    "de": "Betrags-Validierung",
+                    "fr": "Validation de montant",
+                    "es": "Validación de importe",
+                    "it": "Validazione importo",
+                    "pt": "Validação de valor",
+                    "nl": "Bedragvalidatie",
+                    "da": "Beløbsvalidering",
+                    "sv": "Beloppsvalidering",
+                    "nb": "Beløpsvalidering",
+                    "fi": "Määrän vahvistus",
+                    "is": "Sannprófun upphæðar",
+                    "el": "Επαλήθευση ποσού",
+                    "tr": "Tutar doğrulaması",
+                    "hu": "Összeg érvényesítése",
+                    "hr": "Provjera iznosa",
+                    "pl": "Walidacja kwoty",
+                    "sk": "Overenie sumy",
+                    "cs": "Ověření částky",
+                    "lb": "Betrags-Validéierung",
+                ]
+            ),
             InputFieldData(
                 id: "amount",
                 label: LabelData(
@@ -116,7 +230,30 @@ struct InputFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Phone Number Validation",
+            tr(
+                "Phone Number Validation",
+                [
+                    "de": "Telefonnummern-Validierung",
+                    "fr": "Validation de numéro de téléphone",
+                    "es": "Validación de número de teléfono",
+                    "it": "Validazione numero di telefono",
+                    "pt": "Validação de número de telefone",
+                    "nl": "Telefoonnummervalidatie",
+                    "da": "Telefonnummervalidering",
+                    "sv": "Telefonnummervalidering",
+                    "nb": "Telefonnummervalidering",
+                    "fi": "Puhelinnumeron vahvistus",
+                    "is": "Sannprófun símanúmers",
+                    "el": "Επαλήθευση αριθμού τηλεφώνου",
+                    "tr": "Telefon numarası doğrulaması",
+                    "hu": "Telefonszám érvényesítése",
+                    "hr": "Provjera telefonskog broja",
+                    "pl": "Walidacja numeru telefonu",
+                    "sk": "Overenie telefónneho čísla",
+                    "cs": "Ověření telefonního čísla",
+                    "lb": "Telefonsnummer-Validéierung",
+                ]
+            ),
             InputFieldData(
                 id: "phone",
                 label: LabelData(
@@ -136,7 +273,30 @@ struct InputFieldView: TemplateRepresentable {
         ),
 
         #previewVariant(
-            "IPv4 Address Validation",
+            tr(
+                "IPv4 Address Validation",
+                [
+                    "de": "IPv4-Adressen-Validierung",
+                    "fr": "Validation d'adresse IPv4",
+                    "es": "Validación de dirección IPv4",
+                    "it": "Validazione indirizzo IPv4",
+                    "pt": "Validação de endereço IPv4",
+                    "nl": "IPv4-adresvalidatie",
+                    "da": "IPv4-adressevalidering",
+                    "sv": "IPv4-adressvalidering",
+                    "nb": "IPv4-adressevalidering",
+                    "fi": "IPv4-osoitteen vahvistus",
+                    "is": "Sannprófun IPv4-vistfangs",
+                    "el": "Επαλήθευση διεύθυνσης IPv4",
+                    "tr": "IPv4 adresi doğrulaması",
+                    "hu": "IPv4-cím érvényesítése",
+                    "hr": "Provjera IPv4 adrese",
+                    "pl": "Walidacja adresu IPv4",
+                    "sk": "Overenie adresy IPv4",
+                    "cs": "Ověření adresy IPv4",
+                    "lb": "IPv4-Adress-Validéierung",
+                ]
+            ),
             InputFieldData(
                 id: "ip",
                 label: LabelData(
@@ -155,7 +315,30 @@ struct InputFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Friendly URL Slug Validation",
+            tr(
+                "Friendly URL Slug Validation",
+                [
+                    "de": "Slug-Validierung für lesbare URLs",
+                    "fr": "Validation de slug d'URL conviviale",
+                    "es": "Validación de slug de URL amigable",
+                    "it": "Validazione slug URL descrittivo",
+                    "pt": "Validação de slug de URL amigável",
+                    "nl": "Leesbare URL-slugvalidatie",
+                    "da": "Validering af brugervenlig URL-slug",
+                    "sv": "Validering av användarvänlig URL-slug",
+                    "nb": "Validering av brukervennlig URL-slug",
+                    "fi": "Käyttäjäystävällisen URL-tunnisteen vahvistus",
+                    "is": "Sannprófun vinalegrar vefslóðar",
+                    "el": "Επαλήθευση φιλικού slug διεύθυνσης URL",
+                    "tr": "Kullanıcı dostu URL slug doğrulaması",
+                    "hu": "Keresőbarát URL-azonosító érvényesítése",
+                    "hr": "Provjera prilagođenog URL sluga",
+                    "pl": "Walidacja przyjaznego sluga URL",
+                    "sk": "Overenie prehľadného URL slugu",
+                    "cs": "Ověření čitelného URL slugu",
+                    "lb": "Frëndlech URL-Slug-Validéierung",
+                ]
+            ),
             InputFieldData(
                 id: "slug",
                 label: LabelData(
@@ -174,7 +357,30 @@ struct InputFieldView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Custom Regex Pattern Validation",
+            tr(
+                "Custom Regex Pattern Validation",
+                [
+                    "de": "Benutzerdefinierte Regex-Muster-Validierung",
+                    "fr": "Validation par motif regex personnalisé",
+                    "es": "Validación de patrón regex personalizado",
+                    "it": "Validazione pattern regex personalizzato",
+                    "pt": "Validação de padrão regex personalizado",
+                    "nl": "Validatie via aangepast regex-patroon",
+                    "da": "Brugerdefineret regex-mønstervalidering",
+                    "sv": "Anpassad regex-mönsterinmatning",
+                    "nb": "Egendefinert regex-mønstervalidering",
+                    "fi": "Mukautetun säännöllisen lausekkeen vahvistus",
+                    "is": "Sérsniðin regex-mynstursannprófun",
+                    "el": "Επαλήθευση προσαρμοσμένου μοτίβου regex",
+                    "tr": "Özel normal ifade kalıbı doğrulaması",
+                    "hu": "Egyéni reguláris kifejezés minta érvényesítése",
+                    "hr": "Provjera prilagođenog regex uzorka",
+                    "pl": "Niestandardowa walidacja wzorca wyrażenia regularnego",
+                    "sk": "Vlastné overenie vzorom regulárneho výrazu",
+                    "cs": "Vlastní ověření vzorem regulárního výrazu",
+                    "lb": "Personaliséiert Regex-Muster-Validéierung",
+                ]
+            ),
             InputFieldData(
                 id: "custom",
                 label: LabelData(

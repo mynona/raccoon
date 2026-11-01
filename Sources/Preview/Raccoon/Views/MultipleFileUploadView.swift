@@ -9,7 +9,30 @@ struct MultipleFileUploadView: TemplateRepresentable {
 
     let variants: [PreviewVariant<MultipleFileUploadData>] = [
         #previewVariant(
-            "Multiple Files Upload",
+            tr(
+                "Multiple Files Upload",
+                [
+                    "de": "Hochladen mehrerer Dateien",
+                    "fr": "Téléversement de plusieurs fichiers",
+                    "es": "Subida de varios archivos",
+                    "it": "Caricamento di file multipli",
+                    "pt": "Envio de múltiplos arquivos",
+                    "nl": "Meerdere bestanden uploaden",
+                    "da": "Upload af flere filer",
+                    "sv": "Uppladdning av flera filer",
+                    "nb": "Opplasting av flere filer",
+                    "fi": "Useiden tiedostojen lataus",
+                    "is": "Hlaða upp mörgum skrám",
+                    "el": "Μεταφόρτωση πολλών αρχείων",
+                    "tr": "Çoklu dosya yükleme",
+                    "hu": "Több fájl feltöltése",
+                    "hr": "Prijenos više datoteka",
+                    "pl": "Przesyłanie wielu plików",
+                    "sk": "Nahrávanie viacerých súborov",
+                    "cs": "Nahrávání více souborů",
+                    "lb": "Erop luede vu méi Dateien",
+                ]
+            ),
             MultipleFileUploadData(
                 id: "multi-file-upload",
                 label: LabelData(
@@ -26,7 +49,30 @@ struct MultipleFileUploadView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Multiple Files with Validation Error",
+            tr(
+                "Multiple Files with Validation Error",
+                [
+                    "de": "Mehrere Dateien mit Validierungsfehler",
+                    "fr": "Plusieurs fichiers avec erreur de validation",
+                    "es": "Varios archivos con error de validación",
+                    "it": "File multipli con errore di validazione",
+                    "pt": "Múltiplos arquivos com erro de validação",
+                    "nl": "Meerdere bestanden met validatiefout",
+                    "da": "Flere filer med valideringsfejl",
+                    "sv": "Flera filer med valideringsfel",
+                    "nb": "Flere filer med valideringsfeil",
+                    "fi": "Useita tiedostoja vahvistusvirheellä",
+                    "is": "Margar skrár með sannprófunarvillu",
+                    "el": "Πολλά αρχεία με σφάλμα επικύρωσης",
+                    "tr": "Doğrulama hatalı çoklu dosya",
+                    "hu": "Több fájl érvényesítési hibával",
+                    "hr": "Više datoteka s pogreškom provjere",
+                    "pl": "Wiele plików z błędem walidacji",
+                    "sk": "Viaceré súbory s chybou overenia",
+                    "cs": "Více souborů s chybou ověření",
+                    "lb": "Méi Dateie mat Validéierungsfeeler",
+                ]
+            ),
             MultipleFileUploadData(
                 id: "multi-file-upload-err",
                 label: LabelData(

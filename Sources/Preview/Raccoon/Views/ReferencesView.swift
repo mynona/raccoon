@@ -9,7 +9,30 @@ struct ReferencesView: TemplateRepresentable {
 
     let variants: [PreviewVariant<ReferencesData>] = [
         #previewVariant(
-            "Markdown References List",
+            tr(
+                "Markdown References List",
+                [
+                    "de": "Markdown-Quellenliste",
+                    "fr": "Liste de références Markdown",
+                    "es": "Lista de referencias Markdown",
+                    "it": "Elenco riferimenti Markdown",
+                    "pt": "Lista de referências Markdown",
+                    "nl": "Markdown-referentielijst",
+                    "da": "Markdown-referenceliste",
+                    "sv": "Markdown-referenslista",
+                    "nb": "Markdown-referanseliste",
+                    "fi": "Markdown-viiteluettelo",
+                    "is": "Markdown-heimildalisti",
+                    "el": "Λίστα παραπομπών Markdown",
+                    "tr": "Markdown kaynak listesi",
+                    "hu": "Markdown forráslista",
+                    "hr": "Markdown popis referenci",
+                    "pl": "Lista źródeł Markdown",
+                    "sk": "Zoznam zdrojov Markdown",
+                    "cs": "Seznam zdrojů Markdown",
+                    "lb": "Markdown-Referenzlëscht",
+                ]
+            ),
             ReferencesData(
                 title: tr(
                     "References",

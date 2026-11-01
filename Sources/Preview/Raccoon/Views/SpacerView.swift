@@ -10,7 +10,30 @@ struct SpacerView: TemplateRepresentable {
     let variants: [PreviewVariant<SpacerData>] = (1...10)
         .map { n in
             #previewVariant(
-                LocalizedText(verbatim: "Spacing Level \(n)"),
+                tr(
+                    "Spacing Level {{n}}",
+                    [
+                        "de": "Abstandsstufe {{n}}",
+                        "fr": "Niveau d'espacement {{n}}",
+                        "es": "Nivel de espaciado {{n}}",
+                        "it": "Livello di spaziatura {{n}}",
+                        "pt": "Nível de espaçamento {{n}}",
+                        "nl": "Afstandsniveau {{n}}",
+                        "da": "Afstandsniveau {{n}}",
+                        "sv": "Avståndsnivå {{n}}",
+                        "nb": "Avstandsnivå {{n}}",
+                        "fi": "Etäisyystaso {{n}}",
+                        "is": "Bilastig {{n}}",
+                        "el": "Επίπεδο απόστασης {{n}}",
+                        "tr": "Boşluk düzeyi {{n}}",
+                        "hu": "Térköz szint {{n}}",
+                        "hr": "Razina razmaka {{n}}",
+                        "pl": "Poziom odstępu {{n}}",
+                        "sk": "Úroveň medzery {{n}}",
+                        "cs": "Úroveň mezery {{n}}",
+                        "lb": "Ofstandsstuf {{n}}",
+                    ]
+                ).with(variables: ["n": "\(n)"]),
                 SpacerData(space: UInt(n))
             )
         }

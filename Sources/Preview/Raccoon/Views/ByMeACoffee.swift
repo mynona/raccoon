@@ -9,7 +9,30 @@ struct ByMeACoffeeView: TemplateRepresentable {
 
     let variants: [PreviewVariant<ByMeACoffeeData>] = [
         #previewVariant(
-            "Default Button",
+            tr(
+                "Default Button",
+                [
+                    "de": "Standard-Schaltfläche",
+                    "fr": "Bouton standard",
+                    "es": "Botón predeterminado",
+                    "it": "Pulsante predefinito",
+                    "pt": "Botão padrão",
+                    "nl": "Standaardknop",
+                    "da": "Standardknap",
+                    "sv": "Standardknapp",
+                    "nb": "Standardknapp",
+                    "fi": "Vakiopainike",
+                    "is": "Sjálfgefinn hnappur",
+                    "el": "Προεπιλεγμένο κουμπί",
+                    "tr": "Varsayılan düğme",
+                    "hu": "Alapértelmezett gomb",
+                    "hr": "Zadani gumb",
+                    "pl": "Domyślny przycisk",
+                    "sk": "Predvolené tlačidlo",
+                    "cs": "Výchozí tlačítko",
+                    "lb": "Standard-Knäppchen",
+                ]
+            ),
             ByMeACoffeeData(
                 dataSlug: "support-kaeru",
                 imageSrc: "/images/bmc-yellow.png",
@@ -18,7 +41,30 @@ struct ByMeACoffeeView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Button with Matomo",
+            tr(
+                "Button with Matomo",
+                [
+                    "de": "Schaltfläche mit Matomo",
+                    "fr": "Bouton avec Matomo",
+                    "es": "Botón con Matomo",
+                    "it": "Pulsante con Matomo",
+                    "pt": "Botão com Matomo",
+                    "nl": "Knop met Matomo",
+                    "da": "Knap med Matomo",
+                    "sv": "Knapp med Matomo",
+                    "nb": "Knapp med Matomo",
+                    "fi": "Painike Matomolla",
+                    "is": "Hnappur með Matomo",
+                    "el": "Κουμπί με Matomo",
+                    "tr": "Matomo ile düğme",
+                    "hu": "Gomb Matomóval",
+                    "hr": "Gumb s Matomom",
+                    "pl": "Przycisk z Matomo",
+                    "sk": "Tlačidlo s Matomom",
+                    "cs": "Tlačítko s Matomem",
+                    "lb": "Knäppchen mat Matomo",
+                ]
+            ),
             ByMeACoffeeData(
                 dataSlug: "support-kaeru",
                 imageSrc: "/images/bmc-yellow.png",

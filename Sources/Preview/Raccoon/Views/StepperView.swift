@@ -9,7 +9,30 @@ struct StepperView: TemplateRepresentable {
 
     let variants: [PreviewVariant<StepperData>] = [
         #previewVariant(
-            "Vertical Stepper with Descriptions",
+            tr(
+                "Vertical Stepper with Descriptions",
+                [
+                    "de": "Vertikaler Stepper mit Beschreibungen",
+                    "fr": "Stepper vertical avec descriptions",
+                    "es": "Stepper vertical con descripciones",
+                    "it": "Stepper verticale con descrizioni",
+                    "pt": "Passo a passo vertical com descrições",
+                    "nl": "Verticale stepper met beschrijvingen",
+                    "da": "Lodret stepper med beskrivelser",
+                    "sv": "Vertikal stepper med beskrivningar",
+                    "nb": "Vertikal stepper med beskrivelser",
+                    "fi": "Pystysuuntainen askellin kuvauksilla",
+                    "is": "Lóðréttur skrefastillir með lýsingum",
+                    "el": "Κάθετος βηματιστής με περιγραφές",
+                    "tr": "Açıklamalı dikey adım göstergesi",
+                    "hu": "Függőleges léptető leírásokkal",
+                    "hr": "Okomiti koračnik s opisima",
+                    "pl": "Pionowy pasek kroków z opisami",
+                    "sk": "Vertikálny krokový indikátor s popismi",
+                    "cs": "Vertikální krokový indikátor s popisy",
+                    "lb": "Vertikale Stepper mat Beschreiwungen",
+                ]
+            ),
             StepperData(
                 id: "stepper-vertical",
                 ariaLabel: tr(
@@ -92,7 +115,30 @@ struct StepperView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Horizontal Compact Numbered Steps",
+            tr(
+                "Horizontal Compact Numbered Steps",
+                [
+                    "de": "Horizontale kompakte nummerierte Schritte",
+                    "fr": "Étapes numérotées compactes horizontales",
+                    "es": "Pasos numerados compactos horizontales",
+                    "it": "Passaggi numerati compatti orizzontali",
+                    "pt": "Etapas numeradas compactas horizontais",
+                    "nl": "Horizontale compacte genummerde stappen",
+                    "da": "Vandrette kompakte nummererede trin",
+                    "sv": "Horisontella kompakta numrerade steg",
+                    "nb": "Horisontale kompakte nummererte trinn",
+                    "fi": "Vaakasuuntaiset kompaktit numeroidut vaiheet",
+                    "is": "Lárétt þétt númeruð skref",
+                    "el": "Οριζόντια συμπαγή αριθμημένα βήματα",
+                    "tr": "Yatay kompakt numaralandırılmış adımlar",
+                    "hu": "Vízszintes kompakt számozott lépések",
+                    "hr": "Vodoravni kompaktni numerirani koraci",
+                    "pl": "Poziome zwarte ponumerowane kroki",
+                    "sk": "Horizontálne kompaktné číslované kroky",
+                    "cs": "Horizontální kompaktní číslované kroky",
+                    "lb": "Horizontaalt kompakt nummeréiert Schrëtt",
+                ]
+            ),
             StepperData(
                 id: "stepper-horizontal",
                 ariaLabel: tr(
@@ -168,7 +214,30 @@ struct StepperView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Horizontal Full-Width Flow",
+            tr(
+                "Horizontal Full-Width Flow",
+                [
+                    "de": "Horizontaler Ablauf in voller Breite",
+                    "fr": "Flux horizontal pleine largeur",
+                    "es": "Flujo horizontal de ancho completo",
+                    "it": "Flusso orizzontale a larghezza intera",
+                    "pt": "Fluxo horizontal de largura total",
+                    "nl": "Horizontale stroom over volledige breedte",
+                    "da": "Vandret proces i fuld bredde",
+                    "sv": "Horisontellt flöde i full bredd",
+                    "nb": "Horisontal flyt i full bredde",
+                    "fi": "Vaakasuuntainen täysleveä työnkulku",
+                    "is": "Lárétt flæði í fullri breidd",
+                    "el": "Οριζόντια ροή πλήρους πλάτους",
+                    "tr": "Tam genişlikli yatay akış",
+                    "hu": "Vízszintes teljes szélességű folyamat",
+                    "hr": "Vodoravni tijek pune širine",
+                    "pl": "Poziomy przepływ o pełnej szerokości",
+                    "sk": "Horizontálny tok na celú šírku",
+                    "cs": "Horizontální tok na celou šířku",
+                    "lb": "Horizontaalt Oflaf a voller Breet",
+                ]
+            ),
             StepperData(
                 id: "stepper-horizontal-full-width",
                 ariaLabel: tr(
@@ -233,7 +302,30 @@ struct StepperView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Read-Only Vertical Timeline",
+            tr(
+                "Read-Only Vertical Timeline",
+                [
+                    "de": "Schreibgeschützte vertikale Zeitleiste",
+                    "fr": "Chronologie verticale en lecture seule",
+                    "es": "Línea de tiempo vertical de solo lectura",
+                    "it": "Cronologia verticale di sola lettura",
+                    "pt": "Linha do tempo vertical somente leitura",
+                    "nl": "Alleen-lezen verticale tijdlijn",
+                    "da": "Skrivebeskyttet lodret tidslinje",
+                    "sv": "Skrivskyddad vertikal tidslinje",
+                    "nb": "Skrivebeskyttet vertikal tidslinje",
+                    "fi": "Vain luku -pysty-aikajana",
+                    "is": "Skrifvarin lóðrétt tímalína",
+                    "el": "Κάθετο χρονολόγιο μόνο για ανάγνωση",
+                    "tr": "Salt okunur dikey zaman çizelgesi",
+                    "hu": "Csak olvasható függőleges idővonal",
+                    "hr": "Okomita vremenska crta samo za čitanje",
+                    "pl": "Oś czasu pionowa tylko do odczytu",
+                    "sk": "Vertikálna časová os len na čítanie",
+                    "cs": "Vertikální časová osa pouze pro čtení",
+                    "lb": "Schreifgeschützt vertikal Zäitleischt",
+                ]
+            ),
             StepperData(
                 id: "stepper-static-order",
                 ariaLabel: tr(
@@ -327,7 +419,30 @@ struct StepperView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Horizontal Stepper with Tooltips",
+            tr(
+                "Horizontal Stepper with Tooltips",
+                [
+                    "de": "Horizontaler Stepper mit Tooltips",
+                    "fr": "Stepper horizontal avec infobulles",
+                    "es": "Stepper horizontal con información",
+                    "it": "Stepper orizzontale con tooltip",
+                    "pt": "Passo a passo horizontal com dicas",
+                    "nl": "Horizontale stepper met tooltips",
+                    "da": "Vandret stepper med tooltips",
+                    "sv": "Horisontell stepper med verktygstips",
+                    "nb": "Horisontal stepper med verktøytips",
+                    "fi": "Vaakasuuntainen askellin työkaluvihjeillä",
+                    "is": "Láréttur skrefastillir með vísbendingum",
+                    "el": "Οριζόντιος βηματιστής με επεξηγήσεις",
+                    "tr": "İpuçlu yatay adım göstergesi",
+                    "hu": "Vízszintes léptető eszköztippekkel",
+                    "hr": "Vodoravni koračnik s opisima",
+                    "pl": "Poziomy pasek kroków z etykietami",
+                    "sk": "Horizontálny krokový indikátor s popismi",
+                    "cs": "Horizontální krokový indikátor s nápovědami",
+                    "lb": "Horizontale Stepper mat Tooltipps",
+                ]
+            ),
             StepperData(
                 id: "stepper-tooltips-demo",
                 ariaLabel: tr(
@@ -435,7 +550,30 @@ struct StepperView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Mixed Icons and Numbers (Step 1 Active)",
+            tr(
+                "Mixed Icons and Numbers (Step 1 Active)",
+                [
+                    "de": "Gemischte Icons und Nummern (Schritt 1 aktiv)",
+                    "fr": "Icônes et numéros mixtes (Étape 1 active)",
+                    "es": "Iconos y números mixtos (Paso 1 activo)",
+                    "it": "Icone e numeri misti (Passo 1 attivo)",
+                    "pt": "Ícones e números mistos (Etapa 1 ativa)",
+                    "nl": "Gemengde pictogrammen en nummers (Stap 1 actief)",
+                    "da": "Blandede ikoner og tal (Trin 1 aktivt)",
+                    "sv": "Blandade ikoner och siffror (Steg 1 aktivt)",
+                    "nb": "Blandede ikoner og tall (Trinn 1 aktivt)",
+                    "fi": "Sekakuvakkeet ja numerot (Vaihe 1 aktiivinen)",
+                    "is": "Blanduð tákn og tölur (Skref 1 virkt)",
+                    "el": "Μικτά εικονίδια και αριθμοί (Βήμα 1 ενεργό)",
+                    "tr": "Karışık simgeler ve numaralar (Adım 1 aktif)",
+                    "hu": "Vegyes ikonok és számok (1. lépés aktív)",
+                    "hr": "Miješane ikone i brojevi (Korak 1 aktivan)",
+                    "pl": "Mieszane ikony i cyfry (Krok 1 aktywny)",
+                    "sk": "Zmiešané ikony a čísla (Krok 1 aktívny)",
+                    "cs": "Smíšené ikony a čísla (Krok 1 aktivní)",
+                    "lb": "Gemëschten Ikonen an Zuelen (Schrëtt 1 aktiv)",
+                ]
+            ),
             StepperData(
                 id: "stepper-custom-icons-step1",
                 ariaLabel: tr(
@@ -515,7 +653,30 @@ struct StepperView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Mixed Icons and Numbers (Step 1 Completed)",
+            tr(
+                "Mixed Icons and Numbers (Step 1 Completed)",
+                [
+                    "de": "Gemischte Icons und Nummern (Schritt 1 abgeschlossen)",
+                    "fr": "Icônes et numéros mixtes (Étape 1 terminée)",
+                    "es": "Iconos y números mixtos (Paso 1 completado)",
+                    "it": "Icone e numeri misti (Passo 1 completato)",
+                    "pt": "Ícones e números mistos (Etapa 1 concluída)",
+                    "nl": "Gemengde pictogrammen en nummers (Stap 1 voltooid)",
+                    "da": "Blandede ikoner og tal (Trin 1 fuldført)",
+                    "sv": "Blandade ikoner och siffror (Steg 1 slutfört)",
+                    "nb": "Blandede ikoner og tall (Trinn 1 fullført)",
+                    "fi": "Sekakuvakkeet ja numerot (Vaihe 1 suoritettu)",
+                    "is": "Blanduð tákn og tölur (Skref 1 lokið)",
+                    "el": "Μικτά εικονίδια και αριθμοί (Βήμα 1 ολοκληρώθηκε)",
+                    "tr": "Karışık simgeler ve numaralar (Adım 1 tamamlandı)",
+                    "hu": "Vegyes ikonok és számok (1. lépés kész)",
+                    "hr": "Miješane ikone i brojevi (Korak 1 dovršen)",
+                    "pl": "Mieszane ikony i cyfry (Krok 1 ukończony)",
+                    "sk": "Zmiešané ikony a čísla (Krok 1 dokončený)",
+                    "cs": "Smíšené ikony a čísla (Krok 1 dokončen)",
+                    "lb": "Gemëschten Ikonen an Zuelen (Schrëtt 1 ofgeschloss)",
+                ]
+            ),
             StepperData(
                 id: "stepper-custom-icons-step2",
                 ariaLabel: tr(

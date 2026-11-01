@@ -9,7 +9,30 @@ struct SimpleMenuView: TemplateRepresentable {
 
     let variants: [PreviewVariant<SimpleMenuData>] = [
         #previewVariant(
-            "Action Menu with Text Trigger",
+            tr(
+                "Action Menu with Text Trigger",
+                [
+                    "de": "Aktionsmenü mit Text-Auslöser",
+                    "fr": "Menu d'actions avec déclencheur textuel",
+                    "es": "Menú de acciones con activador de texto",
+                    "it": "Menu azioni con trigger di testo",
+                    "pt": "Menu de ações com acionador de texto",
+                    "nl": "Actiemenu met teksttrigger",
+                    "da": "Handlingsmenu med tekst-udløser",
+                    "sv": "Åtgärdsmeny med textutlösare",
+                    "nb": "Handlingsmeny med tekstutløser",
+                    "fi": "Toimintovalikko tekstilaukaisimella",
+                    "is": "Aðgerðavalmynd með textakveikju",
+                    "el": "Μενού ενεργειών με έναυσμα κειμένου",
+                    "tr": "Metin tetikleyicili eylem menüsü",
+                    "hu": "Műveleti menü szöveges indítóval",
+                    "hr": "Izbornik radnji s tekstualnim okidačem",
+                    "pl": "Menu akcji z wyzwalaczem tekstowym",
+                    "sk": "Ponuka akcií s textovým spúšťačom",
+                    "cs": "Nabídka akcí s textovým spouštěčem",
+                    "lb": "Aktiounsmenü mat Text-Ausléiser",
+                ]
+            ),
             SimpleMenuData(
                 ariaLabel: tr(
                     "Actions",
@@ -64,7 +87,30 @@ struct SimpleMenuView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "SSR Link Mode with Selected Checkmark",
+            tr(
+                "SSR Link Mode with Selected Checkmark",
+                [
+                    "de": "SSR-Link-Modus mit ausgewähltem Häkchen",
+                    "fr": "Mode lien SSR avec coche sélectionnée",
+                    "es": "Modo de enlace SSR con marca seleccionada",
+                    "it": "Modalità link SSR con segno di spunta selezionato",
+                    "pt": "Modo de link SSR com marca selecionada",
+                    "nl": "SSR-linkmodus met geselecteerd vinkje",
+                    "da": "SSR-linktilstand med valgt flueben",
+                    "sv": "SSR-länkläge med vald bock",
+                    "nb": "SSR-lenkemodus med valgt hake",
+                    "fi": "SSR-linkkitila valitulla valintamerkillä",
+                    "is": "SSR-tenglahamur með völdu gátmerki",
+                    "el": "Λειτουργία συνδέσμου SSR με επιλεγμένο σημάδι επιλογής",
+                    "tr": "Seçili onay işaretli SSR bağlantı modu",
+                    "hu": "SSR hivatkozás mód kijelölt pipával",
+                    "hr": "Način SSR veze s odabranom kvačicom",
+                    "pl": "Tryb linków SSR z zaznaczonym znacznikiem wyboru",
+                    "sk": "Režim odkazu SSR s vybranou fajkou",
+                    "cs": "Režim odkazu SSR s vybraným zaškrtnutím",
+                    "lb": "SSR-Link-Modus mat ausgewieltem Haischen",
+                ]
+            ),
             SimpleMenuData(
                 ariaLabel: tr(
                     "Page size",
@@ -122,7 +168,30 @@ struct SimpleMenuView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Icon-Only Palette Trigger",
+            tr(
+                "Icon-Only Palette Trigger",
+                [
+                    "de": "Paletten-Auslöser nur als Icon",
+                    "fr": "Déclencheur palette en icône seule",
+                    "es": "Activador de paleta solo icono",
+                    "it": "Trigger tavolozza solo icona",
+                    "pt": "Acionador de paleta apenas ícone",
+                    "nl": "Alleen pictogram palettrigger",
+                    "da": "Kun ikon palette-udløser",
+                    "sv": "Endast ikon palettutlösare",
+                    "nb": "Kun ikon palettutløser",
+                    "fi": "Vain kuvake -palettilaukaisin",
+                    "is": "Aðeins tákn litaspjaldskveikja",
+                    "el": "Έναυσμα παλέτας μόνο με εικονίδιο",
+                    "tr": "Yalnızca simge palet tetikleyicisi",
+                    "hu": "Csak ikon paletta indító",
+                    "hr": "Okidač palete samo s ikonom",
+                    "pl": "Wyzwalacz palety tylko jako ikona",
+                    "sk": "Spúšťač palety iba ako ikona",
+                    "cs": "Spouštěč palety pouze jako ikona",
+                    "lb": "Paletten-Ausléiser nëmmen als Ikon",
+                ]
+            ),
             SimpleMenuData(
                 ariaLabel: tr(
                     "Color theme",
@@ -151,7 +220,30 @@ struct SimpleMenuView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Right-Aligned Menu with Option Icons",
+            tr(
+                "Right-Aligned Menu with Option Icons",
+                [
+                    "de": "Rechtsbündiges Menü mit Options-Icons",
+                    "fr": "Menu aligné à droite avec icônes d'options",
+                    "es": "Menú alineado a la derecha con iconos de opción",
+                    "it": "Menu allineato a destra con icone delle opzioni",
+                    "pt": "Menu alinhado à direita com ícones de opção",
+                    "nl": "Rechts uitgelijnd menu met optiepictogrammen",
+                    "da": "Højrejusteret menu med valgmulighedsikoner",
+                    "sv": "Högerjusterad meny med alternativikoner",
+                    "nb": "Høyrejustert meny med alternativikoner",
+                    "fi": "Oikealle tasattu valikko vaihtoehtokuvakkeilla",
+                    "is": "Hægrijöfnuð valmynd með valkostartáknum",
+                    "el": "Δεξιά στοιχισμένο μενού με εικονίδια επιλογών",
+                    "tr": "Seçenek simgeli sağa hizalı menü",
+                    "hu": "Jobbra zárt menü opcióikonokkal",
+                    "hr": "Desno poravnati izbornik s ikonama opcija",
+                    "pl": "Wyrównane do prawej menu z ikonami opcji",
+                    "sk": "Vpravo zarovnaná ponuka s ikonami možností",
+                    "cs": "Vpravo zarovnaná nabídka s ikonami možností",
+                    "lb": "Rietsbünnegt Menü mat Optiouns-Ikonen",
+                ]
+            ),
             SimpleMenuData(
                 ariaLabel: tr(
                     "User options",

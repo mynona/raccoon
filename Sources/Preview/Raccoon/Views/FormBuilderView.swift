@@ -9,7 +9,30 @@ struct FormBuilderView: TemplateRepresentable {
 
     let variants: [PreviewVariant<FormBuilderData>] = [
         #previewVariant(
-            "Registration Form with Field Groups",
+            tr(
+                "Registration Form with Field Groups",
+                [
+                    "de": "Registrierungsformular mit Feldgruppen",
+                    "fr": "Formulaire d'inscription avec groupes de champs",
+                    "es": "Formulario de registro con grupos de campos",
+                    "it": "Modulo di registrazione con gruppi di campi",
+                    "pt": "Formulário de registro com grupos de campos",
+                    "nl": "Registratieformulier met veldgroepen",
+                    "da": "Registreringsformular med feltgrupper",
+                    "sv": "Registreringsformulär med fältgrupper",
+                    "nb": "Registreringsskjema med feltgrupper",
+                    "fi": "Rekisteröintilomake kenttäryhmillä",
+                    "is": "Skráningareyðublað með reitahópum",
+                    "el": "Φόρμα εγγραφής με ομάδες πεδίων",
+                    "tr": "Alan gruplu kayıt formu",
+                    "hu": "Regisztrációs űrlap mezőcsoportokkal",
+                    "hr": "Obrazac za registraciju s grupama polja",
+                    "pl": "Formularz rejestracyjny z grupami pól",
+                    "sk": "Registračný formulár so skupinami polí",
+                    "cs": "Registrační formulář se skupinami polí",
+                    "lb": "Umeldungsformular mat Feldgruppen",
+                ]
+            ),
             FormBuilderData(
                 id: "preview.registration",
                 action: "/preview/form-builder",

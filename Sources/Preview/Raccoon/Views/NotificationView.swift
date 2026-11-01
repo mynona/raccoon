@@ -9,7 +9,30 @@ struct NotificationView: TemplateRepresentable {
 
     let variants: [PreviewVariant<NotificationData>] = [
         #previewVariant(
-            "Info Title Only",
+            tr(
+                "Info Title Only",
+                [
+                    "de": "Nur Info-Titel",
+                    "fr": "Titre d'information seul",
+                    "es": "Solo título informativo",
+                    "it": "Solo titolo informativo",
+                    "pt": "Apenas título informativo",
+                    "nl": "Alleen infotitel",
+                    "da": "Kun infotitel",
+                    "sv": "Endast infotitel",
+                    "nb": "Kun infotittel",
+                    "fi": "Vain info-otsikko",
+                    "is": "Aðeins upplýsingatitill",
+                    "el": "Μόνο τίτλος πληροφοριών",
+                    "tr": "Yalnızca bilgi başlığı",
+                    "hu": "Csak információs cím",
+                    "hr": "Samo naslov informacija",
+                    "pl": "Tylko tytuł informacyjny",
+                    "sk": "Iba informačný názov",
+                    "cs": "Pouze informační název",
+                    "lb": "Nëmmen Info-Titel",
+                ]
+            ),
             NotificationData(
                 title: tr(
                     "Info title",
@@ -23,7 +46,30 @@ struct NotificationView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Info with Markdown Text",
+            tr(
+                "Info with Markdown Text",
+                [
+                    "de": "Info mit Markdown-Text",
+                    "fr": "Information avec texte Markdown",
+                    "es": "Información con texto Markdown",
+                    "it": "Info con testo Markdown",
+                    "pt": "Informação com texto Markdown",
+                    "nl": "Info met Markdown-tekst",
+                    "da": "Info med Markdown-tekst",
+                    "sv": "Info med Markdown-text",
+                    "nb": "Info med Markdown-tekst",
+                    "fi": "Info Markdown-tekstillä",
+                    "is": "Upplýsingar með Markdown-texta",
+                    "el": "Πληροφορίες με κείμενο Markdown",
+                    "tr": "Markdown metinli bilgi",
+                    "hu": "Infó Markdown szöveggel",
+                    "hr": "Informacije s Markdown tekstom",
+                    "pl": "Informacja z tekstem Markdown",
+                    "sk": "Informácie s textom Markdown",
+                    "cs": "Informace s textem Markdown",
+                    "lb": "Info mat Markdown-Text",
+                ]
+            ),
             NotificationData(
                 title: tr(
                     "Info title",
@@ -43,7 +89,30 @@ struct NotificationView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Success Message",
+            tr(
+                "Success Message",
+                [
+                    "de": "Erfolgsmeldung",
+                    "fr": "Message de succès",
+                    "es": "Mensaje de éxito",
+                    "it": "Messaggio di successo",
+                    "pt": "Mensagem de sucesso",
+                    "nl": "Succesbericht",
+                    "da": "Succesmeddelelse",
+                    "sv": "Framgångsmeddelande",
+                    "nb": "Suksessmelding",
+                    "fi": "Onnistumisviesti",
+                    "is": "Árangursskilaboð",
+                    "el": "Μήνυμα επιτυχίας",
+                    "tr": "Başarı mesajı",
+                    "hu": "Sikerüzenet",
+                    "hr": "Poruka o uspjehu",
+                    "pl": "Komunikat o powodzeniu",
+                    "sk": "Správa o úspechu",
+                    "cs": "Zpráva o úspěchu",
+                    "lb": "Erfollegsmeldung",
+                ]
+            ),
             NotificationData(
                 title: tr(
                     "All done!",
@@ -63,7 +132,30 @@ struct NotificationView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Warning Message",
+            tr(
+                "Warning Message",
+                [
+                    "de": "Warnmeldung",
+                    "fr": "Message d'avertissement",
+                    "es": "Mensaje de advertencia",
+                    "it": "Messaggio di avviso",
+                    "pt": "Mensagem de aviso",
+                    "nl": "Waarschuwingsbericht",
+                    "da": "Advarselsmeddelelse",
+                    "sv": "Varningsmeddelande",
+                    "nb": "Advarselsmelding",
+                    "fi": "Varoitusviesti",
+                    "is": "Viðvörunarskilaboð",
+                    "el": "Μήνυμα προειδοποίησης",
+                    "tr": "Uyarı mesajı",
+                    "hu": "Figyelmeztető üzenet",
+                    "hr": "Poruka upozorenja",
+                    "pl": "Komunikat ostrzegawczy",
+                    "sk": "Varovná správa",
+                    "cs": "Varovná zpráva",
+                    "lb": "Warnmeldung",
+                ]
+            ),
             NotificationData(
                 title: tr(
                     "Watch out",
@@ -83,7 +175,30 @@ struct NotificationView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            "Error Message",
+            tr(
+                "Error Message",
+                [
+                    "de": "Fehlermeldung",
+                    "fr": "Message d'erreur",
+                    "es": "Mensaje de error",
+                    "it": "Messaggio di errore",
+                    "pt": "Mensagem de erro",
+                    "nl": "Foutbericht",
+                    "da": "Fejlmeddelelse",
+                    "sv": "Felmeddelande",
+                    "nb": "Feilmelding",
+                    "fi": "Virheviesti",
+                    "is": "Villuboð",
+                    "el": "Μήνυμα σφάλματος",
+                    "tr": "Hata mesajı",
+                    "hu": "Hibaüzenet",
+                    "hr": "Poruka o pogrešci",
+                    "pl": "Komunikat o błędzie",
+                    "sk": "Chybová správa",
+                    "cs": "Chybová zpráva",
+                    "lb": "Feelermeldung",
+                ]
+            ),
             NotificationData(
                 title: tr(
                     "Something went wrong",

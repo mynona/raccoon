@@ -51,7 +51,30 @@ struct FormBuilderDialogView: TemplateRepresentable {
 
     let variants: [PreviewVariant<FormBuilderData>] = [
         #previewVariant(
-            "Dialog Form with Trailing Actions",
+            tr(
+                "Dialog Form with Trailing Actions",
+                [
+                    "de": "Dialogformular mit abschließenden Aktionen",
+                    "fr": "Formulaire de dialogue avec actions alignées en fin",
+                    "es": "Formulario de diálogo con acciones finales",
+                    "it": "Modulo di dialogo con azioni finali",
+                    "pt": "Formulário de diálogo com ações finais",
+                    "nl": "Dialoogformulier met afsluitende acties",
+                    "da": "Dialogformular med efterfølgende handlinger",
+                    "sv": "Dialogformulär med avslutande åtgärder",
+                    "nb": "Dialogskjema med avsluttende handlinger",
+                    "fi": "Valintaikkunalomake loppuun sijoitetuilla toiminnoilla",
+                    "is": "Svargluggareyðublað með lokaaðgerðum",
+                    "el": "Φόρμα διαλόγου με τελικές ενέργειες",
+                    "tr": "Sonda eylemli iletişim kutusu formu",
+                    "hu": "Párbeszédpanel-űrlap záró műveletekkel",
+                    "hr": "Dijaloški obrazac sa završnim radnjama",
+                    "pl": "Formularz dialogowy z końcowymi akcjami",
+                    "sk": "Formulár dialógu so záverečnými akciami",
+                    "cs": "Formulář dialogu se závěrečnými akcemi",
+                    "lb": "Dialogsformular mat ofschléissenden Aktiounen",
+                ]
+            ),
             FormBuilderData(
                 id: "preview.dialog.rename",
                 action: "/preview/form-builder-dialog",

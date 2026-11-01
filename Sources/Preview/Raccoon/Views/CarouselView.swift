@@ -191,13 +191,80 @@ struct CarouselView: TemplateRepresentable {
                 showComponentTitle("Carousel")
 
                 let variants: [(LocalizedText, CarouselData)] = [
-                    (
-                        "S3 Processed Images",
+                    (tr(
+                            "S3 Processed Images",
+                            [
+                                "de": "S3-verarbeitete Bilder",
+                                "fr": "Images traitées par S3",
+                                "es": "Imágenes procesadas por S3",
+                                "it": "Immagini elaborate da S3",
+                                "pt": "Imagens processadas pelo S3",
+                                "nl": "Door S3 verwerkte afbeeldingen",
+                                "da": "S3-behandlede billeder",
+                                "sv": "S3-bearbetade bilder",
+                                "nb": "S3-behandlede bilder",
+                                "fi": "S3-käsitellyt kuvat",
+                                "is": "S3-unnar myndir",
+                                "el": "Επεξεργασμένες εικόνες S3",
+                                "tr": "S3 tarafından işlenmiş görseller",
+                                "hu": "S3 által feldolgozott képek",
+                                "hr": "S3 obrađene slike",
+                                "pl": "Obrazy przetworzone przez S3",
+                                "sk": "Obrázky spracované cez S3",
+                                "cs": "Obrázky zpracované přes S3",
+                                "lb": "S3-veraarbecht Biller",
+                            ]
+                        ),
                         galleryS3
                     ),
-                    ("Local SVG Gallery", galleryOne),
-                    (
-                        "Second Gallery Instance",
+                    (tr(
+                            "Local SVG Gallery",
+                            [
+                                "de": "Lokale SVG-Galerie",
+                                "fr": "Galerie SVG locale",
+                                "es": "Galería SVG local",
+                                "it": "Galleria SVG locale",
+                                "pt": "Galeria SVG local",
+                                "nl": "Lokale SVG-galerij",
+                                "da": "Lokalt SVG-galleri",
+                                "sv": "Lokalt SVG-galleri",
+                                "nb": "Lokalt SVG-galleri",
+                                "fi": "Paikallinen SVG-galleria",
+                                "is": "Staðbundið SVG myndasafn",
+                                "el": "Τοπική συλλογή SVG",
+                                "tr": "Yerel SVG galerisi",
+                                "hu": "Helyi SVG galéria",
+                                "hr": "Lokalna SVG galerija",
+                                "pl": "Lokalna galeria SVG",
+                                "sk": "Lokálna SVG galéria",
+                                "cs": "Lokální SVG galerie",
+                                "lb": "Lokal SVG-Galerie",
+                            ]
+                        ), galleryOne),
+                    (tr(
+                            "Second Gallery Instance",
+                            [
+                                "de": "Zweite Galerie-Instanz",
+                                "fr": "Deuxième instance de galerie",
+                                "es": "Segunda instancia de galería",
+                                "it": "Seconda istanza della galleria",
+                                "pt": "Segunda instância de galeria",
+                                "nl": "Tweede galerij-instantie",
+                                "da": "Anden galleri-instans",
+                                "sv": "Andra galleri-instansen",
+                                "nb": "Andre galleri-instans",
+                                "fi": "Toinen galleria-instanssi",
+                                "is": "Önnur myndasafnstilvik",
+                                "el": "Δεύτερο στιγμιότυπο συλλογής",
+                                "tr": "İkinci galeri örneği",
+                                "hu": "Második galériapéldány",
+                                "hr": "Druga instanca galerije",
+                                "pl": "Druga instancja galerii",
+                                "sk": "Druhá inštancia galérie",
+                                "cs": "Druhá instance galerie",
+                                "lb": "Zweet Galerie-Instanz",
+                            ]
+                        ),
                         galleryTwo
                     ),
                 ]
