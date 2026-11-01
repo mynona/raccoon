@@ -119,6 +119,14 @@ public enum PreviewNavigation {
                             url: "/preview/file-upload"
                         ),
                         PreviewNavItem(
+                            title: "FormBuilder (page)",
+                            url: "/preview/form-builder"
+                        ),
+                        PreviewNavItem(
+                            title: "FormBuilder (dialog)",
+                            url: "/preview/form-builder-dialog"
+                        ),
+                        PreviewNavItem(
                             title: "Glossary",
                             url: "/preview/glossary"
                         ),
