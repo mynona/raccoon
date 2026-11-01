@@ -11,6 +11,11 @@ public struct FileList: TemplateRepresentable {
         self.data = data
     }
 
+    private static let remove = LocalizedText(
+        "filelist.remove",
+        "Remove file"
+    )
+
     @Builder<Element>
     public func render() -> [Element] {
         let uploadPrefix = data.uploadId ?? "file-upload"
@@ -62,10 +67,10 @@ public struct FileList: TemplateRepresentable {
                                         "'btnRemove-\(uploadPrefix)-' + index",
                                     clickAction: "remove(index)",
                                     label: nil,
-                                    ariaLabel: "Remove file",
+                                    ariaLabel: Self.remove,
                                     bindTooltipId:
                                         "'tooltip-\(uploadPrefix)-' + index",
-                                    tooltip: "Remove file",
+                                    tooltip: Self.remove,
                                     tooltipPosition: .top,
                                     htmlType: .button,
                                     buttonType: .icon,

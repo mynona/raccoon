@@ -39,4 +39,23 @@ struct FileListTests {
         #expect(!html.contains("remove(index)"))
         #expect(!html.contains("btnRemove"))
     }
+
+    // MARK: localization
+
+    @Test("the remove button texts are built in and translated")
+    func localizedRemoveTexts() {
+        let ctx = FileListData(uploadId: "u", hasRemoveAction: true)
+        let english = renderHTML(FileList(ctx).render())
+        #expect(english.contains("data-i18n-aria-label=\"filelist.remove\""))
+        let german = I18n.render(language: "de") {
+            renderHTML(FileList(ctx).render())
+        }
+        #expect(german.contains("aria-label=\"Datei entfernen\""))
+        #expect(german.contains("get tooltipText() { return"))
+        #expect(
+            german.contains(
+                "RaccoonI18n.t('filelist.remove',null,'Datei entfernen')"
+            )
+        )
+    }
 }

@@ -17,11 +17,21 @@ public struct SingleFileUpload: TemplateRepresentable {
         self.data = data
     }
 
+    private static let browse = LocalizedText(
+        "singlefileupload.browse",
+        "Browse or drag and drop here."
+    )
+    private static let upload = LocalizedText(
+        "singlefileupload.upload",
+        "Upload files"
+    )
+
     @Builder<Element>
     func showBrowseOrDragAndDropMessage() -> [Element] {
         Div {
             Span { Svg.icon(.cloud_arrow_up, width: 32, height: 32) }
-            P("Browse or drag and drop here.")
+            P(Self.browse.resolved)
+                .localized(Self.browse)
                 .class("m-0 pt-2")
         }
         .class("flex flex-col items-center justify-center py-10 text-center")
@@ -49,7 +59,7 @@ public struct SingleFileUpload: TemplateRepresentable {
                 .type(.file)
                 .id(data.id)
                 .name(data.id)
-                .ariaLabel("Upload files")
+                .localized(.ariaLabel, Self.upload)
                 .setAttribute(
                     name: "@change",
                     value: "addFiles($event)"

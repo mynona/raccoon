@@ -94,4 +94,21 @@ struct FileUploadTests {
         #expect(html.contains("id=\"custom-file-id\""))
         #expect(html.contains("name=\"custom-file-id\""))
     }
+
+    @Test("the texts are built in and translated")
+    func localizedTexts() {
+        let ctx = SingleFileUploadData(id: "f")
+        let english = renderHTML(SingleFileUpload(ctx).render())
+        #expect(english.contains("data-i18n=\"singlefileupload.browse\""))
+        #expect(
+            english.contains("data-i18n-aria-label=\"singlefileupload.upload\"")
+        )
+        let german = I18n.render(language: "de") {
+            renderHTML(SingleFileUpload(ctx).render())
+        }
+        #expect(
+            german.contains(">Durchsuchen oder hierher ziehen und ablegen.</p>")
+        )
+        #expect(german.contains("aria-label=\"Dateien hochladen\""))
+    }
 }
