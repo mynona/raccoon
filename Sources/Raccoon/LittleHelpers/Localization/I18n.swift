@@ -127,6 +127,7 @@ public enum Translations {
         "badge": badge,
         "cookiebanner": cookiebanner,
         "audioplayer": audioplayer,
+        "carousel": carousel,
         "darklightmodetoggle": darklightmodetoggle,
         "deletemodal": deletemodal,
         "fieldvalidation": fieldvalidation,

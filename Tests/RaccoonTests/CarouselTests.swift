@@ -296,4 +296,31 @@ struct CarouselTests {
         )
         #expect(html.contains("this.onerror=null;"))
     }
+
+    // MARK: localization
+
+    @Test(
+        "labels follow the language and the slide number is picked in the browser"
+    )
+    func localizedLabels() {
+        let items = [
+            CarouselItem(id: "a", src: "/a.jpg", alt: "A", caption: "A"),
+            CarouselItem(id: "b", src: "/b.jpg", alt: "B", caption: "B"),
+        ]
+        let data = CarouselData(id: "c", carouselItems: items)
+        let german = I18n.render(language: "de", collectsUsedKeys: true) {
+            let page = renderHTML(Carousel(data).render())
+            return page + renderHTML(I18n.scripts())
+        }
+        #expect(german.contains("aria-label=\"Bildergalerie schließen\""))
+        #expect(german.contains("aria-label=\"vorheriges Bild\""))
+        #expect(german.contains("aria-label=\"nächstes Bild\""))
+        #expect(
+            german.contains(
+                "RaccoonI18n.t('carousel.slide', { number: index + 1 }"
+            )
+        )
+        // The slide text is part of the page dictionary although Swift never renders it
+        #expect(german.contains("\"slide\":\"Bild {{number}}\""))
+    }
 }

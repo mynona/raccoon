@@ -5,6 +5,22 @@ import WebBuilders
 public struct Carousel: TemplateRepresentable {
     let data: CarouselData
     typealias styles = CarouselStyles
+
+    private static let close = LocalizedText(
+        "carousel.close",
+        "Close image gallery"
+    )
+    private static let previous = LocalizedText(
+        "carousel.previous",
+        "previous slide"
+    )
+    private static let next = LocalizedText("carousel.next", "next slide")
+    private static let slides = LocalizedText("carousel.slides", "slides")
+    /// Used by the indicator expression, which fills in the number in the browser.
+    private static let slide = LocalizedText(
+        "carousel.slide",
+        "slide {{number}}"
+    )
     typealias buttonStyles = ActionButtonStyles
 
     public init(
@@ -58,7 +74,7 @@ public struct Carousel: TemplateRepresentable {
         }
         .type(.button)
         .setAttribute(name: "x-on:click", value: "close()")
-        .setAttribute(name: "aria-label", value: "Close image gallery")
+        .localized(.ariaLabel, Self.close)
         .setAttribute(name: "x-ref", value: "closeCarousel")
         .class(
             "absolute right-5 top-12 z-20 flex rounded-full -translate-y-1/2 items-center justify-center p-2 transition"
@@ -89,7 +105,7 @@ public struct Carousel: TemplateRepresentable {
 
         }
         .type(.button)
-        .setAttribute(name: "aria-label", value: "previous slide")
+        .localized(.ariaLabel, Self.previous)
         .setAttribute(name: "x-on:click", value: "previous()")
         .setAttribute(name: "x-show", value: "showNavigation")
         .class(
@@ -122,7 +138,7 @@ public struct Carousel: TemplateRepresentable {
 
         }
         .type(.button)
-        .setAttribute(name: "aria-label", value: "next slide")
+        .localized(.ariaLabel, Self.next)
         .setAttribute(name: "x-on:click", value: "next()")
         .setAttribute(name: "x-show", value: "showNavigation")
         .class(
@@ -161,7 +177,9 @@ public struct Carousel: TemplateRepresentable {
                     )
                     .setAttribute(
                         name: "x-bind:aria-label",
-                        value: "'slide ' + (index + 1)"
+                        // The number is only known in the browser, so the text is picked there
+                        value:
+                            "window.RaccoonI18n ? RaccoonI18n.t('carousel.slide', { number: index + 1 }, 'slide ' + (index + 1)) : 'slide ' + (index + 1)"
                     )
                     .class("size-2 cursor-pointer rounded-full transition")
                     .addClass(styles.backgroundColorIndicators)
@@ -196,7 +214,7 @@ public struct Carousel: TemplateRepresentable {
 
         }
         .setAttribute(name: "role", value: "group")
-        .setAttribute(name: "aria-label", value: "slides")
+        .localized(.ariaLabel, Self.slides)
         .setAttribute(name: "x-show", value: "showIndicators")
         .class(
             "absolute bottom-4 left-0 right-0 flex justify-center z-20 flex rounded-md gap-4 md:gap-3 px-1.5 py-1 md:px-2"
@@ -293,6 +311,7 @@ public struct Carousel: TemplateRepresentable {
     public func render() -> [Element] {
 
         DebugComment("Carousel")
+        let _ = Self.slide.recordUse()
         Script()
             .src("/js/carousel.js")
             .setAttribute(
