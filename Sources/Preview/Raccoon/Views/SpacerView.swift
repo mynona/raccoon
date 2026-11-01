@@ -40,7 +40,14 @@ struct SpacerView: TemplateRepresentable {
                         html: makeHtml(ctx: variant.data)
                     ) {
                         Div { Spacer(variant.data).render() }
-                            .class("mb-4 mt-12 bg-blue-900")
+                            .class(
+                                [
+                                    "mb-4 mt-12 border",
+                                    CommonStyles.buttonBackgroundColorTertiary,
+                                    CommonStyles.borderColorDefault,
+                                ]
+                                .joined(separator: " ")
+                            )
                     }
 
                 }

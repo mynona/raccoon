@@ -1,4 +1,5 @@
 import HTML
+import Raccoon
 import SGML
 import WebBuilders
 
@@ -9,6 +10,6 @@ func showVariantTitle(_ label: String, _ ctx: Any) -> [Element] {
     Div {
 
         H2(label)
-            .class("font-bold text-black dark:text-white")
+            .class(["font-bold", CommonStyles.textColorEmphasized].joined(separator: " "))
     }
 }

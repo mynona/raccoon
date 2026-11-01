@@ -66,7 +66,11 @@ struct SkipLinkView: TemplateRepresentable {
                                 .resolved
                             )
                             .class(
-                                "mb-2 text-sm text-gray-500 dark:text-gray-400"
+                                [
+                                    "mb-2 text-sm",
+                                    CommonStyles.textColorDefault,
+                                ]
+                                .joined(separator: " ")
                             )
                             SkipLink(variant.data).render()
                         }

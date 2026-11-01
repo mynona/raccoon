@@ -166,7 +166,13 @@ struct FileUploadView: TemplateRepresentable {
                         .class("mt-4")
                     }
                     .class(
-                        "p-6 border border-gray-300 dark:border-gray-700 rounded-lg mb-8 bg-gray-50 dark:bg-black/20"
+                        [
+                            "p-6 border mb-8",
+                            CommonStyles.borderColorDefault,
+                            CommonStyles.cornerRadiusLarge,
+                            "bg-tertiary dark:bg-surface-dark",
+                        ]
+                        .joined(separator: " ")
                     )
                 }
                 .action("/upload/single")

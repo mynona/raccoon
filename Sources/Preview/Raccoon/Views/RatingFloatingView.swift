@@ -58,7 +58,7 @@ struct RatingFloatingView: TemplateRepresentable {
                     Div {
                         Span(PreviewTexts.scrollDepth.resolved)
                             .localized(PreviewTexts.scrollDepth)
-                            .class("text-gray-500 dark:text-gray-400")
+                            .class(CommonStyles.textColorDefault)
                         Span {
                             Text("")
                         }
@@ -66,14 +66,14 @@ struct RatingFloatingView: TemplateRepresentable {
                             name: "x-text",
                             value: "scrollPercent + '%'"
                         )
-                        .class("font-bold text-gray-900 dark:text-gray-100")
+                        .class(["font-bold", CommonStyles.textColorEmphasized].joined(separator: " "))
                     }
                     .class("flex items-center gap-1.5")
 
                     Div {
                         Span(PreviewTexts.threshold.resolved)
                             .localized(PreviewTexts.threshold)
-                            .class("text-gray-500 dark:text-gray-400")
+                            .class(CommonStyles.textColorDefault)
                         Span {
                             Text("")
                         }
@@ -85,13 +85,18 @@ struct RatingFloatingView: TemplateRepresentable {
                         .setAttribute(
                             name: ":class",
                             value:
-                                "scrollPercent >= 80 ? 'text-green-600 dark:text-green-400 font-semibold' : 'text-amber-600 dark:text-amber-400'"
+                                "scrollPercent >= 80 ? '\(CommonStyles.textColorSuccess) font-semibold' : '\(CommonStyles.textColorError)'"
                         )
                     }
                     .class("flex items-center gap-1.5")
                 }
                 .class(
-                    "sticky top-0 z-40 flex flex-wrap items-center justify-between gap-4 p-3 bg-white/95 dark:bg-gray-900/95 backdrop-blur border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm text-xs font-mono mb-6"
+                    [
+                        "sticky top-0 z-40 flex flex-wrap items-center justify-between gap-4 p-3 backdrop-blur border rounded-lg shadow-sm text-xs font-mono mb-6",
+                        CommonStyles.backgroundLight,
+                        CommonStyles.borderColorDefault,
+                    ]
+                    .joined(separator: " ")
                 )
                 .setAttribute(
                     name: "x-data",
@@ -155,7 +160,7 @@ struct RatingFloatingView: TemplateRepresentable {
                     H2(PreviewTexts.testBed.resolved)
                         .localized(PreviewTexts.testBed)
                         .class(
-                            "text-xl font-bold text-black dark:text-white mb-2"
+                            ["mb-2 text-xl font-bold", CommonStyles.textColorEmphasized].joined(separator: " ")
                         )
 
                     P(
@@ -172,7 +177,7 @@ struct RatingFloatingView: TemplateRepresentable {
                         )
                         .resolved
                     )
-                    .class("text-sm text-gray-600 dark:text-gray-300 mb-6")
+                    .class(["mb-6 text-sm", CommonStyles.textColorDefault].joined(separator: " "))
 
                     // Long scrollable content container
                     Div {
@@ -181,11 +186,11 @@ struct RatingFloatingView: TemplateRepresentable {
                             Span(PreviewTexts.pageTop.resolved)
                                 .localized(PreviewTexts.pageTop)
                                 .class(
-                                    "text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400"
+                                    ["text-xs font-semibold uppercase tracking-wider", CommonStyles.textColorEmphasized].joined(separator: " ")
                                 )
                         }
                         .class(
-                            "border-b-2 border-blue-400 dark:border-blue-500 pb-2 mb-6"
+                            ["pb-2 mb-6 border-b-2", CommonStyles.borderColorTheme].joined(separator: " ")
                         )
 
                         // Filler paragraph blocks 10% - 70%
@@ -205,7 +210,12 @@ struct RatingFloatingView: TemplateRepresentable {
                                         ])
                                     )
                                     .class(
-                                        "text-xs font-semibold px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
+                                        [
+                                            "text-xs font-semibold px-2 py-0.5 rounded border bg-tertiary dark:bg-surface-dark",
+                                            CommonStyles.textColorDefault,
+                                            CommonStyles.borderColorDefault,
+                                        ]
+                                        .joined(separator: " ")
                                     )
                                 }
                                 .class("mb-2")
@@ -214,18 +224,18 @@ struct RatingFloatingView: TemplateRepresentable {
                                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                                 )
                                 .class(
-                                    "text-sm text-gray-500 dark:text-gray-400 leading-relaxed"
+                                    ["text-sm leading-relaxed", CommonStyles.textColorDefault].joined(separator: " ")
                                 )
 
                                 P(
                                     "Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit."
                                 )
                                 .class(
-                                    "text-sm text-gray-500 dark:text-gray-400 leading-relaxed mt-2"
+                                    ["text-sm leading-relaxed mt-2", CommonStyles.textColorDefault].joined(separator: " ")
                                 )
                             }
                             .class(
-                                "py-8 border-b border-gray-200 dark:border-gray-800"
+                                ["py-8 border-b", CommonStyles.borderColorDefault].joined(separator: " ")
                             )
                         }
 
@@ -285,7 +295,12 @@ struct RatingFloatingView: TemplateRepresentable {
                                         ])
                                     )
                                     .class(
-                                        "text-xs font-semibold px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
+                                        [
+                                            "text-xs font-semibold px-2 py-0.5 rounded border bg-tertiary dark:bg-surface-dark",
+                                            CommonStyles.textColorDefault,
+                                            CommonStyles.borderColorDefault,
+                                        ]
+                                        .joined(separator: " ")
                                     )
                                 }
                                 .class("mb-2")
@@ -294,11 +309,11 @@ struct RatingFloatingView: TemplateRepresentable {
                                     "Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim."
                                 )
                                 .class(
-                                    "text-sm text-gray-500 dark:text-gray-400 leading-relaxed"
+                                    ["text-sm leading-relaxed", CommonStyles.textColorDefault].joined(separator: " ")
                                 )
                             }
                             .class(
-                                "py-6 border-b border-gray-200 dark:border-gray-800"
+                                ["py-6 border-b", CommonStyles.borderColorDefault].joined(separator: " ")
                             )
                         }
 
@@ -308,7 +323,7 @@ struct RatingFloatingView: TemplateRepresentable {
                                 Span(PreviewTexts.articleEnd.resolved)
                                     .localized(PreviewTexts.articleEnd)
                                     .class(
-                                        "text-xs font-bold uppercase tracking-wider text-green-700 dark:text-green-300"
+                                        ["text-xs font-bold uppercase tracking-wider", CommonStyles.textColorSuccess].joined(separator: " ")
                                     )
                                 P(
                                     tr(
@@ -325,11 +340,16 @@ struct RatingFloatingView: TemplateRepresentable {
                                     .resolved
                                 )
                                 .class(
-                                    "text-xs text-gray-500 dark:text-gray-400 mt-1"
+                                    ["text-xs mt-1", CommonStyles.textColorDefault].joined(separator: " ")
                                 )
                             }
                             .class(
-                                "p-3 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg mb-4"
+                                [
+                                    "p-3 rounded-lg mb-4 border",
+                                    CommonStyles.borderColorSuccess,
+                                    "bg-tertiary dark:bg-surface-dark",
+                                ]
+                                .joined(separator: " ")
                             )
 
                             Div {
@@ -338,7 +358,12 @@ struct RatingFloatingView: TemplateRepresentable {
                             .class("relative flex justify-center py-4")
                         }
                         .class(
-                            "my-10 p-6 border-2 border-green-300 dark:border-green-700 rounded-xl bg-white dark:bg-gray-900 shadow-sm"
+                            [
+                                "my-10 p-6 border-2 rounded-xl shadow-sm",
+                                CommonStyles.borderColorSuccess,
+                                CommonStyles.backgroundLight,
+                            ]
+                            .joined(separator: " ")
                         )
 
                         // Page bottom indicator
@@ -346,16 +371,16 @@ struct RatingFloatingView: TemplateRepresentable {
                             Span(PreviewTexts.pageBottom.resolved)
                                 .localized(PreviewTexts.pageBottom)
                                 .class(
-                                    "text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500"
+                                    ["text-xs font-semibold uppercase tracking-wider", CommonStyles.textColorDisabled].joined(separator: " ")
                                 )
                         }
                         .class(
-                            "border-t border-gray-200 dark:border-gray-800 pt-4 text-center pb-24"
+                            ["border-t pt-4 text-center pb-24", CommonStyles.borderColorDefault].joined(separator: " ")
                         )
                     }
                 }
                 .class(
-                    "mt-12 pt-8 border-t-2 border-gray-200 dark:border-gray-800"
+                    ["mt-12 pt-8 border-t-2", CommonStyles.borderColorDefault].joined(separator: " ")
                 )
 
             }

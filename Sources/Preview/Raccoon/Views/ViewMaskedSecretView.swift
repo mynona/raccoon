@@ -9,9 +9,7 @@ struct ViewMasekedSecretView: TemplateRepresentable {
 
     let variants: [PreviewVariant<ViewMaskedSecretData>] = [
         #previewVariant(
-            """
-            // Without copy
-            """,
+            "Masked Secret without Copy Action",
             ViewMaskedSecretData(
                 secret: "super-secret-token-12345",
                 revealCount: 4,
@@ -19,9 +17,7 @@ struct ViewMasekedSecretView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // With copy
-            """,
+            "Masked Secret with Copy Action",
             ViewMaskedSecretData(
                 secret: "'ä:ß/\"super-secret-token-12345",
                 revealCount: 4,

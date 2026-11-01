@@ -17,7 +17,16 @@ func showData(_ data: String) -> [Element] {
         }
     }
     .class(
-        "font-mono text-sm bg-gray-100 dark:bg-gray-800 text-black dark:text-gray-100 p-4 rounded-md overflow-x-auto"
+        [
+            CommonStyles.fontMono,
+            CommonStyles.textSizeSmall,
+            CommonStyles.textColorDefault,
+            "bg-tertiary dark:bg-surface-dark border",
+            CommonStyles.borderColorDefault,
+            CommonStyles.cornerRadiusMedium,
+            "p-4 overflow-x-auto",
+        ]
+        .joined(separator: " ")
     )
 }
 
@@ -45,6 +54,16 @@ func showCopyableData(_ data: String) -> [Element] {
         }
     }
     .class(
-        "relative font-mono text-sm bg-gray-100 dark:bg-gray-800 text-black dark:text-gray-100 p-4 rounded-md overflow-x-auto"
+        [
+            "relative",
+            CommonStyles.fontMono,
+            CommonStyles.textSizeSmall,
+            CommonStyles.textColorDefault,
+            "bg-tertiary dark:bg-surface-dark border",
+            CommonStyles.borderColorDefault,
+            CommonStyles.cornerRadiusMedium,
+            "p-4 rounded-md overflow-x-auto",
+        ]
+        .joined(separator: " ")
     )
 }

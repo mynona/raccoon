@@ -76,8 +76,8 @@ func previewPage(
             }
             </script>
         </head>
-        <body class="bg-white dark:bg-surface-dark text-black dark:text-white">
-          <header class="sticky top-0 z-20 flex items-center justify-between px-8 py-3 shadow-sm bg-white dark:bg-surface-dark border-b border-gray-200 dark:border-gray-700">
+        <body class="\(CommonStyles.backgroundLight) \(CommonStyles.textColorDefault)">
+          <header class="sticky top-0 z-20 flex items-center justify-between px-8 py-3 shadow-sm \(CommonStyles.backgroundLight) border-b \(CommonStyles.borderColorDefault)">
             <div>\(backNav)</div>
             \(headerExtra)
             <div x-data="{
@@ -95,14 +95,14 @@ func previewPage(
                 aria-label="Switch dark and light mode"
                 x-cloak
                 @click="$store.lightMode = !$store.lightMode; setColorMode($store.lightMode ? 'light' : 'dark')"
-                class="text-sm px-3 py-1 rounded border border-gray-400 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">
+                class="text-sm px-3 py-1 rounded border \(CommonStyles.borderColorDefault) hover:bg-tertiary dark:hover:bg-surface-dark">
                 <span x-show="!$store.lightMode">☀️ Light</span>
                 <span x-show="$store.lightMode">🌙 Dark</span>
               </button>
             </div>
           </header>
           <div class="p-8 space-y-8">
-          <h1 class="text-2xl font-bold border-b border-gray-300 dark:border-gray-700 pb-2">\(title)</h1>
+          <h1 class="text-2xl font-bold border-b \(CommonStyles.borderColorDefault) pb-2 \(CommonStyles.textColorEmphasized)">\(title)</h1>
           \(body)
           </div>
         </body>
@@ -135,9 +135,9 @@ func variant(_ configuration: String, html: String) -> String {
         """
         <section class="space-y-2 mb-24">
         <div class=""><p>&nbsp;</p></div>
-        <pre class="w-full border border-black dark:border-gray-400 p-4 bg-gray-200 dark:bg-black \(classOverflow)">\(configuration)</pre>
+        <pre class="w-full border \(CommonStyles.borderColorDefault) p-4 bg-tertiary dark:bg-surface-dark \(CommonStyles.textColorDefault) \(classOverflow)">\(configuration)</pre>
           <div class="mt-8 mb-8">\(html)</div>
-          <pre class="w-full border border-black dark:border-gray-400 p-4 \(classOverflow)"><code class="language-html \(classOverflow)">\(escapedHtml)</code></pre>
+          <pre class="w-full border \(CommonStyles.borderColorDefault) p-4 bg-tertiary dark:bg-surface-dark \(CommonStyles.textColorDefault) \(classOverflow)"><code class="language-html \(classOverflow)">\(escapedHtml)</code></pre>
         </section>
         """
 }

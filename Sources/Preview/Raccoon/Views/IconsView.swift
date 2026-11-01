@@ -43,11 +43,21 @@ struct IconsView: TemplateRepresentable {
 
                             P(icon.rawValue)
                                 .class(
-                                    "text-xs font-mono text-center break-all text-gray-700 dark:text-gray-300"
+                                    [
+                                        "text-xs font-mono text-center break-all",
+                                        CommonStyles.textColorDefault,
+                                    ]
+                                    .joined(separator: " ")
                                 )
                         }
                         .class(
-                            "flex flex-col items-center gap-2 p-4 rounded border border-gray-200 dark:border-gray-700 hover:bg-tertiary dark:hover:bg-surface-dark bg-white dark:bg-surface-dark transition-colors"
+                            [
+                                "flex flex-col items-center gap-2 p-4 rounded border transition-colors",
+                                CommonStyles.borderColorDefault,
+                                CommonStyles.backgroundLight,
+                                "hover:bg-tertiary dark:hover:bg-surface-dark",
+                            ]
+                            .joined(separator: " ")
                         )
                         .setAttribute(
                             name: "x-show",

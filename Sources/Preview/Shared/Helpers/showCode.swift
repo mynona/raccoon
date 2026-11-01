@@ -19,7 +19,16 @@ func showCode(_ data: String) -> [Element] {
         .tabIndex(-1)
     }
     .class(
-        "font-mono bg-gray-100 dark:bg-gray-800 text-black dark:text-gray-100 p-4 text-sm rounded-md overflow-x-auto"
+        [
+            CommonStyles.fontMono,
+            CommonStyles.textSizeSmall,
+            CommonStyles.textColorDefault,
+            "bg-tertiary dark:bg-surface-dark border",
+            CommonStyles.borderColorDefault,
+            CommonStyles.cornerRadiusMedium,
+            "p-4 overflow-x-auto",
+        ]
+        .joined(separator: " ")
     )
 }
 
@@ -49,6 +58,16 @@ func showCopyableCode(_ data: String) -> [Element] {
         .tabIndex(-1)
     }
     .class(
-        "relative font-mono bg-gray-100 dark:bg-gray-800 text-black dark:text-gray-100 p-4 text-sm rounded-md overflow-x-auto"
+        [
+            "relative",
+            CommonStyles.fontMono,
+            CommonStyles.textSizeSmall,
+            CommonStyles.textColorDefault,
+            "bg-tertiary dark:bg-surface-dark border",
+            CommonStyles.borderColorDefault,
+            CommonStyles.cornerRadiusMedium,
+            "p-4 overflow-x-auto",
+        ]
+        .joined(separator: " ")
     )
 }

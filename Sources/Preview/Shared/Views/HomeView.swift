@@ -27,7 +27,7 @@ struct HomeView: TemplateRepresentable {
 
                 P(PreviewTexts.homeIntro.with(variables: name).resolved)
                     .localized(PreviewTexts.homeIntro.with(variables: name))
-                    .class("text-base text-gray-700 dark:text-gray-300 mb-8")
+                    .class(["mb-8 text-base", CommonStyles.textColorDefault].joined(separator: " "))
 
                 Div {
                     // Card 1: Raccoon UI Kit
@@ -37,12 +37,12 @@ struct HomeView: TemplateRepresentable {
                                 PreviewTexts.kitTitle.with(variables: name)
                             )
                             .class(
-                                "text-lg font-bold mb-2 text-gray-900 dark:text-white"
+                                ["mb-2 text-lg font-bold", CommonStyles.textColorEmphasized].joined(separator: " ")
                             )
                         P(kitText.resolved)
                             .localized(kitText)
                             .class(
-                                "text-sm text-gray-600 dark:text-gray-400 mb-6"
+                                ["mb-6 text-sm", CommonStyles.textColorDefault].joined(separator: " ")
                             )
                         LinkButton(
                             LinkButtonData(
@@ -58,7 +58,14 @@ struct HomeView: TemplateRepresentable {
                         .render()
                     }
                     .class(
-                        "p-6 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-surface-dark flex flex-col justify-between"
+                        [
+                            "p-6 flex flex-col justify-between",
+                            CommonStyles.cornerRadiusLarge,
+                            "border",
+                            CommonStyles.borderColorDefault,
+                            CommonStyles.backgroundLight,
+                        ]
+                        .joined(separator: " ")
                     )
                 }
                 .class("grid grid-cols-1 gap-6 mt-6")

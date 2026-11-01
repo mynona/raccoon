@@ -158,7 +158,7 @@ struct TabGroupView: TemplateRepresentable {
                         id: "alpine",
                         label: "Alpine.js",
                         content: .html(
-                            "<pre class='p-3 bg-gray-100 dark:bg-gray-800 rounded'><code>&lt;div x-data=\"{ open: false }\"&gt;...&lt;/div&gt;</code></pre>"
+                            "<pre class='p-3 bg-tertiary dark:bg-surface-dark border \(CommonStyles.borderColorDefault) rounded-md'><code>&lt;div x-data=\"{ open: false }\"&gt;...&lt;/div&gt;</code></pre>"
                         ),
                         icon: .layers
                     ),

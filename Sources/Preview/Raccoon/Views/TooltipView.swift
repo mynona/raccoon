@@ -9,9 +9,7 @@ struct TooltipView: TemplateRepresentable {
 
     let variants: [PreviewVariant<TooltipData>] = [
         #previewVariant(
-            """
-            // Top
-            """,
+            "Top Position with Arrow",
             TooltipData(
                 id: "tooltip-1",
                 text: tr(
@@ -26,9 +24,7 @@ struct TooltipView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // Bottom
-            """,
+            "Bottom Position with Arrow",
             TooltipData(
                 id: "tooltip-2",
                 text: tr(
@@ -43,9 +39,7 @@ struct TooltipView: TemplateRepresentable {
             )
         ),
         #previewVariant(
-            """
-            // With translations (en, de, fr)
-            """,
+            "Localized Text with Arrow",
             TooltipData(
                 id: "tooltip-3",
                 text: tr(

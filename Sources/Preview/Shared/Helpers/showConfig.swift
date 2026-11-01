@@ -1,4 +1,5 @@
 import HTML
+import Raccoon
 import SGML
 import WebBuilders
 
@@ -8,7 +9,14 @@ func showConfig(label: String, html: String) -> [Element] {
     Details {
         Summary(">")
             .class(
-                "cursor-pointer font-mono text-sm text-gray-950 dark:text-gray-400 select-none"
+                [
+                    CommonStyles.cursorPointer,
+                    CommonStyles.fontMono,
+                    CommonStyles.textSizeSmall,
+                    CommonStyles.textColorDefault,
+                    "select-none",
+                ]
+                .joined(separator: " ")
             )
 
         Div {

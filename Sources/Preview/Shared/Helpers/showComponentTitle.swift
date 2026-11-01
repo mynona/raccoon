@@ -1,4 +1,5 @@
 import HTML
+import Raccoon
 import SGML
 import WebBuilders
 
@@ -8,5 +9,5 @@ func showComponentTitle(_ title: String) -> [Element] {
     Div {
         H1(title)
     }
-    .class("mb-8 text-2xl font-bold text-black dark:text-white")
+    .class(["mb-8 text-2xl font-bold", CommonStyles.textColorEmphasized].joined(separator: " "))
 }

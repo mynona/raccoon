@@ -141,7 +141,7 @@ struct CarouselView: TemplateRepresentable {
             )
             .resolved
         )
-        .class("mb-2 text-sm text-gray-950 dark:text-gray-400")
+        .class(["mb-2 text-sm", CommonStyles.textColorDefault].joined(separator: " "))
 
         Ul {
             for item in data.carouselItems {

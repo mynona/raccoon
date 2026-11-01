@@ -69,7 +69,8 @@ public struct BasicStyles {
     .joined(separator: " ")
 
     public static let subGroupTitle: String = [
-        "px-2 mb-2 text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300"
+        "px-2 mb-2 text-xs font-semibold uppercase tracking-wider",
+        CommonStyles.textColorDefault,
     ]
     .joined(separator: " ")
 
