@@ -520,16 +520,22 @@ html {
   input[type="checkbox"].check-input:checked,
   input[type="checkbox"].check-input:checked:hover,
   input[type="checkbox"].check-input:checked:focus,
+  input[type="checkbox"].check-input:indeterminate,
+  input[type="checkbox"].check-input:indeterminate:hover,
+  input[type="checkbox"].check-input:indeterminate:focus,
   ul li input[type="checkbox"]:checked,
   ul li input[type="checkbox"]:checked:hover,
-  ul li input[type="checkbox"]:checked:focus {
+  ul li input[type="checkbox"]:checked:focus,
+  ul li input[type="checkbox"]:indeterminate,
+  ul li input[type="checkbox"]:indeterminate:hover,
+  ul li input[type="checkbox"]:indeterminate:focus {
     background-color: currentColor;
     background-image: none;
     border-color: currentColor;
   }
   /* Custom checkmark: drawn in the on-color of the fill, so it is readable in every theme and mode */
-  input[type="checkbox"].check-input:checked::after,
-  ul li input[type="checkbox"]:checked::after {
+  input[type="checkbox"].check-input:checked:not(:indeterminate)::after,
+  ul li input[type="checkbox"]:checked:not(:indeterminate)::after {
     content: '';
     position: absolute;
     left: 50%;
@@ -539,6 +545,21 @@ html {
     border: solid var(--color-on-primary-dim);
     border-width: 0 0.15rem 0.15rem 0;
     transform: translate(-50%, -60%) rotate(45deg);
+    pointer-events: none;
+  }
+  /* Indeterminate dash: drawn in the on-color of the fill */
+  input[type="checkbox"].check-input:indeterminate::after,
+  ul li input[type="checkbox"]:indeterminate::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0.5rem;
+    height: 0.125rem;
+    border: none;
+    background-color: var(--color-on-primary-dim);
+    border-radius: 0.0625rem;
+    transform: translate(-50%, -50%);
     pointer-events: none;
   }
   input[type="checkbox"].check-input:focus-visible,

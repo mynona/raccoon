@@ -141,7 +141,7 @@ public struct CheckboxSelect: TemplateRepresentable {
                                     )
                                     .localized(.ariaLabel, Self.selectAllOptions)
                                     .setAttribute(
-                                        name: "aria-checked",
+                                        name: ":aria-checked",
                                         value:
                                             "selectAll ? 'true' : (filteredValues.some(v => v.selected) ? 'mixed' : 'false')"
                                     )

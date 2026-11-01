@@ -17,8 +17,9 @@ if (!window.__checkboxSelectLoaded) {
             // Syncs the select-all checkbox (checked/indeterminate) with the filtered rows
             updateSelectAll() {
                 if (this.searchRaw.length > 0) return;
-                const all = this.filteredValues.every(v => v.selected);
+                const count = this.filteredValues.length;
                 const some = this.filteredValues.some(v => v.selected);
+                const all = count > 0 && this.filteredValues.every(v => v.selected);
                 this.selectAll = all;
                 this.$nextTick(() => {
                     const el = this.$root.querySelector('[id$="-selectAll"]');
