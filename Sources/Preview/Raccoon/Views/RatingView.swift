@@ -35,7 +35,7 @@ struct RatingView: TemplateRepresentable {
             ),
             RatingData(
                 id: "897c1000-0000-0000-0000-000000000000",
-                url: "/success",
+                url: "/preview/rating-feedback",
                 ratingType: .thumbsUpDown
             )
         ),

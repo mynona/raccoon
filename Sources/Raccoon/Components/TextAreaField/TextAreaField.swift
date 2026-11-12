@@ -115,7 +115,7 @@ public struct TextAreaField: TemplateRepresentable {
                     .rows(Int(data.rows))
                     .flagAttribute(required)
                     .id(data.id)
-                    .name(data.id)
+                    .name(data.name ?? data.id)
                     .if(data.placeholder != nil) {
                         $0.localized(.placeholder, data.placeholder!)
                     } else: {

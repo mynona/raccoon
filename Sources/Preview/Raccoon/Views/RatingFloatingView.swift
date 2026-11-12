@@ -8,8 +8,8 @@ import WebBuilders
 struct RatingFloatingView: TemplateRepresentable {
 
     let scrollDemoData = RatingData(
-        id: "floating-scroll-demo",
-        url: "/success",
+        id: "5c0a1b3e-0000-4000-8000-000000000001",
+        url: "/preview/rating-feedback",
         ratingType: .thumbsUpDown,
         isFloating: true,
         isShownOnScroll: true
@@ -42,8 +42,8 @@ struct RatingFloatingView: TemplateRepresentable {
                 ]
             ),
             RatingData(
-                id: "floating-scroll-124",
-                url: "/success",
+                id: "5c0a1b3e-0000-4000-8000-000000000002",
+                url: "/preview/rating-feedback",
                 ratingType: .thumbsUpDown,
                 isFloating: true,
                 isShownOnScroll: true

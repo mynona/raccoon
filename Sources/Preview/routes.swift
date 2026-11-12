@@ -10,6 +10,9 @@ func routes(_ app: Application) throws {
         collection: FormErrorSummaryController(validationMethod: .submit)
     )
 
+    // Rating widget feedback endpoint (collects what the widget sends)
+    try app.register(collection: RatingFeedbackController())
+
     // Mock/simulation endpoints (uploads, fake search)
     try app.register(collection: SimulationController())
 }

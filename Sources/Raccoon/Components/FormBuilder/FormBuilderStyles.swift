@@ -28,5 +28,6 @@ public struct FormBuilderStyles {
         "flex flex-col sm:flex-row justify-end gap-4 pt-4"
     public static let actionsBanner: String =
         "pt-4 flex flex-col sm:flex-row gap-4"
+    public static let actionsWidget: String = "flex flex-col gap-4 pt-4"
     public static let action: String = "flex-initial"
 }

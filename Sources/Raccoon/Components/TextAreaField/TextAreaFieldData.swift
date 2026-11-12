@@ -4,6 +4,7 @@ public struct TextAreaFieldData: Sendable {
     public typealias ValidationType = FieldValidationType
 
     public let id: String
+    public let name: String?
     public let label: LabelData?
     public let rows: UInt
     public let placeholder: LocalizedText?
@@ -24,7 +25,8 @@ public struct TextAreaFieldData: Sendable {
     /// Creates a new configuration instance for `TextAreaField`.
     ///
     /// - Parameters:
-    ///   - id: Unique DOM identifier and form field name.
+    ///   - id: Unique DOM identifier. Also the form field name, unless `name` is set.
+    ///   - name: Form field name, when it has to differ from the DOM identifier.
     ///   - label: Optional label configuration displayed above textarea.
     ///   - placeholder: Placeholder text shown when textarea is empty.
     ///   - rows: Number of visible text lines in the textarea, defaults to 4.
@@ -35,6 +37,7 @@ public struct TextAreaFieldData: Sendable {
     ///   - isMonospaced: Whether to display text in a monospaced font.
     public init(
         id: String,
+        name: String? = nil,
         label: LabelData? = nil,
         placeholder: LocalizedText? = nil,
         rows: UInt = 4,
@@ -45,6 +48,7 @@ public struct TextAreaFieldData: Sendable {
         isMonospaced: Bool = false
     ) {
         self.id = id
+        self.name = name
         self.label = label
         self.rows = rows
         self.placeholder = placeholder

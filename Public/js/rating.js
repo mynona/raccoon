@@ -1,4 +1,4 @@
-// v1.3
+// v1.4
 
 /* Alpine component: thumbs/star rating widget with scroll-triggered display, dismissal memory, and in-page docking. */
 
@@ -25,7 +25,7 @@ if (!window.__ratingLoaded) {
     closed: false,
     thumb: null,
     rating: 0,
-    textarea: '',
+    widgetEl: null,
     submitting: false,
     error: '',
     showSuccess: false,
@@ -58,6 +58,13 @@ if (!window.__ratingLoaded) {
     },
 
     init() {
+      // The label is evaluated in the scope of the text area field, so the widget is found by its
+      // panel id (`$el` and `$root` are not reliable for several widgets on one page)
+      this.widgetEl =
+        document.getElementById(`rating-panel-${this.uuid}`) ||
+        document.getElementById(`rating-floating-panel-${this.uuid}`);
+      // The field is required and empty: the submit button is unavailable until the user writes
+      this.$nextTick(() => this.validateFeedback());
       this.setupFloatingAlignment();
 
       if (!this.uuid || typeof window === 'undefined' || !window.localStorage) {
@@ -138,7 +145,7 @@ if (!window.__ratingLoaded) {
         this.visible = true;
         this.thumb = null;
         this.rating = 0;
-        this.textarea = '';
+        this.clearFeedback();
         this.error = '';
         this.showSuccess = false;
         this.showError = false;
@@ -153,6 +160,39 @@ if (!window.__ratingLoaded) {
         if (mainEl) mainEl.removeEventListener('scroll', this.onScroll);
       }
     },
+    // The feedback field is a FormBuilder text area with its own Alpine scope
+    feedbackTextarea() {
+      return this.widgetEl.querySelector('textarea');
+    },
+    focusFeedback() {
+      this.$nextTick(() => {
+        const textarea = this.feedbackTextarea();
+        if (textarea) textarea.focus();
+      });
+    },
+    feedbackField() {
+      const textarea = this.feedbackTextarea();
+      return textarea ? Alpine.$data(textarea.closest('[x-data]')) : null;
+    },
+    // Empty is invalid for this required field. The message stays hidden until the field is touched
+    validateFeedback() {
+      const field = this.feedbackField();
+      if (field) field.validate();
+    },
+    clearFeedback() {
+      const field = this.feedbackField();
+      if (!field) return;
+      field.value = '';
+      field.isTouched = false;
+      field.validate();
+      this.feedbackTextarea().style.height = '';
+    },
+    // The question above the feedback field: the one for a positive rating (5) or the other
+    followUpLabel() {
+      const kind = this.rating >= 5 ? 'positive' : 'negative';
+      const template = this.widgetEl.querySelector(`template[data-follow-up="${kind}"]`);
+      return template ? template.innerHTML : '';
+    },
     // Selects a thumbs-up/down rating and reveals the feedback textarea
     selectThumb(val) {
       if (this.submitting) return;
@@ -161,20 +201,17 @@ if (!window.__ratingLoaded) {
       this.error = '';
       this.showSuccess = false;
       this.showError = false;
-      this.$nextTick(() => { this.$refs.textarea && this.$refs.textarea.focus(); });
+      this.focusFeedback();
     },
     resetThumb() {
       if (this.submitting) return;
       this.thumb = null;
       this.rating = 0;
-      this.textarea = '';
+      this.clearFeedback();
       this.error = '';
       this.showSuccess = false;
       this.showError = false;
       this.$nextTick(() => {
-        if (this.$refs.textarea) {
-          this.$refs.textarea.style.height = '';
-        }
         this.$refs.thumbUp && this.$refs.thumbUp.focus();
       });
     },
@@ -185,20 +222,15 @@ if (!window.__ratingLoaded) {
       this.error = '';
       this.showSuccess = false;
       this.showError = false;
-      this.$nextTick(() => { this.$refs.textarea && this.$refs.textarea.focus(); });
+      this.focusFeedback();
     },
     resetStar() {
       if (this.submitting) return;
       this.rating = 0;
-      this.textarea = '';
+      this.clearFeedback();
       this.error = '';
       this.showSuccess = false;
       this.showError = false;
-      this.$nextTick(() => {
-        if (this.$refs.textarea) {
-          this.$refs.textarea.style.height = '';
-        }
-      });
     },
     focusStar(index) {
       const ref = this.$refs['star' + index];
@@ -229,10 +261,6 @@ if (!window.__ratingLoaded) {
         .finally(() => {
           this.submitting = false;
         });
-    },
-    autoResize(el) {
-      el.style.height = 'auto';
-      el.style.height = el.scrollHeight + 'px';
     }
   }));
 });

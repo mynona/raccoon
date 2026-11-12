@@ -236,12 +236,30 @@ struct RatingTests {
         #expect(html.contains("name=\"id\""))
         #expect(html.contains("name=\"rating\""))
         #expect(html.contains("name=\"feedback\""))
-        #expect(
-            html.contains(
-                ":disabled=\"submitting || !textarea || textarea.length < 5\""
+        #expect(html.contains("data-validation=\"submit\""))
+        #expect(html.contains("id=\"thumb-submit\""))
+        #expect(html.contains("submitFeedback($event.target"))
+    }
+
+    @Test("the feedback field needs at least 5 characters, with the given message")
+    func feedbackFieldMinimumLength() async throws {
+
+        let html = renderHTML(
+            Rating(
+                RatingData(
+                    id: "uuid-7",
+                    url: "/api/rating",
+                    ErrorMessageInvalidFeedback: "Too short, please write more."
+                )
             )
+            .render()
         )
-        #expect(html.contains("submitFeedback($el"))
+
+        #expect(html.contains("{5,}"))
+        #expect(html.contains("Too short, please write more."))
+        #expect(html.contains("x-html=\"followUpLabel()\""))
+        #expect(html.contains("data-follow-up=\"positive\""))
+        #expect(html.contains("data-follow-up=\"negative\""))
     }
 
     @Test("renders custom follow up questions")
@@ -277,8 +295,8 @@ struct RatingTests {
             let english = renderHTML(Rating(data).render())
             for key in [
                 "question", "positiveFollowUp", "negativeFollowUp", "clear",
-                "clearSelection", "yourFeedback", "placeholder", "tooShort",
-                "submit", "thankYou", "closeWidget",
+                "clearSelection", "placeholder", "submit", "thankYou",
+                "closeWidget",
             ] {
                 #expect(english.contains("rating.\(key)"), "\(type) \(key)")
             }
@@ -286,7 +304,7 @@ struct RatingTests {
                 renderHTML(Rating(data).render())
             }
             #expect(german.contains(">Wie gefällt dir dieser Artikel?</p>"))
-            #expect(german.contains(">Absenden</button>"))
+            #expect(german.contains(">Absenden</span>"))
             #expect(german.contains("Danke für dein Feedback!"))
             #expect(
                 german.contains("aria-label=\"Feedback-Fenster schließen\"")

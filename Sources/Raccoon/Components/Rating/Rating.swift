@@ -45,10 +45,6 @@ public struct Rating: TemplateRepresentable {
         "rating.clearSelection",
         "Clear selection"
     )
-    private static let yourFeedback = LocalizedText(
-        "rating.yourFeedback",
-        "Your feedback"
-    )
     private static let placeholder = LocalizedText(
         "rating.placeholder",
         "Your feedback helps to improve this page"
@@ -75,7 +71,6 @@ public struct Rating: TemplateRepresentable {
         "Close feedback widget"
     )
     typealias buttonStyles = ActionButtonStyles
-    typealias inputFieldStyles = InputFieldStyles
 
     public init(
         _ data: RatingData
@@ -282,40 +277,44 @@ public struct Rating: TemplateRepresentable {
         .setAttribute(name: "x-show", value: "!showSuccess")
     }
 
+    /// The two follow-up questions as inert templates. The label of the feedback field shows the one
+    /// that matches the rating (`followUpLabel()` in `rating.js`), with its translation marker.
     @Builder<Element>
-    func showLabel(title: LocalizedText) -> [Element] {
-        // Rendered inside mutually exclusive Alpine <template x-if> blocks: that content is inert,
-        // so the repeated id must not be reported as a duplicate.
+    func followUpTemplates() -> [Element] {
+        let positive = data.positiveFollowUpQuestion ?? Self.positiveFollowUp
+        let negative = data.negativeFollowUpQuestion ?? Self.negativeFollowUp
 
-        Label(
-            LabelData(
-                id: textAreaId,
-                title: title,
-                size: .sm,
-                isRequired: true
-            )
-        )
-        .render()
+        Template { Span(positive.resolved).localized(positive) }
+            .setAttribute(name: "data-follow-up", value: "positive")
+        Template { Span(negative.resolved).localized(negative) }
+            .setAttribute(name: "data-follow-up", value: "negative")
     }
 
-    @Builder<Element>
-    func showError() -> [Element] {
-        Div {
-            ErrorMessage(
-                ErrorMessageData(
-                    id: "error-\(textAreaId)",
-                    errorMessages: [
-                        data.ErrorMessageInvalidFeedback ?? Self.tooShort
-                    ],
-                    hasIcon: false
+    private var feedbackFields: [FormField] {
+        [
+            .hidden(HiddenFieldData(id: "id", value: data.id)),
+            .custom(RatingHiddenInput()),
+            .textArea(
+                TextAreaFieldData(
+                    id: textAreaId,
+                    name: "feedback",
+                    label: LabelData(
+                        id: textAreaId,
+                        title: Self.negativeFollowUp,
+                        size: .sm,
+                        isRequired: true,
+                        xhtml: "followUpLabel()"
+                    ),
+                    placeholder: Self.placeholder,
+                    rows: 1,
+                    validation: .custom(
+                        pattern: #"^[\s\S]{5,}$"#,
+                        message: data.ErrorMessageInvalidFeedback
+                            ?? Self.tooShort
+                    )
                 )
-            )
-            .render()
-        }
-        .setAttribute(
-            name: "x-show",
-            value: "textarea.length < 5"
-        )
+            ),
+        ]
     }
 
     @Builder<Element>
@@ -331,144 +330,36 @@ public struct Rating: TemplateRepresentable {
             }
         }()
 
-        Form {
-            Input()
-                .type(.hidden)
-                .name("id")
-                .value(data.id)
-
-            Input()
-                .type(.hidden)
-                .name("rating")
-                .setAttribute(name: "x-bind:value", value: "rating")
-
-            // Dynamic label based on rating type and value
-            let positiveFollowUpQuestion =
-                data.positiveFollowUpQuestion ?? Self.positiveFollowUp
-            let negativeFollowUpQuestion =
-                data.negativeFollowUpQuestion ?? Self.negativeFollowUp
-
-            Div {
-
-                switch data.ratingType {
-                case .thumbsUpDown:
-                    Template {
-                        Span {
-                            showLabel(title: positiveFollowUpQuestion)
-                        }
-                    }
-                    .setAttribute(
-                        name: "x-if",
-                        value: "thumb === 'up'"
-                    )
-
-                    Template {
-                        Span {
-                            showLabel(title: negativeFollowUpQuestion)
-                        }
-                    }
-                    .setAttribute(
-                        name: "x-if",
-                        value: "thumb === 'down'"
-                    )
-                case .fiveStars:
-                    Template {
-                        Span {
-                            showLabel(title: negativeFollowUpQuestion)
-                        }
-                    }
-                    .setAttribute(
-                        name: "x-if",
-                        value: "rating <= 4"
-                    )
-
-                    Template {
-                        Span {
-                            showLabel(title: positiveFollowUpQuestion)
-                        }
-                    }
-                    .setAttribute(
-                        name: "x-if",
-                        value: "rating >= 5"
-                    )
-
-                }
-
-                // Textarea with auto-grow
-                Textarea("")
-                    .id(textAreaId)
-                    .name("feedback")
-                    .localized(.ariaLabel, Self.yourFeedback)
-                    .rows(1)
-                    .setAttribute(name: "x-model", value: "textarea")
-                    .localized(.placeholder, Self.placeholder)
-                    .setAttribute(name: "x-ref", value: "textarea")
-                    .setAttribute(name: "@input", value: "autoResize($el)")
-                    .class(
-                        "block w-full resize-none min-h-0 overflow-y-auto pt-1 pl-0"
-                    )
-                    .addClass(styles.textareaTextSize)
-                    .addClass(inputFieldStyles.textColorInput)
-                    .addClass(inputFieldStyles.inputReset)
-                    //.addClass(inputFieldStyles.textColorInput)
-                    .addClass(inputFieldStyles.textColorPlaceholder)
-
-                // Error icon (dash_circle)
-                Div {
-                    Svg.icon(.dash_circle)
-                }
-                .class(
-                    "pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4"
+        Div {
+            FormBuilder(
+                FormBuilderData(
+                    id: "feedback-form-\(data.sanitizedId())",
+                    fields: feedbackFields,
+                    actions: [
+                        .button(
+                            ActionButtonData(
+                                id: "thumb-submit",
+                                label: Self.submit,
+                                htmlType: .submit,
+                                buttonType: .primary,
+                                size: .base,
+                                hasFullWidth: true,
+                                contentTracker: MatomoContentTracker(
+                                    name: "feedback-widget",
+                                    piece: "btn_submit",
+                                    target: ""
+                                )
+                            )
+                        )
+                    ],
+                    validationMethod: .submit,
+                    layout: .widget,
+                    isTracked: false
                 )
-                .addClass(inputFieldStyles.textColorError)
-                .setAttribute(
-                    name: "x-show",
-                    value: "textarea.length > 0 && textarea.length < 5"
-                )
-                .setAttribute(name: "x-transition", value: "")
-
-                // Success icon (check_circle)
-                Div {
-                    Svg.icon(.check_circle)
-                }
-                .class(
-                    "pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4"
-                )
-                .addClass(inputFieldStyles.textColorSuccess)
-                .setAttribute(name: "x-show", value: "textarea.length >= 5")
-            }
-            .class("relative rounded-md px-3 pb-1.5 pt-2.5 mt-6")
-            .addClass(inputFieldStyles.inputBorder)
-            .addClass(inputFieldStyles.inputContainerHover)
-            .addClass(inputFieldStyles.inputContainerFocus)
-            .setAttribute(
-                name: ":class",
-                value:
-                    "{ '\(inputFieldStyles.borderColorError)': textarea.length < 5, '\(inputFieldStyles.borderColorSuccess)': textarea.length >= 5 }"
             )
+            .render()
 
-            showError()
-
-            Button(Self.submit.resolved)
-                .localized(Self.submit)
-                .type(.submit)
-                .id("thumb-submit")
-                .setAttribute(
-                    name: ":disabled",
-                    value: "submitting || !textarea || textarea.length < 5"
-                )
-                .class("w-full px-4 py-1.5 mt-8")
-                .addClass(buttonStyles.primaryButton)
-                .setAttribute(
-                    name: ":class",
-                    value:
-                        "{ '\(buttonStyles.focusDefault) \(buttonStyles.hoverDefault)': textarea.length >= 5 }"
-                )
-                .setAttribute(
-                    name: ":class",
-                    value:
-                        "{ '\(buttonStyles.disabledButton)': !textarea || textarea.length < 5 }"
-                )
+            followUpTemplates()
 
             // Error notification for failed submission
             Div {
@@ -484,11 +375,11 @@ public struct Rating: TemplateRepresentable {
             .setAttribute(name: "x-show", value: "showError")
             .class("mt-8")
         }
-        .class("w-full")
+        .class("w-full mt-6")
         .setAttribute(name: "x-show", value: showFormExpr)
         .setAttribute(
             name: "x-on:submit.prevent",
-            value: "submitFeedback($el, '\(data.url)')"
+            value: "submitFeedback($event.target, '\(data.url)')"
         )
     }
 
@@ -579,5 +470,16 @@ public struct Rating: TemplateRepresentable {
         }
         .setAttribute(name: "x-data", value: xDataExpression())
         .setAttribute(name: "x-show", value: "visible")
+    }
+}
+
+/// The `rating` value the widget submits. It follows the selection, so it is bound in Alpine.
+private struct RatingHiddenInput: TemplateRepresentable, Sendable {
+    @Builder<Element>
+    func render() -> [Element] {
+        Input()
+            .type(.hidden)
+            .name("rating")
+            .setAttribute(name: "x-bind:value", value: "rating")
     }
 }

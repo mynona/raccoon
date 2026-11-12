@@ -85,6 +85,8 @@ public struct FormBuilder: TemplateRepresentable {
             return styles.actionsDialog
         case .banner:
             return styles.actionsBanner
+        case .widget:
+            return styles.actionsWidget
         }
     }
 

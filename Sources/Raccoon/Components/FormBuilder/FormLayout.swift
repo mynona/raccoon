@@ -6,4 +6,6 @@ public enum FormLayout: String, Sendable {
     case dialog
     /// Form inside a banner: actions stacked on mobile, inline row on tablet/desktop.
     case banner
+    /// Form inside a compact widget: actions stacked and stretched to the full width.
+    case widget
 }

@@ -28,9 +28,6 @@ public struct RatingStyles {
     public static let closeButton =
         "absolute top-2 right-2 p-2 text-gray-600 hover:text-gray-900 z-50"
 
-    // MARK: feedback textarea
-    public static let textareaTextSize = "sm:text-sm"
-
     // MARK: focus
     public static let focusDefault: String = CommonStyles.focusDefault
 

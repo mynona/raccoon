@@ -42,6 +42,32 @@ struct SimulationController: RouteCollection, Sendable {
         routes.post("api", "upload") { @Sendable (_ req: Request) async throws -> Response in
             try await Self.fakeUpload(req)
         }
+
+        // lists (and clears) what the upload routes above have received, to check what a form really sent
+        routes.get("preview", "uploads-received") { @Sendable (_ req: Request) async throws -> [ReceivedUpload] in
+            await UploadStore.shared.all()
+        }
+        routes.delete("preview", "uploads-received") { @Sendable (_ req: Request) async throws -> HTTPStatus in
+            await UploadStore.shared.clear()
+            return .noContent
+        }
+    }
+
+    /// One request that reached an upload route: the text fields and the files, as the server decoded them.
+    struct ReceivedUpload: Content {
+        let route: String
+        let fields: [String: String]
+        let files: [UploadedFileInfo]
+        let receivedAt: Date
+    }
+
+    actor UploadStore {
+        static let shared = UploadStore()
+        private var entries: [ReceivedUpload] = []
+
+        func add(_ entry: ReceivedUpload) { entries.append(entry) }
+        func all() -> [ReceivedUpload] { entries }
+        func clear() { entries.removeAll() }
     }
 
     @Sendable
@@ -169,6 +195,14 @@ struct SimulationController: RouteCollection, Sendable {
             message: "Single file upload received successfully.",
             files: files
         )
+        await UploadStore.shared.add(
+            ReceivedUpload(
+                route: "/upload/single",
+                fields: dto.alt_text.map { ["alt_text": $0] } ?? [:],
+                files: files,
+                receivedAt: Date()
+            )
+        )
 
         let response = Response(status: .ok)
         try response.content.encode(result, as: .json)
@@ -198,6 +232,14 @@ struct SimulationController: RouteCollection, Sendable {
             message:
                 "Multiple file upload received successfully (\(files.count) file(s)).",
             files: files
+        )
+        await UploadStore.shared.add(
+            ReceivedUpload(
+                route: "/upload/multiple",
+                fields: dto.alt_text.map { ["alt_text": $0] } ?? [:],
+                files: files,
+                receivedAt: Date()
+            )
         )
 
         let response = Response(status: .ok)
@@ -247,6 +289,14 @@ struct SimulationController: RouteCollection, Sendable {
             alt_text: altText,
             message: "Successfully received \(uploadedFiles.count) file(s)",
             files: uploadedFiles
+        )
+        await UploadStore.shared.add(
+            ReceivedUpload(
+                route: req.url.path,
+                fields: altText.map { ["alt_text": $0] } ?? [:],
+                files: uploadedFiles,
+                receivedAt: Date()
+            )
         )
 
         let response = Response(status: .ok)
