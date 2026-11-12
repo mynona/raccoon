@@ -18,6 +18,7 @@ public struct FormBuilderData: Sendable {
 
     // MARK: - 4. Feedback & Validation
     public let errorMessages: ErrorMessageData?
+    public let validationMethod: FormValidationMethod
 
     // MARK: - 5. Presentation & State
     public let layout: FormLayout
@@ -36,6 +37,11 @@ public struct FormBuilderData: Sendable {
     ///   - fields: Fields rendered in the given order.
     ///   - actions: Buttons and links shown below the fields, in the given order.
     ///   - errorMessages: Form-level errors shown above the fields, for example a failed login.
+    ///   - validationMethod: How problems with the fields are reported. `.none` (default) adds nothing.
+    ///     `.errorSummary` renders a summary of every field-level and form-level error above the first
+    ///     field and moves focus to it on a failed submit. Form-level errors are folded into the summary
+    ///     instead of the separate error block. `.submit` renders no summary: the submit button is
+    ///     `aria-disabled` while a field has a client-side error.
     ///   - layout: Context of the form (`page` or `dialog`).
     ///   - isTracked: Whether the form is tracked as a form in Matomo (`data-matomo-name`).
     public init(
@@ -54,6 +60,7 @@ public struct FormBuilderData: Sendable {
 
         // 4. Feedback & Validation
         errorMessages: ErrorMessageData? = nil,
+        validationMethod: FormValidationMethod = .none,
 
         // 5. Presentation & State
         layout: FormLayout = .page,
@@ -76,6 +83,7 @@ public struct FormBuilderData: Sendable {
 
         // 4. Feedback & Validation
         self.errorMessages = errorMessages
+        self.validationMethod = validationMethod
 
         // 5. Presentation & State
         self.layout = layout

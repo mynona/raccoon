@@ -225,7 +225,7 @@ public struct PasswordInput: TemplateRepresentable {
             .setAttribute(
                 name: ":class",
                 value:
-                    "confirmPassword.length === 0 ? '\(inputFieldStyles.borderColorDefault)' : (passwordsMatch ? '\(inputFieldStyles.borderColorSuccess)' : '\(inputFieldStyles.borderColorError)')"
+                    "{ '\(inputFieldStyles.borderColorError)': (confirmServerError && !userTouchedConfirmField) || (confirmPassword.length > 0 && !passwordsMatch), '\(inputFieldStyles.borderColorSuccess)': confirmPassword.length > 0 && passwordsMatch && !(confirmServerError && !userTouchedConfirmField), '\(inputFieldStyles.borderColorDefault)': confirmPassword.length === 0 && !(confirmServerError && !userTouchedConfirmField) }"
             )
 
             Div {
@@ -466,11 +466,11 @@ public struct PasswordInput: TemplateRepresentable {
         .setAttribute(
             name: ":class",
             value: """
-                  (passwordServerError && !userTouchedPasswordField) || (userTouchedPasswordField && password.length > 0 && !validContent)
-                    ? '\(inputFieldStyles.borderColorError)'
-                    : (validContent
-                      ? '\(inputFieldStyles.borderColorSuccess)'
-                      : '\(inputFieldStyles.borderColorDefault)')
+                {
+                  '\(inputFieldStyles.borderColorError)': (passwordServerError && !userTouchedPasswordField) || (userTouchedPasswordField && password.length > 0 && !validContent),
+                  '\(inputFieldStyles.borderColorSuccess)': validContent && !(passwordServerError && !userTouchedPasswordField),
+                  '\(inputFieldStyles.borderColorDefault)': !validContent && !(passwordServerError && !userTouchedPasswordField) && !(userTouchedPasswordField && password.length > 0)
+                }
                 """
         )
 

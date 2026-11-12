@@ -435,7 +435,11 @@ public struct InputList: TemplateRepresentable {
             value: "init()"
         )
         .class("w-full p-4")
-        .addClass(inputFieldStyles.inputContainerBorder)
+        .addClass(
+            data.errorMessages?.hasMessages == true
+                ? inputFieldStyles.inputContainerBorderError
+                : inputFieldStyles.inputContainerBorder
+        )
 
         // MARK: error
         if let fieldError = data.errorMessages {

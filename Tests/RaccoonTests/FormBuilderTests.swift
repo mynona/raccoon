@@ -342,4 +342,198 @@ struct FormBuilderTests {
         )
         #expect(html.contains("aria-label=\"Sign up\""))
     }
+
+    // MARK: - Error summary
+
+    private func summaryForm(
+        validationMethod: FormValidationMethod = .errorSummary,
+        formErrors: [LocalizedText]? = nil,
+        fields: [FormField]
+    ) -> String {
+        renderHTML(
+            FormBuilder(
+                FormBuilderData(
+                    id: "registration",
+                    fields: fields,
+                    errorMessages: formErrors.map {
+                        ErrorMessageData(errorMessages: $0)
+                    },
+                    validationMethod: validationMethod
+                )
+            )
+            .render()
+        )
+    }
+
+    private func emailField(_ messages: [LocalizedText]? = nil) -> FormField {
+        .input(
+            InputFieldData(
+                id: "email",
+                label: LabelData(id: "email", title: "Email"),
+                errorMessages: messages.map {
+                    ErrorMessageData(errorMessages: $0)
+                }
+            )
+        )
+    }
+
+    private func countryField(_ messages: [LocalizedText]? = nil) -> FormField {
+        .dropdown(
+            DropdownData(
+                id: "country",
+                label: LabelData(id: "country", title: "Country"),
+                errorMessages: messages.map {
+                    ErrorMessageData(errorMessages: $0)
+                }
+            )
+        )
+    }
+
+    @Test("renders an error summary above the first field with count and links")
+    func rendersErrorSummary() throws {
+        let html = summaryForm(fields: [
+            emailField(["Enter a valid email address"]),
+            countryField(["Pick a country"]),
+        ])
+        let summary = try #require(
+            position(of: "id=\"registration-error-summary\"", in: html)
+        )
+        let field = try #require(position(of: "name=\"email\"", in: html))
+        #expect(summary < field)
+        #expect(
+            html.contains(
+                "aria-labelledby=\"registration-error-summary-heading\""
+            )
+        )
+        #expect(html.contains("There are 2 problems with your submission"))
+        #expect(html.contains("href=\"#email\""))
+        #expect(html.contains("href=\"#country\""))
+        #expect(html.contains("Enter a valid email address"))
+        #expect(html.contains("src=\"/js/error-summary.js\""))
+    }
+
+    @Test("the summary is focusable but not in the tab order, and not a live region")
+    func summaryFocusAndRole() throws {
+        let html = summaryForm(fields: [emailField(["bad"])])
+        let start = try #require(
+            html.range(of: "id=\"registration-error-summary\"")
+        )
+        let tag = html[start.lowerBound...].prefix { $0 != ">" }
+        #expect(tag.contains("tabindex=\"-1\""))
+        #expect(!tag.contains("role="))
+        #expect(!tag.contains("aria-live"))
+    }
+
+    @Test("does not render a summary unless opted in")
+    func noSummaryByDefault() {
+        let html = summaryForm(
+            validationMethod: .none,
+            fields: [emailField(["bad"])]
+        )
+        #expect(!html.contains("error-summary"))
+    }
+
+    @Test("renders a hidden empty summary when there are no problems")
+    func hiddenEmptySummary() throws {
+        let html = summaryForm(fields: [emailField()])
+        let start = try #require(
+            html.range(of: "id=\"registration-error-summary\"")
+        )
+        let tag = html[start.lowerBound...].prefix { $0 != ">" }
+        #expect(tag.contains("hidden"))
+        #expect(!html.contains("href=\"#email\""))
+    }
+
+    @Test("counts fields, not messages")
+    func countsFields() {
+        let html = summaryForm(fields: [emailField(["a", "b"])])
+        #expect(html.contains("There is 1 problem with your submission"))
+    }
+
+    @Test("lists problems of fields nested in groups and rows")
+    func listsNestedProblems() {
+        let html = summaryForm(fields: [
+            .group(
+                FormGroupData(
+                    legend: "Details",
+                    fields: [.row([emailField(["bad"]), countryField(["bad"])])]
+                )
+            )
+        ])
+        #expect(html.contains("There are 2 problems with your submission"))
+        #expect(html.contains("href=\"#email\""))
+        #expect(html.contains("href=\"#country\""))
+    }
+
+    @Test("folds form-level errors into the summary and links to the first field")
+    func foldsFormLevelErrors() {
+        let html = summaryForm(
+            formErrors: ["Sign in failed"],
+            fields: [emailField()]
+        )
+        #expect(html.contains("Sign in failed"))
+        #expect(html.contains("href=\"#email\""))
+        #expect(!html.contains("role=\"alert\""))
+    }
+
+    @Test("keeps the separate error block for forms without a summary")
+    func keepsErrorBlockWithoutSummary() {
+        let html = summaryForm(
+            validationMethod: .none,
+            formErrors: ["Sign in failed"],
+            fields: [emailField()]
+        )
+        #expect(html.contains("role=\"alert\""))
+    }
+
+    @Test("gives the script the texts and classes to rebuild the summary")
+    func summaryClientData() {
+        let html = summaryForm(fields: [emailField(["bad"])])
+        #expect(
+            html.contains(
+                "data-heading-one=\"There is 1 problem with your submission\""
+            )
+        )
+        #expect(
+            html.contains(
+                "data-heading-other=\"There are {{count}} problems with your submission\""
+            )
+        )
+        #expect(html.contains("data-item-class=\""))
+        #expect(html.contains("data-link-class=\""))
+    }
+
+    @Test("adds no script or client data to forms without a summary")
+    func noClientDataWithoutSummary() {
+        let html = summaryForm(validationMethod: .none, fields: [emailField()])
+        #expect(!html.contains("error-summary"))
+        #expect(!html.contains("data-heading-one"))
+    }
+
+    @Test("submit validation renders no summary, but the script and the marker")
+    func submitValidation() {
+        let html = summaryForm(
+            validationMethod: .submit,
+            formErrors: ["Sign in failed"],
+            fields: [emailField(["bad"])]
+        )
+        #expect(html.contains("data-validation=\"submit\""))
+        #expect(html.contains("src=\"/js/error-summary.js\""))
+        #expect(!html.contains("data-error-summary"))
+        // The form-level error keeps its own block
+        #expect(html.contains("Sign in failed"))
+        #expect(html.contains("role=\"alert\""))
+    }
+
+    @Test("no marker for the other validation methods")
+    func noSubmitMarker() {
+        #expect(
+            !summaryForm(validationMethod: .none, fields: [emailField()])
+                .contains("data-validation")
+        )
+        #expect(
+            !summaryForm(validationMethod: .errorSummary, fields: [emailField()])
+                .contains("data-validation")
+        )
+    }
 }

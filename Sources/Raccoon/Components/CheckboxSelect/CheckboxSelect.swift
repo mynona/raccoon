@@ -304,7 +304,11 @@ public struct CheckboxSelect: TemplateRepresentable {
 
         }
         .class("p-4")
-        .addClass(styles.inputContainerBorder)
+        .addClass(
+            data.errorMessages?.hasMessages == true
+                ? styles.inputContainerBorderError
+                : styles.inputContainerBorder
+        )
 
         if let fieldError = data.errorMessages {
             ErrorMessage(fieldError).render()

@@ -66,6 +66,8 @@ public struct CommonStyles {
     // MARK: border
     public static let inputBorder: String =
         "rounded-md border-1 border-on-surface"
+    public static let inputBorderError: String =
+        "rounded-md border-1 border-on-error-variant"
 
     // MARK: borderColor
     public static let borderColorDefault: String =

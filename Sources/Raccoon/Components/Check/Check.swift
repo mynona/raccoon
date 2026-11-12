@@ -107,6 +107,18 @@ public struct Check: TemplateRepresentable {
                                 .addClass(styles.hoverDefault)
                         }
                         .addClass(styles.textColorCheckbox)
+                        .if(data.errorMessages != nil) {
+                            // Error border until the user changes the box, like `InputField`
+                            $0.setAttribute(
+                                name: ":class",
+                                value:
+                                    "{ '\(styles.borderColorError)': hasServerError }"
+                            )
+                            .setAttribute(
+                                name: "@change",
+                                value: "hasServerError = false"
+                            )
+                        }
 
                 }
                 .class("flex h-6 items-center")

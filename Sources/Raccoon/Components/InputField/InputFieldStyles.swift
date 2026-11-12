@@ -2,6 +2,8 @@ public struct InputFieldStyles {
     public static let inputReset: String = CommonStyles.inputReset
     public static let inputBorder: String = CommonStyles.inputBorder
     public static let inputContainerBorder: String = CommonStyles.inputBorder
+    public static let inputContainerBorderError: String = CommonStyles
+        .inputBorderError
     public static let inputContainerHover: String = CommonStyles.hoverDefault
     public static let inputContainerFocus: String = CommonStyles.focusDefault
     public static let fontMono: String = CommonStyles.fontMono

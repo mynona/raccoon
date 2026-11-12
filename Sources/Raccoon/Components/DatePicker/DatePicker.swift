@@ -1216,38 +1216,8 @@ public struct DatePicker: TemplateRepresentable {
                     Div {
                         showLabel()
                         Div {
-                            // Left quick stepper: previous month (single mode only)
-                            if !data.isRange {
-                                Button {
-                                    Svg.icon(
-                                        .chevron_left,
-                                        width: 16,
-                                        height: 16
-                                    )
-                                }
-                                .type(.button)
-                                .setAttribute(
-                                    name: "@click.stop",
-                                    value: "prevMonth()"
-                                )
-                                .localized(.ariaLabel, Self.previousMonth)
-                                .class(styles.stepperButton)
-                            }
-
-                            // Centered group: calendar icon, date segments, pipe, and week number
+                            // Date segments, pipe and week number, left aligned like the text of an input
                             Div {
-                                Svg.icon(
-                                    .calendar,
-                                    title: Self.calendar,
-                                    width: 16,
-                                    height: 16,
-                                    role: .img
-                                )
-                                .class(
-                                    "shrink-0 select-none pointer-events-none"
-                                )
-                                .addClass(styles.textColorInput)
-
                                 if !data.isRange {
                                     Div {
                                         renderSegments()
@@ -1296,29 +1266,47 @@ public struct DatePicker: TemplateRepresentable {
                                 value: "showDatepicker"
                             )
                             .class(
-                                "flex items-center space-x-2 cursor-pointer select-none mx-auto"
+                                "flex flex-1 items-center space-x-2 cursor-pointer select-none"
                             )
                             .setAttribute(
                                 name: "@click",
                                 value: "showDatepicker = !showDatepicker"
                             )
 
-                            // Right quick stepper: next month (single mode only)
+                            // Quick steppers: previous and next month, together on the right (single mode only)
                             if !data.isRange {
-                                Button {
-                                    Svg.icon(
-                                        .chevron_right,
-                                        width: 16,
-                                        height: 16
+                                Div {
+                                    Button {
+                                        Svg.icon(
+                                            .chevron_left,
+                                            width: 16,
+                                            height: 16
+                                        )
+                                    }
+                                    .type(.button)
+                                    .setAttribute(
+                                        name: "@click.stop",
+                                        value: "prevMonth()"
                                     )
+                                    .localized(.ariaLabel, Self.previousMonth)
+                                    .class(styles.stepperButton)
+
+                                    Button {
+                                        Svg.icon(
+                                            .chevron_right,
+                                            width: 16,
+                                            height: 16
+                                        )
+                                    }
+                                    .type(.button)
+                                    .setAttribute(
+                                        name: "@click.stop",
+                                        value: "nextMonth()"
+                                    )
+                                    .localized(.ariaLabel, Self.nextMonth)
+                                    .class(styles.stepperButton)
                                 }
-                                .type(.button)
-                                .setAttribute(
-                                    name: "@click.stop",
-                                    value: "nextMonth()"
-                                )
-                                .localized(.ariaLabel, Self.nextMonth)
-                                .class(styles.stepperButton)
+                                .class("flex shrink-0 items-center gap-1")
                             }
                         }
                         .class(styles.pillContainer)
@@ -1334,10 +1322,14 @@ public struct DatePicker: TemplateRepresentable {
                     .class(
                         "w-full pb-1.5 pt-2.5 px-3"
                     )
+                    // Label and pill sit inside one border, as in `InputField`
+                    .addClass(styles.inputContainerBorder)
+                    .addClass(styles.inputContainerHover)
+                    .addClass(styles.inputContainerFocus)
                     .setAttribute(
                         name: ":class",
                         value:
-                            "[(hasServerError || hasError) ? '\(styles.errorBorder)' : '\(styles.regularBorder)', showDatepicker ? 'datepicker-open' : '']"
+                            "{ '\(styles.errorBorder)': hasServerError || hasError, '\(styles.successBorder)': !hasServerError && !hasError && selectedDate !== null, '\(styles.regularBorder)': !hasServerError && !hasError && selectedDate === null, 'datepicker-open': showDatepicker }"
                     )
                     .if(data.backgroundColor != nil) {
                         $0.style("background-color: \(data.backgroundColor!);")
@@ -1346,9 +1338,6 @@ public struct DatePicker: TemplateRepresentable {
                     }
                 }
                 .class("relative")
-                .addClass(styles.inputContainerBorder)
-                .addClass(styles.inputContainerHover)
-                .addClass(styles.inputContainerFocus)
                 showDatepicker()
             }
             .class("relative ")

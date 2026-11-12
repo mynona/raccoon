@@ -186,7 +186,7 @@ public struct MultipleFileUpload: TemplateRepresentable {
             .setAttribute(
                 name: ":class",
                 value:
-                    "{ '\(inputFieldStyles.borderColorError)': hasServerError, '\(inputFieldStyles.borderColorDefault)': !hasServerError }"
+                    "{ '\(inputFieldStyles.borderColorError)': hasServerError, '\(inputFieldStyles.borderColorSuccess)': !hasServerError && hasFile, '\(inputFieldStyles.borderColorDefault)': !hasServerError && !hasFile }"
             )
 
             showErrorMessages()
@@ -198,8 +198,13 @@ public struct MultipleFileUpload: TemplateRepresentable {
                 """
                 { 
                   hasServerError: \(data.errorMessages != nil ? "true" : "false"),
+                  hasFile: false,
                 }
                 """
+        )
+        .setAttribute(
+            name: "@files-changed",
+            value: "hasFile = $event.detail.count > 0; if (hasFile) hasServerError = false"
         )
 
     }

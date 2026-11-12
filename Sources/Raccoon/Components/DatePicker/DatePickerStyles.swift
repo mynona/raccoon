@@ -41,16 +41,12 @@ public struct DatePickerStyles {
     .joined(separator: " ")
 
     public static let errorBorder: String = CommonStyles.borderColorError
+    public static let successBorder: String = CommonStyles.borderColorSuccess
     public static let regularBorder: String = CommonStyles.borderColorDefault
 
     // MARK: - Pill Input Bar & Steppers
     public static let pillContainer: String = [
-        "flex items-center justify-between w-full px-3 py-2 transition shadow-xs",
-        CommonStyles.cornerRadiusLarge,
-        CommonStyles.borderColorDefault,
-        "border",
-        CommonStyles.hoverDefault,
-        CommonStyles.focusDefault,
+        "flex items-center justify-between gap-2 w-full py-1 transition"
     ]
     .joined(separator: " ")
 

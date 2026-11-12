@@ -73,7 +73,9 @@ public struct Radio: TemplateRepresentable {
                     )
                     .if(data.isSelected) { $0.checked() }
                     .if(!isEnabled) { $0.disabled() }
-                    .if(hasError || data.isInvalid) { $0.ariaInvalid(.true) }
+                    .if(hasError || data.isInvalid) {
+                        $0.ariaInvalid(.true).addClass(styles.borderColorError)
+                    }
                     .if(describedBy != nil) {
                         $0.setAttribute(
                             name: "aria-describedby",

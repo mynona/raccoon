@@ -38,6 +38,10 @@ if (!window.__fileUploadLoaded) {
       isFocused: false,
       hasServerError: false,
       inputId,
+      // Tells the surrounding field (border, server error) whether a file is chosen
+      init() {
+        this.$watch('files', (files) => this.$dispatch('files-changed', { count: files.length }));
+      },
       // Clears the selected file and resets the underlying input
       remove(index) {
         this.files = createFileList([]);
@@ -88,6 +92,9 @@ if (!window.__fileUploadLoaded) {
       isFocused: false,
       hasServerError: false,
       inputId,
+      init() {
+        this.$watch('files', (files) => this.$dispatch('files-changed', { count: files.length }));
+      },
       formatSize(bytes) {
         if (!bytes || bytes <= 0) return '0 B';
         const i = Math.floor(Math.log(bytes) / Math.log(1024));

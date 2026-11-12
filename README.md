@@ -73,6 +73,7 @@ let html = renderHTML(
 | `DeleteModal` | Confirmation modal dialog for delete and destructive actions |
 | `Dropdown` | Accessible single-option form dropdown without search, styling-matched to `SimpleMenu` and interchangeable with `SingleSelect` |
 | `ErrorMessage` | Inline validation and error notification element |
+| `ErrorSummary` | Summary of a form's problems with the count and a link to each field, rendered by `FormBuilder` with `validationMethod: .errorSummary` |
 | `FileList` | List view displaying downloadable files with metadata |
 | `FormBuilder` | Declarative form builder rendering accessible form fields, groups, and actions in page or dialog layouts |
 | `Glossary` | Searchable glossary overview and index |

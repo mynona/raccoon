@@ -187,6 +187,7 @@ public struct SingleSelect: TemplateRepresentable {
                 name: "x-ref",
                 value: "comboButton"
             )
+            .type(.button)
             .flagAttribute("x-combobox:button")
 
         }
@@ -213,6 +214,7 @@ public struct SingleSelect: TemplateRepresentable {
             name: "x-show",
             value: "query.length > 0"
         )
+        .type(.button)
         .setAttribute(
             name: "@click",
             value: "clearInput()"
@@ -449,7 +451,7 @@ public struct SingleSelect: TemplateRepresentable {
                     .setAttribute(
                         name: ":class",
                         value:
-                            "{ '\(inputFieldStyles.borderColorError)': hasServerError, '\(inputFieldStyles.borderColorDefault)': !hasServerError }"
+                            "{ '\(inputFieldStyles.borderColorError)': hasServerError, '\(inputFieldStyles.borderColorSuccess)': !hasServerError && selected !== null, '\(inputFieldStyles.borderColorDefault)': !hasServerError && selected === null }"
                     )
                     .if(data.backgroundColor != nil) {
                         $0.style("background-color: \(data.backgroundColor!);")

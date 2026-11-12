@@ -7,6 +7,8 @@ public struct CheckBoxSelectStyles {
     public static let inputFieldReset = InputFieldStyles.inputReset
     public static let inputContainerBorder = InputFieldStyles
         .inputContainerBorder
+    public static let inputContainerBorderError = InputFieldStyles
+        .inputContainerBorderError
     public static let inputContainerHover = InputFieldStyles.inputContainerHover
     public static let inputContainerFocus = InputFieldStyles.inputContainerFocus
 

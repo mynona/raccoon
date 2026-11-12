@@ -9,6 +9,7 @@ public struct CheckStyles {
     public static let textColorLabelDisabled = CommonStyles.textColorDisabled
     public static let textColorCheckbox =
         "text-primary-dim check-input accent-white dark:accent-black disabled:text-on-disabled print:text-print"
+    public static let borderColorError = CommonStyles.borderColorError
 
     // MARK: CommonStyles
     public static let textColorLabel = CommonStyles.textColorDefault

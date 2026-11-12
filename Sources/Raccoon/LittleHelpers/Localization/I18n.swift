@@ -139,6 +139,7 @@ public enum Translations {
         "inputlist": inputlist,
         "passwordinput": passwordinput,
         "skiplink": skiplink,
+        "errorsummary": errorsummary,
         "stepper": stepper,
         "tabgroup": tabgroup,
         "tablepaginator": tablepaginator,

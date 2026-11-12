@@ -188,6 +188,8 @@ public struct Dropdown: TemplateRepresentable {
             "dropdown({ selectedValue: '\(escapedVal)', selectedTitle: '\(escapedTitle)', hasServerError: \(hasError ? "true" : "false") })"
 
         Div {
+            // Label and trigger share one border, as in `InputField`
+            Div {
             // Label
             if let label = data.label {
                 Label(label).render()
@@ -234,7 +236,7 @@ public struct Dropdown: TemplateRepresentable {
                     name: ":aria-controls",
                     value: "$id('dropdown-panel')"
                 )
-                .class(styles.triggerButton)
+                .class(styles.triggerButtonField)
                 .if(data.icon != nil) { $0.addClass(styles.triggerGap) }
 
                 // Floating Panel
@@ -265,7 +267,6 @@ public struct Dropdown: TemplateRepresentable {
                 .flagAttribute("x-cloak")
                 .class(styles.dropdownPanel)
             }
-            .setAttribute(name: "x-data", value: alpineData)
             .setAttribute(name: "x-id", value: "['dropdown-panel']")
             .setAttribute(
                 name: "@keydown.down.prevent.stop",
@@ -294,15 +295,28 @@ public struct Dropdown: TemplateRepresentable {
                     "! $refs.panel.contains($event.target) && ! $refs.button.contains($event.target) && (open = false)"
             )
             .class(styles.container)
+            }
+            .class(styles.fieldContainer)
+            .addClass(styles.inputContainerBorder)
+            .addClass(styles.inputContainerHover)
+            .addClass(styles.inputContainerFocus)
+            .setAttribute(
+                name: ":class",
+                value:
+                    "{ '\(styles.borderColorError)': hasServerError, '\(styles.borderColorSuccess)': !hasServerError && selectedValue !== '', '\(styles.borderColorDefault)': !hasServerError && selectedValue === '' }"
+            )
 
             // Validation & Helper text
+            // Like the other fields, the message goes away together with the error border
             if let errors = data.errorMessages {
-                ErrorMessage(errors).render()
+                Div { ErrorMessage(errors).render() }
+                    .setAttribute(name: "x-show", value: "hasServerError")
             }
             if let helper = data.helperText {
                 HelperText(helper).render()
             }
         }
+        .setAttribute(name: "x-data", value: alpineData)
         .class("space-y-1 w-full")
     }
 

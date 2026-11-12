@@ -26,6 +26,27 @@ public struct DropdownStyles {
     ]
     .joined(separator: " ")
 
+    // MARK: - Field container (label and trigger inside one border, as in `InputField`)
+    public static let fieldContainer: String = "px-3 pb-1.5 pt-2.5"
+    public static let inputContainerBorder: String = InputFieldStyles
+        .inputContainerBorder
+    public static let inputContainerHover: String = InputFieldStyles
+        .inputContainerHover
+    public static let inputContainerFocus: String = InputFieldStyles
+        .inputContainerFocus
+
+    public static let triggerButtonField: String = [
+        "flex items-center justify-between w-full p-0 text-sm leading-6 text-left transition-colors bg-transparent focus:outline-none",
+        CommonStyles.cursorPointer,
+        CommonStyles.textColorDefault,
+    ]
+    .joined(separator: " ")
+
+    // MARK: - Trigger state colours (as in `InputField`: error, success, default)
+    public static let borderColorDefault: String = CommonStyles.borderColorDefault
+    public static let borderColorError: String = CommonStyles.borderColorError
+    public static let borderColorSuccess: String = CommonStyles.borderColorSuccess
+
     // MARK: - Trigger Icon (same colour as the SearchField icon)
     public static let triggerGap: String = "gap-2"
     public static let triggerContent: String = "flex items-center gap-2"

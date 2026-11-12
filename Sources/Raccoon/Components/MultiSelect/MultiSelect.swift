@@ -536,7 +536,7 @@ public struct MultiSelect: TemplateRepresentable {
                     .setAttribute(
                         name: ":class",
                         value:
-                            "{ '\(inputFieldStyles.borderColorError)': hasServerError, '\(inputFieldStyles.borderColorDefault)': !hasServerError }"
+                            "{ '\(inputFieldStyles.borderColorError)': hasServerError, '\(inputFieldStyles.borderColorSuccess)': !hasServerError && selected.length > 0, '\(inputFieldStyles.borderColorDefault)': !hasServerError && selected.length === 0 }"
                     )
 
                     showOptions()

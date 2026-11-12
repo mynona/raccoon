@@ -7,6 +7,8 @@ public struct RadioStyles {
     public static let labelWrapper = "ml-3"
 
     // MARK: - Input
+    public static let borderColorError = CommonStyles.borderColorError
+
     private static let input =
         "radio-input h-4 w-4 text-primary-dim disabled:text-on-disabled print:text-print"
 

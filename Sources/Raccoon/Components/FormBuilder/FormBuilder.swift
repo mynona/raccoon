@@ -108,6 +108,52 @@ public struct FormBuilder: TemplateRepresentable {
         }
     }
 
+    /// One entry per field with a problem, plus the form-level errors.
+    /// Form-level errors have no field of their own: their link goes to the first field.
+    var summaryEntries: [FormErrorEntry] {
+        var entries = data.fields.flatMap(\.errorEntries)
+        if let formErrors = data.errorMessages?.errorMessages,
+            !formErrors.isEmpty
+        {
+            entries.append(
+                FormErrorEntry(
+                    fieldId: data.fields.lazy.compactMap(\.firstControlId)
+                        .first ?? data.id,
+                    label: ErrorSummary.formLabel,
+                    messages: formErrors
+                )
+            )
+        }
+        return entries
+    }
+
+    @Builder<Element>
+    func showErrors() -> [Element] {
+        switch data.validationMethod {
+        case .errorSummary:
+            // The summary replaces the separate error block, which is a live region (`role="alert"`)
+            ErrorSummary(
+                ErrorSummaryData(
+                    id: "\(data.id)-error-summary",
+                    entries: summaryEntries
+                )
+            )
+            .render()
+        case .submit:
+            // The script keeps the submit button in step with the errors of the fields
+            Script()
+                .src("/js/error-summary.js")
+                .setAttribute(name: "type", value: "text/javascript")
+            if let errors = data.errorMessages {
+                ErrorMessage(errors).render()
+            }
+        case .none:
+            if let errors = data.errorMessages {
+                ErrorMessage(errors).render()
+            }
+        }
+    }
+
     @Builder<Element>
     public func render() -> [Element] {
 
@@ -121,9 +167,7 @@ public struct FormBuilder: TemplateRepresentable {
                 .render()
             }
 
-            if let errors = data.errorMessages {
-                ErrorMessage(errors).render()
-            }
+            showErrors()
 
             showFields(data.fields)
             showActions()
@@ -151,6 +195,9 @@ public struct FormBuilder: TemplateRepresentable {
         }
         .if(data.isTracked) {
             $0.setAttribute(name: "data-matomo-name", value: data.id)
+        }
+        .if(data.validationMethod == .submit) {
+            $0.setAttribute(name: "data-validation", value: "submit")
         }
     }
 }
