@@ -243,49 +243,76 @@ public struct Basic: TemplateRepresentable {
 
         // Navigation
         Nav {
-            Ul {
-                for group in PreviewNavigation.groups {
-                    for section in group.sections {
-                        for item in section.items {
-                            let option = SimpleMenuOption(
-                                id: item.url,
-                                // Component names are fixed terms
-                                title: LocalizedText(
-                                    verbatim: item.title
-                                ),
-                                isSelected: item.url == currentPath,
-                                href: item.url,
-                                icon: item.isOpenInNewTab
-                                    ? .arrow_up_right_square : nil,
-                                role: nil
-                            )
+            for group in PreviewNavigation.groups {
+                if PreviewNavigation.groups.count > 1 {
+                    H2(group.name)
+                        .class(styles.groupTitle)
+                }
 
-                            Li {
-                                showSidebarOption(
-                                    option,
-                                    isOpenInNewTab: item
-                                        .isOpenInNewTab
+                for section in group.sections {
+                    let itemTitles = section.items.map { "'\($0.title.lowercased())'" }.joined(separator: ", ")
+
+                    Div {
+                        if let title = section.title {
+                            if PreviewNavigation.groups.count > 1 {
+                                H3(title.resolved)
+                                    .localized(title)
+                                    .class(styles.subGroupTitle)
+                            } else {
+                                H2(title.resolved)
+                                    .localized(title)
+                                    .class(styles.subGroupTitle)
+                            }
+                        }
+
+                        Ul {
+                            for item in section.items {
+                                let option = SimpleMenuOption(
+                                    id: item.url,
+                                    // Component names are fixed terms
+                                    title: LocalizedText(
+                                        verbatim: item.title
+                                    ),
+                                    isSelected: item.url == currentPath,
+                                    href: item.url,
+                                    icon: item.isOpenInNewTab
+                                        ? .arrow_up_right_square : nil,
+                                    role: nil
+                                )
+
+                                Li {
+                                    showSidebarOption(
+                                        option,
+                                        isOpenInNewTab: item
+                                            .isOpenInNewTab
+                                    )
+                                }
+                                .setAttribute(
+                                    name: "x-show",
+                                    value:
+                                        "!search || '\(item.title.lowercased())'.includes(search.toLowerCase().trim())"
                                 )
                             }
-                            .setAttribute(
-                                name: "x-show",
-                                value:
-                                    "!search || '\(item.title.lowercased())'.includes(search.toLowerCase().trim())"
-                            )
                         }
+                        .class(styles.navList)
                     }
+                    .class(styles.navSection)
+                    .setAttribute(
+                        name: "x-show",
+                        value:
+                            "!search || [\(itemTitles)].some(t => t.includes(search.toLowerCase().trim()))"
+                    )
                 }
             }
-            .class(styles.navList)
-            .if(isMobile) {
-                $0.setAttribute(
-                    name: "@click",
-                    value: "showNavigation = false; drawerOpen = false"
-                )
-            }
         }
-        .ariaLabel("Component preview navigation")
+        .localized(.ariaLabel, PreviewTexts.mainNavigation)
         .class(styles.sidebarNav)
+        .if(isMobile) {
+            $0.setAttribute(
+                name: "@click",
+                value: "if ($event.target.closest('a')) { showNavigation = false; drawerOpen = false; }"
+            )
+        }
     }
 
     @Builder<Element>

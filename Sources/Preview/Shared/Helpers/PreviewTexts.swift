@@ -39,6 +39,38 @@ enum PreviewTexts {
         "preview.sectionComponents",
         "Components"
     )
+    static let sectionInputElements = LocalizedText(
+        "preview.sectionInputElements",
+        "Input Elements"
+    )
+    static let sectionForms = LocalizedText(
+        "preview.sectionForms",
+        "Forms"
+    )
+    static let sectionActions = LocalizedText(
+        "preview.sectionActions",
+        "Buttons & Actions"
+    )
+    static let sectionNavigation = LocalizedText(
+        "preview.sectionNavigation",
+        "Navigation"
+    )
+    static let sectionFeedback = LocalizedText(
+        "preview.sectionFeedback",
+        "Feedback & Overlays"
+    )
+    static let sectionDataDisplay = LocalizedText(
+        "preview.sectionDataDisplay",
+        "Data Display"
+    )
+    static let sectionContent = LocalizedText(
+        "preview.sectionContent",
+        "Content & Media"
+    )
+    static let sectionSettings = LocalizedText(
+        "preview.sectionSettings",
+        "Theme & Settings"
+    )
     static let pageTitle = LocalizedText(
         "preview.pageTitle",
         "Preview – {{title}}"

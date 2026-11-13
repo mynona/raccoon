@@ -60,6 +60,7 @@ public struct RaccoonPreviewController: RouteCollection, Sendable {
         preview.get("tab-group", use: getTabGroup)
         preview.get("textarea-field", use: getTextareaField)
         preview.get("theme-switcher", use: getThemeSwitcher)
+        preview.get("toast", use: getToast)
         preview.get("toggle-switch", use: getToggleSwitch)
         preview.get("tooltip", use: getTooltip)
         preview.get("cookie-banner", use: getCookieBanner)
@@ -475,6 +476,12 @@ public struct RaccoonPreviewController: RouteCollection, Sendable {
     @Sendable
     func getThemeSwitcher(_ request: Request) async throws -> Response {
         let view = request.templates.renderHtml(ThemeSwitcherView())
+        return view
+    }
+
+    @Sendable
+    func getToast(_ request: Request) async throws -> Response {
+        let view = request.templates.renderHtml(ToastView())
         return view
     }
 }

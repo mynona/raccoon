@@ -124,7 +124,7 @@ public struct BasicStyles {
     public static let navSection: String = "mt-6 first:mt-2"
 
     // MARK: - Navigation List & Items (SimpleMenuStyles Delegation)
-    public static let navList: String = "space-y-4"
+    public static let navList: String = "space-y-1"
 
     public static let navItem: String = SimpleMenuStyles.menuItem
 
