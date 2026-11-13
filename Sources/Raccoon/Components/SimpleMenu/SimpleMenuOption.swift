@@ -30,6 +30,9 @@ public struct SimpleMenuOption: Sendable {
     /// Optional dynamic Alpine.js expression for `:aria-checked`.
     public let bindAriaChecked: String?
 
+    /// Visual and interaction state of the menu option (e.g. `.enabled`, `.disabled`). Defaults to `.enabled`.
+    public let state: ComponentState
+
     /// Creates a new dropdown menu option.
     ///
     /// - Parameters:
@@ -43,6 +46,7 @@ public struct SimpleMenuOption: Sendable {
     ///   - icon: Optional SVG icon to display.
     ///   - role: Optional ARIA role override.
     ///   - bindAriaChecked: Optional dynamic Alpine.js expression for `:aria-checked`.
+    ///   - state: Component state. When `.disabled`, renders as a non-interactive, dimmed button.
     public init(
         id: String,
         title: LocalizedText,
@@ -52,7 +56,8 @@ public struct SimpleMenuOption: Sendable {
         bindSelected: String? = nil,
         icon: SvgIcon? = nil,
         role: String? = nil,
-        bindAriaChecked: String? = nil
+        bindAriaChecked: String? = nil,
+        state: ComponentState = .enabled
     ) {
         self.id = id
         self.title = title
@@ -63,5 +68,6 @@ public struct SimpleMenuOption: Sendable {
         self.icon = icon
         self.role = role
         self.bindAriaChecked = bindAriaChecked
+        self.state = state
     }
 }

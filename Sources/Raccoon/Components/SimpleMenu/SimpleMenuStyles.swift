@@ -83,6 +83,18 @@ public struct SimpleMenuStyles {
     ]
     .joined(separator: " ")
 
+    // MARK: - Menu Item Disabled
+    public static let menuItemDisabled: String = [
+        "flex items-center justify-between w-full px-3 py-1 text-left opacity-40",
+        CommonStyles.cursorNotAllowed,
+        CommonStyles.cornerRadiusMedium,
+        CommonStyles.fontSans,
+        CommonStyles.textNoWrap,
+        CommonStyles.textSizeSmall,
+        CommonStyles.textColorDefault,
+    ]
+    .joined(separator: " ")
+
     // MARK: - Menu Item Content (Leading Icon + Title)
     public static let itemContent: String = "flex items-center gap-2 min-w-0"
 

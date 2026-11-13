@@ -95,7 +95,17 @@ public struct SimpleMenu: TemplateRepresentable {
     @Builder<Element>
     private func showOptionItem(_ option: SimpleMenuOption) -> [Element] {
         let role = option.role ?? "menuitem"
-        if let href = option.href {
+        if option.state == .disabled {
+            Button {
+                showOptionContent(option)
+            }
+            .type(.button)
+            .setAttribute(name: "role", value: role)
+            .flagAttribute("disabled")
+            .setAttribute(name: "aria-disabled", value: "true")
+            .class(styles.menuItemDisabled)
+        }
+        else if let href = option.href {
             // SSR Link mode
             A {
                 showOptionContent(option)
@@ -156,6 +166,10 @@ public struct SimpleMenu: TemplateRepresentable {
                 showTriggerContent()
             }
             .type(.button)
+            .if(data.isSortHandle) {
+                $0.flagAttribute("x-sort:handle")
+                    .addClass("cursor-grab active:cursor-grabbing")
+            }
             .if(data.id != nil) {
                 guard let id = data.id else { return $0 }
                 return $0.id(id)

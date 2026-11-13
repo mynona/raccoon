@@ -174,6 +174,34 @@ struct SimpleMenuTests {
         #expect(html.contains("Custom Avatar Trigger"))
     }
 
+    @Test("renders disabled option as disabled button with aria-disabled")
+    func rendersDisabledOption() async throws {
+        let data = SimpleMenuData(
+            options: [
+                SimpleMenuOption(id: "1", title: "Enabled", clickAction: "run()"),
+                SimpleMenuOption(id: "2", title: "Disabled", clickAction: "run()", state: .disabled),
+            ]
+        )
+        let html = renderHTML(SimpleMenu(data).render())
+
+        #expect(html.contains("Enabled"))
+        #expect(html.contains("Disabled"))
+        #expect(html.contains("disabled=\"disabled\"") || html.contains("disabled"))
+        #expect(html.contains("aria-disabled=\"true\""))
+    }
+
+    @Test("adds x-sort:handle and grab cursor when isSortHandle is true")
+    func rendersSortHandleTrigger() async throws {
+        let data = SimpleMenuData(
+            options: [SimpleMenuOption(id: "1", title: "Item")],
+            isSortHandle: true
+        )
+        let html = renderHTML(SimpleMenu(data).render())
+
+        #expect(html.contains("x-sort:handle"))
+        #expect(html.contains("cursor-grab"))
+    }
+
     @Test("renders leading icon in options when specified")
     func rendersOptionLeadingIcon() async throws {
         let options = [

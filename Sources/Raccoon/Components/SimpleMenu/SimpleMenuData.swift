@@ -69,6 +69,9 @@ public struct SimpleMenuData: Sendable {
     /// Optional custom CSS class override for the trigger button.
     public let triggerClass: String?
 
+    /// Whether the trigger button also acts as an Alpine Sort drag handle (`x-sort:handle`).
+    public let isSortHandle: Bool
+
     // MARK: - 6. Analytics & Tracking
 
     /// Matomo tracking consent status.
@@ -128,6 +131,7 @@ public struct SimpleMenuData: Sendable {
         triggerIcon: SvgIcon? = nil,
         hasTriggerChevron: Bool = true,
         triggerClass: String? = nil,
+        isSortHandle: Bool = false,
 
         // 6. Analytics & Tracking
         matomoStatus: MatomoStatus = .DECLINED,
@@ -159,6 +163,7 @@ public struct SimpleMenuData: Sendable {
         self.triggerIcon = triggerIcon
         self.hasTriggerChevron = hasTriggerChevron
         self.triggerClass = triggerClass
+        self.isSortHandle = isSortHandle
 
         // 6. Analytics & Tracking
         self.matomoStatus = matomoStatus
