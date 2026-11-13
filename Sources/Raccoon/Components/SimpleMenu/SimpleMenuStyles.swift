@@ -18,25 +18,22 @@ public struct SimpleMenuStyles {
 
     // MARK: - Dropdown Panel
     public static let dropdownPanel: String = [
-        "absolute left-0 mt-2 w-48 z-50 p-1 border shadow-md",
+        "absolute left-0 mt-2 w-48 z-50 p-1 border shadow-md bg-white dark:bg-gray-900",
         CommonStyles.cornerRadiusMedium,
-        CommonStyles.backgroundLight,
         CommonStyles.borderColorDefault,
     ]
     .joined(separator: " ")
 
     public static let dropdownPanelRight: String = [
-        "absolute right-0 mt-2 w-48 z-50 p-1 border",
+        "absolute right-0 mt-2 w-48 z-50 p-1 border bg-white dark:bg-gray-900",
         CommonStyles.cornerRadiusMedium,
-        CommonStyles.backgroundLight,
         CommonStyles.borderColorDefault,
     ]
     .joined(separator: " ")
 
     public static let dropdownPanelCenter: String = [
-        "absolute left-1/2 -translate-x-1/2 mt-2 w-48 z-50 p-1 border shadow-md",
+        "absolute left-1/2 -translate-x-1/2 mt-2 w-48 z-50 p-1 border shadow-md bg-white dark:bg-gray-900",
         CommonStyles.cornerRadiusMedium,
-        CommonStyles.backgroundLight,
         CommonStyles.borderColorDefault,
     ]
     .joined(separator: " ")
@@ -58,9 +55,8 @@ public struct SimpleMenuStyles {
         default: alignClass = "left-0"
         }
         return [
-            "absolute \(alignClass) mt-2 \(width) z-50 p-1 border shadow-md",
+            "absolute \(alignClass) mt-2 \(width) z-50 p-1 border shadow-md bg-white dark:bg-gray-900",
             CommonStyles.cornerRadiusMedium,
-            CommonStyles.backgroundLight,
             CommonStyles.borderColorDefault,
         ]
         .joined(separator: " ")

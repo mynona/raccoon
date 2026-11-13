@@ -12,21 +12,9 @@ public struct ThemeSwitcherStyles {
     public static let container: String = "relative inline-block text-left m-0"
 
     // MARK: - Dropdown Panel
-    public static let dropdownPanel: String = [
-        "absolute left-0 mt-2 w-48 z-50 p-1 border shadow-md",
-        CommonStyles.cornerRadiusMedium,
-        CommonStyles.backgroundLight,
-        CommonStyles.borderColorDefault,
-    ]
-    .joined(separator: " ")
+    public static let dropdownPanel: String = SimpleMenuStyles.dropdownPanel
 
-    public static let dropdownPanelRight: String = [
-        "absolute right-0 mt-2 w-48 z-50 p-1 border",
-        CommonStyles.cornerRadiusMedium,
-        CommonStyles.backgroundLight,
-        CommonStyles.borderColorDefault,
-    ]
-    .joined(separator: " ")
+    public static let dropdownPanelRight: String = SimpleMenuStyles.dropdownPanelRight
 
     // MARK: - Menu List
     public static let menuList: String = "list-none m-0 p-2"

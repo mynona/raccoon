@@ -21,10 +21,6 @@ if (!window.__simpleMenuLoaded) {
             return Array.from(this.$refs.panel ? this.$refs.panel.querySelectorAll('[role^="menuitem"], a, button') : []);
         },
 
-        items() {
-            return this.menuItems();
-        },
-
         onTab(event) {
             if (!this.open) return;
             event.preventDefault();
