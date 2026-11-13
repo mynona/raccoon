@@ -221,7 +221,9 @@ public struct SimpleMenu: TemplateRepresentable {
             .flagAttribute(
                 data.align == .right
                     ? "x-transition.origin.top.right"
-                    : "x-transition.origin.top.left"
+                    : (data.align == .center
+                        ? "x-transition.origin.top"
+                        : "x-transition.origin.top.left")
             )
             .setAttribute(name: "@click.outside", value: closeAction)
             .setAttribute(name: ":id", value: "$id('\(data.alpineId)')")

@@ -33,13 +33,30 @@ public struct SimpleMenuStyles {
     ]
     .joined(separator: " ")
 
+    public static let dropdownPanelCenter: String = [
+        "absolute left-1/2 -translate-x-1/2 mt-2 w-48 z-50 p-1 border shadow-md",
+        CommonStyles.cornerRadiusMedium,
+        CommonStyles.backgroundLight,
+        CommonStyles.borderColorDefault,
+    ]
+    .joined(separator: " ")
+
     public static func dropdownPanel(width: String, align: ComponentPosition)
         -> String
     {
         if width == "w-48" {
-            return align == .right ? dropdownPanelRight : dropdownPanel
+            switch align {
+            case .right: return dropdownPanelRight
+            case .center: return dropdownPanelCenter
+            default: return dropdownPanel
+            }
         }
-        let alignClass = align == .right ? "right-0" : "left-0"
+        let alignClass: String
+        switch align {
+        case .right: alignClass = "right-0"
+        case .center: alignClass = "left-1/2 -translate-x-1/2"
+        default: alignClass = "left-0"
+        }
         return [
             "absolute \(alignClass) mt-2 \(width) z-50 p-1 border shadow-md",
             CommonStyles.cornerRadiusMedium,

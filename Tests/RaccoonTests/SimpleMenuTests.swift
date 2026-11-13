@@ -147,6 +147,20 @@ struct SimpleMenuTests {
         #expect(html.contains("x-transition.origin.top.right"))
     }
 
+    @Test("supports center alignment")
+    func supportsCenterAlignment() async throws {
+        let data = SimpleMenuData(
+            options: [SimpleMenuOption(id: "1", title: "Item")],
+            align: .center,
+            width: "w-64"
+        )
+        let html = renderHTML(SimpleMenu(data).render())
+
+        #expect(html.contains("left-1/2 -translate-x-1/2"))
+        #expect(html.contains("w-64"))
+        #expect(html.contains("x-transition.origin.top"))
+    }
+
     @Test("renders custom trigger content when provided via builder closure")
     func rendersCustomTriggerContent() async throws {
         let data = SimpleMenuData(

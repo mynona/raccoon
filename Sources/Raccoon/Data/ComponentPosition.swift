@@ -4,4 +4,5 @@ public enum ComponentPosition: String, Codable, Sendable {
     case right
     case bottom
     case left
+    case center
 }
