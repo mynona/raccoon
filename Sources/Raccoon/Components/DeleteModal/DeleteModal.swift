@@ -189,7 +189,7 @@ public struct DeleteModal: TemplateRepresentable {
                 )
                 .class(
                     """
-                    relative z-100 inset-x-0 mx-auto w-full max-w-2xl overflow-y-auto
+                    relative z-100 mx-auto w-full max-w-2xl overflow-y-auto
                     """
                 )
                 .addClass(DialogStyles.backgroundColorWarning)
@@ -212,7 +212,7 @@ public struct DeleteModal: TemplateRepresentable {
                 value: "open = false, $store.modal = false"
             )
             .class(
-                "z-10 fixed flex min-h-screen items-center container mx-auto w-full p-4"
+                "fixed inset-0 z-10 flex min-h-screen items-center justify-center p-4 overflow-y-auto"
             )
 
         }
@@ -241,6 +241,6 @@ public struct DeleteModal: TemplateRepresentable {
             value: "$id('modal-title')"
         )
         .flagAttribute("x-cloak")
-        .class("absolute inset-0 overflow-y-auto")
+        .class("fixed inset-0 z-50 overflow-y-auto")
     }
 }

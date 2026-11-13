@@ -182,6 +182,21 @@ struct DeleteModalTests {
         #expect(html.contains("/js/modal.js"))
     }
 
+    @Test("renders modal centered horizontally and vertically on screen")
+    func rendersModalCentered() async throws {
+        let html = renderHTML(
+            DeleteModal(
+                DeleteModalData(
+                    deletionRedirect: "/items/1/delete",
+                    csrfToken: nil
+                )
+            )
+            .render()
+        )
+        #expect(html.contains("fixed inset-0 z-50 overflow-y-auto"))
+        #expect(html.contains("fixed inset-0 z-10 flex min-h-screen items-center justify-center p-4 overflow-y-auto"))
+    }
+
     // MARK: localization
 
     @Test("all texts are built in and translated; the warning is one sentence")
