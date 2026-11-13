@@ -462,6 +462,14 @@ struct DataTableTests {
         #expect(!html.contains("aria-label=\"Rock \"n\""))
     }
 
+    @Test("filter toggle has default text color for contrast in all themes")
+    func filterToggleTextColor() {
+        let data = makeData()
+        let html = renderHTML(DataTable(data).render())
+        #expect(html.contains("x-ref=\"filterToggle\""))
+        #expect(html.contains(CommonStyles.textColorDefault))
+    }
+
     @Test("loads the SimpleTable factory and the DataTable factory")
     func scripts() {
         let html = renderHTML(DataTable(makeData()).render())

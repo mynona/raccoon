@@ -32,6 +32,7 @@ public struct DataTableStyles {
         CommonStyles.cursorPointer,
         ActionButtonStyles.font,
         CommonStyles.textSizeSmall,
+        CommonStyles.textColorDefault,
         "inline-flex flex-row items-center space-x-2 py-1 px-2 rounded",
         "hover:bg-tertiary",
         CommonStyles.focusDefault,
