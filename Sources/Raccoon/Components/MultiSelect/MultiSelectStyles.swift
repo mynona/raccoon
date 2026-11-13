@@ -6,8 +6,11 @@ public struct MultiSelectStyles {
     public static let infoTextColor = CommonStyles.textColorDefault
     public static let infoBorder = "border-b border-gray-300 border-gray-400"
     // Option values
-    public static let optionInfo: String =
-        "bg-gray-100 dark:bg-gray-400 text-xs rounded text-gray-700 dark:text-gray-700"
+    public static let optionInfo: String = [
+        CommonStyles.backgroundLight,
+        CommonStyles.textSizeTiny,
+        "rounded text-gray-700 dark:text-gray-700"
+    ].joined(separator: " ")
     public static let optionSelected = [
         CommonStyles.cornerRadiusTiny,
         CommonStyles.textSizeTiny,
@@ -17,7 +20,8 @@ public struct MultiSelectStyles {
 
     public static let optionContainer: String = [
         CommonStyles.cornerRadiusTiny,
-        "shadow-none ring-0 border-0 focus:ring-0 focus:outline-hidden focus-within:outline-hidden focus-visible:outline-hidden bg-white ring-1 ring-gray-300 dark:bg-surface-dark print:bg-white dark:ring-gray-400"
+        CommonStyles.backgroundLight,
+        "shadow-none ring-0 border-0 focus:ring-0 focus:outline-hidden focus-within:outline-hidden focus-visible:outline-hidden ring-1 ring-gray-300 print:bg-white dark:ring-gray-400"
     ].joined(separator: " ")
 
     // MARK: background
