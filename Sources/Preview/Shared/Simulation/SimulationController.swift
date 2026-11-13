@@ -204,6 +204,15 @@ struct SimulationController: RouteCollection, Sendable {
             )
         )
 
+        if req.headers.first(name: .accept)?.contains("text/html") == true {
+            if let first = files.first {
+                let encoded = first.filename.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? first.filename
+                return req.redirect(to: "/preview/file-upload?success=1&filename=\(encoded)")
+            } else {
+                return req.redirect(to: "/preview/file-upload?error=no_file")
+            }
+        }
+
         let response = Response(status: .ok)
         try response.content.encode(result, as: .json)
         return response
@@ -241,6 +250,14 @@ struct SimulationController: RouteCollection, Sendable {
                 receivedAt: Date()
             )
         )
+
+        if req.headers.first(name: .accept)?.contains("text/html") == true {
+            if !files.isEmpty {
+                return req.redirect(to: "/preview/multiple-file-upload?success=1&count=\(files.count)")
+            } else {
+                return req.redirect(to: "/preview/multiple-file-upload?error=no_file")
+            }
+        }
 
         let response = Response(status: .ok)
         try response.content.encode(result, as: .json)

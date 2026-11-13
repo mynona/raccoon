@@ -65,10 +65,8 @@ public struct RaccoonPreviewController: RouteCollection, Sendable {
         preview.get("tooltip", use: getTooltip)
         preview.get("cookie-banner", use: getCookieBanner)
         preview.get("error-message", use: getErrorMessage)
-        preview.get("file-upload", use: getFileUpload)
         preview.get("form-builder", use: getFormBuilder)
         preview.get("form-builder-dialog", use: getFormBuilderDialog)
-        preview.get("multiple-file-upload", use: getMultipleFileUpload)
         preview.get("helper-text", use: getHelperText)
         preview.get("hidden-field", use: getHiddenField)
         preview.get("logo", use: getLogo)
@@ -392,18 +390,6 @@ public struct RaccoonPreviewController: RouteCollection, Sendable {
     @Sendable
     func getFormBuilderDialog(_ request: Request) async throws -> Response {
         let view = request.templates.renderHtml(FormBuilderDialogView())
-        return view
-    }
-
-    @Sendable
-    func getFileUpload(_ request: Request) async throws -> Response {
-        let view = request.templates.renderHtml(FileUploadView())
-        return view
-    }
-
-    @Sendable
-    func getMultipleFileUpload(_ request: Request) async throws -> Response {
-        let view = request.templates.renderHtml(MultipleFileUploadView())
         return view
     }
 

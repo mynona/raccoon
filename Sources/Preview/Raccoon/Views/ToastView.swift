@@ -168,9 +168,6 @@ struct ToastView: TemplateRepresentable {
                         }
                     }
                 }
-
-                // Render the live container for this preview page
-                Toast(ToastData(position: .bottomEnd)).render()
             }
             .class("mt-4 space-y-6")
         }

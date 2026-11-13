@@ -9,24 +9,29 @@ public struct Basic: TemplateRepresentable {
 
     let title: String?
     let contentPadding: Bool
+    let toasts: [ToastItemData]
     let TEMPLATE_MAIN: [Element]
 
     public init(
         title: String? = nil,
         contentPadding: Bool = true,
+        toasts: [ToastItemData] = [],
         @Builder<Element> _ builder: () -> [Element]
     ) {
         self.title = title
         self.contentPadding = contentPadding
+        self.toasts = toasts
         self.TEMPLATE_MAIN = builder()
     }
 
     public init(
         contentPadding: Bool = true,
+        toasts: [ToastItemData] = [],
         @Builder<Element> _ builder: () -> [Element]
     ) {
         self.title = nil
         self.contentPadding = contentPadding
+        self.toasts = toasts
         self.TEMPLATE_MAIN = builder()
     }
 
@@ -416,6 +421,9 @@ public struct Basic: TemplateRepresentable {
                 .id("main")
                 .setAttribute(name: "role", value: "main")
                 .class(contentPadding ? styles.main : styles.mainNoPadding)
+
+                // Toast notifications container (pre-mounted live region)
+                Toast(ToastData(initialToasts: toasts, position: .bottomEnd)).render()
 
                 // Alpine bundle
                 I18n.scripts()

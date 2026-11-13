@@ -4,6 +4,7 @@ import SGML
 import Vapor
 
 func configure(_ app: Application) async throws {
+    app.routes.defaultMaxBodySize = "4mb"
     app.http.server.configuration.hostname = Environment.get("HOST") ?? "0.0.0.0"
     if let portString = Environment.get("PORT"), let port = Int(portString) {
         app.http.server.configuration.port = port

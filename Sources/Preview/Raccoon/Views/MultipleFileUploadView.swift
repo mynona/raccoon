@@ -7,6 +7,12 @@ import WebBuilders
 
 struct MultipleFileUploadView: TemplateRepresentable {
 
+    let toasts: [ToastItemData]
+
+    init(toasts: [ToastItemData] = []) {
+        self.toasts = toasts
+    }
+
     let variants: [PreviewVariant<MultipleFileUploadData>] = [
         #previewVariant(
             tr(
@@ -115,7 +121,7 @@ struct MultipleFileUploadView: TemplateRepresentable {
     @Builder<Element>
     func render() -> [Element] {
 
-        Basic {
+        Basic(toasts: toasts) {
 
             Div {
 
@@ -191,7 +197,7 @@ struct MultipleFileUploadView: TemplateRepresentable {
                                     contentTracker: MatomoContentTracker(
                                         name: "upload",
                                         piece: "multiple",
-                                        target: "/upload/multiple"
+                                        target: "/preview/multiple-file-upload"
                                     )
                                 )
                             )
@@ -209,7 +215,7 @@ struct MultipleFileUploadView: TemplateRepresentable {
                         .joined(separator: " ")
                     )
                 }
-                .action("/upload/multiple")
+                .action("/preview/multiple-file-upload")
                 .method(.post)
                 .setAttribute(name: "enctype", value: "multipart/form-data")
 
