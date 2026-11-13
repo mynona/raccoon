@@ -18,9 +18,10 @@ public struct SimpleMenuStyles {
 
     // MARK: - Dropdown Panel
     public static let dropdownPanel: String = [
-        "absolute left-0 mt-2 w-48 z-50 p-1 border shadow-md bg-white dark:bg-gray-900",
+        "absolute left-0 mt-2 w-48 z-50 p-1 border shadow-md",
         CommonStyles.cornerRadiusMedium,
         CommonStyles.borderColorDefault,
+        CommonStyles.backgroundLight
     ]
     .joined(separator: " ")
 
