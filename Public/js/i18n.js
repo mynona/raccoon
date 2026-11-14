@@ -1,13 +1,4 @@
-// V2.0
-
-/* Raccoon i18n: browser store for live language switching.
- * - Swift renders the page in the page language. It also embeds the translations of the built-in texts
- *   that the page uses (register) and puts consumer translations on the elements (data-i18n-values).
- * - <html lang> is the single source of truth (base language only: de-AT -> de).
- * - This script re-translates marked elements when <html lang> changes. Nothing is loaded on demand.
- * - Elements opt in with data-i18n / data-i18n-values (text) and data-i18n-<attribute> /
- *   data-i18n-<attribute>-values (aria-label, title, placeholder, alt).
- */
+// V2.1
 
 // Guard against double initialization: the script tag is written once per page, but stay safe
 if (!window.RaccoonI18n) {
@@ -160,8 +151,28 @@ if (!window.RaccoonI18n) {
       });
     }
 
+    // Built-in translations that the page embeds as JSON data blocks. A block is read once.
+    function loadDictionaries() {
+      document
+        .querySelectorAll('script[type="application/json"][data-raccoon-i18n]')
+        .forEach((block) => {
+          if (block.hasAttribute('data-raccoon-i18n-loaded')) return;
+          block.setAttribute('data-raccoon-i18n-loaded', '');
+          let dictionary;
+          try {
+            dictionary = JSON.parse(block.textContent);
+          } catch (error) {
+            warn('invalid translations in <script data-raccoon-i18n>');
+            return;
+          }
+          Object.keys(dictionary).forEach((namespace) => addEntries(namespace, dictionary[namespace]));
+        });
+    }
+
     function start() {
       ready = true;
+      // The data block can also come after this script in the document
+      loadDictionaries();
       apply(document);
       // Language change: <html lang> is observed, no reload required
       new MutationObserver(() => {
@@ -195,6 +206,9 @@ if (!window.RaccoonI18n) {
         return currentLanguage();
       },
     };
+
+    // The data block normally comes before this script, so the texts are available from the first lookup on
+    loadDictionaries();
 
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', start);

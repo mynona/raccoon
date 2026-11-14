@@ -265,9 +265,8 @@ public struct Carousel: TemplateRepresentable {
                                     value: "slide.imgAlt"
                                 )
                                 .setAttribute(
-                                    name: "onerror",
-                                    value:
-                                        "this.onerror=null; this.closest('picture')?.querySelectorAll('source').forEach(s => s.remove());"
+                                    name: "x-on:error",
+                                    value: "removePictureSources($event)"
                                 )
                                 .class(
                                     "object-contain mx-auto dark:brightness-90 rounded-xs inset-0 object-cover w-full"

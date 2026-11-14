@@ -383,10 +383,9 @@ public struct Basic: TemplateRepresentable {
                     .type("image/x-icon")
                 Link(rel: .stylesheet).href("/css/ibm-plex.css")
                 Link(rel: .stylesheet).href("/css/raccoon-min.css")
-                Script(DarkLightModeToggle.detectModeScript)
-                    .setAttribute(name: "type", value: "text/javascript")
-                Script(ThemeSwitcher.detectThemeScript)
-                    .setAttribute(name: "type", value: "text/javascript")
+                // Preview only: blocking scripts, so mode and theme are set before first paint
+                Script().src("/js-preview/detect-mode.js")
+                Script().src("/js-preview/detect-theme.js")
             }
 
             Body {
@@ -428,11 +427,8 @@ public struct Basic: TemplateRepresentable {
                 // Alpine bundle
                 I18n.scripts()
                 Script().src("/js/bundle-min.js")
-                // Preview only: a language switch is remembered in a cookie and the page is rendered again,
-                // because demo content (HTML, markdown) can only be translated on the server
-                Script(
-                    "(function(){var first=document.documentElement.lang;new MutationObserver(function(){var l=document.documentElement.lang;if(l===first)return;document.cookie='preview-lang='+l+'; path=/; max-age=31536000';var u=new URL(location.href);u.searchParams.delete('lang');location.replace(u.toString())}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']})})();"
-                )
+                // Preview only: a language switch is remembered in a cookie and the page is rendered again
+                Script().src("/js-preview/preview-lang.js")
             }
             .setAttribute(
                 name: "x-data",

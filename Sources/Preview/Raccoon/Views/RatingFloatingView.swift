@@ -70,11 +70,7 @@ struct RatingFloatingView: TemplateRepresentable {
                 showComponentTitle("Rating Floating")
 
                 // Set Matomo cookie so the widget is permitted to show
-                Script(
-                    """
-                    document.cookie = "raumnebenan-matomo=declined; path=/";
-                    """
-                )
+                Script().src("/js-preview/matomo-declined.js")
 
                 // Sticky real-time scroll position HUD
                 Div {

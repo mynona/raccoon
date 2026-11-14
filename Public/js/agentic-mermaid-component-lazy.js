@@ -8,7 +8,7 @@ if (!window.__beautifulMermaidComponentLoaded) {
 
   // Starts fetching the small lazy entry once; family chunks are fetched on first use and cached by the browser
   const rendererPromise = import(
-    "https://unpkg.com/agentic-mermaid@0.5.4/dist/browser-lazy/index.js"
+    "https://unpkg.com/agentic-mermaid@0.5.6/dist/browser-lazy/index.js"
   );
 
   const DEBUG = false;

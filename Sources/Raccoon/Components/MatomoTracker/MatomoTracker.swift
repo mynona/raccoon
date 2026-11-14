@@ -4,7 +4,8 @@ import WebBuilders
 
 /// MatomoTracker
 ///
-/// Emits the Matomo `<script>`, the form-tracking script and the no-JavaScript
+/// Emits the Matomo tracker script (external, configured by `data-*` attributes),
+/// the form-tracking script and the no-JavaScript
 /// fallback pixel. Renders nothing unless the status is `.ACCEPTED` or `.BANNER`.
 ///
 public struct MatomoTracker: TemplateRepresentable {
@@ -20,56 +21,40 @@ public struct MatomoTracker: TemplateRepresentable {
         data.status == .ACCEPTED || data.status == .BANNER
     }
 
-    private func userDimension() -> String {
+    private func scriptAttributes() -> [(name: String, value: String)] {
+        var attributes: [(name: String, value: String)] = [
+            ("data-tracker-url", data.trackerUrl),
+            ("data-site-id", data.siteId),
+            ("data-consent", data.status == .BANNER ? "banner" : "accepted"),
+            (
+                "data-page-type",
+                data.pageType == .trackPageView ? "page-view" : "site-search"
+            ),
+        ]
         switch data.userState {
         case .none:
-            return ""
+            break
         case .signedIn(let userID):
-            return """
-                _paq.push(['setUserId', '\(userID)']);
-                _paq.push(['setCustomDimension', 1, 'signed-in']);
-                """
+            attributes.append(("data-user-state", "signed-in"))
+            attributes.append(("data-user-id", userID))
         case .signedOut:
-            return "_paq.push(['setCustomDimension', 1, 'not-signed-in']);"
+            attributes.append(("data-user-state", "signed-out"))
         }
+        return attributes
     }
 
-    private func cookieDimension() -> String {
-        // Cookie-less tracking with reduced heart beat time to avoid race conditions
-        if data.status == .BANNER {
-            return """
-                _paq.push(['disableCookies']);
-                _paq.push(['enableHeartBeatTimer', 15, 30]);
-                """
+    /// The tracker is an external script configured by `data-*` attributes, so the page needs no inline script.
+    private func trackerScript() -> Script {
+        var script = Script().src("/js/matomo-tracker.js")
+            .setAttribute(name: "type", value: "text/javascript")
+        for attribute in scriptAttributes() {
+            // The HTML renderer does not escape attribute values
+            script = script.setAttribute(
+                name: attribute.name,
+                value: JavaScriptEscaper.htmlAttributeEscape(attribute.value)
+            )
         }
-        return "_paq.push(['enableHeartBeatTimer', 5, 10]);"
-    }
-
-    private func trackerType() -> String {
-        data.pageType == .trackPageView
-            ? "_paq.push(['trackPageView']);"
-            : "_paq.push(['trackSiteSearch','',false,false]);"
-    }
-
-    func generateTrackingCode() -> String {
-        """
-        var _paq = window._paq = window._paq || [];
-        _paq.push(["setExcludedQueryParams", ["[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"]]);
-        \(userDimension())
-        _paq.push(['setCustomDimension', 3, 'js']);
-        \(cookieDimension())
-        _paq.push(['appendToTrackingUrl', 'recMode=2']);
-        \(trackerType())
-        _paq.push(['trackVisibleContentImpressions']);
-        _paq.push(['enableLinkTracking']);
-        (function() {
-          var u="\(data.trackerUrl)";
-          _paq.push(['setTrackerUrl', u+'matomo.php']);
-          _paq.push(['setSiteId', '\(data.siteId)']);
-          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-          g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-        })();
-        """
+        return script
     }
 
     func noScriptPixelUrl() -> String {
@@ -88,11 +73,7 @@ public struct MatomoTracker: TemplateRepresentable {
 
         if isEnabled {
 
-            Script(generateTrackingCode())
-                .setAttribute(
-                    name: "type",
-                    value: "text/javascript"
-                )
+            trackerScript()
 
             // Matomo form tracking
             Script()

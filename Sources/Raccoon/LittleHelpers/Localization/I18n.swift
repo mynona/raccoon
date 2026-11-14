@@ -67,13 +67,16 @@ public enum I18n {
     }
 
     /// Store plus the translations of the built-in texts this page used. Write it once, after the body content.
+    /// The dictionary is a JSON data block (never executed, so a CSP does not need to allow it) and comes
+    /// first, so it is already in the DOM when the store script runs.
     @Builder<Element>
     public static func scripts() -> [Element] {
-        engine()
         pageDictionary()
+        engine()
     }
 
-    /// Registers all languages for exactly the built-in keys that were rendered on this page.
+    /// JSON data block with all languages for exactly the built-in keys that were rendered on this page.
+    /// `i18n.js` registers it.
     static func pageDictionary() -> Script {
         var byNamespace: [String: [String: [String: String]]] = [:]
         for fullKey in context.usedKeys {
@@ -93,9 +96,9 @@ public enum I18n {
             }
         )
         .replacingOccurrences(of: "</", with: "<\\/")
-        return Script(
-            "(function(d){var i=window.RaccoonI18n;if(!i)return;Object.keys(d).forEach(function(n){i.register(n,d[n])})})(\(json));"
-        )
+        return Script(json)
+            .setAttribute(name: "type", value: "application/json")
+            .flagAttribute("data-raccoon-i18n")
     }
 
     /// JSON object with sorted keys, so the rendered HTML is stable. Values are already JSON.

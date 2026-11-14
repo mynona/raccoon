@@ -54,11 +54,7 @@ struct CookieBannerView: TemplateRepresentable {
                 showComponentTitle("CookieBanner")
 
                 // Remove Matomo cookie
-                Script(
-                    """
-                    document.cookie = "raumnebenan-matomo=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-                    """
-                )
+                Script().src("/js-preview/matomo-cleared.js")
 
                 for variant in variants {
 

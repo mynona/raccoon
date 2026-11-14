@@ -46,15 +46,35 @@ struct MatomoTrackerTests {
         #expect(html.isEmpty)
     }
 
-    @Test("renders the tracking script when accepted")
-    func rendersTrackingScriptWhenAccepted() async throws {
+    @Test("renders the tracker as an external script, never as an inline script")
+    func rendersExternalTrackerScript() async throws {
         let html = try await render(
             makeData(status: .ACCEPTED, pageType: .trackPageView)
         )
 
-        #expect(html.contains("var _paq = window._paq"))
-        #expect(html.contains("_paq.push(['setSiteId', '1']);"))
-        #expect(html.contains("u=\"https://statistics.raumnebenan.de/\""))
+        #expect(html.contains("src=\"/js/matomo-tracker.js\""))
+        #expect(html.contains("data-site-id=\"1\""))
+        #expect(
+            html.contains("data-tracker-url=\"https://statistics.raumnebenan.de/\"")
+        )
+        #expect(!html.contains("_paq"))
+        // Every script has a src
+        #expect(html.components(separatedBy: "<script").count - 1 == 2)
+        #expect(html.components(separatedBy: "<script src=").count - 1 == 2)
+    }
+
+    @Test("escapes configured values in the data attributes")
+    func escapesAttributeValues() async throws {
+        let html = try await render(
+            makeData(
+                status: .ACCEPTED,
+                pageType: .trackPageView,
+                userState: .signedIn(userID: "a\"><script>x</script>")
+            )
+        )
+
+        #expect(!html.contains("<script>x</script>"))
+        #expect(html.contains("data-user-id=\"a&quot;&gt;&lt;script&gt;x"))
     }
 
     @Test("loads the form tracking script deferred")
@@ -73,8 +93,7 @@ struct MatomoTrackerTests {
             makeData(status: .BANNER, pageType: .trackPageView)
         )
 
-        #expect(html.contains("_paq.push(['disableCookies']);"))
-        #expect(html.contains("_paq.push(['enableHeartBeatTimer', 15, 30]);"))
+        #expect(html.contains("data-consent=\"banner\""))
     }
 
     @Test("keeps cookies once tracking is accepted")
@@ -83,8 +102,7 @@ struct MatomoTrackerTests {
             makeData(status: .ACCEPTED, pageType: .trackPageView)
         )
 
-        #expect(!html.contains("disableCookies"))
-        #expect(html.contains("_paq.push(['enableHeartBeatTimer', 5, 10]);"))
+        #expect(html.contains("data-consent=\"accepted\""))
     }
 
     @Test("sends the user id for a signed in visitor")
@@ -97,10 +115,8 @@ struct MatomoTrackerTests {
             )
         )
 
-        #expect(html.contains("_paq.push(['setUserId', 'user-42']);"))
-        #expect(
-            html.contains("_paq.push(['setCustomDimension', 1, 'signed-in']);")
-        )
+        #expect(html.contains("data-user-state=\"signed-in\""))
+        #expect(html.contains("data-user-id=\"user-42\""))
     }
 
     @Test("marks a visitor without a session as not signed in")
@@ -113,12 +129,8 @@ struct MatomoTrackerTests {
             )
         )
 
-        #expect(!html.contains("setUserId"))
-        #expect(
-            html.contains(
-                "_paq.push(['setCustomDimension', 1, 'not-signed-in']);"
-            )
-        )
+        #expect(!html.contains("data-user-id"))
+        #expect(html.contains("data-user-state=\"signed-out\""))
     }
 
     @Test("omits the user dimension when no user state is given")
@@ -127,8 +139,8 @@ struct MatomoTrackerTests {
             makeData(status: .ACCEPTED, pageType: .trackPageView)
         )
 
-        #expect(!html.contains("setUserId"))
-        #expect(!html.contains("setCustomDimension', 1"))
+        #expect(!html.contains("data-user-id"))
+        #expect(!html.contains("data-user-state"))
     }
 
     @Test("tracks a site search instead of a page view")
@@ -137,8 +149,7 @@ struct MatomoTrackerTests {
             makeData(status: .ACCEPTED, pageType: .trackSiteSearch)
         )
 
-        #expect(html.contains("_paq.push(['trackSiteSearch','',false,false]);"))
-        #expect(!html.contains("trackPageView"))
+        #expect(html.contains("data-page-type=\"site-search\""))
     }
 
     @Test("points the fallback pixel at the canonical path")

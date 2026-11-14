@@ -1,4 +1,4 @@
-// V1.0
+// V1.1
 
 /* Alpine component: image carousel with touch gestures, keyboard navigation, and custom event trigger. */
 
@@ -74,6 +74,12 @@ if (!window.__carouselLoaded) {
                     this.showIndicators = true;
                     this.showNavigation = true;
                 }
+            },
+
+            // The image failed with the avif/webp sources: fall back to the plain img src
+            removePictureSources(event) {
+                const picture = event.target.closest('picture');
+                if (picture) picture.querySelectorAll('source').forEach((s) => s.remove());
             },
 
             handleTouchStart(event) {

@@ -11,6 +11,7 @@ func configure(_ app: Application) async throws {
     } else {
         app.http.server.configuration.port = 8090
     }
+    app.middleware.use(SecurityHeadersMiddleware())
     app.middleware.use(
         FileMiddleware(publicDirectory: app.directory.publicDirectory)
     )

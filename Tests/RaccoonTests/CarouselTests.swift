@@ -211,14 +211,8 @@ struct CarouselTests {
         #expect(html.contains("type=\"image/webp\""))
         #expect(html.contains("x-bind:srcset=\"slide.avifSrcSet || false\""))
         #expect(html.contains("x-bind:srcset=\"slide.webpSrcSet || false\""))
-        #expect(
-            html.contains(
-                "onerror=\"this.onerror=null; this.closest('picture')?.querySelectorAll('source').forEach(s =&gt; s.remove());\""
-            )
-                || html.contains(
-                    "onerror=\"this.onerror=null; this.closest('picture')?.querySelectorAll('source').forEach(s => s.remove());\""
-                )
-        )
+        #expect(html.contains("x-on:error=\"removePictureSources($event)\""))
+        #expect(!html.contains("onerror"))
     }
 
     @Test("derives S3 alternative sources in jsonSlides when isS3Image is true")
@@ -270,8 +264,8 @@ struct CarouselTests {
         #expect(!data.jsonSlides.contains("processed"))
     }
 
-    @Test("renders onerror fallback handler on carousel slide image")
-    func rendersOnErrorFallbackHandlerInSlide() async throws {
+    @Test("slide image falls back through an Alpine handler, not an inline onerror attribute")
+    func rendersErrorFallbackHandlerInSlide() async throws {
 
         let data = CarouselData(
             id: "carousel-onerror",
@@ -286,15 +280,8 @@ struct CarouselTests {
         )
         let html = renderHTML(Carousel(data).render())
 
-        #expect(
-            html.contains(
-                "this.closest('picture')?.querySelectorAll('source').forEach(s =&gt; s.remove());"
-            )
-                || html.contains(
-                    "this.closest('picture')?.querySelectorAll('source').forEach(s => s.remove());"
-                )
-        )
-        #expect(html.contains("this.onerror=null;"))
+        #expect(html.contains("x-on:error=\"removePictureSources($event)\""))
+        #expect(!html.contains("onerror"))
     }
 
     // MARK: localization

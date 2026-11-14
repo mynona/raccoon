@@ -59,8 +59,15 @@ struct I18nPageTests {
         for language in ["en", "de"] {
             let html = page(language: language)
             #expect(count(of: "src=\"/js/i18n.js\"", in: html) == 1)
-            #expect(count(of: "RaccoonI18n", in: html) >= 1)
-            #expect(count(of: "i.register(n,d[n])", in: html) == 1)
+            #expect(count(of: "data-raccoon-i18n", in: html) == 1)
+            // The dictionary is a data block, not an executable inline script
+            #expect(html.contains("<script type=\"application/json\""))
+            #expect(!html.contains("i.register"))
+            // The data block is written before the store script
+            #expect(
+                html.range(of: "data-raccoon-i18n")!.lowerBound
+                    < html.range(of: "src=\"/js/i18n.js\"")!.lowerBound
+            )
             // Both built-in keys that the page used are registered, once
             #expect(count(of: "\"label\":{", in: html) == 1)
             #expect(count(of: "\"actionbutton\":{", in: html) == 1)
@@ -95,7 +102,7 @@ struct I18nPageTests {
         let html = I18n.render(language: "de", collectsUsedKeys: true) {
             renderHTML(I18n.scripts())
         }
-        #expect(html.contains("})({});"))
+        #expect(html.contains("data-raccoon-i18n>{}</script>"))
     }
 
     @Test(
@@ -103,7 +110,8 @@ struct I18nPageTests {
     )
     func dictionaryIsSmall() {
         let html = page(language: "de")
-        let start = html.range(of: "<script>(function(d)")!.lowerBound
+        let start = html.range(of: "<script type=\"application/json\"")!
+            .lowerBound
         #expect(html[start...].utf8.count < 2000)
     }
 }

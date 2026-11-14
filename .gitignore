@@ -8,6 +8,7 @@ Public/*
 !Public/css
 !Public/fonts
 !Public/js
+!Public/js-preview
 !Public/images/
 !Public/images/**
 /Package.resolved
