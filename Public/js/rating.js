@@ -31,13 +31,8 @@ if (!window.__ratingLoaded) {
     error: '',
     showSuccess: false,
     showError: false,
-
-    getFeedbackCount() {
-      if (!this.uuid || typeof window === 'undefined' || !window.localStorage) return 0;
-      const raw = localStorage.getItem(`rating-${this.uuid}`);
-      if (raw === 'true') return 3;
-      return parseInt(raw || '0', 10) || 0;
-    },
+    // Set when the server answered 429: the submission limit is enforced server side
+    limitReached: false,
 
     openModal() {
       this.open = true;
@@ -56,14 +51,10 @@ if (!window.__ratingLoaded) {
       }
       this.open = false;
       if (this.showSuccess) {
-        if (this.getFeedbackCount() >= 3) {
-          this.visible = false;
-        } else {
-          this.thumb = null;
-          this.rating = 0;
-          this.clearFeedback();
-          this.showSuccess = false;
-        }
+        this.thumb = null;
+        this.rating = 0;
+        this.clearFeedback();
+        this.showSuccess = false;
       }
       this.$nextTick(() => {
         const trigger = document.getElementById(`rating-trigger-${this.uuid}`);
@@ -76,16 +67,6 @@ if (!window.__ratingLoaded) {
         document.getElementById(`rating-floating-panel-${this.uuid}`) ||
         document.getElementById(`rating-panel-${this.uuid}`);
 
-      if (!this.uuid || typeof window === 'undefined' || !window.localStorage) {
-        return;
-      }
-
-      // Hide widget once user has submitted 3 feedbacks on this page
-      if (this.getFeedbackCount() >= 3) {
-        this.visible = false;
-        return;
-      }
-
       // Avoid overlap with cookie banner: only show once cookie consent is handled
       if (getCookie(this.cookieName) === null) {
         this.visible = false;
@@ -94,7 +75,7 @@ if (!window.__ratingLoaded) {
       this.cookieCheck = setInterval(() => {
         if (getCookie(this.cookieName) === null) {
           this.visible = false;
-        } else if (this.getFeedbackCount() < 3) {
+        } else if (!this.limitReached) {
           this.visible = true;
         }
       }, 500);
@@ -104,7 +85,7 @@ if (!window.__ratingLoaded) {
 
         // Reveal the widget once the user has scrolled through most of the page
         this.onScroll = () => {
-          if (this.closed) return;
+          if (this.closed || this.limitReached) return;
 
           // Don't display the widget if the cookie banner is shown
           if (getCookie(this.cookieName) === null) return;
@@ -252,7 +233,7 @@ if (!window.__ratingLoaded) {
       return { errorTitle, errorText };
     },
 
-    // Submits the rating form and remembers the uuid so the widget won't show again
+    // Submits the rating form. The submission limit per user and page is enforced by the server
     submitFeedback(el, url) {
       if (this.submitting) return;
 
@@ -285,25 +266,14 @@ if (!window.__ratingLoaded) {
         .then((res) => {
           if (res.ok) {
             this.showSuccess = true;
-            let reachesLimit = false;
-            if (this.uuid && typeof window !== 'undefined' && window.localStorage) {
-              const newCount = this.getFeedbackCount() + 1;
-              localStorage.setItem(`rating-${this.uuid}`, String(newCount));
-              reachesLimit = newCount >= 3;
-            }
-            setTimeout(() => {
-              this.closeModal();
-              if (reachesLimit) {
-                this.visible = false;
-              } else {
-                this.thumb = null;
-                this.rating = 0;
-                this.clearFeedback();
-                this.showSuccess = false;
-              }
-            }, 2500);
+            setTimeout(() => this.closeModal(), 2500);
           } else {
             this.showError = true;
+            if (res.status === 429) {
+              this.limitReached = true;
+              this.open = false;
+              this.visible = false;
+            }
             const { errorTitle, errorText } = this.getToastStrings();
             this.triggerToast('error', errorTitle, errorText, 8000);
           }
