@@ -103,6 +103,24 @@ struct RatingTests {
         #expect(html.contains("x-trap.noscroll.inert=\"open\""))
     }
 
+    @Test("Content placement anchors the trigger to the enclosing block")
+    func contentPlacementAnchorsToBlock() {
+        let html = renderHTML(
+            Rating(
+                RatingData(
+                    id: "uuid-content",
+                    url: "/api/rating",
+                    floatingPlacement: .content
+                )
+            )
+            .render()
+        )
+
+        #expect(html.contains(RatingStyles.floatingContainerContent))
+        #expect(html.contains(RatingStyles.widgetWrapperContent))
+        #expect(!html.contains(RatingStyles.floatingContainer + "\""))
+    }
+
     @Test("renders scroll threshold in x-data when configured")
     func rendersScrollThresholdWhenConfigured() async throws {
 

@@ -526,7 +526,10 @@ public struct Rating: TemplateRepresentable {
             )
             .class(styles.triggerButton)
         }
-        .class(styles.floatingContainer)
+        .class(
+            data.floatingPlacement == .content
+                ? styles.floatingContainerContent : styles.floatingContainer
+        )
         .setAttribute(name: "x-show", value: "visible && !open")
     }
 
@@ -596,6 +599,10 @@ public struct Rating: TemplateRepresentable {
             modalDialog()
         }
         .setAttribute(name: "x-data", value: xDataExpression())
+        .class(
+            data.floatingPlacement == .content
+                ? styles.widgetWrapperContent : "block"
+        )
         .setAttribute(
             name: "data-toast-error-title",
             value: errorTitle.resolved

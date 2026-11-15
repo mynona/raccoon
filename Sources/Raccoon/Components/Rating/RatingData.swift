@@ -8,6 +8,15 @@ public struct RatingData: Sendable {
         case fiveStars
     }
 
+    /// Where the floating trigger button is anchored.
+    public enum FloatingPlacement: String, Codable, Sendable {
+        /// Fixed to the bottom-right corner of the browser viewport.
+        case viewport
+        /// Sticks to the bottom-right corner of the enclosing content block.
+        /// Render the widget inside the block it should align to.
+        case content
+    }
+
     // MARK: - 1. Identity & Alpine Bindings
 
     /// Unique DOM identifier for the rating widget.
@@ -63,6 +72,9 @@ public struct RatingData: Sendable {
     /// Whether widget floats fixed in page viewport (defaults to `true`).
     public let isFloating: Bool
 
+    /// Anchor of the floating trigger button (defaults to `.viewport`).
+    public let floatingPlacement: FloatingPlacement
+
     /// Whether widget reveals upon user scrolling down (defaults to `false`).
     public let isShownOnScroll: Bool
 
@@ -92,6 +104,7 @@ public struct RatingData: Sendable {
     ///   - hasCategory: Whether a category dropdown is rendered in the feedback modal.
     ///   - hasLikertRating: Whether Likert rating controls are displayed.
     ///   - isFloating: Whether widget floats fixed in page viewport.
+    ///   - floatingPlacement: Anchor of the floating trigger (viewport or enclosing content block).
     ///   - isShownOnScroll: Whether widget reveals upon user scrolling down.
     ///   - matomoStatus: Tracking consent status for Matomo analytics.
     ///   - contentTracker: Matomo content tracking configuration.
@@ -120,6 +133,7 @@ public struct RatingData: Sendable {
         hasCategory: Bool = false,
         hasLikertRating: Bool = true,
         isFloating: Bool = true,
+        floatingPlacement: FloatingPlacement = .viewport,
         isShownOnScroll: Bool = false,
 
         // 6. Analytics & Tracking
@@ -150,6 +164,7 @@ public struct RatingData: Sendable {
         self.hasCategory = hasCategory
         self.hasLikertRating = hasLikertRating
         self.isFloating = isFloating
+        self.floatingPlacement = floatingPlacement
         self.isShownOnScroll = isShownOnScroll
 
         // 6. Analytics & Tracking
@@ -186,6 +201,7 @@ public struct RatingData: Sendable {
             hasCategory: self.hasCategory,
             hasLikertRating: self.hasLikertRating,
             isFloating: f,
+            floatingPlacement: self.floatingPlacement,
             isShownOnScroll: self.isShownOnScroll,
             matomoStatus: self.matomoStatus,
             contentTracker: self.contentTracker

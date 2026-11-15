@@ -3,7 +3,15 @@ import Foundation
 public struct RatingStyles {
 
     // MARK: - Floating Trigger
-    public static let floatingContainer = "print:hidden fixed bottom-6 right-6 2xl:right-[max(1.5rem,calc((100vw-80rem)/2+1.5rem))] z-50"
+    public static let floatingContainer = "print:hidden fixed bottom-6 right-6 z-50"
+
+    /// Zero-height sticky anchor: the button stays at the bottom of the viewport while the
+    /// enclosing content block is visible and aligns with that block's right edge.
+    public static let floatingContainerContent =
+        "print:hidden sticky bottom-6 z-50 h-0 w-full flex items-end justify-end pr-6"
+
+    /// Lets the sticky anchor use the enclosing content block instead of the widget wrapper.
+    public static let widgetWrapperContent = "contents"
 
     public static let triggerButton: String = [
         "group flex items-center justify-center h-8 min-w-8 p-1.5",
