@@ -85,11 +85,6 @@ public enum PreviewNavigation {
                             title: "RadioGroup",
                             url: "/preview/radio-group"
                         ),
-                        PreviewNavItem(title: "Rating", url: "/preview/rating"),
-                        PreviewNavItem(
-                            title: "RatingFloating",
-                            url: "/preview/rating-floating"
-                        ),
                         PreviewNavItem(
                             title: "SearchField",
                             url: "/preview/search-field"
@@ -224,12 +219,24 @@ public enum PreviewNavigation {
                             url: "/preview/notification"
                         ),
                         PreviewNavItem(
+                            title: "Rating",
+                            url: "/preview/rating"
+                        ),
+                        PreviewNavItem(
+                            title: "RatingFloating",
+                            url: "/preview/rating-floating"
+                        ),
+                        PreviewNavItem(
                             title: "Toast",
                             url: "/preview/toast"
                         ),
                         PreviewNavItem(
                             title: "Tooltip",
                             url: "/preview/tooltip"
+                        ),
+                        PreviewNavItem(
+                            title: "YesNoRating",
+                            url: "/preview/yes-no-rating"
                         ),
                     ]
                 ),

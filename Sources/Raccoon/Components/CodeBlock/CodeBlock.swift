@@ -19,7 +19,7 @@ public struct CodeBlock: TemplateRepresentable {
             CopyToClipboard(
                 CopyToClipboardData(
                     value: data.code,
-                    orientation: .vertical
+                    responseType: .inlineVertical
                 )
             )
             .render()

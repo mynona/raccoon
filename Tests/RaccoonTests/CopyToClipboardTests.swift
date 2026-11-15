@@ -16,7 +16,7 @@ struct CopyToClipboardTests {
 
         let html = renderHTML(
             CopyToClipboard(
-                CopyToClipboardData(value: "copy-me", orientation: .horizontal)
+                CopyToClipboardData(value: "copy-me")
             )
             .render()
         )
@@ -29,8 +29,7 @@ struct CopyToClipboardTests {
         let html = renderHTML(
             CopyToClipboard(
                 CopyToClipboardData(
-                    value: "my-api-key-123",
-                    orientation: .horizontal
+                    value: "my-api-key-123"
                 )
             )
             .render()
@@ -38,12 +37,12 @@ struct CopyToClipboardTests {
         #expect(html.contains("my-api-key-123"))
     }
 
-    @Test("renders vertical orientation variant")
+    @Test("renders vertical inline layout variant")
     func rendersVerticalVariant() async throws {
 
         let html = renderHTML(
             CopyToClipboard(
-                CopyToClipboardData(value: "token", orientation: .vertical)
+                CopyToClipboardData(value: "token", responseType: .inlineVertical)
             )
             .render()
         )
@@ -55,7 +54,7 @@ struct CopyToClipboardTests {
 
         let html = renderHTML(
             CopyToClipboard(
-                CopyToClipboardData(value: "", orientation: .horizontal)
+                CopyToClipboardData(value: "")
             )
             .render()
         )
@@ -67,7 +66,7 @@ struct CopyToClipboardTests {
         let longValue = String(repeating: "A", count: 2048)
         let html = renderHTML(
             CopyToClipboard(
-                CopyToClipboardData(value: longValue, orientation: .horizontal)
+                CopyToClipboardData(value: longValue)
             )
             .render()
         )
@@ -78,7 +77,7 @@ struct CopyToClipboardTests {
     func rendersVisibleFocusIndicator() async throws {
         let html = renderHTML(
             CopyToClipboard(
-                CopyToClipboardData(value: "focus", orientation: .horizontal)
+                CopyToClipboardData(value: "focus")
             )
             .render()
         )
@@ -89,7 +88,7 @@ struct CopyToClipboardTests {
     func rendersAfterRapidClicking() async throws {
         let html = renderHTML(
             CopyToClipboard(
-                CopyToClipboardData(value: "rapid", orientation: .horizontal)
+                CopyToClipboardData(value: "rapid")
             )
             .render()
         )
@@ -104,8 +103,7 @@ struct CopyToClipboardTests {
         let html = renderHTML(
             CopyToClipboard(
                 CopyToClipboardData(
-                    value: "sk-abc123XYZ",
-                    orientation: .horizontal
+                    value: "sk-abc123XYZ"
                 )
             )
             .render()
@@ -117,18 +115,18 @@ struct CopyToClipboardTests {
         #expect(html.contains("/js/copytoclipboard.js"))
     }
 
-    @Test("renders orientation classes and copied label")
-    func rendersOrientationClassesAndCopiedLabel() async throws {
+    @Test("renders layout classes and copied label")
+    func rendersLayoutClassesAndCopiedLabel() async throws {
 
         let horizontal = renderHTML(
             CopyToClipboard(
-                CopyToClipboardData(value: "token", orientation: .horizontal)
+                CopyToClipboardData(value: "token", responseType: .inlineHorizontal)
             )
             .render()
         )
         let vertical = renderHTML(
             CopyToClipboard(
-                CopyToClipboardData(value: "token", orientation: .vertical)
+                CopyToClipboardData(value: "token", responseType: .inlineVertical)
             )
             .render()
         )
@@ -197,5 +195,142 @@ struct CopyToClipboardTests {
         #expect(html.contains(">Kopiert</span>"))
         #expect(html.contains(">Kopieren fehlgeschlagen</span>"))
         #expect(!html.contains(">Copied<"))
+    }
+
+    @Test("renders toast configuration and suppresses inline label in toast mode")
+    func rendersToastConfiguration() async throws {
+        let html = renderHTML(
+            CopyToClipboard(
+                CopyToClipboardData(
+                    value: "https://example.com/share",
+                    responseType: .toast
+                )
+            )
+            .render()
+        )
+        #expect(html.contains("x-data=\"copyToClipboard({ hasToast: true })\""))
+        #expect(html.contains("data-has-toast=\"true\""))
+        #expect(html.contains("data-toast-title=\"Copied\""))
+        #expect(
+            html.contains("data-toast-text=\"Copied to clipboard for copy-paste\"")
+        )
+        #expect(html.contains("data-i18n-toast-title=\"copytoclipboard.copied\""))
+        #expect(html.contains("data-i18n-toast-text=\"copytoclipboard.toast\""))
+        #expect(!html.contains(">Copied</span>"))
+        #expect(!html.contains(">Failed to copy</span>"))
+    }
+
+    @Test("renders custom icons for initial and copied states")
+    func rendersCustomIcons() async throws {
+        let html = renderHTML(
+            CopyToClipboard(
+                CopyToClipboardData(
+                    value: "https://example.com/share",
+                    icon: .share,
+                    copiedIcon: .check_lg,
+                    responseType: .toast
+                )
+            )
+            .render()
+        )
+        let sharePath = Svg.getPathsForIcon(.share).first!
+        let checkPath = Svg.getPathsForIcon(.check_lg).first!
+        #expect(html.contains(sharePath))
+        #expect(html.contains(checkPath))
+    }
+
+    @Test("renders custom aria-label and tooltip")
+    func rendersCustomLabelsAndTooltips() async throws {
+        let html = renderHTML(
+            CopyToClipboard(
+                CopyToClipboardData(
+                    ariaLabel: "Share article",
+                    tooltip: "Click to share link",
+                    value: "https://example.com",
+                    icon: .share,
+                    responseType: .toast
+                )
+            )
+            .render()
+        )
+        #expect(html.contains("aria-label=\"Share article\""))
+        #expect(html.contains("title=\"Click to share link\""))
+    }
+
+    @Test("renders custom feedback label for inline and toast modes")
+    func rendersCustomFeedbackLabel() async throws {
+        let inlineHtml = renderHTML(
+            CopyToClipboard(
+                CopyToClipboardData(
+                    label: "Saved to buffer!",
+                    value: "https://example.com",
+                    responseType: .inlineHorizontal
+                )
+            )
+            .render()
+        )
+        #expect(inlineHtml.contains(">Saved to buffer!</span>"))
+
+        let toastHtml = renderHTML(
+            CopyToClipboard(
+                CopyToClipboardData(
+                    label: "Article link copied to clipboard",
+                    value: "https://example.com",
+                    responseType: .toast
+                )
+            )
+            .render()
+        )
+        #expect(toastHtml.contains("data-toast-title=\"Copied\""))
+        #expect(
+            toastHtml.contains("data-toast-text=\"Article link copied to clipboard\"")
+        )
+    }
+
+    @Test("renders toast texts localized in page language")
+    func rendersToastTextsInGerman() {
+        let html = I18n.render(language: "de") {
+            renderHTML(
+                CopyToClipboard(
+                    CopyToClipboardData(
+                        value: "https://example.com",
+                        responseType: .toast
+                    )
+                )
+                .render()
+            )
+        }
+        #expect(html.contains("data-toast-title=\"Kopiert\""))
+        #expect(
+            html.contains(
+                "data-toast-text=\"Für Copy-Paste in die Zwischenablage kopiert\""
+            )
+        )
+    }
+
+    @Test("renders inlineHorizontal and inlineVertical responseTypes")
+    func rendersInlineResponseTypes() async throws {
+        let horizontal = renderHTML(
+            CopyToClipboard(
+                CopyToClipboardData(
+                    value: "token",
+                    responseType: .inlineHorizontal
+                )
+            )
+            .render()
+        )
+        let vertical = renderHTML(
+            CopyToClipboard(
+                CopyToClipboardData(
+                    value: "token",
+                    responseType: .inlineVertical
+                )
+            )
+            .render()
+        )
+        #expect(horizontal.contains("flex-row items-center"))
+        #expect(horizontal.contains("pl-2"))
+        #expect(vertical.contains("flex-col items-center justify-center"))
+        #expect(vertical.contains("pt-2"))
     }
 }

@@ -39,8 +39,7 @@ func showCopyableCode(_ data: String) -> [Element] {
         Div {
             CopyToClipboard(
                 CopyToClipboardData(
-                    value: unescapeHTML(data),
-                    orientation: .horizontal
+                    value: unescapeHTML(data)
                 )
             )
             .render()

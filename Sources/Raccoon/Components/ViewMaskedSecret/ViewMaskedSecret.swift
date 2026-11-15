@@ -86,8 +86,7 @@ public struct ViewMaskedSecret: TemplateRepresentable {
             // CopyToClipboard HTML-escapes its own attribute values, so pass the raw secret.
             CopyToClipboard(
                 CopyToClipboardData(
-                    value: data.secret,
-                    orientation: .horizontal
+                    value: data.secret
                 )
             )
             .render()

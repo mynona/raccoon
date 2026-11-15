@@ -164,6 +164,7 @@ public enum Translations {
         "pagination": pagination,
         "searchfield": searchfield,
         "toast": toast,
+        "yesnorating": yesnorating,
     ]
 
     static let label: [String: [String: String]] = [

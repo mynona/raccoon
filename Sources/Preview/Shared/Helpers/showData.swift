@@ -37,8 +37,7 @@ func showCopyableData(_ data: String) -> [Element] {
         Div {
             CopyToClipboard(
                 CopyToClipboardData(
-                    value: data,
-                    orientation: .horizontal
+                    value: data
                 )
             )
             .render()

@@ -35,7 +35,7 @@ struct CopyToClipboardView: TemplateRepresentable {
             ),
             CopyToClipboardData(
                 value: "sk-abc123XYZ",
-                orientation: .horizontal
+                responseType: .inlineHorizontal
             )
         ),
         #previewVariant(
@@ -65,7 +65,70 @@ struct CopyToClipboardView: TemplateRepresentable {
             ),
             CopyToClipboardData(
                 value: "sk-abc123XYZ",
-                orientation: .vertical
+                responseType: .inlineVertical
+            )
+        ),
+        #previewVariant(
+            tr(
+                "Toast Feedback",
+                [
+                    "de": "Toast-Rückmeldung",
+                    "fr": "Notification toast",
+                    "es": "Notificación toast",
+                    "it": "Notifica toast",
+                    "pt": "Notificação toast",
+                    "nl": "Toast-melding",
+                    "da": "Toast-meddelelse",
+                    "sv": "Toast-avisering",
+                    "nb": "Toast-varsel",
+                    "fi": "Toast-ilmoitus",
+                    "is": "Toast tilkynning",
+                    "el": "Ειδοποίηση toast",
+                    "tr": "Toast bildirimi",
+                    "hu": "Toast értesítés",
+                    "hr": "Toast obavijest",
+                    "pl": "Powiadomienie toast",
+                    "sk": "Toast oznámenie",
+                    "cs": "Toast oznámení",
+                    "lb": "Toast-Notifikatioun",
+                ]
+            ),
+            CopyToClipboardData(
+                value: "https://example.com/articles/product-thinking",
+                responseType: .toast
+            )
+        ),
+        #previewVariant(
+            tr(
+                "Share Button (Custom Icon & Toast)",
+                [
+                    "de": "Teilen-Schaltfläche (Eigenes Icon & Toast)",
+                    "fr": "Bouton de partage (Icône personnalisée & Toast)",
+                    "es": "Botón de compartir (Icono personalizado y Toast)",
+                    "it": "Pulsante di condivisione (Icona personalizzata e Toast)",
+                    "pt": "Botão de partilha (Ícone personalizado e Toast)",
+                    "nl": "Deelknop (Aangepast pictogram en Toast)",
+                    "da": "Deleknap (Tilpasset ikon og Toast)",
+                    "sv": "Delningsknapp (Anpassad ikon och Toast)",
+                    "nb": "Deleknapp (Tilpasset ikon og Toast)",
+                    "fi": "Jaa-painike (Mukautettu kuvake ja Toast)",
+                    "is": "Deilihnappur (Sérsniðið tákn og Toast)",
+                    "el": "Κουμπí κοινοποίησης (Προσαρμοσμένο εικονίδιο & Toast)",
+                    "tr": "Paylaş butonu (Özel simge ve Toast)",
+                    "hu": "Megosztás gomb (Egyéni ikon és Toast)",
+                    "hr": "Gumb za dijeljenje (Prilagođena ikona i Toast)",
+                    "pl": "Przycisk udostępniania (Niestandardowa ikona i Toast)",
+                    "sk": "Tlačidlo zdieľania (Vlastná ikona a Toast)",
+                    "cs": "Tlačítko sdílení (Vlastní ikona a Toast)",
+                    "lb": "Deelen-Knäppchen (Eeget Icon & Toast)",
+                ]
+            ),
+            CopyToClipboardData(
+                ariaLabel: "Share link",
+                tooltip: "Click to share link",
+                value: "https://example.com/bookmarks/card-123",
+                icon: .share,
+                responseType: .toast
             )
         ),
     ]
