@@ -219,12 +219,16 @@ public enum PreviewNavigation {
                             url: "/preview/notification"
                         ),
                         PreviewNavItem(
-                            title: "Rating",
+                            title: "Rating (Thumbs)",
                             url: "/preview/rating"
                         ),
                         PreviewNavItem(
-                            title: "RatingFloating",
-                            url: "/preview/rating-floating"
+                            title: "Rating (Stars)",
+                            url: "/preview/rating-stars"
+                        ),
+                        PreviewNavItem(
+                            title: "Rating (No Likert)",
+                            url: "/preview/rating-no-likert"
                         ),
                         PreviewNavItem(
                             title: "Toast",

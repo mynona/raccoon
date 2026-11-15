@@ -1,6 +1,6 @@
-// v1.4
+// v2.0
 
-/* Alpine component: thumbs/star rating widget with scroll-triggered display, dismissal memory, and in-page docking. */
+/* Alpine component: floating rating widget with modal feedback dialog, dismissal memory, and page metadata. */
 
 // Guard against double registration if the script is included twice
 if (!window.__ratingLoaded) {
@@ -16,11 +16,12 @@ if (!window.__ratingLoaded) {
   }
 
   document.addEventListener('alpine:init', () => {
-  Alpine.data('ratingWidget', (uuid = '', showOnScroll = false, cookieName = 'raumnebenan-matomo', isFloating = false) => ({
+  Alpine.data('ratingWidget', (uuid = '', showOnScroll = false, cookieName = 'raumnebenan-matomo', isFloating = true) => ({
     uuid,
-    showOnScroll,
-    cookieName,
-    isFloating: isFloating || showOnScroll,
+    showOnScroll: typeof showOnScroll === 'boolean' ? showOnScroll : false,
+    cookieName: typeof showOnScroll === 'string' ? showOnScroll : cookieName,
+    isFloating: true,
+    open: false,
     visible: true,
     closed: false,
     thumb: null,
@@ -30,67 +31,73 @@ if (!window.__ratingLoaded) {
     error: '',
     showSuccess: false,
     showError: false,
-    // A fixed element is positioned relative to the viewport, so center it on its container instead
-    // (same position as the docked widget) rather than on the viewport.
-    alignFloating() {
-      const el = this.$el;
-      const container = el && el.parentElement;
-      if (!container) return;
-      if (!this.isFloating) {
-        el.style.removeProperty('left');
-        return;
-      }
-      const rect = container.getBoundingClientRect();
-      el.style.left = `${rect.left + rect.width / 2}px`;
+
+    getFeedbackCount() {
+      if (!this.uuid || typeof window === 'undefined' || !window.localStorage) return 0;
+      const raw = localStorage.getItem(`rating-${this.uuid}`);
+      if (raw === 'true') return 3;
+      return parseInt(raw || '0', 10) || 0;
     },
 
-    setupFloatingAlignment() {
-      if (!this.isFloating) return;
-      this.alignFloating();
-      this.onResize = () => this.alignFloating();
-      window.addEventListener('resize', this.onResize);
-      if (typeof ResizeObserver !== 'undefined' && this.$el.parentElement) {
-        this.resizeObserver = new ResizeObserver(this.onResize);
-        this.resizeObserver.observe(this.$el.parentElement);
+    openModal() {
+      this.open = true;
+      this.$nextTick(() => {
+        this.validateFeedback();
+        const panel = document.getElementById(`rating-floating-panel-${this.uuid}`) || this.widgetEl;
+        const focusable = panel ? panel.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])') : null;
+        if (focusable) focusable.focus();
+      });
+    },
+
+    closeModal() {
+      // If a child dropdown listbox is currently open, allow Dropdown's escape handler to close it first
+      if (this.$el && this.$el.querySelector('[role="listbox"]:not([style*="display: none"])')) {
+        return;
       }
-      this.$watch('isFloating', () => this.alignFloating());
-      this.$watch('visible', () => this.alignFloating());
+      this.open = false;
+      if (this.showSuccess) {
+        if (this.getFeedbackCount() >= 3) {
+          this.visible = false;
+        } else {
+          this.thumb = null;
+          this.rating = 0;
+          this.clearFeedback();
+          this.showSuccess = false;
+        }
+      }
+      this.$nextTick(() => {
+        const trigger = document.getElementById(`rating-trigger-${this.uuid}`);
+        if (trigger) trigger.focus();
+      });
     },
 
     init() {
-      // The label is evaluated in the scope of the text area field, so the widget is found by its
-      // panel id (`$el` and `$root` are not reliable for several widgets on one page)
       this.widgetEl =
-        document.getElementById(`rating-panel-${this.uuid}`) ||
-        document.getElementById(`rating-floating-panel-${this.uuid}`);
-      // The field is required and empty: the submit button is unavailable until the user writes
-      this.$nextTick(() => this.validateFeedback());
-      this.setupFloatingAlignment();
+        document.getElementById(`rating-floating-panel-${this.uuid}`) ||
+        document.getElementById(`rating-panel-${this.uuid}`);
 
       if (!this.uuid || typeof window === 'undefined' || !window.localStorage) {
         return;
       }
 
-      // Don't show again once the user already rated this uuid
-      if (localStorage.getItem(`rating-${this.uuid}`) === 'true') {
+      // Hide widget once user has submitted 3 feedbacks on this page
+      if (this.getFeedbackCount() >= 3) {
         this.visible = false;
         return;
       }
 
-      // Avoid overlap with cookie banner: only required for the floating rating widget
-      if (this.isFloating) {
+      // Avoid overlap with cookie banner: only show once cookie consent is handled
+      if (getCookie(this.cookieName) === null) {
+        this.visible = false;
+      }
+
+      this.cookieCheck = setInterval(() => {
         if (getCookie(this.cookieName) === null) {
           this.visible = false;
+        } else if (this.getFeedbackCount() < 3) {
+          this.visible = true;
         }
-
-        // Hide widget if somebody deletes the cookie and therefore
-        // enables the cookie widget
-        this.cookieCheck = setInterval(() => {
-          if (getCookie(this.cookieName) === null) {
-            this.visible = false;
-          }
-        }, 500);
-      }
+      }, 500);
 
       if (this.showOnScroll) {
         this.visible = false;
@@ -109,8 +116,6 @@ if (!window.__ratingLoaded) {
           const viewHeight = isMainScrollable ? scrollEl.clientHeight : window.innerHeight;
 
           if (currentScroll + viewHeight >= totalHeight * 0.80) {
-
-            // Don't display the widget if the cookie banner is shown
             if (getCookie(this.cookieName) === null) return;
 
             this.visible = true;
@@ -128,8 +133,6 @@ if (!window.__ratingLoaded) {
 
     destroy() {
       if (this.cookieCheck) clearInterval(this.cookieCheck);
-      if (this.onResize) window.removeEventListener('resize', this.onResize);
-      if (this.resizeObserver) this.resizeObserver.disconnect();
       if (this.onScroll) {
         window.removeEventListener('scroll', this.onScroll);
         document.removeEventListener('scroll', this.onScroll);
@@ -139,30 +142,13 @@ if (!window.__ratingLoaded) {
     },
 
     close() {
-      this.closed = true;
-      if (this.isFloating) {
-        this.isFloating = false;
-        this.visible = true;
-        this.thumb = null;
-        this.rating = 0;
-        this.clearFeedback();
-        this.error = '';
-        this.showSuccess = false;
-        this.showError = false;
-      } else {
-        this.visible = false;
-      }
-      if (this.cookieCheck) clearInterval(this.cookieCheck);
-      if (this.onScroll) {
-        window.removeEventListener('scroll', this.onScroll);
-        document.removeEventListener('scroll', this.onScroll);
-        const mainEl = document.querySelector('main');
-        if (mainEl) mainEl.removeEventListener('scroll', this.onScroll);
-      }
+      this.closeModal();
     },
+
     // The feedback field is a FormBuilder text area with its own Alpine scope
     feedbackTextarea() {
-      return this.widgetEl.querySelector('textarea');
+      const panel = document.getElementById(`rating-floating-panel-${this.uuid}`) || this.widgetEl;
+      return panel ? panel.querySelector('textarea') : null;
     },
     focusFeedback() {
       this.$nextTick(() => {
@@ -185,12 +171,14 @@ if (!window.__ratingLoaded) {
       field.value = '';
       field.isTouched = false;
       field.validate();
-      this.feedbackTextarea().style.height = '';
+      const textarea = this.feedbackTextarea();
+      if (textarea) textarea.style.height = '';
     },
     // The question above the feedback field: the one for a positive rating (5) or the other
     followUpLabel() {
       const kind = this.rating >= 5 ? 'positive' : 'negative';
-      const template = this.widgetEl.querySelector(`template[data-follow-up="${kind}"]`);
+      const panel = document.getElementById(`rating-floating-panel-${this.uuid}`) || this.widgetEl;
+      const template = panel ? panel.querySelector(`template[data-follow-up="${kind}"]`) : null;
       return template ? template.innerHTML : '';
     },
     // Selects a thumbs-up/down rating and reveals the feedback textarea
@@ -238,25 +226,92 @@ if (!window.__ratingLoaded) {
         ref.focus();
       }
     },
+
+    triggerToast(type, title, text, duration) {
+      if (window.RaccoonToast && typeof window.RaccoonToast[type] === 'function') {
+        window.RaccoonToast[type](title, text, duration);
+      } else {
+        window.dispatchEvent(new CustomEvent('raccoon:toast', {
+          detail: { type, title, text, duration }
+        }));
+      }
+    },
+
+    getToastStrings() {
+      const el = this.$el;
+      const ds = (el && el.dataset) || {};
+
+      let errorTitle = ds.toastErrorTitle || 'Server error';
+      let errorText = ds.toastErrorText || 'Rating has not been submitted.';
+
+      if (window.RaccoonI18n && typeof window.RaccoonI18n.t === 'function') {
+        if (ds.i18nToastErrorTitle) errorTitle = window.RaccoonI18n.t(ds.i18nToastErrorTitle, null, errorTitle);
+        if (ds.i18nToastErrorText) errorText = window.RaccoonI18n.t(ds.i18nToastErrorText, null, errorText);
+      }
+
+      return { errorTitle, errorText };
+    },
+
     // Submits the rating form and remembers the uuid so the widget won't show again
     submitFeedback(el, url) {
       if (this.submitting) return;
+
+      const categoryInput = el.querySelector('input[name="category"]');
+      if (categoryInput && !categoryInput.value) {
+        const dropdownEl = categoryInput.closest('[x-data*="dropdown"]');
+        if (dropdownEl && window.Alpine) {
+          const ddData = Alpine.$data(dropdownEl);
+          if (ddData) {
+            ddData.hasServerError = true;
+          }
+        }
+        return;
+      }
+
       this.submitting = true;
       this.showError = false;
 
-      fetch(url, { method: 'POST', body: new FormData(el) })
+      const formData = new FormData(el);
+      formData.set('page', window.location.href.replace(/^https?:\/\//, ''));
+      formData.set('user_agent', navigator.userAgent);
+      if (!formData.get('rating') || formData.get('rating') === '0') {
+        formData.set('rating', '3');
+      }
+      if (!formData.get('category')) {
+        formData.delete('category');
+      }
+
+      fetch(url, { method: 'POST', body: formData })
         .then((res) => {
           if (res.ok) {
             this.showSuccess = true;
+            let reachesLimit = false;
             if (this.uuid && typeof window !== 'undefined' && window.localStorage) {
-              localStorage.setItem(`rating-${this.uuid}`, 'true');
+              const newCount = this.getFeedbackCount() + 1;
+              localStorage.setItem(`rating-${this.uuid}`, String(newCount));
+              reachesLimit = newCount >= 3;
             }
+            setTimeout(() => {
+              this.closeModal();
+              if (reachesLimit) {
+                this.visible = false;
+              } else {
+                this.thumb = null;
+                this.rating = 0;
+                this.clearFeedback();
+                this.showSuccess = false;
+              }
+            }, 2500);
           } else {
             this.showError = true;
+            const { errorTitle, errorText } = this.getToastStrings();
+            this.triggerToast('error', errorTitle, errorText, 8000);
           }
         })
         .catch(() => {
           this.showError = true;
+          const { errorTitle, errorText } = this.getToastStrings();
+          this.triggerToast('error', errorTitle, errorText, 8000);
         })
         .finally(() => {
           this.submitting = false;

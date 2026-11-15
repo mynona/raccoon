@@ -3,18 +3,25 @@ import SGML
 import SVG
 import WebBuilders
 
-// No import needed for twRatingThumbsStyling; same module
-
 public struct Rating: TemplateRepresentable {
     let data: RatingData
     let iconSize = 28
     let textAreaId: String
 
     typealias styles = RatingStyles
+    typealias buttonStyles = ActionButtonStyles
 
     private static let question = LocalizedText(
         "rating.question",
-        "How do you like this article?"
+        "How do you like this application?"
+    )
+    private static let suggestImprovement = LocalizedText(
+        "rating.suggestImprovement",
+        "Suggest an improvement"
+    )
+    private static let shareImprovement = LocalizedText(
+        "rating.shareImprovement",
+        "Share an improvement?"
     )
     private static let positiveFollowUp = LocalizedText(
         "rating.positiveFollowUp",
@@ -23,6 +30,22 @@ public struct Rating: TemplateRepresentable {
     private static let negativeFollowUp = LocalizedText(
         "rating.negativeFollowUp",
         "What shall be improved?"
+    )
+    private static let feedback = LocalizedText(
+        "rating.feedback",
+        "Your feedback improves this service"
+    )
+    private static let categoryLabel = LocalizedText(
+        "rating.category",
+        "Category"
+    )
+    private static let selectCategory = LocalizedText(
+        "rating.selectCategory",
+        "Select category"
+    )
+    private static let categoryRequired = LocalizedText(
+        "rating.categoryRequired",
+        "Please select a category."
     )
     private static let thumbsUp = LocalizedText(
         "rating.thumbsUp",
@@ -54,6 +77,14 @@ public struct Rating: TemplateRepresentable {
         "Feedback must be at least 5 characters long."
     )
     private static let submit = LocalizedText("rating.submit", "Submit")
+    private static let toastErrorTitle = LocalizedText(
+        "rating.toastErrorTitle",
+        "Server error"
+    )
+    private static let toastErrorText = LocalizedText(
+        "rating.toastErrorText",
+        "Rating has not been submitted."
+    )
     private static let wentWrong = LocalizedText(
         "rating.wentWrong",
         "Something went wrong"
@@ -70,7 +101,10 @@ public struct Rating: TemplateRepresentable {
         "rating.closeWidget",
         "Close feedback widget"
     )
-    typealias buttonStyles = ActionButtonStyles
+    private static let close = LocalizedText(
+        "rating.close",
+        "Close"
+    )
 
     public init(
         _ data: RatingData
@@ -91,13 +125,38 @@ public struct Rating: TemplateRepresentable {
     }
 
     @Builder<Element>
-    func heading() -> [Element] {
-        let title = data.question ?? Self.question
-        P(title.resolved)
-            .localized(title)
-            .class("text-center pt-1")
-            .addClass(styles.question)
-            .setAttribute(name: "x-show", value: "!showSuccess")
+    func headerRow() -> [Element] {
+        let title = data.question ?? (data.hasLikertRating ? Self.question : Self.suggestImprovement)
+        Div {
+            P(title.resolved)
+                .localized(title)
+                .setAttribute(name: ":id", value: "$id('rating-modal-title')")
+                .class(styles.question)
+
+            ActionButton(
+                ActionButtonData(
+                    id: "btn-close",
+                    clickAction: "closeModal()",
+                    label: nil,
+                    ariaLabel: Self.closeWidget,
+                    htmlType: .button,
+                    buttonType: .icon,
+                    state: .enabled,
+                    size: .base,
+                    hasFullWidth: false,
+                    icon: .x_lg,
+                    iconPosition: .left,
+                    contentTracker: MatomoContentTracker(
+                        name: "feedback-widget",
+                        piece: "btn_close",
+                        target: ""
+                    )
+                )
+            )
+            .render()
+        }
+        .class(styles.headerRow)
+        .setAttribute(name: "x-show", value: "!showSuccess")
     }
 
     @Builder<Element>
@@ -290,38 +349,71 @@ public struct Rating: TemplateRepresentable {
             .setAttribute(name: "data-follow-up", value: "negative")
     }
 
+    private var hasCustomFollowUp: Bool {
+        data.positiveFollowUpQuestion != nil || data.negativeFollowUpQuestion != nil
+    }
+
     private var feedbackFields: [FormField] {
-        [
-            .hidden(HiddenFieldData(id: "id", value: data.id)),
-            .custom(RatingHiddenInput()),
+        var fields: [FormField] = []
+
+        if data.hasCategory && !data.categoryOptions.isEmpty {
+            fields.append(
+                .dropdown(
+                    DropdownData(
+                        id: "category-\(data.sanitizedId())",
+                        name: "category",
+                        label: nil,
+                        placeholder: Self.selectCategory,
+                        placeholderText: Self.selectCategory,
+                        options: data.categoryOptions,
+                        errorMessages: ErrorMessageData(
+                            id: "category-error-\(data.sanitizedId())",
+                            errorMessages: [Self.categoryRequired]
+                        )
+                    )
+                )
+            )
+        }
+
+        let labelTitle = hasCustomFollowUp ? Self.negativeFollowUp : Self.feedback
+        let labelXhtml = hasCustomFollowUp ? "followUpLabel()" : nil
+
+        fields.append(
             .textArea(
                 TextAreaFieldData(
                     id: textAreaId,
                     name: "feedback",
                     label: LabelData(
                         id: textAreaId,
-                        title: Self.negativeFollowUp,
+                        title: labelTitle,
                         size: .sm,
                         isRequired: true,
-                        xhtml: "followUpLabel()"
+                        xhtml: labelXhtml
                     ),
-                    placeholder: Self.placeholder,
-                    rows: 1,
+                    placeholder: nil,
+                    rows: 3,
                     validation: .custom(
                         pattern: #"^[\s\S]{5,}$"#,
                         message: data.ErrorMessageInvalidFeedback
                             ?? Self.tooShort
                     )
                 )
-            ),
-        ]
+            )
+        )
+
+        fields.append(.hidden(HiddenFieldData(id: "id", value: data.id)))
+        fields.append(.custom(RatingHiddenInput()))
+        return fields
     }
 
     @Builder<Element>
     func feedbackForm() -> [Element] {
 
-        // Show form only if a rating is selected (thumb or star)
+        // Show form only if a rating is selected (thumb or star), or immediately if no Likert rating
         let showFormExpr: String = {
+            if !data.hasLikertRating {
+                return "!showSuccess"
+            }
             switch data.ratingType {
             case .thumbsUpDown:
                 return "thumb !== null && !showSuccess"
@@ -359,21 +451,9 @@ public struct Rating: TemplateRepresentable {
             )
             .render()
 
-            followUpTemplates()
-
-            // Error notification for failed submission
-            Div {
-                Notification(
-                    NotificationData(
-                        title: Self.wentWrong,
-                        text: Self.couldNotSubmit,
-                        type: .error
-                    )
-                )
-                .render()
+            if hasCustomFollowUp {
+                followUpTemplates()
             }
-            .setAttribute(name: "x-show", value: "showError")
-            .class("mt-8")
         }
         .class("w-full mt-6")
         .setAttribute(name: "x-show", value: showFormExpr)
@@ -385,45 +465,124 @@ public struct Rating: TemplateRepresentable {
 
     @Builder<Element>
     func thankYouMessage() -> [Element] {
-        P(Self.thankYou.resolved)
-            .localized(Self.thankYou)
-            .setAttribute(name: "x-show", value: "showSuccess")
-            .class(styles.thankYouMessage)
+        Div {
+            P(Self.thankYou.resolved)
+                .localized(Self.thankYou)
+                .class(styles.thankYouMessage)
+
+            ActionButton(
+                ActionButtonData(
+                    id: "btn-thank-you-close",
+                    clickAction: "closeModal()",
+                    label: nil,
+                    ariaLabel: Self.closeWidget,
+                    htmlType: .button,
+                    buttonType: .icon,
+                    state: .enabled,
+                    size: .base,
+                    hasFullWidth: false,
+                    icon: .x_lg,
+                    iconPosition: .left,
+                    contentTracker: MatomoContentTracker(
+                        name: "feedback-widget",
+                        piece: "btn_thank_you_close",
+                        target: ""
+                    )
+                )
+            )
+            .render()
+        }
+        .class(styles.thankYouContainer)
+        .setAttribute(name: "x-show", value: "showSuccess")
     }
 
     @Builder<Element>
-    func showCloseButton() -> [Element] {
-        if data.isFloating {
-            Div {
-                ActionButton(
-                    ActionButtonData(
-                        id: "btn-close",
-                        clickAction: "close()",
-                        label: nil,
-                        ariaLabel: Self.closeWidget,
-                        htmlType: .button,
-                        buttonType: .icon,
-                        state: .enabled,
-                        size: .base,
-                        hasFullWidth: false,
-                        icon: .x_lg,
-                        iconPosition: .left,
-                        contentTracker: MatomoContentTracker(
-                            name: "feedback-widget",
-                            piece: "btn_close",
-                            target: ""
-                        )
-                    )
-                )
-                .render()
+    func floatingTriggerButton() -> [Element] {
+        let labelText = data.tooltip ?? Self.shareImprovement
+
+        Div {
+            Button {
+                Div {
+                    Svg.icon(.lightbulb, width: 16, height: 16)
+                        .setAttribute(name: "aria-hidden", value: "true")
+                        .class("shrink-0")
+
+                    Span(labelText.resolved)
+                        .localized(labelText)
+                        .class(styles.triggerText)
+                }
+                .class("flex items-center")
             }
-            .setAttribute(name: "x-show", value: "isFloating")
+            .type(.button)
+            .id("rating-trigger-\(data.sanitizedId())")
+            .localized(.ariaLabel, labelText)
+            .setAttribute(name: "x-ref", value: "triggerButton")
+            .setAttribute(name: "@click", value: "openModal()")
+            .setAttribute(name: "aria-haspopup", value: "dialog")
+            .setAttribute(name: ":aria-expanded", value: "open")
+            .setAttribute(
+                name: ":aria-controls",
+                value: "'rating-modal-\(data.sanitizedId())'"
+            )
+            .class(styles.triggerButton)
         }
+        .class(styles.floatingContainer)
+        .setAttribute(name: "x-show", value: "visible && !open")
+    }
+
+    @Builder<Element>
+    func modalDialog() -> [Element] {
+        Div {
+            // Backdrop
+            Div {}
+                .setAttribute(name: "x-show", value: "open")
+                .flagAttribute("x-transition.opacity")
+                .class(styles.backdrop)
+
+            // Dialog container
+            Div {
+                Div {
+                    headerRow()
+
+                    if data.hasLikertRating {
+                        ratingRow()
+                    }
+                    feedbackForm()
+                    thankYouMessage()
+                }
+                .flagAttribute("x-on:click.stop")
+                .setAttribute(name: "x-trap.noscroll.inert", value: "open")
+                .class(styles.panelInner)
+                .id("rating-floating-panel-\(data.sanitizedId())")
+            }
+            .setAttribute(name: "x-show", value: "open")
+            .flagAttribute("x-transition")
+            .setAttribute(name: "x-on:click", value: "closeModal()")
+            .class(styles.modalWrapper)
+        }
+        .setAttribute(name: "x-show", value: "open")
+        .setAttribute(
+            name: "x-on:keydown.escape.prevent.stop",
+            value: "closeModal()"
+        )
+        .setAttribute(name: "role", value: "dialog")
+        .setAttribute(name: "aria-modal", value: "true")
+        .setAttribute(name: "x-id", value: "['rating-modal-title']")
+        .setAttribute(
+            name: ":aria-labelledby",
+            value: "$id('rating-modal-title')"
+        )
+        .id("rating-modal-\(data.sanitizedId())")
+        .flagAttribute("x-cloak")
+        .class("fixed inset-0 z-50 overflow-y-auto")
     }
 
     @Builder<Element>
     public func render() -> [Element] {
         DebugComment("Feedback widget")
+
+        let errorTitle = data.toastErrorTitle ?? Self.toastErrorTitle
+        let errorText = data.toastErrorText ?? Self.toastErrorText
 
         Script()
             .src("/js/rating.js")
@@ -433,43 +592,26 @@ public struct Rating: TemplateRepresentable {
             )
 
         Div {
-            Div {
-
-                Div {
-                    heading()
-                    showCloseButton()
-                }
-                .class("flex flex-wrap items-center justify-center gap-4")
-                .if(data.ratingType == .thumbsUpDown) {
-                    $0.addClass("mb-8")
-                } else: {
-                    $0.addClass("mb-4")
-                }
-
-                ratingRow()
-                feedbackForm()
-                thankYouMessage()
-            }
-            .class(styles.panelInner)
-            .if(data.isFloating) {
-                $0.id("rating-floating-panel-\(data.sanitizedId())")
-            } else: {
-                $0.id("rating-panel-\(data.sanitizedId())")
-            }
-            .class(DialogStyles.backgroundPadding)
-        }
-        .class(styles.panel)
-        .if(data.isFloating) {
-            $0.setAttribute(
-                name: ":class",
-                value:
-                    "isFloating ? '\(styles.containerFloating)' : '\(styles.containerDefault)'"
-            )
-        } else: {
-            $0.addClass(styles.containerDefault)
+            floatingTriggerButton()
+            modalDialog()
         }
         .setAttribute(name: "x-data", value: xDataExpression())
-        .setAttribute(name: "x-show", value: "visible")
+        .setAttribute(
+            name: "data-toast-error-title",
+            value: errorTitle.resolved
+        )
+        .setAttribute(
+            name: "data-toast-error-text",
+            value: errorText.resolved
+        )
+        .setAttribute(
+            name: "data-i18n-toast-error-title",
+            value: "rating.toastErrorTitle"
+        )
+        .setAttribute(
+            name: "data-i18n-toast-error-text",
+            value: "rating.toastErrorText"
+        )
     }
 }
 

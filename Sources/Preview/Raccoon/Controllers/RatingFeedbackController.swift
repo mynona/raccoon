@@ -21,12 +21,18 @@ public struct RatingFeedbackController: RouteCollection, Sendable {
         let id: UUID
         let rating: Int
         let feedback: String?
+        let page: String?
+        let user_agent: String?
+        let category: String?
     }
 
     struct Entry: Content {
         let id: UUID
         let rating: Int
         let feedback: String
+        let page: String?
+        let user_agent: String?
+        let category: String?
         let receivedAt: Date
     }
 
@@ -52,6 +58,9 @@ public struct RatingFeedbackController: RouteCollection, Sendable {
             id: data.id,
             rating: data.rating,
             feedback: data.feedback ?? "",
+            page: data.page,
+            user_agent: data.user_agent,
+            category: data.category,
             receivedAt: Date()
         )
         await Store.shared.add(entry)

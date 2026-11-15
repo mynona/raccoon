@@ -206,7 +206,7 @@ struct YesNoRatingTests {
         #expect(german.contains(">War dieser Artikel hilfreich?</p>"))
         #expect(german.contains(">Ja</span>"))
         #expect(german.contains(">Nein</span>"))
-        #expect(german.contains("Klasse! Was hat dir am besten geholfen?"))
+        #expect(german.contains("Super! Was hat dir am besten geholfen?"))
         #expect(german.contains("Wie können wir diesen Artikel verbessern?"))
         #expect(german.contains("Mir haben wichtige Informationen gefehlt"))
         #expect(german.contains("Etwas anderes"))

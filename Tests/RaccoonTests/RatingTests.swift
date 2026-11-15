@@ -75,30 +75,36 @@ struct RatingTests {
         #expect(html.contains("selectStar(5)"))
     }
 
-    @Test("renders floating rating action button with hide guard")
-    func rendersFloatingRatingActionButtonWithHideGuard() async throws {
+    @Test("renders floating trigger button and modal dialog")
+    func rendersFloatingTriggerAndModal() async throws {
 
         let html = renderHTML(
             Rating(
                 RatingData(
                     id: "uuid-floating",
                     url: "/api/rating",
-                    ratingType: .fiveStars,
-                    isFloating: true
+                    ratingType: .fiveStars
                 )
             )
             .render()
         )
 
-        #expect(html.contains(RatingStyles.containerFloating))
+        #expect(html.contains(RatingStyles.floatingContainer))
+        #expect(html.contains("id=\"rating-trigger-uuid-floating\""))
+        #expect(html.contains("aria-haspopup=\"dialog\""))
+        #expect(html.contains(":aria-expanded=\"open\""))
+        #expect(html.contains("Share an improvement?"))
+        #expect(html.contains("role=\"dialog\""))
+        #expect(html.contains("aria-modal=\"true\""))
+        #expect(html.contains("id=\"rating-modal-uuid-floating\""))
         #expect(html.contains("id=\"rating-floating-panel-uuid-floating\""))
         #expect(html.contains("aria-label=\"Close feedback widget\""))
-        #expect(html.contains("x-show=\"isFloating\""))
-        #expect(html.contains(":class=\"isFloating ?"))
+        #expect(html.contains("closeModal()"))
+        #expect(html.contains("x-trap.noscroll.inert=\"open\""))
     }
 
-    @Test("renders floating rating only after scrolling 80% of the page")
-    func rendersFloatingRatingOnlyAfterScrollThreshold() async throws {
+    @Test("renders scroll threshold in x-data when configured")
+    func rendersScrollThresholdWhenConfigured() async throws {
 
         let html = renderHTML(
             Rating(
@@ -106,14 +112,12 @@ struct RatingTests {
                     id: "uuid-floating-scroll",
                     url: "/api/rating",
                     ratingType: .fiveStars,
-                    isFloating: true,
                     isShownOnScroll: true
                 )
             )
             .render()
         )
 
-        #expect(html.contains("x-show=\"visible\""))
         #expect(
             html.contains(
                 "x-data=\"ratingWidget('uuid-floating-scroll', true, 'raumnebenan-matomo', true)\""
@@ -121,51 +125,69 @@ struct RatingTests {
         )
     }
 
-    @Test("renders inline rating with floating flag false in x-data")
-    func rendersInlineRatingWithFloatingFlagFalse() async throws {
+    @Test("renders category dropdown when hasCategory is true")
+    func rendersCategoryDropdownWhenConfigured() async throws {
+
+        let options = [
+            OptionValue(title: LocalizedText(verbatim: "Bug"), value: "bug"),
+            OptionValue(title: LocalizedText(verbatim: "Feature"), value: "feature"),
+        ]
 
         let html = renderHTML(
             Rating(
                 RatingData(
-                    id: "uuid-inline",
+                    id: "uuid-category",
+                    url: "/api/rating",
+                    categoryOptions: options,
+                    hasCategory: true
+                )
+            )
+            .render()
+        )
+
+        #expect(html.contains("name=\"category\""))
+        #expect(html.contains("Bug"))
+        #expect(html.contains("Feature"))
+    }
+
+    @Test("omits likert rating controls when hasLikertRating is false")
+    func omitsLikertRatingWhenDisabled() async throws {
+
+        let html = renderHTML(
+            Rating(
+                RatingData(
+                    id: "uuid-no-likert",
+                    url: "/api/rating",
+                    hasLikertRating: false
+                )
+            )
+            .render()
+        )
+
+        #expect(!html.contains("role=\"radiogroup\""))
+        #expect(!html.contains("Thumbs up"))
+        #expect(!html.contains("Thumbs down"))
+        #expect(!html.contains("data-follow-up=\"positive\""))
+        #expect(html.contains("name=\"feedback\""))
+    }
+
+    @Test("renders toast error data attributes")
+    func rendersToastErrorDataAttributes() async throws {
+
+        let html = renderHTML(
+            Rating(
+                RatingData(
+                    id: "uuid-toast",
                     url: "/api/rating"
                 )
             )
             .render()
         )
 
-        #expect(
-            html.contains(
-                "x-data=\"ratingWidget('uuid-inline', false, 'raumnebenan-matomo', false)\""
-            )
-        )
-        #expect(!html.contains("aria-label=\"Close feedback widget\""))
-        #expect(!html.contains(":class=\"isFloating ?"))
-    }
-
-    @Test(
-        "renders dynamic docking container and close button visibility guard when floating"
-    )
-    func rendersDynamicDockingContainerWhenFloating() async throws {
-
-        let html = renderHTML(
-            Rating(
-                RatingData(
-                    id: "uuid-docking",
-                    url: "/api/rating",
-                    isFloating: true,
-                    isShownOnScroll: true
-                )
-            )
-            .render()
-        )
-
-        #expect(
-            html.contains(
-                ":class=\"isFloating ? '\(RatingStyles.containerFloating)' : '\(RatingStyles.containerDefault)'\""
-            )
-        )
-        #expect(html.contains("x-show=\"isFloating\""))
+        #expect(html.contains("data-toast-error-title=\"Server error\""))
+        #expect(html.contains("data-toast-error-text=\"Rating has not been submitted.\""))
+        #expect(html.contains("data-i18n-toast-error-title=\"rating.toastErrorTitle\""))
+        #expect(html.contains("data-i18n-toast-error-text=\"rating.toastErrorText\""))
     }
 
     @Test("renders configurable cookie name")
@@ -257,9 +279,7 @@ struct RatingTests {
 
         #expect(html.contains("{5,}"))
         #expect(html.contains("Too short, please write more."))
-        #expect(html.contains("x-html=\"followUpLabel()\""))
-        #expect(html.contains("data-follow-up=\"positive\""))
-        #expect(html.contains("data-follow-up=\"negative\""))
+        #expect(html.contains("Your feedback improves this service"))
     }
 
     @Test("renders custom follow up questions")
@@ -279,6 +299,9 @@ struct RatingTests {
 
         #expect(html.contains("What worked well?"))
         #expect(html.contains("What should change?"))
+        #expect(html.contains("x-html=\"followUpLabel()\""))
+        #expect(html.contains("data-follow-up=\"positive\""))
+        #expect(html.contains("data-follow-up=\"negative\""))
     }
 
     // MARK: localization
@@ -294,8 +317,8 @@ struct RatingTests {
             )
             let english = renderHTML(Rating(data).render())
             for key in [
-                "question", "positiveFollowUp", "negativeFollowUp", "clear",
-                "clearSelection", "placeholder", "submit", "thankYou",
+                "question", "clear",
+                "clearSelection", "feedback", "submit", "thankYou",
                 "closeWidget",
             ] {
                 #expect(english.contains("rating.\(key)"), "\(type) \(key)")
@@ -303,14 +326,21 @@ struct RatingTests {
             let german = I18n.render(language: "de") {
                 renderHTML(Rating(data).render())
             }
-            #expect(german.contains(">Wie gefällt dir dieser Artikel?</p>"))
+            #expect(german.contains(">Wie gefällt dir diese Anwendung?</p>"))
+            #expect(german.contains("Dein Feedback verbessert diesen Dienst"))
             #expect(german.contains(">Absenden</span>"))
             #expect(german.contains("Danke für dein Feedback!"))
             #expect(
                 german.contains("aria-label=\"Feedback-Fenster schließen\"")
             )
             #expect(
-                german.contains("Dein Feedback konnte nicht gesendet werden.")
+                german.contains("data-toast-error-text=\"Bewertung wurde nicht übermittelt.\"")
+            )
+            #expect(
+                german.contains("data-toast-error-title=\"Serverfehler\"")
+            )
+            #expect(
+                german.contains("Verbesserung vorschlagen?")
             )
         }
     }

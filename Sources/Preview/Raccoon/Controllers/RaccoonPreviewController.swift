@@ -51,7 +51,8 @@ public struct RaccoonPreviewController: RouteCollection, Sendable {
         preview.get("radio", use: getRadio)
         preview.get("radio-group", use: getRadioGroup)
         preview.get("rating", use: getRating)
-        preview.get("rating-floating", use: getRatingFloating)
+        preview.get("rating-stars", use: getRatingStars)
+        preview.get("rating-no-likert", use: getRatingNoLikert)
         preview.get("yes-no-rating", use: getYesNoRating)
         preview.get("references", use: getReferences)
         preview.get("simple-table", use: getSimpleTable)
@@ -311,8 +312,14 @@ public struct RaccoonPreviewController: RouteCollection, Sendable {
     }
 
     @Sendable
-    func getRatingFloating(_ request: Request) async throws -> Response {
-        let view = request.templates.renderHtml(RatingFloatingView())
+    func getRatingStars(_ request: Request) async throws -> Response {
+        let view = request.templates.renderHtml(RatingStarsView())
+        return view
+    }
+
+    @Sendable
+    func getRatingNoLikert(_ request: Request) async throws -> Response {
+        let view = request.templates.renderHtml(RatingFeedbackOnlyView())
         return view
     }
 
