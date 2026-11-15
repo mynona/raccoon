@@ -70,19 +70,39 @@ public struct Badge: TemplateRepresentable {
         }
     }
 
+    /// Text and background colors of the filled status variants.
+    private var statusColors: String {
+        switch data.variant {
+        case .tag: ""
+        case .neutral: styles.neutral
+        case .success: styles.success
+        case .error: styles.error
+        }
+    }
+
     @Builder<Element>
     func showIconWithTitle() -> [Element] {
+        let isTag = data.variant == .tag
         Span {
-            Svg.icon(.hash, width: 16, height: 16)
+            if let icon = data.icon {
+                Svg.icon(icon, width: 16, height: 16)
+            }
             Span(title().resolved)
                 .localized(title())
+                .if(data.bindTitle != nil) {
+                    $0.setAttribute(name: "x-text", value: data.bindTitle!)
+                }
         }
-        .class("flex flex-row gap-1 items-center py-1 px-4")
+        .class(
+            isTag
+                ? "flex flex-row gap-1 items-center py-1 px-4"
+                : "flex flex-row gap-1 items-center py-0.5 px-3"
+        )
         .addClass(styles.focusReset)
-        .addClass(styles.iconBorder)
+        .if(isTag) { $0.addClass(styles.iconBorder) }
         .addClass(styles.font)
         .addClass(styles.textSize)
-        .addClass(styles.labelText)
+        .addClass(isTag ? styles.labelText : statusColors)
         .if(data.counter != nil) {
             $0.addClass("rounded-l-lg")
         } else: {
@@ -155,16 +175,25 @@ public struct Badge: TemplateRepresentable {
             }
 
         }
-        .id(data.id)
+        .if(data.id != nil) {
+            $0.id(data.id!)
+        }
         .role("group")
-        .if(!data.isLink) {
+        .if(data.bindAriaLabel != nil) {
+            $0.setAttribute(
+                name: ":aria-label",
+                value: data.bindAriaLabel!
+            )
+        }
+        .if(!data.isLink && data.bindAriaLabel == nil) {
             $0.localized(
                 .ariaLabel,
-                LocalizedText(
-                    "badge.group",
-                    "Articles tagged as '{{title}}'",
-                    variables: ["title": title().resolved]
-                )
+                data.ariaLabel
+                    ?? LocalizedText(
+                        "badge.group",
+                        "Articles tagged as '{{title}}'",
+                        variables: ["title": title().resolved]
+                    )
             )
         }
         .class(styles.fontSans)

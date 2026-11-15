@@ -10,6 +10,14 @@ public struct BadgeStyles {
     public static let iconBorder: String =
         "border border-on-surface-bright"
 
+    // MARK: status variants
+    public static let neutral: String =
+        "bg-on-surface/10 text-on-surface print:text-print"
+    public static let success: String =
+        "bg-on-success/15 text-on-success print:text-print"
+    public static let error: String =
+        "bg-on-error-variant/15 text-on-error-variant print:text-print"
+
     // MARK: label
     public static let labelText: String =
         "text-on-surface-bright"

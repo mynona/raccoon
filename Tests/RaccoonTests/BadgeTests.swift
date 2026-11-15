@@ -181,4 +181,51 @@ struct BadgeTests {
         }
         #expect(group.contains("aria-label=\"Articles avec le tag « Swift »\""))
     }
+
+    // MARK: status variants and bindings
+
+    @Test("the default badge keeps the # icon, the id and the tag label")
+    func defaultsStayUnchanged() {
+        let html = renderHTML(Badge(BadgeData(id: "keep", title: "swift")).render())
+        #expect(html.contains("id=\"keep\""))
+        #expect(html.contains("data-i18n-aria-label=\"badge.group\""))
+        #expect(html.contains("border-on-surface-bright"))
+        #expect(html.contains("<svg"))
+    }
+
+    @Test("a status badge has no icon, no tag border and no id when omitted")
+    func statusBadge() {
+        let html = renderHTML(
+            Badge(
+                BadgeData(
+                    title: "Closed",
+                    icon: nil,
+                    variant: .success,
+                    ariaLabel: "Closed"
+                )
+            ).render()
+        )
+        #expect(html.contains("Closed"))
+        #expect(html.contains(BadgeStyles.success))
+        #expect(!html.contains("<svg"))
+        #expect(!html.contains("border-on-surface-bright"))
+        #expect(!html.contains("id=\""))
+        #expect(!html.contains("badge.group"))
+    }
+
+    @Test("bound title and aria label replace the static texts at runtime")
+    func boundTexts() {
+        let html = renderHTML(
+            Badge(
+                BadgeData(
+                    title: "",
+                    bindTitle: "row['tag']",
+                    bindAriaLabel: "row['tag']"
+                )
+            ).render()
+        )
+        #expect(html.contains("x-text=\"row['tag']\""))
+        #expect(html.contains(":aria-label=\"row['tag']\""))
+        #expect(!html.contains("badge.group"))
+    }
 }
