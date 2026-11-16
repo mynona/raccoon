@@ -1,6 +1,6 @@
 import Foundation
 
-/// JSON handed to `data-table.js`. Only what the browser needs; all markup is rendered on the server.
+/// JSON handed to `raccoon-data-table.js`. Only what the browser needs; all markup is rendered on the server.
 struct DataTableClientConfig: Encodable {
 
     struct Endpoint: Encodable {

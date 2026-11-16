@@ -67,7 +67,7 @@ struct RatingFeedbackOnlyView: TemplateRepresentable {
                 showComponentTitle("Rating (Feedback Only)")
 
                 // Set cookie so the floating widget is permitted to display in preview
-                Script().src("/js-preview/matomo-declined.js")
+                Script().src("/js-preview/preview-matomo-declined.js")
 
                 for variant in variants {
 

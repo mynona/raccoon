@@ -91,7 +91,7 @@ struct LabelTests {
             .render()
         )
         #expect(html.contains("<label"))
-        #expect(html.contains("x-html=\"'xhtml-test'\""))
+        #expect(html.contains("x-safe-html=\"'xhtml-test'\""))
     }
 
     @Test("renders disabled label styling")
@@ -180,7 +180,7 @@ struct LabelTests {
         #expect(html.contains(">Speichern</span>"))
     }
 
-    @Test("an x-html title gets no translation marker")
+    @Test("an x-safe-html title gets no translation marker")
     func xhtmlTitleHasNoMarker() {
         let title = LocalizedText(en: "Save", translations: ["de": "Speichern"])
         let html = renderHTML(
@@ -194,7 +194,7 @@ struct LabelTests {
             )
             .render()
         )
-        #expect(html.contains("x-html=\"newText\""))
+        #expect(html.contains("x-safe-html=\"newText\""))
         #expect(!html.contains("data-i18n-values"))
     }
 

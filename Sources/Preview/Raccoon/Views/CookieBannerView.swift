@@ -54,7 +54,7 @@ struct CookieBannerView: TemplateRepresentable {
                 showComponentTitle("CookieBanner")
 
                 // Remove Matomo cookie
-                Script().src("/js-preview/matomo-cleared.js")
+                Script().src("/js-preview/preview-matomo-cleared.js")
 
                 for variant in variants {
 

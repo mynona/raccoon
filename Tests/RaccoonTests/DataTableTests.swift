@@ -10,7 +10,7 @@ private func renderHTML(_ elements: [any Element]) -> String {
 }
 
 private func decodedConfig(_ html: String) throws -> [String: Any] {
-    let marker = "dataTableConfig('"
+    let marker = "x-data=\"dataTable('"
     let start = try #require(html.range(of: marker))
     let rest = html[start.upperBound...]
     let end = try #require(rest.firstIndex(of: "'"))
@@ -217,9 +217,9 @@ struct DataTableTests {
         #expect(html.contains(":aria-expanded=\"filterPanelOpen\""))
     }
 
-    @Test("filter wrappers expose the state names that data-table.js writes to")
+    @Test("filter wrappers expose the state names that raccoon-data-table.js writes to")
     func filterContract() {
-        // data-table.js sets `selectedValue`/`selectedTitle` (Dropdown) and `value` (InputField)
+        // raccoon-data-table.js sets `selectedValue`/`selectedTitle` (Dropdown) and `value` (InputField)
         let html = renderHTML(DataTable(makeData()).render())
         #expect(html.contains("data-filter-field=\"name\""))
         #expect(html.contains("data-filter-kind=\"input\""))
@@ -319,7 +319,7 @@ struct DataTableTests {
     func cells() {
         let html = renderHTML(DataTable(makeData()).render())
         #expect(html.contains("cellText(row, col)"))
-        #expect(html.contains("x-html=\"row[col.key + '_html'] || ''\""))
+        #expect(html.contains("x-safe-html=\"row[col.key + '_html'] || ''\""))
         #expect(html.contains("col.key === 'nocturnal'"))
         #expect(html.contains("row['nocturnal'] ? 'Yes' : 'No'"))
         #expect(html.contains("col.key === 'actions'"))
@@ -473,8 +473,8 @@ struct DataTableTests {
     @Test("loads the SimpleTable factory and the DataTable factory")
     func scripts() {
         let html = renderHTML(DataTable(makeData()).render())
-        #expect(html.contains("/js/simple-table.js"))
-        #expect(html.contains("/js/data-table.js"))
-        #expect(html.contains("x-data=\"dataTable(dataTableConfig('"))
+        #expect(html.contains("/js/raccoon-simple-table.js"))
+        #expect(html.contains("/js/raccoon-data-table.js"))
+        #expect(html.contains("x-data=\"dataTable('"))
     }
 }

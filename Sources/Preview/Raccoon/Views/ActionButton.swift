@@ -117,7 +117,7 @@ struct ButtonView: TemplateRepresentable {
             ),
             ActionButtonData(
                 id: "btn-1",
-                clickAction: "alert('ClickAction fired');",
+                clickAction: "$alert('ClickAction fired');",
                 label: tr(
                     "Label",
                     de: "Beschriftung",
@@ -596,7 +596,7 @@ struct ButtonView: TemplateRepresentable {
             ),
             ActionButtonData(
                 id: "btn-disabled-primary",
-                clickAction: "alert('This must never fire');",
+                clickAction: "$alert('This must never fire');",
                 label: tr(
                     "Label",
                     de: "Beschriftung",

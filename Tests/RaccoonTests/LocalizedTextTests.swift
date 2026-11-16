@@ -172,7 +172,7 @@ struct LocalizedTextTests {
         let plain = LocalizedText("audioplayer.pause", "Pause")
         #expect(
             plain.alpineExpression
-                == "(window.RaccoonI18n?RaccoonI18n.t('audioplayer.pause',null,'Pause'):'Pause')"
+                == "$t('audioplayer.pause',null,'Pause')"
         )
         let quoted = LocalizedText("a.c", "Say \"hi\"")
         #expect(!quoted.alpineExpression.contains("\""))
@@ -182,10 +182,10 @@ struct LocalizedTextTests {
     func alpineConsumer() {
         #expect(
             consumer.alpineExpression
-                == "(window.RaccoonI18n?RaccoonI18n.pick({'de':'Speichern','en':'Save','fr':'Enregistrer'},null,'Save'):'Save')"
+                == "$pick({'de':'Speichern','en':'Save','fr':'Enregistrer'},null,'Save')"
         )
         let german = I18n.render(language: "de") { consumer.alpineExpression }
-        #expect(german.hasSuffix(",'Speichern'):'Speichern')"))
+        #expect(german.hasSuffix(",'Speichern')"))
     }
 
     // MARK: page scripts
@@ -193,8 +193,8 @@ struct LocalizedTextTests {
     @Test("the engine tag is the store only")
     func engine() {
         let html = renderHTML([I18n.engine()])
-        #expect(html.contains("src=\"/js/i18n.js\""))
-        #expect(!html.contains("/js/i18n/"))
+        #expect(html.contains("src=\"/js/raccoon-i18n.js\""))
+        #expect(!html.contains("/js/raccoon-i18n/"))
     }
 
     @Test(
@@ -207,7 +207,8 @@ struct LocalizedTextTests {
             _ = consumer.resolved
             return renderHTML(I18n.scripts())
         }
-        #expect(html.contains("src=\"/js/i18n.js\""))
+        #expect(html.contains("src=\"/js/raccoon-i18n.js\""))
+        #expect(html.contains("src=\"/js/raccoon-alpine-helper.js\""))
         #expect(html.contains("\"de\":{\"required\":\"(erforderlich)\"}"))
         #expect(html.contains("\"en\":{\"required\":\"(required)\"}"))
         #expect(!html.contains("Speichern"))

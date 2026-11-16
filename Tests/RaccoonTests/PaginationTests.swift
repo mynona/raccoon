@@ -415,11 +415,10 @@ struct PaginationTests {
         let html = I18n.render(language: "de") {
             renderHTML(Pagination(data).render())
         }
-        #expect(html.contains("get tooltipText() { return"))
         #expect(html.contains("Seite 2"))
         #expect(
             html.contains(
-                "RaccoonI18n.t('pagination.page',{number:'2'},'Seite 2')"
+                "x-text=\"$t('pagination.page',{number:'2'},'Seite 2')\""
             )
         )
     }

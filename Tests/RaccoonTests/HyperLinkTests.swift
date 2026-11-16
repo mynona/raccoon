@@ -197,6 +197,8 @@ struct HyperLinkTests {
         #expect(html.contains("Some tooltip"))
         #expect(html.contains("x-on:mouseenter"))
         #expect(html.contains("x-on:mouseleave"))
+        #expect(html.contains("$dispatch('show-tooltip'"))
+        #expect(html.contains("$dispatch('hide-tooltip'"))
         #expect(html.contains("x-data=\"\""))
     }
 

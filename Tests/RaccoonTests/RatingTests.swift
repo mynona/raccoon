@@ -258,10 +258,10 @@ struct RatingTests {
 
         #expect(html.contains("x-ref=\"star1\""))
         #expect(
-            html.contains("@keydown.left=\"focusStar(Math.max(1, 1 - 1))\"")
+            html.contains("@keydown.left=\"focusStar(1)\"")
         )
         #expect(
-            html.contains("@keydown.right=\"focusStar(Math.min(5, 1 + 1))\"")
+            html.contains("@keydown.right=\"focusStar(2)\"")
         )
     }
 
@@ -317,7 +317,7 @@ struct RatingTests {
 
         #expect(html.contains("What worked well?"))
         #expect(html.contains("What should change?"))
-        #expect(html.contains("x-html=\"followUpLabel()\""))
+        #expect(html.contains("x-safe-html=\"followUpLabel()\""))
         #expect(html.contains("data-follow-up=\"positive\""))
         #expect(html.contains("data-follow-up=\"negative\""))
     }

@@ -435,7 +435,7 @@ public struct MultiSelect: TemplateRepresentable {
                 }
                 .setAttribute(
                     name: "x-on:click.prevent",
-                    value: "remove(selectedFramework); hasServerError = false;"
+                    value: "removeSelected(selectedFramework)"
                 )
                 .class(
                     "inline-flex items-center p-1 px-2 \(styles.optionSelected)"
@@ -471,22 +471,26 @@ public struct MultiSelect: TemplateRepresentable {
             // hidden input field and sent when the form
             // is submitted
             Select {
+                Template {
+                    Option("")
+                        .setAttribute(name: ":value", value: "selectedFramework.id")
+                        .setAttribute(name: "x-text", value: "selectedFramework.name")
+                        .flagAttribute("selected")
+                }
+                .setAttribute(name: "x-for", value: "selectedFramework in selected")
+                .setAttribute(name: ":key", value: "selectedFramework.id")
             }
             .id(data.id)
             .name(data.name)
             .flagAttribute("multiple")
             .class("hidden")
-            .setAttribute(
-                name: "x-html",
-                value: "selectedOptions()"
-            )
 
             // Visual representation of the input in the user interface
             Input()
                 .flagAttribute("x-combobox:input")
                 .setAttribute(
                     name: "@input",
-                    value: "query = $event.target.value;"
+                    value: "query = $event.target.value"
                 )
                 .setAttribute(
                     name: "autocomplete",
@@ -511,7 +515,7 @@ public struct MultiSelect: TemplateRepresentable {
         // https://alpinejs.dev/component/headless-combobox
 
         Script()
-            .src("/js/multi-select.js")
+            .src("/js/raccoon-multi-select.js")
             .setAttribute(
                 name: "type",
                 value: "text/javascript"

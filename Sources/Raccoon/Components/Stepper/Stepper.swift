@@ -196,22 +196,22 @@ public struct Stepper: TemplateRepresentable {
                     .setAttribute(
                         name: "x-on:mouseenter",
                         value:
-                            "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: '\(tooltipId!)' } }))"
+                            "$dispatch('show-tooltip', { id: '\(tooltipId!)' })"
                     )
                     .setAttribute(
                         name: "x-on:mouseleave",
                         value:
-                            "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: '\(tooltipId!)' } }))"
+                            "$dispatch('hide-tooltip', { id: '\(tooltipId!)' })"
                     )
                     .setAttribute(
                         name: "x-on:focus",
                         value:
-                            "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: '\(tooltipId!)' } }))"
+                            "$dispatch('show-tooltip', { id: '\(tooltipId!)' })"
                     )
                     .setAttribute(
                         name: "x-on:blur",
                         value:
-                            "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: '\(tooltipId!)' } }))"
+                            "$dispatch('hide-tooltip', { id: '\(tooltipId!)' })"
                     )
             }
             .class(circleClass)
@@ -277,22 +277,22 @@ public struct Stepper: TemplateRepresentable {
                     .setAttribute(
                         name: "x-on:mouseenter",
                         value:
-                            "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: '\(tooltipId!)' } }))"
+                            "$dispatch('show-tooltip', { id: '\(tooltipId!)' })"
                     )
                     .setAttribute(
                         name: "x-on:mouseleave",
                         value:
-                            "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: '\(tooltipId!)' } }))"
+                            "$dispatch('hide-tooltip', { id: '\(tooltipId!)' })"
                     )
                     .setAttribute(
                         name: "x-on:focus",
                         value:
-                            "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: '\(tooltipId!)' } }))"
+                            "$dispatch('show-tooltip', { id: '\(tooltipId!)' })"
                     )
                     .setAttribute(
                         name: "x-on:blur",
                         value:
-                            "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: '\(tooltipId!)' } }))"
+                            "$dispatch('hide-tooltip', { id: '\(tooltipId!)' })"
                     )
             }
             .class(circleClass)
@@ -444,22 +444,22 @@ public struct Stepper: TemplateRepresentable {
                                 .setAttribute(
                                     name: "x-on:mouseenter",
                                     value:
-                                        "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: '\(tooltipId!)' } }))"
+                                        "$dispatch('show-tooltip', { id: '\(tooltipId!)' })"
                                 )
                                 .setAttribute(
                                     name: "x-on:mouseleave",
                                     value:
-                                        "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: '\(tooltipId!)' } }))"
+                                        "$dispatch('hide-tooltip', { id: '\(tooltipId!)' })"
                                 )
                                 .setAttribute(
                                     name: "x-on:focus",
                                     value:
-                                        "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: '\(tooltipId!)' } }))"
+                                        "$dispatch('show-tooltip', { id: '\(tooltipId!)' })"
                                 )
                                 .setAttribute(
                                     name: "x-on:blur",
                                     value:
-                                        "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: '\(tooltipId!)' } }))"
+                                        "$dispatch('hide-tooltip', { id: '\(tooltipId!)' })"
                                 )
                         }
                         .class(circleClass)
@@ -536,22 +536,22 @@ public struct Stepper: TemplateRepresentable {
                         .setAttribute(
                             name: "x-on:mouseenter",
                             value:
-                                "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: '\(tooltipId!)' } }))"
+                                "$dispatch('show-tooltip', { id: '\(tooltipId!)' })"
                         )
                         .setAttribute(
                             name: "x-on:mouseleave",
                             value:
-                                "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: '\(tooltipId!)' } }))"
+                                "$dispatch('hide-tooltip', { id: '\(tooltipId!)' })"
                         )
                         .setAttribute(
                             name: "x-on:focus",
                             value:
-                                "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: '\(tooltipId!)' } }))"
+                                "$dispatch('show-tooltip', { id: '\(tooltipId!)' })"
                         )
                         .setAttribute(
                             name: "x-on:blur",
                             value:
-                                "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: '\(tooltipId!)' } }))"
+                                "$dispatch('hide-tooltip', { id: '\(tooltipId!)' })"
                         )
                 }
 

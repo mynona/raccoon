@@ -61,11 +61,11 @@ public struct Label: TemplateRepresentable {
 
             HTML.Label {
 
-                // An x-html span is controlled by Alpine, so it gets no translation marker
+                // An x-safe-html span is controlled by Alpine, so it gets no translation marker
                 Span(title.resolved)
                     .if(data.xhtml != nil) {
                         $0.setAttribute(
-                            name: "x-html",
+                            name: "x-safe-html",
                             value: "\(data.xhtml!)"
                         )
                     } else: {

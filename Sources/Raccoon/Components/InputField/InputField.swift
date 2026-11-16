@@ -58,7 +58,7 @@ public struct InputField: TemplateRepresentable {
 
         DebugComment("Input field")
         Script()
-            .src("/js/input-field.js")
+            .src("/js/raccoon-input-field.js")
             .setAttribute(
                 name: "type",
                 value: "text/javascript"
@@ -93,13 +93,11 @@ public struct InputField: TemplateRepresentable {
                     )
                     .setAttribute(
                         name: "@input",
-                        value:
-                            "isTouched = true; hasServerError = false; validate()"
+                        value: "onInput()"
                     )
                     .setAttribute(
                         name: "@blur",
-                        value:
-                            "isTouched = true; hasServerError = false; validate(); $nextTick(() => isTouched = true)"
+                        value: "onBlur()"
                     )
                     .class(
                         "block w-full p-0 text-sm leading-6"
@@ -203,7 +201,7 @@ public struct InputField: TemplateRepresentable {
         .setAttribute(
             name: "x-data",
             value:
-                "inputField({value: \(JavaScriptEscaper.alpineStringLiteral(valueBase64)), regexPattern: \(regexPattern.isEmpty ? "null" : "/\(regexPattern)/"), errorMessage: \(JavaScriptEscaper.alpineStringLiteral(errorMessage)), hasServerError: \(hasServerError ? "true" : "false"), hasInitialValue: \(hasInitialValue ? "true" : "false")})"
+                "inputField({value: \(JavaScriptEscaper.alpineStringLiteral(valueBase64)), regexPattern: \(regexPattern.isEmpty ? "null" : JavaScriptEscaper.alpineStringLiteral(regexPattern)), errorMessage: \(JavaScriptEscaper.alpineStringLiteral(errorMessage)), hasServerError: \(hasServerError ? "true" : "false"), hasInitialValue: \(hasInitialValue ? "true" : "false")})"
         )
 
     }

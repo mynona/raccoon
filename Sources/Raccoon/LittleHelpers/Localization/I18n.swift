@@ -62,7 +62,7 @@ public enum I18n {
     /// The browser store. Idempotent. Only needed for live language switching.
     public static func engine() -> Script {
         Script()
-            .src("/js/i18n.js")
+            .src("/js/raccoon-i18n.js")
             .setAttribute(name: "type", value: "text/javascript")
     }
 
@@ -73,10 +73,18 @@ public enum I18n {
     public static func scripts() -> [Element] {
         pageDictionary()
         engine()
+        alpine()
+    }
+
+    /// Raccoon Alpine CSP helpers ($t, $pick, x-safe-html, $isDesktop, $returnToCallerPage, $clickFirstNavLink and the dashboardLayout / frontendLayout components). Loaded after the i18n store and before the Alpine bundle.
+    public static func alpine() -> Script {
+        Script()
+            .src("/js/raccoon-alpine-helper.js")
+            .setAttribute(name: "type", value: "text/javascript")
     }
 
     /// JSON data block with all languages for exactly the built-in keys that were rendered on this page.
-    /// `i18n.js` registers it.
+    /// `raccoon-i18n.js` registers it.
     static func pageDictionary() -> Script {
         var byNamespace: [String: [String: [String: String]]] = [:]
         for fullKey in context.usedKeys {

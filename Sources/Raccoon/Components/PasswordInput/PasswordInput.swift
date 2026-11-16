@@ -154,11 +154,8 @@ public struct PasswordInput: TemplateRepresentable {
 
         }
         .tabIndex(0)
-        .setAttribute(
-            name: "@keydown",
-            value:
-                "if ($event.key === 'Enter' || $event.key === ' ') showConfirm = !showConfirm"
-        )
+        .setAttribute(name: "@keydown.enter", value: "showConfirm = !showConfirm")
+        .setAttribute(name: "@keydown.space", value: "showConfirm = !showConfirm")
         .addClass("cursor-pointer")
         .addClass(buttonStyles.font)
         .addClass(buttonStyles.textSizeBase)
@@ -327,11 +324,8 @@ public struct PasswordInput: TemplateRepresentable {
                 )
         }
         .tabIndex(0)  // tabIndex(0) set intentionally to avoid issues with certain browsers
-        .setAttribute(
-            name: "@keydown",
-            value:
-                "if ($event.key === 'Enter' || $event.key === ' ') showPassword = !showPassword"
-        )
+        .setAttribute(name: "@keydown.enter", value: "showPassword = !showPassword")
+        .setAttribute(name: "@keydown.space", value: "showPassword = !showPassword")
         .class("ml-3")
         .addClass("cursor-pointer")
         .addClass(buttonStyles.font)
@@ -385,7 +379,7 @@ public struct PasswordInput: TemplateRepresentable {
                 .setAttribute(
                     name: "@input",
                     value:
-                        "updateCriteria(); userTouchedPasswordField = true"
+                        "updateCriteria()"
                 )
                 .setAttribute(
                     name: "autocomplete",
@@ -530,7 +524,7 @@ public struct PasswordInput: TemplateRepresentable {
         DebugComment("PasswordField")
 
         Script()
-            .src("/js/input-password.js")
+            .src("/js/raccoon-input-password.js")
             .setAttribute(
                 name: "type",
                 value: "text/javascript"

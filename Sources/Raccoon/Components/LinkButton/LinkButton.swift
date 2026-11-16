@@ -158,22 +158,22 @@ public struct LinkButton: TemplateRepresentable {
                     .setAttribute(
                         name: "x-on:mouseenter",
                         value:
-                            "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: '\(ref)' } }))"
+                            "$dispatch('show-tooltip', { id: '\(ref)' })"
                     )
                     .setAttribute(
                         name: "x-on:mouseleave",
                         value:
-                            "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: '\(ref)' } }))"
+                            "$dispatch('hide-tooltip', { id: '\(ref)' })"
                     )
                     .setAttribute(
                         name: "x-on:focus",
                         value:
-                            "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: '\(ref)' } }))"
+                            "$dispatch('show-tooltip', { id: '\(ref)' })"
                     )
                     .setAttribute(
                         name: "x-on:blur",
                         value:
-                            "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: '\(ref)' } }))"
+                            "$dispatch('hide-tooltip', { id: '\(ref)' })"
                     )
 
             }

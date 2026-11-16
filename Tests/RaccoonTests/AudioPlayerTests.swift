@@ -273,9 +273,11 @@ struct AudioPlayerTests {
             )
         )
         #expect(german.contains("aria-label=\"Wiedergabe\""))
+        #expect(german.contains("@loadedmetadata=\"onMetadataLoaded()\""))
+        #expect(german.contains("@keydown.end.prevent=\"seekToEnd()\""))
         #expect(
             german.contains(
-                ":aria-label=\"playing ? (window.RaccoonI18n?RaccoonI18n.t('audioplayer.pause',null,'Pause'):'Pause') : "
+                ":aria-label=\"playing ? $t('audioplayer.pause',null,'Pause') : "
             )
         )
 
@@ -289,7 +291,7 @@ struct AudioPlayerTests {
         #expect(html.contains("aria-label=\"Lecteur audio pour Episode 1\""))
     }
 
-    @Test("the announcements of audioplayer.js land in the page dictionary")
+    @Test("the announcements of raccoon-audio-player.js land in the page dictionary")
     func scriptTextsAreRegistered() {
         let data = AudioPlayerData(
             linkToTheAudioFile: "https://example.com/a.mp3"

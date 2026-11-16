@@ -5,7 +5,7 @@ import WebBuilders
 
 /// DarkLightModeToggle
 ///
-/// Self-contained: owns its Alpine state via `/js/darklightmode.js`, so the host
+/// Self-contained: owns its Alpine state via `/js/raccoon-dark-light-mode.js`, so the host
 /// template needs nothing in scope. Alt+M toggles from anywhere on the page.
 /// Wrap it in a positioned Div — the component does not own its placement.
 ///
@@ -16,7 +16,7 @@ public struct DarkLightModeToggle: TemplateRepresentable {
     /// Must stay inline in `<head>`: it sets the `dark` class before first paint.
     /// Loading it via `src` would run too late and flash the wrong theme.
     public static let detectModeScript: String = """
-        // detect-mode.js
+        // preview-detect-mode.js
         // set initial color scheme
 
         let explicitelyPreferScheme = false
@@ -52,7 +52,7 @@ public struct DarkLightModeToggle: TemplateRepresentable {
         DebugComment("Dark light mode toggle")
 
         Script()
-            .src("/js/darklightmode.js")
+            .src("/js/raccoon-dark-light-mode.js")
             .setAttribute(
                 name: "type",
                 value: "text/javascript"

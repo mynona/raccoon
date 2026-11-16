@@ -122,7 +122,7 @@ let html = renderHTML(
 
 ## Localization (i18n)
 
-Raccoon components render on the server in one page language and include a lightweight client-side store (`Public/js/i18n.js`) allowing live language switching in the browser without a full page reload.
+Raccoon components render on the server in one page language and include a lightweight client-side store (`Public/js/raccoon-i18n.js`) allowing live language switching in the browser without a full page reload.
 
 ### Rendering in a language
 
@@ -160,7 +160,7 @@ ActionButton(
 
 To enable dynamic language switching in the browser:
 
-1. Serve `Public/js/i18n.js` at `/js/i18n.js`.
+1. Serve `Public/js/raccoon-i18n.js` at `/js/raccoon-i18n.js`.
 2. Output `I18n.scripts()` once near the end of `<body>` to emit the client engine and the dictionary of keys used on the page:
 
 ```swift

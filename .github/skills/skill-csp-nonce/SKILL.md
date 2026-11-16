@@ -5,19 +5,19 @@ description: Content-Security-Policy rules for Raccoon, raccoon-raumnebenan and 
 
 # CSP: no inline scripts, nonce only where unavoidable
 
-Policy: `script-src 'self' 'nonce-<per request>' 'unsafe-eval' <hosts>`. There is **no `'unsafe-inline'`**. `'unsafe-eval'` is needed by Alpine, `unpkg.com` by Mermaid. Style attributes and inline `<style>` are out of scope (`style-src` keeps `'unsafe-inline'`).
+Policy: `script-src 'self' 'nonce-<per request>' <hosts>`. There is **no `'unsafe-inline'`** and **no `'unsafe-eval'`**: Alpine runs as the `@alpinejs/csp` build (`raccoon-alpine-csp-bundle.js`), so Alpine expressions must stay within the CSP-safe syntax (see `md/alpine-csp.md`); `unpkg.com` is for Mermaid. Style attributes and inline `<style>` are out of scope (`style-src` keeps `'unsafe-inline'`).
 
 ## Rules for `Raccoon` (public library)
 
 - **A component never renders an inline script.** Only `Script().src("/js/...")`. `Sources/Raccoon` must contain no `Script(<content>)`. `NoInlineScriptTests` fails otherwise. `I18n.swift` is the only allowed file: it writes the dictionary as `<script type="application/json" data-raccoon-i18n>`, which is data, never executed.
 - **No CSP or nonce code in Raccoon.** Do not add a nonce parameter to a component.
-- **Per-page values go into `data-*` attributes** of the external script, not into JS source. Example: `MatomoTracker` renders `<script src="/js/matomo-tracker.js" data-site-id=...>`. The HTML renderer does **not** escape attribute values, so pass every value through `JavaScriptEscaper.htmlAttributeEscape`.
-- **No inline event handlers** (`onerror`, `onclick`, ...). A nonce does not apply to attributes. Use Alpine (`x-on:error="method($event)"`, `@click`) with the method in the component's JS, or one capturing listener in a JS file (`picture-fallback.js`).
+- **Per-page values go into `data-*` attributes** of the external script, not into JS source. Example: `MatomoTracker` renders `<script src="/js/raccoon-matomo-tracker.js" data-site-id=...>`. The HTML renderer does **not** escape attribute values, so pass every value through `JavaScriptEscaper.htmlAttributeEscape`.
+- **No inline event handlers** (`onerror`, `onclick`, ...). A nonce does not apply to attributes. Use Alpine (`x-on:error="method($event)"`, `@click`) with the method in the component's JS, or one capturing listener in a JS file (`raccoon-picture-fallback.js`).
 - `DarkLightModeToggle.detectModeScript` and `ThemeSwitcher.detectThemeScript` are public **strings** that consumers render inline in `<head>` (they must run before first paint). Raccoon does not render them.
 
 ## JavaScript files
 
-- **`raccoon/Public/js` is the single source for every JS file**, also app-specific ones (`redirect.js`, `anchor-header-offset.js`). Change it there first, then copy it to `blog`, `cms`, `oauth_server`, `raccoon-raumnebenan` `Public/js`. The `tailwind` build copies only some files (see `tailwind/package.json`), and never deletes, so remove renamed files by hand.
+- **`raccoon/Public/js` is the single source for every JS file**, also app-specific ones (`raccoon-redirect.js`, `raccoon-anchor-header-offset.js`). File names are kebab-case with the prefix `raccoon-` (`raccoon-data-table.js`); JS used only by the Preview apps lives in `Public/js-preview` with the prefix `preview-`. The only exceptions are `webmcp.js` (not part of Raccoon). A renamed file also gets a new URL, so the 14-day nginx cache cannot serve a stale copy. `NoInlineScriptTests` checks that every referenced script exists and has the prefix. Change it there first, then copy it to `blog`, `cms`, `oauth_server`, `raccoon-raumnebenan` `Public/js`. The `tailwind` build copies only some files (see `tailwind/package.json`), and never deletes, so remove renamed files by hand.
 - JS used only by the two Preview apps lives in `raccoon/Public/js-preview` (whitelisted in `.gitignore`).
 - New HTML that needs a new JS file or a new JS method must ship **together** with the copied JS in every repo, or the feature breaks silently.
 

@@ -235,7 +235,7 @@ struct InputListTests {
                     "Please enter a valid http:\\/\\/ or https:\\/\\/ URL."
                 )
         )
-        #expect(html.contains("/js/input-list.js"))
+        #expect(html.contains("/js/raccoon-input-list.js"))
     }
 
     @Test("renders hidden inputs for form submission")
@@ -302,7 +302,7 @@ struct InputListTests {
         #expect(german.contains(">Hinzufügen</span>"))
     }
 
-    @Test("the messages of input-list.js land in the page dictionary")
+    @Test("the messages of raccoon-input-list.js land in the page dictionary")
     func scriptTextsAreRegistered() {
         let data = InputListData(
             id: "list",

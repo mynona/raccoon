@@ -61,7 +61,7 @@ enum SimpleTableTexts {
         "Apply column changes"
     )
 
-    /// Announcements that `simple-table.js` makes. The script asks the i18n store for them, so they are
+    /// Announcements that `raccoon-simple-table.js` makes. The script asks the i18n store for them, so they are
     /// recorded when the table renders to land in the page dictionary.
     static let scriptTexts: [LocalizedText] = [
         LocalizedText("simpletable.dropped", "Dropped {{key}}."),
@@ -216,12 +216,7 @@ public struct SimpleTable: TemplateRepresentable {
                         )
                         .setAttribute(
                             name: "@click",
-                            value: """
-                                showFilter = !showFilter;
-                                    if (showFilter) {
-                                        $nextTick(() => { $refs.filterInput?.focus() });
-                                    }
-                                """
+                            value: "toggleFilter()"
                         )
                         // Matomo
                         .flagAttribute("data-track-content")
@@ -397,7 +392,7 @@ public struct SimpleTable: TemplateRepresentable {
                         )
                         .setAttribute(
                             name: "@click",
-                            value: "if (col.sortable) sort(col.key)"
+                            value: "col.sortable && sort(col.key)"
                         )
                     }
                     .setAttribute(
@@ -484,7 +479,7 @@ public struct SimpleTable: TemplateRepresentable {
                 )
                 .setAttribute(
                     name: ":key",
-                    value: "row.id ?? index"
+                    value: "rowKey(row, index)"
                 )
             }
             //.class(tableStyles.tbodyDivide)
@@ -525,7 +520,7 @@ public struct SimpleTable: TemplateRepresentable {
             .class("pt-12 pb-14")
 
             Script()
-                .src("/js/simple-table.js")
+                .src("/js/raccoon-simple-table.js")
                 .setAttribute(
                     name: "type",
                     value: "text/javascript"

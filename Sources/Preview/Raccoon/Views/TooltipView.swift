@@ -168,8 +168,8 @@ struct TooltipView: TemplateRepresentable {
                     ///    The trigger must dispatch `show-tooltip` and `hide-tooltip` events
                     ///    with the same ID used in `x-ref` and `TooltipData(id:)`.
                     ///    ```html
-                    ///    x-on:mouseenter="window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: 'tooltip-1' } }))"
-                    ///    x-on:mouseleave="window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: 'tooltip-1' } }))"
+                    ///    x-on:mouseenter="$dispatch('show-tooltip', { id: 'tooltip-1' })"
+                    ///    x-on:mouseleave="$dispatch('hide-tooltip', { id: 'tooltip-1' })"
                     ///    ```
                     ///
                     /// 4. **Render the tooltip with the same ID**
@@ -190,8 +190,8 @@ struct TooltipView: TemplateRepresentable {
                     /// <div x-data class="relative inline-block">
                     ///     <button
                     ///         x-ref="tooltip-1"
-                    ///         x-on:mouseenter="window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: 'tooltip-1' } }))"
-                    ///         x-on:mouseleave="window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: 'tooltip-1' } }))"
+                    ///         x-on:mouseenter="$dispatch('show-tooltip', { id: 'tooltip-1' })"
+                    ///         x-on:mouseleave="$dispatch('hide-tooltip', { id: 'tooltip-1' })"
                     ///         class="inline-block"
                     ///     >
                     ///
@@ -210,12 +210,12 @@ struct TooltipView: TemplateRepresentable {
                                 .setAttribute(
                                     name: "x-on:mouseenter",
                                     value:
-                                        "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: '\(variant.data.id)' } }))"
+                                        "$dispatch('show-tooltip', { id: '\(variant.data.id)' })"
                                 )
                                 .setAttribute(
                                     name: "x-on:mouseleave",
                                     value:
-                                        "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: '\(variant.data.id)' } }))"
+                                        "$dispatch('hide-tooltip', { id: '\(variant.data.id)' })"
                                 )
                                 .class("inline-block")
 

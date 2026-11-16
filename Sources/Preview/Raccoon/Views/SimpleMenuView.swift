@@ -58,7 +58,7 @@ struct SimpleMenuView: TemplateRepresentable {
                             es: "Editar elemento",
                             it: "Modifica elemento"
                         ),
-                        clickAction: "alert('Edit clicked')"
+                        clickAction: "$alert('Edit clicked')"
                     ),
                     SimpleMenuOption(
                         id: "duplicate",
@@ -69,7 +69,7 @@ struct SimpleMenuView: TemplateRepresentable {
                             es: "Duplicar",
                             it: "Duplica"
                         ),
-                        clickAction: "alert('Duplicate clicked')"
+                        clickAction: "$alert('Duplicate clicked')"
                     ),
                     SimpleMenuOption(
                         id: "archive",
@@ -80,7 +80,7 @@ struct SimpleMenuView: TemplateRepresentable {
                             es: "Archivar",
                             it: "Archivia"
                         ),
-                        clickAction: "alert('Archive clicked')"
+                        clickAction: "$alert('Archive clicked')"
                     ),
                 ],
                 width: "w-48"
@@ -205,13 +205,13 @@ struct SimpleMenuView: TemplateRepresentable {
                         id: "theme-default",
                         title: "emerald-mine",
                         isSelected: true,
-                        clickAction: "alert('emerald-mine theme')"
+                        clickAction: "$alert('emerald-mine theme')"
                     ),
                     SimpleMenuOption(
                         id: "theme-bw",
                         title: "Black & White",
                         isSelected: false,
-                        clickAction: "alert('black-and-white theme')"
+                        clickAction: "$alert('black-and-white theme')"
                     ),
                 ],
                 width: "w-48",
@@ -269,13 +269,13 @@ struct SimpleMenuView: TemplateRepresentable {
                             es: "Ajustes de la cuenta",
                             it: "Impostazioni account"
                         ),
-                        clickAction: "alert('Account')",
+                        clickAction: "$alert('Account')",
                         icon: .person_fill
                     ),
                     SimpleMenuOption(
                         id: "cms",
                         title: "CMS",
-                        clickAction: "alert('CMS')",
+                        clickAction: "$alert('CMS')",
                         icon: .card_heading
                     ),
                     SimpleMenuOption(
@@ -287,7 +287,7 @@ struct SimpleMenuView: TemplateRepresentable {
                             es: "Cerrar sesión",
                             it: "Esci"
                         ),
-                        clickAction: "alert('Sign out')",
+                        clickAction: "$alert('Sign out')",
                         icon: .box_arrow_left
                     ),
                 ],

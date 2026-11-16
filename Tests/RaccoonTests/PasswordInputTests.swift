@@ -167,7 +167,7 @@ struct PasswordInputTests {
         )
         #expect(html.contains("Weak password"))
         #expect(html.contains("Mismatch"))
-        #expect(html.contains("/js/input-password.js"))
+        #expect(html.contains("/js/raccoon-input-password.js"))
     }
 
     @Test("omits confirm field when disabled")

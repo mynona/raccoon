@@ -185,14 +185,13 @@ public struct LocalizedText: Sendable, Hashable, ExpressibleByStringLiteral,
                     "\(JavaScriptEscaper.alpineStringLiteral($0.key)):\(JavaScriptEscaper.alpineStringLiteral($0.value))"
                 }
                 .joined(separator: ",") + "}"
-            call = "RaccoonI18n.pick(\(map),\(values),\(fallback))"
+            call = "$pick(\(map),\(values),\(fallback))"
         }
         else {
             call =
-                "RaccoonI18n.t(\(JavaScriptEscaper.alpineStringLiteral(key)),\(values),\(fallback))"
+                "$t(\(JavaScriptEscaper.alpineStringLiteral(key)),\(values),\(fallback))"
         }
-        return "(window.RaccoonI18n?\(call):\(fallback))"
-            .replacingOccurrences(of: "\"", with: "&quot;")
+        return call.replacingOccurrences(of: "\"", with: "&quot;")
     }
 }
 

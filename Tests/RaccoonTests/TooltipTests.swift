@@ -75,8 +75,7 @@ struct TooltipTests {
             )
             .render()
         )
-        #expect(htmlLeft.contains("tooltipPosition: 'left'"))
-        #expect(htmlLeft.contains("tooltipArrow: false"))
+        #expect(htmlLeft.contains("tooltip(false, 'left')"))
 
         let htmlRight = renderHTML(
             Tooltip(
@@ -89,22 +88,46 @@ struct TooltipTests {
             )
             .render()
         )
-        #expect(htmlRight.contains("tooltipPosition: 'right'"))
-        #expect(htmlRight.contains("tooltipArrow: true"))
+        #expect(htmlRight.contains("tooltip(true, 'right')"))
     }
 
-    @Test("a literal text is a plain string in the getter")
+    @Test("renders tooltip script inclusion and show/hide listeners")
+    func rendersScriptAndListeners() async throws {
+        let html = renderHTML(
+            Tooltip(
+                TooltipData(id: "tip-1", text: "Helpful")
+            )
+            .render()
+        )
+        #expect(html.contains("src=\"/js/raccoon-tooltip.js\""))
+        #expect(html.contains("x-on:show-tooltip.window=\"onShow($event, 'tip-1')\""))
+        #expect(html.contains("x-on:hide-tooltip.window=\"onHide($event, 'tip-1')\""))
+    }
+
+    @Test("renders dynamic bindId listeners")
+    func rendersDynamicBindIdListeners() async throws {
+        let html = renderHTML(
+            Tooltip(
+                TooltipData(id: "tip-dyn", bindId: "'tip-' + index", text: "Helpful")
+            )
+            .render()
+        )
+        #expect(html.contains("x-on:show-tooltip.window=\"onShow($event, 'tip-' + index)\""))
+        #expect(html.contains("x-on:hide-tooltip.window=\"onHide($event, 'tip-' + index)\""))
+    }
+
+    @Test("a literal text is a plain string in x-text")
     func literalTextIsPlain() {
         let html = I18n.render(language: "de") {
             renderHTML(
                 Tooltip(TooltipData(id: "t", text: "Tip")).render()
             )
         }
-        #expect(html.contains("get tooltipText() { return 'Tip'; }"))
+        #expect(html.contains("x-text=\"'Tip'\""))
         #expect(!html.contains("RaccoonI18n"))
     }
 
-    @Test("a consumer text follows the language switch through the getter")
+    @Test("a consumer text follows the language switch through x-text")
     func consumerTextIsLocalized() {
         let text = LocalizedText(en: "Save", translations: ["de": "Speichern"])
         let html = I18n.render(language: "de") {
@@ -112,11 +135,11 @@ struct TooltipTests {
         }
         #expect(
             html.contains(
-                "get tooltipText() { return (window.RaccoonI18n?RaccoonI18n.pick("
+                "x-text=\"$pick("
             )
         )
         #expect(html.contains("'de':'Speichern'"))
-        #expect(html.contains("'Speichern'):'Speichern')"))
+        #expect(html.contains(",'Speichern')\""))
     }
 
     @Test("a quote in the text cannot break the x-data attribute")

@@ -6,7 +6,7 @@ import WebBuilders
 /// Table for API driven data. Sorting, filtering and pagination run on the backend.
 ///
 /// The server renders the shell (toolbar, filters, table frame, paginator). The browser loads the rows from
-/// `DataTableEndpoint` through the Alpine factory in `/js/data-table.js`, which composes the `datatable()`
+/// `DataTableEndpoint` through the Alpine factory in `/js/raccoon-data-table.js`, which composes the `datatable()`
 /// factory of `SimpleTable` for the column configurator. For static data use `SimpleTable`.
 public struct DataTable: TemplateRepresentable {
 
@@ -606,7 +606,7 @@ public struct DataTable: TemplateRepresentable {
                     Template {
                         Div {}
                             .setAttribute(
-                                name: "x-html",
+                                name: "x-safe-html",
                                 value: "row[col.key + '_html'] || ''"
                             )
                     }
@@ -759,7 +759,7 @@ public struct DataTable: TemplateRepresentable {
                     name: "x-for",
                     value: "(row, index) in (status === 'loading' ? [] : rows)"
                 )
-                .setAttribute(name: ":key", value: "row.id ?? index")
+                .setAttribute(name: ":key", value: "rowKey(row, index)")
 
                 Tr {
                     Td {
@@ -902,14 +902,14 @@ public struct DataTable: TemplateRepresentable {
         .setAttribute(
             name: "x-data",
             value:
-                "dataTable(dataTableConfig('\(DataTableClientConfig(data).encoded())'))"
+                "dataTable('\(DataTableClientConfig(data).encoded())')"
         )
 
         Script()
-            .src("/js/simple-table.js")
+            .src("/js/raccoon-simple-table.js")
             .setAttribute(name: "type", value: "text/javascript")
         Script()
-            .src("/js/data-table.js")
+            .src("/js/raccoon-data-table.js")
             .setAttribute(name: "type", value: "text/javascript")
     }
 }

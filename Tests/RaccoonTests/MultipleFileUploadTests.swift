@@ -34,7 +34,8 @@ struct MultipleFileUploadTests {
         )
         let html = renderHTML(MultipleFileUpload(ctx).render())
         #expect(html.contains("Files too large"))
-        #expect(html.contains("hasServerError: true"))
+        #expect(html.contains("fileUploadField(true)"))
+        #expect(html.contains("@files-changed=\"onFilesChanged($event)\""))
     }
 
     @Test("renders label when provided")

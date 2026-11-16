@@ -35,7 +35,7 @@ struct ToastTests {
     @Test("includes client script tag")
     func includesScriptTag() {
         let html = renderHTML(Toast().render())
-        #expect(html.contains("<script src=\"/js/toast.js\" type=\"text/javascript\"></script>"))
+        #expect(html.contains("<script src=\"/js/raccoon-toast.js\" type=\"text/javascript\"></script>"))
     }
 
     @Test("pre-mounts stable polite and assertive live region announcers")

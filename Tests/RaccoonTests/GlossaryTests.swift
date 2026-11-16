@@ -53,7 +53,7 @@ struct GlossaryTests {
         #expect(html.contains("id=\"my-glossary\""))
         #expect(
             html.contains(
-                "x-data=\"{ search: '', terms: ['alpha', 'beta'] }\""
+                "x-data=\"glossarySearch(['alpha', 'beta'])\""
             )
         )
         #expect(html.contains("name=\"glossarySearchInput\""))
@@ -65,14 +65,16 @@ struct GlossaryTests {
         #expect(html.contains("x-show=\"search.length > 0\""))
         #expect(
             html.contains(
-                "x-show=\"!search.trim() || 'alpha'.includes(search.trim().toLowerCase())\""
+                "x-show=\"matchesTerm('alpha')\""
             )
         )
         #expect(
             html.contains(
-                "x-show=\"!search.trim() || 'beta'.includes(search.trim().toLowerCase())\""
+                "x-show=\"matchesTerm('beta')\""
             )
         )
+        #expect(html.contains("x-show=\"noResults\""))
+        #expect(html.contains("/js/raccoon-glossary.js"))
         #expect(html.contains("Nothing found"))
     }
 

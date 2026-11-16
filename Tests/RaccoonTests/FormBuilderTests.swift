@@ -409,7 +409,7 @@ struct FormBuilderTests {
         #expect(html.contains("href=\"#email\""))
         #expect(html.contains("href=\"#country\""))
         #expect(html.contains("Enter a valid email address"))
-        #expect(html.contains("src=\"/js/error-summary.js\""))
+        #expect(html.contains("src=\"/js/raccoon-error-summary.js\""))
     }
 
     @Test("the summary is focusable but not in the tab order, and not a live region")
@@ -518,7 +518,7 @@ struct FormBuilderTests {
             fields: [emailField(["bad"])]
         )
         #expect(html.contains("data-validation=\"submit\""))
-        #expect(html.contains("src=\"/js/error-summary.js\""))
+        #expect(html.contains("src=\"/js/raccoon-error-summary.js\""))
         #expect(!html.contains("data-error-summary"))
         // The form-level error keeps its own block
         #expect(html.contains("Sign in failed"))

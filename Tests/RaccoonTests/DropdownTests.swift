@@ -35,7 +35,7 @@ struct DropdownTests {
         let html = renderHTML(Dropdown(data).render())
 
         // Script and clean Alpine initialization
-        #expect(html.contains("src=\"/js/dropdown.js\""))
+        #expect(html.contains("src=\"/js/raccoon-dropdown.js\""))
         #expect(html.contains("x-data=\"dropdown({ selectedValue:"))
 
         // Label

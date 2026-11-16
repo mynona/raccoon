@@ -16,7 +16,7 @@ struct ThemeSwitcherTests {
         let html = renderHTML(
             ThemeSwitcher(ThemeSwitcherData()).render()
         )
-        #expect(html.contains("src=\"/js/themeswitcher.js\""))
+        #expect(html.contains("src=\"/js/raccoon-theme-switcher.js\""))
         #expect(html.contains("<svg"))
         #expect(html.contains("M0 .5A.5.5 0 0 1 .5 0h5a"))
         #expect(html.contains("x-ref=\"button\""))

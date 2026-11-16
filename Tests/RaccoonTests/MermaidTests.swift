@@ -17,7 +17,7 @@ struct MermaidTests {
         let data = MermaidData(diagram: "graph TD; A-->B;")
         let html = renderHTML(Mermaid(data).render())
 
-        #expect(html.contains("/js/agentic-mermaid-component-lazy.js"))
+        #expect(html.contains("/js/raccoon-agentic-mermaid-component-lazy.js"))
         #expect(html.contains("x-data=\"beautifulMermaidComponent($el)\""))
         #expect(html.contains("class=\"mermaid-source hidden\""))
         #expect(html.contains("graph TD; A-->B;"))

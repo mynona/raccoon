@@ -179,10 +179,8 @@ struct ActionButtonTests {
         #expect(html.contains("aria-label=\"Submit form\""))
         #expect(html.contains("x-on:mouseenter="))
         #expect(html.contains("x-on:mouseleave="))
-        // Regression: tooltip x-data must use single-quoted JS literals, since the HTML
-        // renderer does not escape double quotes inside double-quoted attribute values.
-        #expect(html.contains("tooltipPosition: 'top'"))
-        #expect(html.contains("get tooltipText() { return 'Helpful text'; }"))
+        #expect(html.contains("tooltip(true, 'top')"))
+        #expect(html.contains("x-text=\"'Helpful text'\""))
     }
 
     @Test("renders dynamic bindId and bindTooltipId attributes")
@@ -209,7 +207,7 @@ struct ActionButtonTests {
         #expect(html.contains(":aria-describedby=\"'tip-' + index\""))
         #expect(
             html.contains(
-                "x-on:mouseenter=\"window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: 'tip-' + index } }))\""
+                "x-on:mouseenter=\"$dispatch('show-tooltip', { id: 'tip-' + index })\""
             )
         )
         #expect(html.contains(":id=\"'tip-' + index\""))
@@ -485,7 +483,7 @@ struct ActionButtonTests {
         let html = render(data, language: "de")
         #expect(html.contains("aria-label=\"Öffnen\""))
         #expect(html.contains("data-i18n-aria-label-values="))
-        #expect(html.contains("RaccoonI18n.pick("))
+        #expect(html.contains("$pick("))
     }
 
     @Test("a literal label stays plain in every language")

@@ -242,6 +242,34 @@ if (!window.__datePickerLoaded) {
         this.errorMessage = '';
       },
 
+      // Moves the visible calendar one month back (year floor 0)
+      viewPreviousMonth() {
+        this.month--;
+        if (this.month < 0) {
+          if (this.year > 0) {
+            this.year--;
+            this.month = 11;
+          } else {
+            this.month = 0;
+          }
+        }
+        this.getNoOfDays();
+      },
+
+      // Moves the visible calendar one month forward (year ceiling 3000)
+      viewNextMonth() {
+        this.month++;
+        if (this.month > 11) {
+          if (this.year < 3000) {
+            this.year++;
+            this.month = 0;
+          } else {
+            this.month = 11;
+          }
+        }
+        this.getNoOfDays();
+      },
+
       selectToday() {
         const today = new Date();
         this.applyDate(today);

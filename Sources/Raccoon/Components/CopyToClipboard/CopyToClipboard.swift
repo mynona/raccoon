@@ -112,7 +112,7 @@ public struct CopyToClipboard: TemplateRepresentable {
 
         DebugComment("Copy-to-clipboard widget")
         Script()
-            .src("/js/copytoclipboard.js")
+            .src("/js/raccoon-copy-to-clipboard.js")
             .setAttribute(
                 name: "type",
                 value: "text/javascript"

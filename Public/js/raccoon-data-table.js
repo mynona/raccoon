@@ -576,4 +576,11 @@ if (!window.__dataTableLoaded) {
 
     return table;
   };
+
+  const register = () => Alpine.data('dataTable', b64 => window.dataTable(window.dataTableConfig(b64)));
+  if (window.Alpine) {
+    register();
+  } else {
+    document.addEventListener('alpine:init', register);
+  }
 }

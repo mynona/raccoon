@@ -65,7 +65,7 @@ public struct ErrorSummary: TemplateRepresentable {
 
         DebugComment("Error summary")
         Script()
-            .src("/js/error-summary.js")
+            .src("/js/raccoon-error-summary.js")
             .setAttribute(name: "type", value: "text/javascript")
 
         let heading = self.heading

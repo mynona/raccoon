@@ -1,7 +1,7 @@
 import Foundation
 import Testing
 
-/// Pins down the contract of `Public/js/i18n.js` without running JavaScript (no Node, no `.mjs`).
+/// Pins down the contract of `Public/js/raccoon-i18n.js` without running JavaScript (no Node, no `.mjs`).
 /// Behavior in a real DOM (language switch, fallbacks) is checked manually in the Preview app.
 @Suite("I18nStore")
 struct I18nStoreTests {
@@ -10,7 +10,7 @@ struct I18nStoreTests {
         let root = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent().deletingLastPathComponent()
             .deletingLastPathComponent()
-        let url = root.appendingPathComponent("Public/js/i18n.js")
+        let url = root.appendingPathComponent("Public/js/raccoon-i18n.js")
         return (try? String(contentsOf: url, encoding: .utf8)) ?? ""
     }()
 
@@ -78,5 +78,28 @@ struct I18nStoreTests {
         let getter =
             Self.source.components(separatedBy: "get language()").last ?? ""
         #expect(getter.prefix(120).contains("track();"))
+    }
+
+    // MARK: raccoon-alpine-helper.js
+
+    private static let alpineSource: String = {
+        let root = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent().deletingLastPathComponent()
+            .deletingLastPathComponent()
+        let url = root.appendingPathComponent("Public/js/raccoon-alpine-helper.js")
+        return (try? String(contentsOf: url, encoding: .utf8)) ?? ""
+    }()
+
+    @Test("raccoon-alpine-helper.js exists and is not empty")
+    func alpineFileExists() {
+        #expect(!Self.alpineSource.isEmpty)
+    }
+
+    @Test("raccoon-alpine-helper.js registers $t, $pick and x-safe-html with Alpine")
+    func alpineRegistrations() {
+        #expect(Self.alpineSource.contains("Alpine.magic('t'"))
+        #expect(Self.alpineSource.contains("Alpine.magic('pick'"))
+        #expect(Self.alpineSource.contains("Alpine.directive('safe-html'"))
+        #expect(Self.alpineSource.contains("window.__raccoonAlpineLoaded"))
     }
 }

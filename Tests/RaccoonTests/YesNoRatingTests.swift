@@ -25,7 +25,7 @@ struct YesNoRatingTests {
             )
         )
         #expect(html.contains("id=\"yesno-panel-article-uuid-42\""))
-        #expect(html.contains("src=\"/js/yes-no-rating.js\""))
+        #expect(html.contains("src=\"/js/raccoon-yes-no-rating.js\""))
     }
 
     @Test("renders yes and no buttons with initial state and filled icons")

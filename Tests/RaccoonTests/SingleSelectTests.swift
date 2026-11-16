@@ -96,7 +96,7 @@ struct SingleSelectTests {
         let html = renderHTML(SingleSelect(ctx).render())
         #expect(html.contains("singleSelect({"))
         #expect(html.contains("Option A"))
-        #expect(html.contains("/js/single-select.js"))
+        #expect(html.contains("/js/raccoon-single-select.js"))
     }
 
     @Test("renders combobox accessibility wiring")

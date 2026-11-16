@@ -58,15 +58,20 @@ struct I18nPageTests {
     func oneStoreOneDictionary() {
         for language in ["en", "de"] {
             let html = page(language: language)
-            #expect(count(of: "src=\"/js/i18n.js\"", in: html) == 1)
+            #expect(count(of: "src=\"/js/raccoon-i18n.js\"", in: html) == 1)
+            #expect(count(of: "src=\"/js/raccoon-alpine-helper.js\"", in: html) == 1)
             #expect(count(of: "data-raccoon-i18n", in: html) == 1)
             // The dictionary is a data block, not an executable inline script
             #expect(html.contains("<script type=\"application/json\""))
             #expect(!html.contains("i.register"))
-            // The data block is written before the store script
+            // The data block is written before the store script, which comes before raccoon-alpine-helper.js
             #expect(
                 html.range(of: "data-raccoon-i18n")!.lowerBound
-                    < html.range(of: "src=\"/js/i18n.js\"")!.lowerBound
+                    < html.range(of: "src=\"/js/raccoon-i18n.js\"")!.lowerBound
+            )
+            #expect(
+                html.range(of: "src=\"/js/raccoon-i18n.js\"")!.lowerBound
+                    < html.range(of: "src=\"/js/raccoon-alpine-helper.js\"")!.lowerBound
             )
             // Both built-in keys that the page used are registered, once
             #expect(count(of: "\"label\":{", in: html) == 1)
@@ -91,8 +96,8 @@ struct I18nPageTests {
         )
         #expect(count(of: "aria-label=\"Aktion\"", in: html) == 50)
         // Only the store is loaded: no per-language or per-component dictionary files
-        #expect(count(of: "/js/i18n", in: html) == 1)
-        #expect(!html.contains("/js/i18n/"))
+        #expect(count(of: "/js/raccoon-i18n", in: html) == 1)
+        #expect(!html.contains("/js/raccoon-i18n/"))
     }
 
     @Test(

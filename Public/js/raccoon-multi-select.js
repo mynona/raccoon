@@ -41,6 +41,10 @@ if (!window.__multiSelectLoaded) {
       // Exclude already selected items
       return base.filter(f => !this.selected.some(s => s.id === f.id));
     },
+    removeSelected(framework) {
+      this.remove(framework);
+      this.hasServerError = false;
+    },
     remove(framework) {
       this.selected = this.selected.filter((i) => i !== framework);
       this.$nextTick(() => {
@@ -49,17 +53,6 @@ if (!window.__multiSelectLoaded) {
           input.focus();
         }
       });
-    },
-    // Builds <option> markup for the selected items, used to submit a native <select>
-    selectedOptions() {
-      let str = '';
-      for (const item of this.selected) {
-        if (!item) continue;
-        const id = item.id;
-        const name = item.name;
-        str += `<option value='${id}' selected>${name}</option>`;
-      }
-      return str;
     },
     init() {
       // Resolve preselected indexes into framework objects

@@ -131,10 +131,14 @@ struct TextAreaFieldTests {
         )
         // Regression: single-quoted JS literals, since the renderer doesn't escape double quotes
         // inside double-quoted HTML attribute values.
-        #expect(html.contains("textAreaFieldAlpine({regexPattern: '^[A-Z].+$'"))
+        #expect(html.contains("textAreaField({regexPattern: '^[A-Z].+$'"))
         #expect(html.contains("errorMessage: 'Needs capitalized text'"))
+        #expect(html.contains("x-init=\"setup()\""))
+        #expect(html.contains("x-effect=\"revalidate()\""))
+        #expect(html.contains("@input=\"onInput($el)\""))
+        #expect(html.contains("@blur=\"onBlur()\""))
         #expect(html.contains("hasInitialValue: true"))
-        #expect(html.contains("/js/text-area-field.js"))
+        #expect(html.contains("/js/raccoon-text-area-field.js"))
     }
 
     @Test("renders helper text and helper description")

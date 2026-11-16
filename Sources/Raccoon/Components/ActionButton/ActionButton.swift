@@ -270,22 +270,22 @@ public struct ActionButton: TemplateRepresentable {
                         .setAttribute(
                             name: "x-on:mouseenter",
                             value:
-                                "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: \(bindTooltipId) } }))"
+                                "$dispatch('show-tooltip', { id: \(bindTooltipId) })"
                         )
                         .setAttribute(
                             name: "x-on:mouseleave",
                             value:
-                                "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: \(bindTooltipId) } }))"
+                                "$dispatch('hide-tooltip', { id: \(bindTooltipId) })"
                         )
                         .setAttribute(
                             name: "x-on:focus",
                             value:
-                                "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: \(bindTooltipId) } }))"
+                                "$dispatch('show-tooltip', { id: \(bindTooltipId) })"
                         )
                         .setAttribute(
                             name: "x-on:blur",
                             value:
-                                "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: \(bindTooltipId) } }))"
+                                "$dispatch('hide-tooltip', { id: \(bindTooltipId) })"
                         )
                 }
                 else if let tooltipReference {
@@ -298,22 +298,22 @@ public struct ActionButton: TemplateRepresentable {
                         .setAttribute(
                             name: "x-on:mouseenter",
                             value:
-                                "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: '\(tooltipReference)' } }))"
+                                "$dispatch('show-tooltip', { id: '\(tooltipReference)' })"
                         )
                         .setAttribute(
                             name: "x-on:mouseleave",
                             value:
-                                "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: '\(tooltipReference)' } }))"
+                                "$dispatch('hide-tooltip', { id: '\(tooltipReference)' })"
                         )
                         .setAttribute(
                             name: "x-on:focus",
                             value:
-                                "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: '\(tooltipReference)' } }))"
+                                "$dispatch('show-tooltip', { id: '\(tooltipReference)' })"
                         )
                         .setAttribute(
                             name: "x-on:blur",
                             value:
-                                "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: '\(tooltipReference)' } }))"
+                                "$dispatch('hide-tooltip', { id: '\(tooltipReference)' })"
                         )
                 }
                 return $0

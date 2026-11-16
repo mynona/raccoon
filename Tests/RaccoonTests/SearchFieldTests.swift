@@ -56,10 +56,10 @@ struct SearchFieldTests {
         )
         #expect(
             html.contains(
-                "@click=\"search = &#39;&#39;; $nextTick(() =&gt; { $refs.searchInput?.focus(); })\""
+                "@click=\"(search = &#39;&#39;) || ($refs.searchInput &amp;&amp; $refs.searchInput.focus())\""
             )
                 || html.contains(
-                    "@click=\"search = ''; $nextTick(() => { $refs.searchInput?.focus(); })\""
+                    "@click=\"(search = '') || ($refs.searchInput && $refs.searchInput.focus())\""
                 )
         )
         #expect(html.contains("p-2 min-h-full h-full mr-4"))
@@ -85,10 +85,10 @@ struct SearchFieldTests {
         )
         #expect(
             html.contains(
-                "@click=\"searchTerm = &#39;&#39;; $nextTick(() =&gt; { $refs.mySearchRef?.focus(); })\""
+                "@click=\"(searchTerm = &#39;&#39;) || ($refs.mySearchRef &amp;&amp; $refs.mySearchRef.focus())\""
             )
                 || html.contains(
-                    "@click=\"searchTerm = ''; $nextTick(() => { $refs.mySearchRef?.focus(); })\""
+                    "@click=\"(searchTerm = '') || ($refs.mySearchRef && $refs.mySearchRef.focus())\""
                 )
         )
     }

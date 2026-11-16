@@ -45,7 +45,7 @@ public struct MatomoTracker: TemplateRepresentable {
 
     /// The tracker is an external script configured by `data-*` attributes, so the page needs no inline script.
     private func trackerScript() -> Script {
-        var script = Script().src("/js/matomo-tracker.js")
+        var script = Script().src("/js/raccoon-matomo-tracker.js")
             .setAttribute(name: "type", value: "text/javascript")
         for attribute in scriptAttributes() {
             // The HTML renderer does not escape attribute values
@@ -77,7 +77,7 @@ public struct MatomoTracker: TemplateRepresentable {
 
             // Matomo form tracking
             Script()
-                .src("/js/formtracking.js")
+                .src("/js/raccoon-form-tracking.js")
                 .setAttribute(
                     name: "type",
                     value: "text/javascript"

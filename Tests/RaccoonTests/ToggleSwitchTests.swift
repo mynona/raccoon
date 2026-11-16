@@ -121,7 +121,7 @@ struct ToggleSwitchTests {
                 "toggleSwitch({ initialValue: false, apiUrl: '/api/toggle' })"
             )
         )
-        #expect(html.contains("/js/toggle.js"))
+        #expect(html.contains("/js/raccoon-toggle.js"))
         #expect(html.contains("x-switch"))
     }
 

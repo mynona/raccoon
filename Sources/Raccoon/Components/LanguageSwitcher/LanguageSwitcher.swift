@@ -28,7 +28,7 @@ public struct LanguageSwitcher: TemplateRepresentable {
     public func render() -> [Element] {
         DebugComment("Language switcher")
         Script()
-            .src("/js/languageswitcher.js")
+            .src("/js/raccoon-language-switcher.js")
             .setAttribute(name: "type", value: "text/javascript")
 
         let options = data.languages.map {

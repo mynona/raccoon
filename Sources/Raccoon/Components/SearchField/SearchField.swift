@@ -125,7 +125,7 @@ public struct SearchField: TemplateRepresentable {
         if data.hasClearButton {
             let clearExpression =
                 data.bindClearAction
-                ?? "\(data.bindModel) = ''; $nextTick(() => { $refs.\(data.bindRef)?.focus(); })"
+                ?? "(\(data.bindModel) = '') || ($refs.\(data.bindRef) && $refs.\(data.bindRef).focus())"
             let showExpression =
                 data.bindClearShow ?? "\(data.bindModel).length > 0"
 

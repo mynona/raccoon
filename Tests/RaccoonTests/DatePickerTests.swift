@@ -32,7 +32,7 @@ struct DatePickerTests {
     func testDefaultDatePicker() {
         let ctx = makeData()
         let html = renderHTML(DatePicker(ctx).render())
-        #expect(html.contains("/js/datepicker.js"))
+        #expect(html.contains("/js/raccoon-date-picker.js"))
         #expect(html.contains("datePickerWidget({ value:"))
         #expect(html.contains("x-init=\"[initDate(), getNoOfDays()]\""))
     }
@@ -426,6 +426,11 @@ struct DatePickerTests {
         #expect(html.contains("@click.stop=\"nextMonth()\""))
         #expect(html.contains("aria-label=\"Next month\""))
 
+        // Calendar view month steppers and year dropdown toggle
+        #expect(html.contains("@click=\"viewPreviousMonth()\""))
+        #expect(html.contains("@click=\"viewNextMonth()\""))
+        #expect(html.contains("@click=\"openYearDropdown = !openYearDropdown\""))
+
         // Centered group elements: pipe and week number badge
         #expect(html.contains(DatePickerStyles.pipeDelimiter))
         #expect(html.contains("x-text=\"currentWeekText\""))
@@ -553,7 +558,7 @@ struct DatePickerTests {
         #expect(german.contains(">So</span>"))
     }
 
-    @Test("the texts that datepicker.js shows land in the page dictionary")
+    @Test("the texts that raccoon-date-picker.js shows land in the page dictionary")
     func scriptTextsAreRegistered() {
         let ctx = makeData(label: LabelData(id: "d", title: "Date"))
         let html = I18n.render(language: "de", collectsUsedKeys: true) {

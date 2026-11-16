@@ -46,7 +46,7 @@ func previewPage(
           <title>Preview – \(title)</title>
           <link rel="stylesheet" href="/css/ibm-plex.css">
           <link rel="stylesheet" href="/css/raccoon-min.css">
-          <script src="/js/bundle-min.js" defer></script>
+          <script src="/js/raccoon-alpine-csp-bundle.js" defer></script>
           <script type="text/javascript">
             document.addEventListener('alpine:init', () => {
               const m = localStorage.getItem('colorMode')
@@ -55,7 +55,7 @@ func previewPage(
             })
           </script>
             <script type="text/javascript">
-            // detect-mode.js — mirrors prod MasterFrontend.swift
+            // preview-detect-mode.js — mirrors prod MasterFrontend.swift
             window.explicitelyPreferScheme = false;
             if (window.localStorage) {
               if (localStorage.getItem('colorMode') === 'dark') {

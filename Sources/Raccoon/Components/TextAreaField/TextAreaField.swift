@@ -127,13 +127,11 @@ public struct TextAreaField: TemplateRepresentable {
                     .setAttribute(name: "x-model", value: "value")
                     .setAttribute(
                         name: "@input",
-                        value:
-                            "isTouched = true; hasServerError = false; validate(); autoResize($el)"
+                        value: "onInput($el)"
                     )
                     .setAttribute(
                         name: "@blur",
-                        value:
-                            "isTouched = true; hasServerError = false; validate()"
+                        value: "onBlur()"
                     )
                     .setAttribute(
                         name: ":aria-invalid",
@@ -203,20 +201,19 @@ public struct TextAreaField: TemplateRepresentable {
         .setAttribute(
             name: "x-data",
             value:
-                "textAreaFieldAlpine({regexPattern: \(regexPattern), errorMessage: \(errorMessage), hasServerError: \(hasServerError ? "true" : "false"), hasInitialValue: \(hasInitialValue ? "true" : "false"), initialValue: \(JavaScriptEscaper.alpineStringLiteral(valueBase64)) })"
+                "textAreaField({regexPattern: \(regexPattern), errorMessage: \(errorMessage), hasServerError: \(hasServerError ? "true" : "false"), hasInitialValue: \(hasInitialValue ? "true" : "false"), initialValue: \(JavaScriptEscaper.alpineStringLiteral(valueBase64)) })"
         )
         .setAttribute(
             name: "x-init",
-            value:
-                "if (regexPattern) regex = new RegExp(regexPattern); initialized = true; value = $el.querySelector('textarea').value"
+            value: "setup()"
         )
         .setAttribute(
             name: "x-effect",
-            value: "if (initialized && (hasInitialValue || value)) validate()"
+            value: "revalidate()"
         )
 
         Script()
-            .src("/js/text-area-field.js")
+            .src("/js/raccoon-text-area-field.js")
             .setAttribute(name: "type", value: "text/javascript")
     }
 }

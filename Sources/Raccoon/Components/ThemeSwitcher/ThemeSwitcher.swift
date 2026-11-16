@@ -8,7 +8,7 @@ import WebBuilders
 /// An accessible dropdown menu component allowing users to switch between color themes
 /// (e.g. "Emerald mine" default and "Black and White").
 ///
-/// Self-contained: owns its Alpine state via `/js/themeswitcher.js`.
+/// Self-contained: owns its Alpine state via `/js/raccoon-theme-switcher.js`.
 /// Theme preference is persisted in `localStorage` under `theme` and sets the `data-theme`
 /// attribute on `document.documentElement`.
 public struct ThemeSwitcher: TemplateRepresentable {
@@ -23,7 +23,7 @@ public struct ThemeSwitcher: TemplateRepresentable {
     /// Must stay inline in `<head>`: it sets the `data-theme` attribute before first paint.
     /// Loading it via `src` would run too late and flash the default theme.
     public static let detectThemeScript: String = """
-        // detect-theme.js
+        // preview-detect-theme.js
         // Set initial color theme before first paint to eliminate flashing
 
         (() => {
@@ -65,7 +65,7 @@ public struct ThemeSwitcher: TemplateRepresentable {
 
         DebugComment("Theme switcher")
         Script()
-            .src("/js/themeswitcher.js")
+            .src("/js/raccoon-theme-switcher.js")
             .setAttribute(
                 name: "type",
                 value: "text/javascript"

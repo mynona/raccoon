@@ -334,7 +334,7 @@ public struct YesNoRating: TemplateRepresentable {
         .setAttribute(
             name: "@change",
             value:
-                "if ($event.target && $event.target.type === 'radio') selectOption($event.target.value)"
+                "$event.target.type === 'radio' && selectOption($event.target.value)"
         )
         .setAttribute(
             name: "x-on:submit.prevent",
@@ -361,7 +361,7 @@ public struct YesNoRating: TemplateRepresentable {
         let errorText = data.toastErrorText ?? Self.toastErrorText
 
         Script()
-            .src("/js/yes-no-rating.js")
+            .src("/js/raccoon-yes-no-rating.js")
             .setAttribute(name: "type", value: "text/javascript")
 
         Div {

@@ -174,7 +174,7 @@ public struct Toast: TemplateRepresentable {
     public func render() -> [Element] {
         DebugComment("Toast container")
         Script()
-            .src("/js/toast.js")
+            .src("/js/raccoon-toast.js")
             .setAttribute(name: "type", value: "text/javascript")
 
         Section {

@@ -215,6 +215,27 @@ if (!window.__audioPlayerLoaded) {
         }
       },
 
+      onMetadataLoaded() {
+        this.metaDataLoaded = true;
+        this.setTime();
+      },
+
+      onScrubberLeave() {
+        if (!this.isDragging) this.isHovered = false;
+      },
+
+      get playerCurrentTime() {
+        return this.$refs.player?.currentTime || 0;
+      },
+
+      get playerDuration() {
+        return this.$refs.player?.duration || 0;
+      },
+
+      seekToEnd() {
+        this.seek(this.playerDuration);
+      },
+
       // Updates the time label and progress bar width to match current playback
       setTime(skip = 0) {
         const player = this.$refs.player;

@@ -44,7 +44,7 @@ struct ToastView: TemplateRepresentable {
             Div {
                 ActionButton(
                     ActionButtonData(
-                        clickAction: "RaccoonToast.success('Saved successfully', 'Your article changes have been committed.', 4000)",
+                        clickAction: "success()",
                         label: LocalizedText(verbatim: "Success Toast"),
                         htmlType: .button,
                         buttonType: .secondary,
@@ -60,7 +60,7 @@ struct ToastView: TemplateRepresentable {
 
                 ActionButton(
                     ActionButtonData(
-                        clickAction: "RaccoonToast.info('New Update Available', 'Version 2.4 has been deployed.', 5000)",
+                        clickAction: "info()",
                         label: LocalizedText(verbatim: "Info Toast"),
                         htmlType: .button,
                         buttonType: .secondary,
@@ -76,7 +76,7 @@ struct ToastView: TemplateRepresentable {
 
                 ActionButton(
                     ActionButtonData(
-                        clickAction: "RaccoonToast.warning('Unsaved Draft', 'You have changes that were not saved yet.', 6000)",
+                        clickAction: "warning()",
                         label: LocalizedText(verbatim: "Warning Toast"),
                         htmlType: .button,
                         buttonType: .secondary,
@@ -92,7 +92,7 @@ struct ToastView: TemplateRepresentable {
 
                 ActionButton(
                     ActionButtonData(
-                        clickAction: "RaccoonToast.error('Network Error', 'Failed to connect to API server. Click close to dismiss.', 0)",
+                        clickAction: "error()",
                         label: LocalizedText(verbatim: "Error (Sticky)"),
                         htmlType: .button,
                         buttonType: .secondary,
@@ -108,11 +108,7 @@ struct ToastView: TemplateRepresentable {
 
                 ActionButton(
                     ActionButtonData(
-                        clickAction: """
-                        RaccoonToast.info('Task 1 started', 'Processing background sync...', 5000);
-                        setTimeout(() => RaccoonToast.success('Task 1 completed', 'Sync finished.', 5000), 400);
-                        setTimeout(() => RaccoonToast.info('Task 2 started', 'Indexing search records...', 5000), 800);
-                        """,
+                        clickAction: "stack()",
                         label: LocalizedText(verbatim: "Stack 3 Toasts"),
                         htmlType: .button,
                         buttonType: .secondary,
@@ -128,7 +124,7 @@ struct ToastView: TemplateRepresentable {
 
                 ActionButton(
                     ActionButtonData(
-                        clickAction: "RaccoonToast.clearAll()",
+                        clickAction: "clearAll()",
                         label: LocalizedText(verbatim: "Clear All"),
                         htmlType: .button,
                         buttonType: .secondary,
@@ -144,6 +140,7 @@ struct ToastView: TemplateRepresentable {
             }
             .class("flex flex-wrap gap-3")
         }
+        .setAttribute(name: "x-data", value: "toastSandbox")
         .class("p-4 border border-on-surface rounded-lg bg-surface mb-6")
     }
 

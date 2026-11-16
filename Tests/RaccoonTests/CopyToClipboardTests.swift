@@ -112,7 +112,7 @@ struct CopyToClipboardTests {
         #expect(html.contains("value=\"sk-abc123XYZ\""))
         #expect(html.contains("x-data=\"copyToClipboard()\""))
         #expect(html.contains("@click=\"copy($el.dataset.text)\""))
-        #expect(html.contains("/js/copytoclipboard.js"))
+        #expect(html.contains("/js/raccoon-copy-to-clipboard.js"))
     }
 
     @Test("renders layout classes and copied label")

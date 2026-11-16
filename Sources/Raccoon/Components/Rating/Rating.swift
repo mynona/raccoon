@@ -297,11 +297,11 @@ public struct Rating: TemplateRepresentable {
                     .setAttribute(name: "x-ref", value: "star\(i)")
                     .setAttribute(
                         name: "@keydown.left",
-                        value: "focusStar(Math.max(1, \(i) - 1))"
+                        value: "focusStar(\(max(1, i - 1)))"
                     )
                     .setAttribute(
                         name: "@keydown.right",
-                        value: "focusStar(Math.min(5, \(i) + 1))"
+                        value: "focusStar(\(min(5, i + 1)))"
                     )
                     .setAttribute(name: "@click", value: "selectStar(\(i))")
             }
@@ -337,7 +337,7 @@ public struct Rating: TemplateRepresentable {
     }
 
     /// The two follow-up questions as inert templates. The label of the feedback field shows the one
-    /// that matches the rating (`followUpLabel()` in `rating.js`), with its translation marker.
+    /// that matches the rating (`followUpLabel()` in `raccoon-rating.js`), with its translation marker.
     @Builder<Element>
     func followUpTemplates() -> [Element] {
         let positive = data.positiveFollowUpQuestion ?? Self.positiveFollowUp
@@ -588,7 +588,7 @@ public struct Rating: TemplateRepresentable {
         let errorText = data.toastErrorText ?? Self.toastErrorText
 
         Script()
-            .src("/js/rating.js")
+            .src("/js/raccoon-rating.js")
             .setAttribute(
                 name: "type",
                 value: "text/javascript"

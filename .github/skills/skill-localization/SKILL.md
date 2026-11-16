@@ -5,7 +5,7 @@ description: How localization (i18n) works in Raccoon and how consumers use it. 
 
 # Localization in Raccoon
 
-Raccoon renders HTML on the server in **one page language** and ships a tiny browser store (`Public/js/i18n.js`) so the language can also be switched live without a reload. Components never take a language parameter.
+Raccoon renders HTML on the server in **one page language** and ships a tiny browser store (`Public/js/raccoon-i18n.js`) so the language can also be switched live without a reload. Components never take a language parameter.
 
 Code lives in `Sources/Raccoon/LittleHelpers/Localization/`:
 
@@ -14,7 +14,7 @@ Code lives in `Sources/Raccoon/LittleHelpers/Localization/`:
 | `LocalizedText.swift` | `LocalizedText` value type, `.localized(...)` HTML modifiers, `alpineExpression` |
 | `I18n.swift` | `I18nContext`, `I18n.render`, `I18n.scripts()/engine()`, and the `Translations.all` registry |
 | `Translations+<Component>.swift` | One table per component (built-in texts, 20 languages) |
-| `Public/js/i18n.js` | Browser store `window.RaccoonI18n` (`register`, `t`, `pick`, `language`) |
+| `Public/js/raccoon-i18n.js` | Browser store `window.RaccoonI18n` (`register`, `t`, `pick`, `language`) |
 
 Tests: `Tests/RaccoonTests/I18n*Tests.swift`, `LocalizedTextTests.swift`.
 
@@ -71,14 +71,14 @@ Html {
     Body {
         content
         I18n.scripts()                     // store + dictionary of the built-in keys this page used
-        Script().src("/js/bundle-min.js")
+        Script().src("/js/raccoon-alpine-csp-bundle.js")
     }
 }
 .lang(language)                            // <html lang> is the single source of truth
 ```
 
-- `I18n.engine()` is only the store script (`/js/i18n.js`), idempotent; `I18n.scripts()` = engine + page dictionary. The dictionary contains only the keys actually rendered (`collectsUsedKeys`), keeping pages small.
-- The consumer must serve `Public/js/i18n.js` at `/js/i18n.js`.
+- `I18n.engine()` is only the store script (`/js/raccoon-i18n.js`), idempotent; `I18n.scripts()` = engine + page dictionary. The dictionary contains only the keys actually rendered (`collectsUsedKeys`), keeping pages small.
+- The consumer must serve `Public/js/raccoon-i18n.js` at `/js/raccoon-i18n.js`.
 - Changing `<html lang>` re-translates all marked elements. Consumer texts carry their own translations in `data-i18n-values`; built-in texts come from the dictionary.
 - Content that cannot be translated in the browser (e.g. markdown/HTML demo content) must be re-rendered on the server. The Preview app observes `<html lang>`, stores the choice in the `preview-lang` cookie and reloads (see `Sources/Preview/Shared/Templates/Basic.swift`).
 

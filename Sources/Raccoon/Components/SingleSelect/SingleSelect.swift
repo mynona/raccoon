@@ -126,7 +126,7 @@ public struct SingleSelect: TemplateRepresentable {
             .flagAttribute("x-combobox:input")
             .setAttribute(
                 name: ":display-value",
-                value: "f => f ? f.name : ''"
+                value: "displayValue"
             )
             .setAttribute(
                 name: "autocomplete",
@@ -137,7 +137,7 @@ public struct SingleSelect: TemplateRepresentable {
             .setAttribute(
                 name: ":aria-activedescendant",
                 value:
-                    "isOpen && $combobox.activeIndex !== null ? `${id}-option-${$combobox.activeIndex}` : null"
+                    "isOpen && $combobox.activeIndex !== null ? id + '-option-' + $combobox.activeIndex : null"
             )
             .localized(
                 .placeholder,
@@ -277,7 +277,7 @@ public struct SingleSelect: TemplateRepresentable {
                     )
                     .setAttribute(
                         name: ":id",
-                        value: "`${$root.id}-option-${idx}`"
+                        value: "$root.id + '-option-' + idx"
                     )
                     .setAttribute(
                         name: "@combobox-option:select",
@@ -525,7 +525,7 @@ public struct SingleSelect: TemplateRepresentable {
         DebugComment("SingleSelect")
 
         Script()
-            .setAttribute(name: "src", value: "/js/single-select.js")
+            .setAttribute(name: "src", value: "/js/raccoon-single-select.js")
         switch data.state {
         case .enabled:
             showEnabled()

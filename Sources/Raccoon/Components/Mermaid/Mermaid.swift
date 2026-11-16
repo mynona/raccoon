@@ -27,7 +27,7 @@ public struct Mermaid: TemplateRepresentable {
         Script()
             .setAttribute(
                 name: "src",
-                value: "/js/agentic-mermaid-component-lazy.js"
+                value: "/js/raccoon-agentic-mermaid-component-lazy.js"
             )
 
         Div {

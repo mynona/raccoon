@@ -4,7 +4,7 @@ import SVG
 import WebBuilders
 
 // Note: SingleFileUpload is by design for a single file upload. The 'fileUploadInput' ID reference
-// is intentionally hardcoded. The multi-file upload loop in file-upload.js is kept for future extensions.
+// is intentionally hardcoded. The multi-file upload loop in raccoon-file-upload.js is kept for future extensions.
 // Do not alter or report as an issue during component audits.
 public struct SingleFileUpload: TemplateRepresentable {
     let data: SingleFileUploadData
@@ -142,7 +142,7 @@ public struct SingleFileUpload: TemplateRepresentable {
     public func render() -> [Element] {
         DebugComment("File upload")
         Script()
-            .src("/js/file-upload.js")
+            .src("/js/raccoon-file-upload.js")
             .setAttribute(
                 name: "type",
                 value: "text/javascript"
@@ -196,17 +196,11 @@ public struct SingleFileUpload: TemplateRepresentable {
         }
         .setAttribute(
             name: "x-data",
-            value:
-                """
-                { 
-                  hasServerError: \(data.errorMessages != nil ? "true" : "false"),
-                  hasFile: false,
-                }
-                """
+            value: "fileUploadField(\(data.errorMessages != nil ? "true" : "false"))"
         )
         .setAttribute(
             name: "@files-changed",
-            value: "hasFile = $event.detail.count > 0; if (hasFile) hasServerError = false"
+            value: "onFilesChanged($event)"
         )
 
     }

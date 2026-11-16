@@ -50,8 +50,7 @@ public struct Glossary: TemplateRepresentable {
         }
         .setAttribute(
             name: "x-show",
-            value:
-                "search.trim().length > 0 && !terms.some(t => t.includes(search.trim().toLowerCase()))"
+            value: "noResults"
         )
         .flagAttribute("x-cloak")
         .addClass(styles.noResultsContainer)
@@ -138,8 +137,7 @@ public struct Glossary: TemplateRepresentable {
                                 }
                                 .setAttribute(
                                     name: "x-show",
-                                    value:
-                                        "!search.trim() || \(termLiteral).includes(search.trim().toLowerCase())"
+                                    value: "matchesTerm(\(termLiteral))"
                                 )
                             }
                             else {
@@ -168,8 +166,7 @@ public struct Glossary: TemplateRepresentable {
                     sectionElement
                         .setAttribute(
                             name: "x-show",
-                            value:
-                                "!search.trim() || \(sectionTermsLiteral).some(t => t.includes(search.trim().toLowerCase()))"
+                            value: "matchesAnyTerm(\(sectionTermsLiteral))"
                         )
                 }
                 else {
@@ -193,7 +190,13 @@ public struct Glossary: TemplateRepresentable {
             }
             .joined(separator: ", ") + "]"
 
-        let xDataExpression = "{ search: '', terms: \(termsArrayLiteral) }"
+        let xDataExpression = "glossarySearch(\(termsArrayLiteral))"
+
+        if data.hasSearch {
+            Script()
+                .src("/js/raccoon-glossary.js")
+                .setAttribute(name: "type", value: "text/javascript")
+        }
 
         Section {
             if data.hasSearch {

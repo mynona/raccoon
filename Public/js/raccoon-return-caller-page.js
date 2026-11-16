@@ -3,7 +3,7 @@
 /* Navigates back to the page the user came from, with a fallback to the home page. */
 
 function returnToCallerPage() {
-  // Prefer the caller page persisted by search-view.js
+  // Prefer the caller page persisted by raccoon-search-view.js
   const callerPage = localStorage.getItem('callerPage');
 
   if (callerPage) {

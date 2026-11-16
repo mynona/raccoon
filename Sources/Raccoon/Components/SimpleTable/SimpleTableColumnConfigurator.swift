@@ -157,17 +157,7 @@ public func simpleTableColumnConfigurator(
                                     )
                                     .setAttribute(
                                         name: ":disabled",
-                                        value: """
-                                            !isHideable(col)
-                                            ||
-                                            (allColumnsAreHideable
-                                              && isHideable(col)
-                                              && tempVisibleColumns.has(col.key)
-                                              && [...tempVisibleColumns].filter(k => {
-                                                    const c = meta.columns.find(x => x.key === k);
-                                                    return c && isHideable(c);
-                                                 }).length === 1)
-                                            """
+                                        value: "isToggleLocked(col)"
                                     )
                                     .setAttribute(
                                         name: "@change",
@@ -188,18 +178,7 @@ public func simpleTableColumnConfigurator(
                                     )
                                     .setAttribute(
                                         name: ":class",
-                                        value: """
-                                            !isHideable(col)
-                                              ? 'opacity-40 cursor-not-allowed'
-                                              : (allColumnsAreHideable
-                                                 && tempVisibleColumns.has(col.key)
-                                                 && [...tempVisibleColumns].filter(k => {
-                                                        const c = meta.columns.find(x => x.key === k);
-                                                        return c && isHideable(c);
-                                                    }).length === 1)
-                                                  ? 'opacity-40 cursor-not-allowed'
-                                                  : ''
-                                            """
+                                        value: "isToggleLocked(col) ? 'opacity-40 cursor-not-allowed' : ''"
                                     )
                             }
                             .class(

@@ -21,8 +21,8 @@ If your application uses the built-in themes (`raumnebenan`, `black-and-white`, 
 
 Raccoon ships with pre-rendered, production-ready assets in its [`Public/`](../Public) folder:
 - **`Public/css/raccoon-min.css`**: Pre-rendered Tailwind CSS v4 stylesheet covering all 63 Raccoon components and all predefined themes (including dark mode).
-- **`Public/js/bundle-min.js`**: Pre-bundled Alpine.js runtime including the required `@alpinejs/focus`, `@alpinejs/sort`, and `@alpinejs/ui` plugins.
-- **`Public/js/*.js`**: Standalone component scripts (e.g. `agentic-mermaid-component-lazy.js`, `dropdown.js`, `datepicker.js`, `simple-menu.js`, `modal.js`).
+- **`Public/js/raccoon-alpine-csp-bundle.js`**: Pre-bundled Alpine.js (CSP build, no `'unsafe-eval'` needed) runtime including the required `@alpinejs/focus`, `@alpinejs/sort`, and `@alpinejs/ui` plugins.
+- **`Public/js/*.js`**: Standalone component scripts (e.g. `raccoon-agentic-mermaid-component-lazy.js`, `raccoon-dropdown.js`, `raccoon-date-picker.js`, `raccoon-simple-menu.js`, `raccoon-modal.js`).
 
 ### Consumer App Asset Delivery Requirement
 
@@ -39,7 +39,7 @@ Your consumer web application **must serve these CSS and JS files** at the paths
    <link rel="stylesheet" href="/css/raccoon-min.css">
 
    <!-- Pre-rendered Alpine.js bundle with required plugins -->
-   <script defer src="/js/bundle-min.js"></script>
+   <script defer src="/js/raccoon-alpine-csp-bundle.js"></script>
    ```
 
 Use the build workflow in this `Theming` directory only when you need to **customize** design tokens, change theme palettes, add custom utilities, or scan custom application templates.
@@ -252,11 +252,11 @@ In [src/input.css](./src/input.css) under `@theme`, you can override fonts and r
 
 ## Special Note: Theming Mermaid Diagrams
 
-The `Mermaid` component renders diagrams client-side into SVGs using `agentic-mermaid` and Alpine.js (loaded via `/js/agentic-mermaid-component-lazy.js`).
+The `Mermaid` component renders diagrams client-side into SVGs using `agentic-mermaid` and Alpine.js (loaded via `/js/raccoon-agentic-mermaid-component-lazy.js`).
 
-Because Mermaid calculates SVG node fills, stroke colors, and font styles directly during client-side rendering, **Mermaid theme values must be set in the JavaScript file** (`agentic-mermaid-component-lazy.js`) rather than exclusively through CSS classes.
+Because Mermaid calculates SVG node fills, stroke colors, and font styles directly during client-side rendering, **Mermaid theme values must be set in the JavaScript file** (`raccoon-agentic-mermaid-component-lazy.js`) rather than exclusively through CSS classes.
 
-To style Mermaid diagrams for your brand, update the `THEME_PALETTES` dictionary in `agentic-mermaid-component-lazy.js` with your theme's colors (`bg`, `fg`, `accent`, `line`, `muted`, `surface`, `border`) and font settings for both `light` and `dark` modes:
+To style Mermaid diagrams for your brand, update the `THEME_PALETTES` dictionary in `raccoon-agentic-mermaid-component-lazy.js` with your theme's colors (`bg`, `fg`, `accent`, `line`, `muted`, `surface`, `border`) and font settings for both `light` and `dark` modes:
 
 ```javascript
 const THEME_PALETTES = {

@@ -27,7 +27,17 @@ if (!window.__fileUploadLoaded) {
     };
   })();
 
-  document.addEventListener('alpine:init', () => {
+  const register = () => {
+    // Outer field component that manages field border and server error state
+    Alpine.data('fileUploadField', (hasServerError = false) => ({
+      hasServerError,
+      hasFile: false,
+      onFilesChanged(event) {
+        this.hasFile = Boolean(event && event.detail && event.detail.count > 0);
+        if (this.hasFile) this.hasServerError = false;
+      },
+    }));
+
     // Component for single file upload
     Alpine.data('singleFileDnD', (inputId = 'fileUploadInput') => ({
       files: [],
@@ -38,6 +48,12 @@ if (!window.__fileUploadLoaded) {
       isFocused: false,
       hasServerError: false,
       inputId,
+      get fileArray() {
+        return Array.from(this.files);
+      },
+      displayFileSize() {
+        return this.fileSize;
+      },
       // Tells the surrounding field (border, server error) whether a file is chosen
       init() {
         this.$watch('files', (files) => this.$dispatch('files-changed', { count: files.length }));
@@ -92,6 +108,12 @@ if (!window.__fileUploadLoaded) {
       isFocused: false,
       hasServerError: false,
       inputId,
+      get fileArray() {
+        return Array.from(this.files);
+      },
+      displayFileSize(file) {
+        return file ? this.formatSize(file.size) : '';
+      },
       init() {
         this.$watch('files', (files) => this.$dispatch('files-changed', { count: files.length }));
       },
@@ -132,5 +154,11 @@ if (!window.__fileUploadLoaded) {
         }
       }
     }));
-  });
+  };
+
+  if (window.Alpine) {
+    register();
+  } else {
+    document.addEventListener('alpine:init', register);
+  }
 }

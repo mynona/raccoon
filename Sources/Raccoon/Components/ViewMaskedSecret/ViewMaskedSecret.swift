@@ -130,7 +130,7 @@ public struct ViewMaskedSecret: TemplateRepresentable {
             value: "init()"
         )
         Script()
-            .src("/js/view-masked.js")
+            .src("/js/raccoon-view-masked.js")
             .setAttribute(name: "type", value: "text/javascript")
     }
 }

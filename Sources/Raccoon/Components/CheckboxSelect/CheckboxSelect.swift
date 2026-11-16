@@ -143,7 +143,7 @@ public struct CheckboxSelect: TemplateRepresentable {
                                     .setAttribute(
                                         name: ":aria-checked",
                                         value:
-                                            "selectAll ? 'true' : (filteredValues.some(v => v.selected) ? 'mixed' : 'false')"
+                                            "selectAllChecked"
                                     )
                                     .setAttribute(
                                         name: "tabindex",
@@ -276,7 +276,7 @@ public struct CheckboxSelect: TemplateRepresentable {
         DebugComment("Checkbox select")
 
         Script()
-            .src("/js/checkbox-select.js")
+            .src("/js/raccoon-checkbox-select.js")
             .setAttribute(
                 name: "type",
                 value: "text/javascript"

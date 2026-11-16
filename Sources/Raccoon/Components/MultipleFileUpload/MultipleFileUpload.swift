@@ -140,7 +140,7 @@ public struct MultipleFileUpload: TemplateRepresentable {
     public func render() -> [Element] {
         DebugComment("Multiple file upload")
         Script()
-            .src("/js/file-upload.js")
+            .src("/js/raccoon-file-upload.js")
             .setAttribute(
                 name: "type",
                 value: "text/javascript"
@@ -194,17 +194,11 @@ public struct MultipleFileUpload: TemplateRepresentable {
         }
         .setAttribute(
             name: "x-data",
-            value:
-                """
-                { 
-                  hasServerError: \(data.errorMessages != nil ? "true" : "false"),
-                  hasFile: false,
-                }
-                """
+            value: "fileUploadField(\(data.errorMessages != nil ? "true" : "false"))"
         )
         .setAttribute(
             name: "@files-changed",
-            value: "hasFile = $event.detail.count > 0; if (hasFile) hasServerError = false"
+            value: "onFilesChanged($event)"
         )
 
     }

@@ -9,7 +9,8 @@ import WebBuilders
 /// The dialog shell is local to this preview until Raccoon has its own `Dialog` component.
 struct FormBuilderDialogView: TemplateRepresentable {
 
-    private static let closeDialog = "open = false, $store.modal = false"
+    // The comma operator is not available in the CSP build, so the second assignment runs through ||
+    private static let closeDialog = "(open = false) || ($store.modal = false)"
 
     private static func closeAction(piece: String) -> FormAction {
         .button(
@@ -147,7 +148,7 @@ struct FormBuilderDialogView: TemplateRepresentable {
         ActionButton(
             ActionButtonData(
                 id: id,
-                clickAction: "open = true, $store.modal = true",
+                clickAction: "(open = true) && ($store.modal = true)",
                 label: label,
                 htmlType: .button,
                 buttonType: .primary,
@@ -258,7 +259,7 @@ struct FormBuilderDialogView: TemplateRepresentable {
                 showComponentTitle("FormBuilder (dialog)")
 
                 Script()
-                    .src("/js/modal.js")
+                    .src("/js/raccoon-modal.js")
                     .setAttribute(name: "type", value: "text/javascript")
 
                 for (index, variant) in variants.enumerated() {

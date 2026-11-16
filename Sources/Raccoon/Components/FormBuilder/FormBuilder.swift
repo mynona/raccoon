@@ -144,7 +144,7 @@ public struct FormBuilder: TemplateRepresentable {
         case .submit:
             // The script keeps the submit button in step with the errors of the fields
             Script()
-                .src("/js/error-summary.js")
+                .src("/js/raccoon-error-summary.js")
                 .setAttribute(name: "type", value: "text/javascript")
             if let errors = data.errorMessages {
                 ErrorMessage(errors).render()

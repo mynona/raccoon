@@ -370,6 +370,30 @@ struct LinkButtonTests {
         #expect(!html.contains("hreflang"))
     }
 
+    @Test("renders tooltip dispatch events and alpine container")
+    func rendersTooltipDispatchEvents() async throws {
+
+        let html = renderHTML(
+            LinkButton(
+                LinkButtonData(
+                    label: "Save",
+                    tooltip: "Save your changes",
+                    href: "#",
+                    buttonType: .primary,
+                    contentTracker: tracker
+                )
+            )
+            .render()
+        )
+        #expect(html.contains("aria-describedby="))
+        #expect(html.contains("x-ref=\"tooltip-"))
+        #expect(html.contains("x-on:mouseenter=\"$dispatch('show-tooltip'"))
+        #expect(html.contains("x-on:mouseleave=\"$dispatch('hide-tooltip'"))
+        #expect(html.contains("x-on:focus=\"$dispatch('show-tooltip'"))
+        #expect(html.contains("x-on:blur=\"$dispatch('hide-tooltip'"))
+        #expect(html.contains("x-data=\"{ }\""))
+    }
+
     // MARK: localization
 
     private func render(_ data: LinkButtonData, language: String = "en")
@@ -434,7 +458,7 @@ struct LinkButtonTests {
         let html = render(data, language: "de")
         #expect(html.contains("aria-label=\"Öffnen\""))
         #expect(html.contains("data-i18n-aria-label-values="))
-        #expect(html.contains("RaccoonI18n.pick("))
+        #expect(html.contains("$pick("))
     }
 
     @Test("a literal label stays plain in every language")

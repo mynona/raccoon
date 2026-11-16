@@ -8,7 +8,7 @@ public struct AudioPlayer: TemplateRepresentable {
     let data: AudioPlayerData
     typealias styles = AudioPlayerStyles
 
-    /// Announcements that `audioplayer.js` makes. The script asks the i18n store for them, so they are
+    /// Announcements that `raccoon-audio-player.js` makes. The script asks the i18n store for them, so they are
     /// recorded here to land in the page dictionary.
     private static let scriptTexts: [LocalizedText] = [
         LocalizedText(
@@ -92,7 +92,7 @@ public struct AudioPlayer: TemplateRepresentable {
         )
         .setAttribute(
             name: "@loadedmetadata",
-            value: "metaDataLoaded = true; setTime()"
+            value: "onMetadataLoaded()"
         )
         .setAttribute(
             name: "@ended",
@@ -240,7 +240,7 @@ public struct AudioPlayer: TemplateRepresentable {
             )
             .setAttribute(
                 name: "@mouseleave",
-                value: "if (!isDragging) isHovered = false"
+                value: "onScrubberLeave()"
             )
             .setAttribute(
                 name: "@focus",
@@ -264,11 +264,11 @@ public struct AudioPlayer: TemplateRepresentable {
             .setAttribute(name: "aria-orientation", value: "horizontal")
             .setAttribute(
                 name: ":aria-valuenow",
-                value: "$refs.player?.currentTime || 0"
+                value: "playerCurrentTime"
             )
             .setAttribute(
                 name: ":aria-valuemax",
-                value: "$refs.player?.duration || 0"
+                value: "playerDuration"
             )
             .setAttribute(
                 name: ":aria-valuetext",
@@ -305,15 +305,15 @@ public struct AudioPlayer: TemplateRepresentable {
             )
             .setAttribute(
                 name: "@keydown.end.prevent",
-                value: "seek($refs.player?.duration || 0)"
+                value: "seekToEnd()"
             )
             .setAttribute(
                 name: "@keydown.meta.arrow-right.prevent",
-                value: "seek($refs.player?.duration || 0)"
+                value: "seekToEnd()"
             )
             .setAttribute(
                 name: "@keydown.fn.arrow-right.prevent",
-                value: "seek($refs.player?.duration || 0)"
+                value: "seekToEnd()"
             )
             .class(styles.scrubberButton)
 
@@ -368,7 +368,7 @@ public struct AudioPlayer: TemplateRepresentable {
             .setAttribute(
                 name: ":style",
                 value:
-                    "`left: ${isHovered && !isDragging ? hoverPercent : progressPercent}%; transform: translateX(-50%);`"
+                    "'left: ' + (isHovered && !isDragging ? hoverPercent : progressPercent) + '%; transform: translateX(-50%);'"
             )
             .setAttribute(
                 name: ":class",
@@ -394,7 +394,7 @@ public struct AudioPlayer: TemplateRepresentable {
             .setAttribute(
                 name: ":style",
                 value:
-                    "`left: ${progressPercent}%; transform: translate(-50%, -50%);`"
+                    "'left: ' + progressPercent + '%; transform: translate(-50%, -50%);'"
             )
             .class(styles.progressThumbContainer)
         }
@@ -409,7 +409,7 @@ public struct AudioPlayer: TemplateRepresentable {
 
         // Intentional: the component ships its own script tag; duplicates are handled by the
         // window.__audioPlayerLoaded guard. Do not move into the page template during component audits.
-        Script().src("/js/audioplayer.js")
+        Script().src("/js/raccoon-audio-player.js")
 
         Div {
             Div {

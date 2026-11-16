@@ -20,7 +20,10 @@ struct FileListTests {
         let html = renderHTML(FileList(ctx).render())
         #expect(html.contains("x-if=\"files.length > 0\""))
         #expect(
-            html.contains("x-for=\"(file, index) in Array.from(files)\"")
+            html.contains("x-for=\"(file, index) in fileArray\"")
+        )
+        #expect(
+            html.contains("x-text=\"displayFileSize(file)\"")
         )
         #expect(html.contains("remove(index)"))
         #expect(html.contains(":id=\"'btnRemove-test-upload-' + index\""))
@@ -51,10 +54,9 @@ struct FileListTests {
             renderHTML(FileList(ctx).render())
         }
         #expect(german.contains("aria-label=\"Datei entfernen\""))
-        #expect(german.contains("get tooltipText() { return"))
         #expect(
             german.contains(
-                "RaccoonI18n.t('filelist.remove',null,'Datei entfernen')"
+                "x-text=\"$t('filelist.remove',null,'Datei entfernen')\""
             )
         )
     }

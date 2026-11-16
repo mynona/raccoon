@@ -190,27 +190,7 @@ struct TablePaginatorView: TemplateRepresentable {
                         Div {
                             TablePaginator(variant.data).render()
                         }
-                        .setAttribute(
-                            name: "x-data",
-                            value: """
-                                {
-                                    page: 2,
-                                    per: 10,
-                                    total: 95,
-                                    totalPages: 10,
-                                    rangeLabel: '11 – 20 of 95',
-                                    pageSizeOptions: [5, 10, 20, 50, 100],
-                                    hasPrevious: true,
-                                    hasNext: true,
-                                    isLoading: false,
-                                    hasSearched: true,
-                                    changePageSize(val) { this.per = Number(val); },
-                                    goToPage(p) { this.page = p; },
-                                    previousPage() { if (this.page > 1) this.page--; },
-                                    nextPage() { if (this.page < this.totalPages) this.page++; }
-                                }
-                                """
-                        )
+                        .setAttribute(name: "x-data", value: "paginatorDemo")
                         .class("mb-4 mt-6 max-w-4xl")
                     }
                 }

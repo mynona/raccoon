@@ -26,8 +26,8 @@ import WebBuilders
 ///    The trigger must dispatch `show-tooltip` and `hide-tooltip` events
 ///    with the same ID used in `x-ref` and `TooltipData(id:)`.
 ///    ```html
-///    x-on:mouseenter="window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: 'tooltip-1' } }))"
-///    x-on:mouseleave="window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: 'tooltip-1' } }))"
+///    x-on:mouseenter="$dispatch('show-tooltip', { id: 'tooltip-1' })"
+///    x-on:mouseleave="$dispatch('hide-tooltip', { id: 'tooltip-1' })"
 ///    ```
 ///
 /// 4. **Render the tooltip with the same ID**
@@ -48,8 +48,8 @@ import WebBuilders
 /// <div x-data class="relative inline-block">
 ///     <button
 ///         x-ref="tooltip-1"
-///         x-on:mouseenter="window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: 'tooltip-1' } }))"
-///         x-on:mouseleave="window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: 'tooltip-1' } }))"
+///         x-on:mouseenter="$dispatch('show-tooltip', { id: 'tooltip-1' })"
+///         x-on:mouseleave="$dispatch('hide-tooltip', { id: 'tooltip-1' })"
 ///         class="inline-block"
 ///     >
 ///
@@ -63,6 +63,10 @@ public struct Tooltip: TemplateRepresentable {
 
     @Builder<Element>
     public func render() -> [Element] {
+        Script()
+            .src("/js/raccoon-tooltip.js")
+            .setAttribute(name: "type", value: "text/javascript")
+
         DebugComment("Tooltip")
         Div {
 
@@ -73,7 +77,7 @@ public struct Tooltip: TemplateRepresentable {
                     P {}
                         .setAttribute(
                             name: "x-text",
-                            value: "tooltipText"
+                            value: context.text.alpineExpression
                         )
                         .class("shrink-0 block")
                         .addClass(styles.text)
@@ -151,15 +155,8 @@ public struct Tooltip: TemplateRepresentable {
         }
         .setAttribute(
             name: "x-data",
-            value: """
-                {
-                 tooltipVisible: false,
-                 // A getter, so the text follows a language switch (a plain property is evaluated once)
-                 get tooltipText() { return \(context.text.alpineExpression); },
-                 tooltipArrow: \(context.hasArrow),
-                 tooltipPosition: \(JavaScriptEscaper.alpineStringLiteral(context.position.rawValue)),
-                }
-                """
+            value:
+                "tooltip(\(context.hasArrow), \(JavaScriptEscaper.alpineStringLiteral(context.position.rawValue)))"
         )
         .if(context.bindId != nil) {
             if let bindId = context.bindId {
@@ -167,13 +164,11 @@ public struct Tooltip: TemplateRepresentable {
                     $0
                     .setAttribute(
                         name: "x-on:show-tooltip.window",
-                        value:
-                            "if ($event.detail.id === (\(bindId))) { const anchor = document.querySelector(`[x-ref='${$event.detail.id}']`); if (anchor) { tooltipVisible = true } }"
+                        value: "onShow($event, \(bindId))"
                     )
                     .setAttribute(
                         name: "x-on:hide-tooltip.window",
-                        value:
-                            "if ($event.detail.id === (\(bindId))) tooltipVisible = false"
+                        value: "onHide($event, \(bindId))"
                     )
             }
             return $0
@@ -182,12 +177,12 @@ public struct Tooltip: TemplateRepresentable {
                 .setAttribute(
                     name: "x-on:show-tooltip.window",
                     value:
-                        "if ($event.detail.id === \(JavaScriptEscaper.alpineStringLiteral(context.id))) { const anchor = document.querySelector(`[x-ref='${$event.detail.id}']`); if (anchor) { tooltipVisible = true } }"
+                        "onShow($event, \(JavaScriptEscaper.alpineStringLiteral(context.id)))"
                 )
                 .setAttribute(
                     name: "x-on:hide-tooltip.window",
                     value:
-                        "if ($event.detail.id === \(JavaScriptEscaper.alpineStringLiteral(context.id))) tooltipVisible = false"
+                        "onHide($event, \(JavaScriptEscaper.alpineStringLiteral(context.id)))"
                 )
         }
         .class("z-50")

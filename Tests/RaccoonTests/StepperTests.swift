@@ -387,8 +387,9 @@ struct StepperTests {
         #expect(
             html.contains("aria-describedby=\"tooltip-checkout-stepper-1\"")
         )
-        #expect(html.contains("show-tooltip"))
-        #expect(html.contains("hide-tooltip"))
+        #expect(html.contains("$dispatch('show-tooltip', { id: 'tooltip-checkout-stepper-1' })"))
+        #expect(html.contains("$dispatch('hide-tooltip'"))
+        #expect(!html.contains("window.dispatchEvent"))
 
         // Tooltip element is rendered with role="tooltip" and title text
         #expect(html.contains("role=\"tooltip\""))
@@ -729,7 +730,7 @@ struct StepperTests {
         let html = I18n.render(language: "de") {
             renderHTML(Stepper(data).render())
         }
-        #expect(html.contains("RaccoonI18n.pick("))
+        #expect(html.contains("$pick("))
         #expect(html.contains("'Beginnen'"))
     }
 }

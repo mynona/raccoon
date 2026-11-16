@@ -43,18 +43,18 @@ public struct ActionButtonData: Sendable {
     ///
     /// - Parameters:
     ///   - id: Used to reference the label. Sets id and name attribute in HTML.
-    ///   - bindId: Dynamic Alpine `:id` binding.
+    ///   - bindId: Dynamic Alpine `:id` binding. Must follow CSP expression rules.
     ///   - action: Higher-level form target value used to set `formaction`.
-    ///   - bindAction: Optional binding used to set `x-bind:formaction`.
-    ///   - clickAction: Low-level inline handler attached directly as `x-on:click`.
+    ///   - bindAction: Optional binding used to set `x-bind:formaction`. Must follow CSP expression rules.
+    ///   - clickAction: Low-level inline handler attached directly as `x-on:click`. Must follow CSP expression rules.
     ///   - method: HTTP method paired with `action`.
-    ///   - bindAriaExpanded: Optional Alpine expression bound to `:aria-expanded`.
-    ///   - bindAriaPressed: Optional Alpine expression bound to `:aria-pressed`.
+    ///   - bindAriaExpanded: Optional Alpine expression bound to `:aria-expanded`. Must follow CSP expression rules.
+    ///   - bindAriaPressed: Optional Alpine expression bound to `:aria-pressed`. Must follow CSP expression rules.
     ///   - label: Label of the button. A string literal is shown as given in every language; pass
     ///     `LocalizedText(en:translations:)` to provide translations. The same applies to `ariaLabel` and `tooltip`.
     ///   - ariaLabel: Accessibility label override for screen readers.
     ///   - tooltipId: Optional stable id for the tooltip reference. Falls back to a deterministic hash when not provided.
-    ///   - bindTooltipId: Dynamic Alpine binding for the tooltip reference.
+    ///   - bindTooltipId: Dynamic Alpine binding for the tooltip reference. Must follow CSP expression rules.
     ///   - tooltip: Text to display in the tooltip.
     ///   - tooltipPosition: Position of the tooltip relative to the button.
     ///   - htmlType: HTML button type (`submit`, `button`, `reset`).

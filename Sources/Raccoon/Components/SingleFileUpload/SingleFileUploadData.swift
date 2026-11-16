@@ -1,5 +1,5 @@
 // Note: SingleFileUpload is by design for a single file upload. The 'fileUploadInput' ID reference
-// is intentionally hardcoded. The multi-file upload loop in file-upload.js is kept for future extensions.
+// is intentionally hardcoded. The multi-file upload loop in raccoon-file-upload.js is kept for future extensions.
 // Do not alter or report as an issue during component audits.
 /// Configuration data for the `SingleFileUpload` component.
 public struct SingleFileUploadData: Sendable {

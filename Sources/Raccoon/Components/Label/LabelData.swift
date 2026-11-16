@@ -24,7 +24,7 @@ public struct LabelData: Sendable {
     ///   - size: Text size of the label.
     ///   - isRequired: Whether to display a required field indicator.
     ///   - isDisabled: Whether the label reflects a disabled form control state.
-    ///   - xhtml: Optional raw HTML string or dynamic Alpine text replacement expression.
+    ///   - xhtml: Optional Alpine expression that returns trusted HTML. It must follow the CSP expression rules.
     public init(
         id: String,
         title: LocalizedText? = nil,

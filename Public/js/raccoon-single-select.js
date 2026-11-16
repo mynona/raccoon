@@ -14,11 +14,16 @@ if (!window.__singleSelectLoaded) {
       hasServerError = false,
       debug = false // Per-instance debug flag
     } = {}) => ({
+    id,
     isOpen: false,
     query: '',
     frameworks,
     selected: null,
     hasServerError,
+    // Text of the input for the selected option
+    displayValue(framework) {
+      return framework ? framework.name : '';
+    },
     clearInput() {
       this.query = '';
       this.selected = null;

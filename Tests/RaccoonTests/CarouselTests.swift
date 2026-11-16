@@ -140,13 +140,13 @@ struct CarouselTests {
         #expect(html.contains("&quot;imgCaption&quot;:&quot;&quot;"))
     }
 
-    @Test("renders script tag for carousel.js")
+    @Test("renders script tag for raccoon-carousel.js")
     func rendersScriptTag() async throws {
 
         let data = CarouselData(id: "carousel-script", carouselItems: [])
         let html = renderHTML(Carousel(data).render())
 
-        #expect(html.contains("src=\"/js/carousel.js\""))
+        #expect(html.contains("src=\"/js/raccoon-carousel.js\""))
     }
 
     @Test("renders matomo tracking attributes when accepted")
@@ -304,7 +304,7 @@ struct CarouselTests {
         #expect(german.contains("aria-label=\"nächstes Bild\""))
         #expect(
             german.contains(
-                "RaccoonI18n.t('carousel.slide', { number: index + 1 }"
+                "$t('carousel.slide', { number: index + 1 }"
             )
         )
         // The slide text is part of the page dictionary although Swift never renders it

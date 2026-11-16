@@ -28,6 +28,12 @@ if (!window.__checkboxSelectLoaded) {
                 });
             },
 
+            // aria-checked of the select-all checkbox: all, some (mixed) or none
+            get selectAllChecked() {
+                if (this.selectAll) return 'true';
+                return this.filteredValues.some(v => v.selected) ? 'mixed' : 'false';
+            },
+
             toggleAll() {
                 this.values.forEach(v => v.selected = this.selectAll);
                 this.updateSelectAll();

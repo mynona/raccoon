@@ -249,8 +249,11 @@ struct InputFieldTests {
         // Regression: single-quoted JS literal, since the renderer doesn't escape double quotes
         // inside double-quoted HTML attribute values.
         #expect(html.contains("errorMessage: 'Must match pattern ABC-1234'"))
+        #expect(html.contains("regexPattern: '^[A-Z]{3}-\\\\d{4}$'"))
+        #expect(html.contains("@input=\"onInput()\""))
+        #expect(html.contains("@blur=\"onBlur()\""))
         #expect(html.contains("hasInitialValue: true"))
-        #expect(html.contains("/js/input-field.js"))
+        #expect(html.contains("/js/raccoon-input-field.js"))
     }
 
     @Test("renders helper text and matomo masking")

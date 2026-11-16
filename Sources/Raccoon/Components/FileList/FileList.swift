@@ -20,6 +20,12 @@ public struct FileList: TemplateRepresentable {
     public func render() -> [Element] {
         let uploadPrefix = data.uploadId ?? "file-upload"
 
+        if data.hasRemoveAction {
+            Script()
+                .src("/js/raccoon-tooltip.js")
+                .setAttribute(name: "type", value: "text/javascript")
+        }
+
         Template {
             Div {
                 Template {
@@ -48,8 +54,7 @@ public struct FileList: TemplateRepresentable {
                             Span("")
                                 .setAttribute(
                                     name: "x-text",
-                                    value:
-                                        "typeof formatSize === 'function' ? formatSize(file.size) : fileSize"
+                                    value: "displayFileSize(file)"
                                 )
                                 .class(
                                     "text-left"
@@ -98,7 +103,7 @@ public struct FileList: TemplateRepresentable {
                 }
                 .setAttribute(
                     name: "x-for",
-                    value: "(file, index) in Array.from(files)"
+                    value: "(file, index) in fileArray"
                 )
             }
             .class(styles.container)

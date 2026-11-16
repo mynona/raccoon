@@ -25,7 +25,7 @@ struct SimpleMenuTests {
         let html = renderHTML(SimpleMenu(data).render())
 
         // Script and clean Alpine initialization
-        #expect(html.contains("src=\"/js/simple-menu.js\""))
+        #expect(html.contains("src=\"/js/raccoon-simple-menu.js\""))
         #expect(html.contains("x-data=\"simpleMenu()\""))
 
         // Trigger button

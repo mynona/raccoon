@@ -16,7 +16,7 @@ struct FileUploadTests {
         let ctx = SingleFileUploadData(id: "file-upload")
         let html = renderHTML(SingleFileUpload(ctx).render())
         #expect(html.contains("type=\"file\""))
-        #expect(html.contains("/js/file-upload.js"))
+        #expect(html.contains("/js/raccoon-file-upload.js"))
         #expect(html.contains("x-data=\"singleFileDnD('file-upload')\""))
     }
 
@@ -64,7 +64,8 @@ struct FileUploadTests {
         )
         let html = renderHTML(SingleFileUpload(ctx).render())
 
-        #expect(html.contains("hasServerError: true"))
+        #expect(html.contains("fileUploadField(true)"))
+        #expect(html.contains("@files-changed=\"onFilesChanged($event)\""))
         #expect(html.contains("Upload failed"))
     }
 

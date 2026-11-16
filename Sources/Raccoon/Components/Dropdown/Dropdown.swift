@@ -172,7 +172,7 @@ public struct Dropdown: TemplateRepresentable {
     @Builder<Element>
     private func showEnabled() -> [Element] {
         Script()
-            .src("/js/dropdown.js")
+            .src("/js/raccoon-dropdown.js")
             .setAttribute(name: "type", value: "text/javascript")
 
         let hasError =

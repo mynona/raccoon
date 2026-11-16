@@ -52,7 +52,7 @@ struct MatomoTrackerTests {
             makeData(status: .ACCEPTED, pageType: .trackPageView)
         )
 
-        #expect(html.contains("src=\"/js/matomo-tracker.js\""))
+        #expect(html.contains("src=\"/js/raccoon-matomo-tracker.js\""))
         #expect(html.contains("data-site-id=\"1\""))
         #expect(
             html.contains("data-tracker-url=\"https://statistics.raumnebenan.de/\"")
@@ -83,7 +83,7 @@ struct MatomoTrackerTests {
             makeData(status: .ACCEPTED, pageType: .trackPageView)
         )
 
-        #expect(html.contains("src=\"/js/formtracking.js\""))
+        #expect(html.contains("src=\"/js/raccoon-form-tracking.js\""))
         #expect(html.contains("defer"))
     }
 

@@ -179,7 +179,7 @@ public struct Carousel: TemplateRepresentable {
                         name: "x-bind:aria-label",
                         // The number is only known in the browser, so the text is picked there
                         value:
-                            "window.RaccoonI18n ? RaccoonI18n.t('carousel.slide', { number: index + 1 }, 'slide ' + (index + 1)) : 'slide ' + (index + 1)"
+                            "$t('carousel.slide', { number: index + 1 }, 'slide ' + (index + 1))"
                     )
                     .class("size-2 cursor-pointer rounded-full transition")
                     .addClass(styles.backgroundColorIndicators)
@@ -312,7 +312,7 @@ public struct Carousel: TemplateRepresentable {
         DebugComment("Carousel")
         let _ = Self.slide.recordUse()
         Script()
-            .src("/js/carousel.js")
+            .src("/js/raccoon-carousel.js")
             .setAttribute(
                 name: "type",
                 value: "text/javascript"

@@ -269,7 +269,7 @@ public struct TabGroup: TemplateRepresentable {
         DebugComment("TabGroup: \((data.ariaLabel ?? Self.tabOptions).english)")
 
         Script()
-            .src("/js/tab-group.js")
+            .src("/js/raccoon-tab-group.js")
             .setAttribute(name: "type", value: "text/javascript")
 
         let componentId =

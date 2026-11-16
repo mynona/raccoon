@@ -186,7 +186,9 @@ struct MultiSelectTests {
         #expect(html.contains("<select"))
         #expect(html.contains("multiple"))
         #expect(html.contains("name=\"stack\""))
-        #expect(html.contains("x-html=\"selectedOptions()\""))
+        #expect(html.contains("x-for=\"selectedFramework in selected\""))
+        #expect(html.contains("removeSelected(selectedFramework)"))
+        #expect(!html.contains("x-html"))
     }
 
     @Test("renders combobox input and dropdown button")
@@ -205,7 +207,7 @@ struct MultiSelectTests {
         #expect(html.contains("x-combobox:input"))
         #expect(html.contains("Search or select"))
         #expect(html.contains("x-combobox:button"))
-        #expect(html.contains("/js/multi-select.js"))
+        #expect(html.contains("/js/raccoon-multi-select.js"))
     }
 
     // MARK: localization

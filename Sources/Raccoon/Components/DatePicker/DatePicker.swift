@@ -69,7 +69,7 @@ public struct DatePicker: TemplateRepresentable {
     let data: DatePickerData
     typealias styles = DatePickerStyles
 
-    /// Texts that `datepicker.js` shows (validation messages). The script asks the i18n store for them,
+    /// Texts that `raccoon-date-picker.js` shows (validation messages). The script asks the i18n store for them,
     /// so they are recorded here to land in the page dictionary.
     private static let scriptTexts: [LocalizedText] = [
         LocalizedText("datepicker.errDay", "Day must be between 1 and 31"),
@@ -539,8 +539,7 @@ public struct DatePicker: TemplateRepresentable {
                     .type(.button)
                     .setAttribute(
                         name: "@click",
-                        value:
-                            "openYearDropdown = !openYearDropdown; openYearDropdown2 = false"
+                        value: "openYearDropdown = !openYearDropdown"
                     )
                     .class(styles.yearDropdownTrigger)
                     .localized(.ariaLabel, Self.selectYear)
@@ -595,8 +594,7 @@ public struct DatePicker: TemplateRepresentable {
                 .type(.button)
                 .setAttribute(
                     name: "@click",
-                    value:
-                        "month--; if (month < 0) { if (year > 0) { year--; month = 11 } else { month = 0 } }; getNoOfDays();"
+                    value: "viewPreviousMonth()"
                 )
                 .class(
                     "p-1 rounded-md transition"
@@ -617,8 +615,7 @@ public struct DatePicker: TemplateRepresentable {
                     .type(.button)
                     .setAttribute(
                         name: "@click",
-                        value:
-                            "month++; if (month > 11) { if (year < 3000) { year++; month = 0 } else { month = 11 } }; getNoOfDays();"
+                        value: "viewNextMonth()"
                     )
                     .class(
                         "p-1 rounded-md transition"
@@ -835,8 +832,7 @@ public struct DatePicker: TemplateRepresentable {
                     .type(.button)
                     .setAttribute(
                         name: "@click",
-                        value:
-                            "month++; if (month > 11) { if (year < 3000) { year++; month = 0 } else { month = 11 } }; getNoOfDays();"
+                        value: "viewNextMonth()"
                     )
                     .class(
                         "p-1 rounded-md transition"
@@ -1142,7 +1138,7 @@ public struct DatePicker: TemplateRepresentable {
     func showEnabled() -> [Element] {
 
         Script()
-            .src("/js/datepicker.js")
+            .src("/js/raccoon-date-picker.js")
             .setAttribute(name: "type", value: "text/javascript")
 
         if data.isRange {

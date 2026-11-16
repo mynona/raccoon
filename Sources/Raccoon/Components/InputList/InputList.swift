@@ -8,7 +8,7 @@ public struct InputList: TemplateRepresentable {
     typealias styles = InputListStyles
     typealias inputFieldStyles = InputFieldStyles
 
-    /// Messages that `input-list.js` shows. The script asks the i18n store for them, so they are
+    /// Messages that `raccoon-input-list.js` shows. The script asks the i18n store for them, so they are
     /// recorded here to land in the page dictionary.
     private static let scriptTexts: [LocalizedText] = [
         LocalizedText("inputlist.errInvalid", "Invalid value."),
@@ -389,7 +389,7 @@ public struct InputList: TemplateRepresentable {
         DebugComment("Input list")
         let _ = Self.recordScriptTexts()
         Script()
-            .src("/js/input-list.js")
+            .src("/js/raccoon-input-list.js")
             .setAttribute(
                 name: "type",
                 value: "text/javascript"

@@ -16,7 +16,7 @@ struct DarkLightModeToggleTests {
         let html = renderHTML(
             DarkLightModeToggle(DarkLightModeToggleData()).render()
         )
-        #expect(html.contains("src=\"/js/darklightmode.js\""))
+        #expect(html.contains("src=\"/js/raccoon-dark-light-mode.js\""))
         #expect(html.contains("x-show=\"!lightMode\""))
         #expect(html.contains("x-show=\"lightMode\""))
     }

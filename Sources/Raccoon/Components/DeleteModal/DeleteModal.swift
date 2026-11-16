@@ -7,6 +7,9 @@ public struct DeleteModal: TemplateRepresentable {
     let data: DeleteModalData
     typealias styles = DeleteModalStyles
 
+    // The comma operator is not available in the CSP build, so the second assignment runs through ||
+    private static let closeExpression = "(open = false) || ($store.modal = false)"
+
     private static let close = LocalizedText(
         "deletemodal.close",
         "Close delete dialog"
@@ -43,7 +46,7 @@ public struct DeleteModal: TemplateRepresentable {
                 ActionButtonData(
                     action: nil,
                     bindAction: nil,
-                    clickAction: "open = false, $store.modal = false",
+                    clickAction: Self.closeExpression,
                     method: nil,
                     label: nil,
                     ariaLabel: Self.close,
@@ -117,7 +120,7 @@ public struct DeleteModal: TemplateRepresentable {
                     .button(
                         ActionButtonData(
                             action: data.deletionRedirect,
-                            clickAction: "open = false, $store.modal = false",
+                            clickAction: Self.closeExpression,
                             method: .post,
                             label: Self.yes,
                             htmlType: .submit,
@@ -133,7 +136,7 @@ public struct DeleteModal: TemplateRepresentable {
                     .button(
                         ActionButtonData(
                             action: "",
-                            clickAction: "open = false, $store.modal = false",
+                            clickAction: Self.closeExpression,
                             method: .get,
                             label: Self.cancel,
                             htmlType: .button,
@@ -159,7 +162,7 @@ public struct DeleteModal: TemplateRepresentable {
 
         DebugComment("Delete modal")
         Script()
-            .src("/js/modal.js")
+            .src("/js/raccoon-modal.js")
             .setAttribute(
                 name: "type",
                 value: "text/javascript"
@@ -209,7 +212,7 @@ public struct DeleteModal: TemplateRepresentable {
             .flagAttribute("x-transition")
             .setAttribute(
                 name: "x-on:click",
-                value: "open = false, $store.modal = false"
+                value: Self.closeExpression
             )
             .class(
                 "fixed inset-0 z-10 flex min-h-screen items-center justify-center p-4 overflow-y-auto"

@@ -157,7 +157,7 @@ struct CarouselView: TemplateRepresentable {
                     .setAttribute(
                         name: "@click",
                         value:
-                            "window.dispatchEvent(new CustomEvent('showCarousel', { detail: '\(item.id)' }));"
+                            "$dispatch('showCarousel', '\(item.id)')"
                     )
                     .ariaLabel(
                         tr(

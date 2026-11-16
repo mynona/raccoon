@@ -269,6 +269,28 @@ function datatable(data) {
       return this.meta.columns.every(c => this.isHideable(c));
     },
 
+    // True when the column cannot be switched off: not hideable, or the last visible hideable one
+    isToggleLocked(col) {
+      if (!this.isHideable(col)) return true;
+      if (!this.allColumnsAreHideable || !this.tempVisibleColumns.has(col.key)) return false;
+      const visibleHideable = [...this.tempVisibleColumns].filter(key => {
+        const column = this.meta.columns.find(c => c.key === key);
+        return column && this.isHideable(column);
+      });
+      return visibleHideable.length === 1;
+    },
+
+    toggleFilter() {
+      this.showFilter = !this.showFilter;
+      if (this.showFilter) {
+        this.$nextTick(() => { this.$refs.filterInput?.focus(); });
+      }
+    },
+
+    rowKey(row, index) {
+      return row.id ?? index;
+    },
+
     toggleTempColumn(key) {
       const col = this.columnByKey.get(key);
       if (!col) {
@@ -839,4 +861,13 @@ function datatable(data) {
   };
 }
 
-
+// Registered for the CSP build, which only resolves x-data names from Alpine.data.
+// The global stays because raccoon-data-table.js composes it.
+(function () {
+  const register = () => Alpine.data('datatable', datatable);
+  if (window.Alpine) {
+    register();
+  } else {
+    document.addEventListener('alpine:init', register);
+  }
+})();

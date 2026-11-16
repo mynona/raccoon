@@ -166,7 +166,7 @@ public struct ToggleSwitch: TemplateRepresentable {
     public func render() -> [Element] {
 
         Script()
-            .src("/js/toggle.js")
+            .src("/js/raccoon-toggle.js")
 
         Div {
 

@@ -71,8 +71,8 @@ struct SimpleTableTests {
         #expect(html.contains("Copy table"))
         #expect(html.contains("Toggle filter"))
         #expect(html.contains("Select visible columns"))
-        #expect(html.contains("/js/simple-table.js"))
-        #expect(html.contains("$nextTick"))
+        #expect(html.contains("/js/raccoon-simple-table.js"))
+        #expect(html.contains("toggleFilter()"))
         #expect(html.contains(":colspan=\"activeColumns.length\""))
         #expect(html.contains("'text-left': col.align === 'left'"))
     }
@@ -118,6 +118,8 @@ struct SimpleTableTests {
         #expect(html.contains("data-content-piece=\"search.clear\""))
         #expect(html.contains("data-content-target=\"Team members\""))
         #expect(html.contains("x-show=\"showFilter\""))
+        #expect(html.contains("@click=\"toggleFilter()\""))
+        #expect(html.contains(":key=\"rowKey(row, index)\""))
     }
 
     @Test("suppresses rendering when meta json is invalid")

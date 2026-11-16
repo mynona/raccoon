@@ -122,7 +122,7 @@ struct DataTableView: TemplateRepresentable {
                     cellType: .actions([
                         DataTableAction(
                             id: "details",
-                            clickAction: "alert(row.name + ' clicked')",
+                            clickAction: "$alert(row.name + ' clicked')",
                             label: "Details",
                             bindAriaLabel: "'Details for ' + row.name",
                             buttonType: .secondary

@@ -208,8 +208,19 @@ if (!window.__searchViewLoaded) {
             });
         },
 
+        // First article id of an image that is not null or undefined, as a redirect URL
+        articleRedirect(item) {
+          const first = (item?.articles ?? []).find((id) => id !== undefined && id !== null);
+          return first ? `/redirect-article/${first}/` : '#';
+        },
+
         init() {
           persistCallerPage();
+          this.getData();
+          this.$nextTick(() => {
+            this.$refs.searchInput?.click();
+            this.$refs.searchInput?.focus();
+          });
         }
       };
     });

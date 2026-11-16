@@ -21,7 +21,7 @@ public struct SearchFieldData: Sendable {
     public let bindKeyup: String?
 
     /// Optional custom Alpine.js expression to evaluate when the clear button is clicked.
-    /// When `nil`, defaults to clearing the model and refocusing the input via `$nextTick`.
+    /// When `nil`, defaults to clearing the model and refocusing the input via `($refs.{bindRef} && $refs.{bindRef}.focus())`.
     public let bindClearAction: String?
 
     /// Optional custom Alpine.js visibility expression for the clear button (`x-show`).

@@ -111,6 +111,23 @@ if (!window.__simpleMenuLoaded) {
             }
         },
 
+        // Copies the value of a hidden input to the clipboard, shows a toast and closes the menu
+        async copyFrom(elementId) {
+            const source = document.getElementById(elementId);
+            try {
+                await navigator.clipboard.writeText(source ? source.value : '');
+                this.$dispatch('raccoon:toast', { type: 'success', title: 'Copied to clipboard' });
+            } catch (error) {
+                console.error('[simple-menu] Copy failed:', error);
+            }
+            this.close();
+        },
+
+        closeAndDispatch(eventName) {
+            this.close();
+            this.$dispatch(eventName);
+        },
+
         nextItem() {
             const list = this.menuItems();
             if (list.length === 0) return;

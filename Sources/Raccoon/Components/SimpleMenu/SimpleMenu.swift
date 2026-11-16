@@ -153,7 +153,7 @@ public struct SimpleMenu: TemplateRepresentable {
     @Builder<Element>
     public func render() -> [Element] {
         Script()
-            .src("/js/simple-menu.js")
+            .src("/js/raccoon-simple-menu.js")
             .setAttribute(name: "type", value: "text/javascript")
 
         let toggleAction = data.onToggle ?? "toggle()"

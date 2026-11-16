@@ -132,22 +132,22 @@ public struct HyperLink: TemplateRepresentable {
                     .setAttribute(
                         name: "x-on:mouseenter",
                         value:
-                            "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: 'content\(id)' } }))"
+                            "$dispatch('show-tooltip', { id: 'content\(id)' })"
                     )
                     .setAttribute(
                         name: "x-on:mouseleave",
                         value:
-                            "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: 'content\(id)' } }))"
+                            "$dispatch('hide-tooltip', { id: 'content\(id)' })"
                     )
                     .setAttribute(
                         name: "x-on:focus",
                         value:
-                            "window.dispatchEvent(new CustomEvent('show-tooltip', { detail: { id: 'content\(id)' } }))"
+                            "$dispatch('show-tooltip', { id: 'content\(id)' })"
                     )
                     .setAttribute(
                         name: "x-on:blur",
                         value:
-                            "window.dispatchEvent(new CustomEvent('hide-tooltip', { detail: { id: 'content\(id)' } }))"
+                            "$dispatch('hide-tooltip', { id: 'content\(id)' })"
                     )
 
             }

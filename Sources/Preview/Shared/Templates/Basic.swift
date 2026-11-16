@@ -87,7 +87,7 @@ public struct Basic: TemplateRepresentable {
                             .setAttribute(
                                 name: "@click",
                                 value:
-                                    "showNavigation = !showNavigation; drawerOpen = true;"
+                                    "toggleNavigation()"
                             )
                             .setAttribute(
                                 name: ":aria-expanded",
@@ -167,7 +167,7 @@ public struct Basic: TemplateRepresentable {
                             .setAttribute(
                                 name: "@click",
                                 value:
-                                    "showNavigation = false; drawerOpen = false"
+                                    "closeNavigation()"
                             )
                             .setAttribute(
                                 name: ":aria-expanded",
@@ -195,7 +195,7 @@ public struct Basic: TemplateRepresentable {
             .setAttribute(name: "role", value: "dialog")
             .setAttribute(
                 name: "@keydown.escape.window",
-                value: "showNavigation = false; drawerOpen = false"
+                value: "closeNavigation()"
             )
             .class(styles.mobileDialog)
         }
@@ -207,8 +207,7 @@ public struct Basic: TemplateRepresentable {
         .class(styles.mobileContainer)
         .setAttribute(
             name: "@resize.window.debounce",
-            value:
-                "if (window.innerWidth >= 1024) { showNavigation = false; drawerOpen = false; }"
+            value: "onResize()"
         )
     }
 
@@ -304,8 +303,7 @@ public struct Basic: TemplateRepresentable {
                     .class(styles.navSection)
                     .setAttribute(
                         name: "x-show",
-                        value:
-                            "!search || [\(itemTitles)].some(t => t.includes(search.toLowerCase().trim()))"
+                        value: "matchesAny([\(itemTitles)])"
                     )
                 }
             }
@@ -315,7 +313,7 @@ public struct Basic: TemplateRepresentable {
         .if(isMobile) {
             $0.setAttribute(
                 name: "@click",
-                value: "if ($event.target.closest('a')) { showNavigation = false; drawerOpen = false; }"
+                value: "onNavigationClick($event)"
             )
         }
     }
@@ -384,8 +382,8 @@ public struct Basic: TemplateRepresentable {
                 Link(rel: .stylesheet).href("/css/ibm-plex.css")
                 Link(rel: .stylesheet).href("/css/raccoon-min.css")
                 // Preview only: blocking scripts, so mode and theme are set before first paint
-                Script().src("/js-preview/detect-mode.js")
-                Script().src("/js-preview/detect-theme.js")
+                Script().src("/js-preview/preview-detect-mode.js")
+                Script().src("/js-preview/preview-detect-theme.js")
             }
 
             Body {
@@ -426,29 +424,13 @@ public struct Basic: TemplateRepresentable {
 
                 // Alpine bundle
                 I18n.scripts()
-                Script().src("/js/bundle-min.js")
+                // Preview only: layout, paginator demo and toast demo components, registered before Alpine starts
+                Script().src("/js-preview/preview-layout.js")
+                Script().src("/js/raccoon-alpine-csp-bundle.js")
                 // Preview only: a language switch is remembered in a cookie and the page is rendered again
                 Script().src("/js-preview/preview-lang.js")
             }
-            .setAttribute(
-                name: "x-data",
-                value: """
-                    {
-                    showNavigation: false,
-                    drawerOpen: false,
-                    search: '',
-                    init() {
-                        const mq = window.matchMedia('(min-width: 1024px)');
-                        mq.addEventListener('change', (e) => {
-                            if (e.matches) {
-                                this.showNavigation = false;
-                                this.drawerOpen = false;
-                            }
-                        });
-                    }
-                    }
-                    """
-            )
+            .setAttribute(name: "x-data", value: "previewLayout")
             .class(styles.body)
         }
         .lang(PreviewRequest.lang)

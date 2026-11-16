@@ -179,7 +179,7 @@ struct DeleteModalTests {
             html.contains("x-on:keydown.escape.prevent.stop=\"open = false\"")
         )
         #expect(html.contains("X-CSRF-Token"))
-        #expect(html.contains("/js/modal.js"))
+        #expect(html.contains("/js/raccoon-modal.js"))
     }
 
     @Test("renders modal centered horizontally and vertically on screen")
