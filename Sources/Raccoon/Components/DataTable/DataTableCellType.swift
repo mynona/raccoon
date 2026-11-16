@@ -140,7 +140,7 @@ extension DataTableCellTemplate {
     ) -> DataTableCellTemplate {
         let name =
             labelKey.map {
-                "'\(js(ariaLabel)): ' + (row['\(js($0))'] ?? '')"
+                "'\(js(ariaLabel)): ' + (row['\(js($0))'] || '')"
             } ?? "'\(js(ariaLabel))'"
         return DataTableCellTemplate {
             Button {

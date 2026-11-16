@@ -50,6 +50,15 @@ if (!window.__errorSummaryLoaded) {
     }));
   });
 
+  // Pressing the mouse button on an entry would blur the focused field. That can clear the field's
+  // server error and rebuild the list before the button is released, so the click would land on a
+  // replaced node. Keeping the focus where it is lets the click reach the entry.
+  document.addEventListener('mousedown', (event) => {
+    if (event.target instanceof Element && event.target.closest('[data-error-summary] a')) {
+      event.preventDefault();
+    }
+  });
+
   // ---- Live summary and submit gate -------------------------------------------------------
   // Only forms that use `validationMethod: .errorSummary` (a summary is rendered) or `.submit`
   // (`data-validation="submit"`) are touched. Fields stay unchanged: a
@@ -227,6 +236,11 @@ if (!window.__errorSummaryLoaded) {
     const link = document.createElement('a');
     link.href = '#' + item.id;
     link.className = summary.dataset.linkClass || '';
+    // Rebuilt entries have no Alpine `@click`, so they move focus themselves like the server rendered ones
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      resolveControl(item.id)?.focus();
+    });
     [item.label, ': ', item.message].forEach((text) => {
       const span = document.createElement('span');
       span.textContent = text;

@@ -351,6 +351,9 @@ struct DataTableTests {
         #expect(html.contains("role=\"switch\""))
         #expect(html.contains(":aria-checked=\"row['status'] ? 'true' : 'false'\""))
         #expect(html.contains("row['menu_title']"))
+        // The Alpine CSP build cannot parse `??` or `?.`
+        #expect(!html.contains("??"))
+        #expect(!html.contains("?."))
         #expect(
             html.contains(
                 "@click.stop=\"toggleRow(row, 'status', tableHref(row, '/cms/toggle-status/page/{id}'))\""
