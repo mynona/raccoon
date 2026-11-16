@@ -5,7 +5,7 @@ description: Content-Security-Policy rules for Raccoon, raccoon-raumnebenan and 
 
 # CSP: no inline scripts, nonce only where unavoidable
 
-Policy: `script-src 'self' 'nonce-<per request>' <hosts>`. There is **no `'unsafe-inline'`** and **no `'unsafe-eval'`**: Alpine runs as the `@alpinejs/csp` build (`raccoon-alpine-csp-bundle.js`), so Alpine expressions must stay within the CSP-safe syntax (see `md/alpine-csp.md`); `unpkg.com` is for Mermaid. Style attributes and inline `<style>` are out of scope (`style-src` keeps `'unsafe-inline'`).
+Policy: `script-src 'self' 'nonce-<per request>' <hosts>`. There is **no `'unsafe-inline'`** and **no `'unsafe-eval'`**: Alpine runs as the `@alpinejs/csp` build (`raccoon-alpine-csp-bundle.js`), so Alpine expressions must stay within the CSP-safe syntax (see `skill-csp-alpine`); `unpkg.com` is for Mermaid. Style attributes and inline `<style>` are out of scope (`style-src` keeps `'unsafe-inline'`).
 
 ## Rules for `Raccoon` (public library)
 

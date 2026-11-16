@@ -1,17 +1,17 @@
 /**
  * Alpine.js Bundle Configuration
  * 
- * This file initializes Alpine.js with the required plugins and makes it
- * globally available. The bundled output is used by Raccoon components
- * (such as SimpleMenu, Dropdown, DeleteModal, TablePaginator, etc.).
+ * This file initializes the CSP build of Alpine.js (@alpinejs/csp, no 'unsafe-eval' needed)
+ * with the required plugins and makes it globally available. The bundled output is used by
+ * Raccoon components (such as SimpleMenu, Dropdown, DeleteModal, TablePaginator, etc.).
  * 
  * DO NOT remove the plugins below (@alpinejs/focus, @alpinejs/sort, @alpinejs/ui)
  * as core Raccoon components rely on them for accessible keyboard navigation,
  * focus trapping, list sorting, and UI controls.
  */
 
-// Import Alpine.js core
-import Alpine from 'alpinejs';
+// Import Alpine.js CSP core
+import Alpine from '@alpinejs/csp';
 
 // Import required Alpine.js plugins
 import focus from '@alpinejs/focus';
