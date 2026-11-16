@@ -259,7 +259,7 @@ public struct ActionButton: TemplateRepresentable {
             }
 
             // Tooltip
-            .if(data.tooltip != nil) {
+            .if(data.tooltip != nil && data.state != .disabled) {
                 if let bindTooltipId = data.bindTooltipId {
                     return
                         $0

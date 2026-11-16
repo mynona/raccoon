@@ -45,8 +45,9 @@ if (!window.__ratingLoaded) {
     },
 
     closeModal() {
-      // If a child dropdown listbox is currently open, allow Dropdown's escape handler to close it first
-      if (this.$el && this.$el.querySelector('[role="listbox"]:not([style*="display: none"])')) {
+      // If a child dropdown listbox is currently open and visible, allow Dropdown's escape handler to close it first
+      const listbox = this.$el ? this.$el.querySelector('[role="listbox"]') : null;
+      if (listbox && listbox.offsetParent !== null) {
         return;
       }
       this.open = false;
@@ -200,6 +201,9 @@ if (!window.__ratingLoaded) {
       this.error = '';
       this.showSuccess = false;
       this.showError = false;
+      this.$nextTick(() => {
+        this.$refs.star1 && this.$refs.star1.focus();
+      });
     },
     focusStar(index) {
       const ref = this.$refs['star' + index];
