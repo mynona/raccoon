@@ -43,10 +43,6 @@ public struct Rating: TemplateRepresentable {
         "rating.selectCategory",
         "Select category"
     )
-    private static let categoryRequired = LocalizedText(
-        "rating.categoryRequired",
-        "Please select a category."
-    )
     private static let thumbsUp = LocalizedText(
         "rating.thumbsUp",
         "Thumbs up"
@@ -365,11 +361,8 @@ public struct Rating: TemplateRepresentable {
                         label: nil,
                         placeholder: Self.selectCategory,
                         placeholderText: Self.selectCategory,
-                        options: data.categoryOptions,
-                        errorMessages: ErrorMessageData(
-                            id: "category-error-\(data.sanitizedId())",
-                            errorMessages: [Self.categoryRequired]
-                        )
+                        value: data.categoryOptions.first?.value,
+                        options: data.categoryOptions
                     )
                 )
             )

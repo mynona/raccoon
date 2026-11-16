@@ -168,6 +168,29 @@ struct RatingTests {
         #expect(html.contains("Feature"))
     }
 
+    @Test("the category dropdown starts with the first option selected")
+    func categoryDropdownPreselectsFirstOption() async throws {
+        let options = [
+            OptionValue(title: LocalizedText(verbatim: "Bug"), value: "bug"),
+            OptionValue(title: LocalizedText(verbatim: "Feature"), value: "feature"),
+        ]
+
+        let html = renderHTML(
+            Rating(
+                RatingData(
+                    id: "uuid-category-preselect",
+                    url: "/api/rating",
+                    categoryOptions: options,
+                    hasCategory: true
+                )
+            )
+            .render()
+        )
+
+        #expect(html.contains("selectedValue: 'bug'"))
+        #expect(html.contains("selectedTitle: 'Bug'"))
+    }
+
     @Test("omits likert rating controls when hasLikertRating is false")
     func omitsLikertRatingWhenDisabled() async throws {
 
