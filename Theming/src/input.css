@@ -168,7 +168,7 @@ html {
 --color-surface-info: var(--color-emerald-mine-info-50);
 --color-on-surface-warning: var(--color-emerald-mine-warning-600);
 --color-surface-warning: var(--color-emerald-mine-warning-50);
---color-surface-rating: var(--color-emerald-mine-themedark-100);
+--color-surface-rating: var(--color-surface);
 --color-hoverring: var(--color-gray-950);
 --color-focusring: var(--color-emerald-mine-theme-700);
 --color-link-active: var(--color-gray-950);
@@ -232,7 +232,7 @@ html {
 --color-surface-info: color-mix(in srgb, var(--color-emerald-mine-info-50) 10%, transparent);
 --color-on-surface-warning: var(--color-emerald-mine-warning-300);
 --color-surface-warning: color-mix(in srgb, var(--color-emerald-mine-warning-50) 10%, transparent);
---color-surface-rating: var(--color-emerald-mine-themedark-700);
+--color-surface-rating: var(--color-surface);
 --color-hoverring: var(--color-white);
 --color-focusring: var(--color-emerald-mine-theme-500);
 --color-link-active: var(--color-white);
