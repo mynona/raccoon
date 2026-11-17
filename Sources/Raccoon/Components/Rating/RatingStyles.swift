@@ -38,8 +38,12 @@ public struct RatingStyles {
     .joined(separator: " ")
 
     // MARK: - Modal Dialog
+    /*
     public static let modalWrapper =
         "fixed inset-0 z-50 flex min-h-screen items-center justify-center p-4 overflow-y-auto"
+     */
+    public static let modalWrapper =
+        "fixed inset-0 z-50 flex items-start sm:items-center justify-center pt-[15vh] sm:pt-4 overflow-y-auto"
 
     public static let backdrop: String = [
         "fixed inset-0",

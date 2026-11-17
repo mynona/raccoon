@@ -14,7 +14,7 @@ public struct YesNoRatingStyles {
 
     public static let panelInner: String = [
         CommonStyles.cornerRadiusLarge,
-        "relative p-4 sm:p-6 w-full bg-surface-rating",
+        "relative p-4 sm:p-6 w-full bg-overlay-hover",
     ]
     .joined(separator: " ")
 
