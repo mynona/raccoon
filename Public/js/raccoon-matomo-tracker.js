@@ -1,4 +1,4 @@
-// V1.1
+// V1.2
 
 /* Matomo tracker. Configured by data-* attributes on its own <script> tag, so the page needs no inline script:
  * - data-tracker-url   Matomo base URL with a trailing slash
@@ -10,6 +10,10 @@
  * - data-dimensions    optional: JSON object, custom dimension ID to value, e.g. {"4":"google"}
  * - data-events        optional: JSON array of [category, action, name?], reported with the page view
  * - data-reset-user    optional: "true" to forget the user ID and start a new visit (page shown after a sign out)
+ *
+ * After a sign out, Matomo would keep attributing the visitor to the previous user. With accepted consent
+ * (Matomo cookies are allowed then) the script therefore remembers in localStorage that this browser was signed in
+ * and resets the user on the first signed-out page afterwards, whichever route the sign out took.
  */
 
 (function () {
@@ -49,7 +53,22 @@
     });
   }
 
-  const resetUser = config.resetUser === 'true';
+  let resetUser = config.resetUser === 'true';
+
+  // Only with accepted consent: remember a signed-in browser to detect the first page after a sign out
+  if (config.consent === 'accepted') {
+    try {
+      if (config.userState === 'signed-in') {
+        localStorage.setItem('raccoon-matomo-signed-in', '1');
+      } else if (config.userState === 'signed-out' && localStorage.getItem('raccoon-matomo-signed-in')) {
+        localStorage.removeItem('raccoon-matomo-signed-in');
+        resetUser = true;
+      }
+    } catch (e) {
+      // Storage not available
+    }
+  }
+
   if (resetUser) {
     _paq.push(['resetUserId']);
   }
