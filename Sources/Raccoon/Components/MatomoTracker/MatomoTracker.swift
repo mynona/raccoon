@@ -1,3 +1,4 @@
+import Foundation
 import HTML
 import SGML
 import WebBuilders
@@ -40,7 +41,45 @@ public struct MatomoTracker: TemplateRepresentable {
         case .signedOut:
             attributes.append(("data-user-state", "signed-out"))
         }
+        if !data.customDimensions.isEmpty {
+            attributes.append(("data-dimensions", dimensionsJSON()))
+        }
+        if !data.events.isEmpty {
+            attributes.append(("data-events", eventsJSON()))
+        }
+        if data.resetsUser {
+            attributes.append(("data-reset-user", "true"))
+        }
         return attributes
+    }
+
+    private func json(_ value: some Encodable) -> String {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.sortedKeys]
+        guard let data = try? encoder.encode(value),
+            let string = String(data: data, encoding: .utf8)
+        else { return "" }
+        return string
+    }
+
+    /// `{"4":"google"}`
+    private func dimensionsJSON() -> String {
+        json(
+            Dictionary(
+                uniqueKeysWithValues: data.customDimensions.map {
+                    (String($0.key), $0.value)
+                }
+            )
+        )
+    }
+
+    /// `[["login","success","google"]]`
+    private func eventsJSON() -> String {
+        json(
+            data.events.map { event in
+                [event.category, event.action] + (event.name.map { [$0] } ?? [])
+            }
+        )
     }
 
     /// The tracker is an external script configured by `data-*` attributes, so the page needs no inline script.
@@ -58,14 +97,20 @@ public struct MatomoTracker: TemplateRepresentable {
     }
 
     func noScriptPixelUrl() -> String {
+        let signInState: String
+        if case .signedIn = data.userState {
+            signInState = "signed-in"
+        } else {
+            signInState = "not-signed-in"
+        }
         let base =
             "\(data.trackerUrl)matomo.php?idsite=\(data.siteId)&amp;rec=1"
         guard let canonicalPath = data.canonicalPath else {
             return
-                "\(base)&dimension1=not-signed-in&dimension3=noscript&url=\(data.siteBaseUrl)"
+                "\(base)&dimension1=\(signInState)&dimension3=noscript&url=\(data.siteBaseUrl)"
         }
         return
-            "\(base)&recMode=2&dimension1=not-signed-in&dimension3=noscript&url=\(data.siteBaseUrl)\(canonicalPath)"
+            "\(base)&recMode=2&dimension1=\(signInState)&dimension3=noscript&url=\(data.siteBaseUrl)\(canonicalPath)"
     }
 
     @Builder<Element>

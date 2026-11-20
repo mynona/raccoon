@@ -1,4 +1,4 @@
-// V1.0
+// V1.1
 
 /* Tracks form field focus/blur/input/change, submission, and abandonment as Matomo events. */
 
@@ -77,25 +77,31 @@
           }
         });
 
-        // Granular tracking for text inputs
+        // One event per field when the user starts typing. The final length is reported by field_change on commit.
         if (field.tagName === 'INPUT' && field.type === 'text') {
+          let inputReported = false;
           field.addEventListener('input', () => {
-            const valueLength = field.value?.length || 0;
+            if (inputReported) return;
+            inputReported = true;
             lastFieldId = fieldId;
 
             _paq.push(['setCustomDimension', 2, formName]);
-            _paq.push(['trackEvent', eventCategory, 'field_input', fieldId, valueLength]);
+            _paq.push(['trackEvent', eventCategory, 'field_input', fieldId]);
             _paq.push(['deleteCustomDimension', 2]);
           });
         }
 
         // Fallback for selects, checkboxes, radios, etc.
         field.addEventListener('change', () => {
-          const valueLength = field.value?.length || 0;
           lastFieldId = fieldId;
 
           _paq.push(['setCustomDimension', 2, formName]);
-          _paq.push(['trackEvent', eventCategory, 'field_change', fieldId, valueLength]);
+          // Never report the length of secrets
+          if (field.type === 'password') {
+            _paq.push(['trackEvent', eventCategory, 'field_change', fieldId]);
+          } else {
+            _paq.push(['trackEvent', eventCategory, 'field_change', fieldId, field.value?.length || 0]);
+          }
           _paq.push(['deleteCustomDimension', 2]);
         });
       });

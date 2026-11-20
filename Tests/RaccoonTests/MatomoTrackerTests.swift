@@ -16,6 +16,9 @@ struct MatomoTrackerTests {
         pageType: MatomoPageType = .trackPageView,
         canonicalPath: String? = nil,
         userState: MatomoUserState? = nil,
+        customDimensions: [Int: String] = [:],
+        events: [MatomoEvent] = [],
+        resetsUser: Bool = false,
         siteId: String = "1",
         trackerUrl: String = "https://statistics.raumnebenan.de/",
         siteBaseUrl: String = "https://www.raumnebenan.de"
@@ -27,7 +30,10 @@ struct MatomoTrackerTests {
             status: status,
             pageType: pageType,
             canonicalPath: canonicalPath,
-            userState: userState
+            userState: userState,
+            customDimensions: customDimensions,
+            events: events,
+            resetsUser: resetsUser
         )
     }
 
@@ -178,5 +184,62 @@ struct MatomoTrackerTests {
         )
 
         #expect(html.contains("url=https://www.raumnebenan.de\""))
+    }
+
+    @Test("reports the sign-in state in the fallback pixel")
+    func fallbackPixelReportsSignInState() async throws {
+        let signedIn = try await render(
+            makeData(status: .ACCEPTED, userState: .signedIn(userID: "user-42"))
+        )
+        let signedOut = try await render(
+            makeData(status: .ACCEPTED, userState: .signedOut)
+        )
+
+        #expect(signedIn.contains("dimension1=signed-in"))
+        #expect(signedOut.contains("dimension1=not-signed-in"))
+    }
+
+    @Test("passes custom dimensions and events as JSON data attributes")
+    func passesDimensionsAndEvents() async throws {
+        let html = try await render(
+            makeData(
+                status: .ACCEPTED,
+                customDimensions: [4: "google"],
+                events: [
+                    MatomoEvent(
+                        category: "login",
+                        action: "success",
+                        name: "google"
+                    ),
+                    MatomoEvent(category: "registration", action: "success"),
+                ]
+            )
+        )
+
+        #expect(html.contains("data-dimensions=\"{&quot;4&quot;:&quot;google&quot;}\""))
+        #expect(
+            html.contains(
+                "data-events=\"[[&quot;login&quot;,&quot;success&quot;,&quot;google&quot;],[&quot;registration&quot;,&quot;success&quot;]]\""
+            )
+        )
+        #expect(!html.contains("data-reset-user"))
+    }
+
+    @Test("omits dimensions, events and reset flag by default")
+    func omitsExtrasByDefault() async throws {
+        let html = try await render(makeData(status: .ACCEPTED))
+
+        #expect(!html.contains("data-dimensions"))
+        #expect(!html.contains("data-events"))
+        #expect(!html.contains("data-reset-user"))
+    }
+
+    @Test("flags the page shown after a sign out")
+    func flagsSignOutPage() async throws {
+        let html = try await render(
+            makeData(status: .ACCEPTED, resetsUser: true)
+        )
+
+        #expect(html.contains("data-reset-user=\"true\""))
     }
 }
