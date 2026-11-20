@@ -95,7 +95,22 @@
     _paq.push(['appendToTrackingUrl', trackingParams]);
   }
 
-  const events = parseJson(config.events);
+  // The server marks a login as fresh for a time window, so the following pages carry the same events again.
+  // With accepted consent, identical events within two minutes are reported only once.
+  function alreadyReported(raw) {
+    if (config.consent !== 'accepted') return false;
+    try {
+      const last = parseJson(localStorage.getItem('raccoon-matomo-events'));
+      const now = Date.now();
+      if (last && last.events === raw && now - last.time < 120000) return true;
+      localStorage.setItem('raccoon-matomo-events', JSON.stringify({ events: raw, time: now }));
+    } catch (e) {
+      // Storage not available
+    }
+    return false;
+  }
+
+  const events = config.events && !alreadyReported(config.events) ? parseJson(config.events) : null;
   if (Array.isArray(events)) {
     events.forEach(function (event) {
       if (Array.isArray(event) && event.length >= 2 && event.every(function (part) { return typeof part === 'string'; })) {
