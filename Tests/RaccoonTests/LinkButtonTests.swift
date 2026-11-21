@@ -265,7 +265,7 @@ struct LinkButtonTests {
     }
 
     @Test("omits tracking attributes when Matomo is declined")
-    func omitsTrackingAttributesWhenMatomoIsDeclined() async throws {
+    func rendersTrackingAttributesWhenMatomoIsDeclined() async throws {
 
         let html = renderHTML(
             LinkButton(
@@ -280,10 +280,10 @@ struct LinkButtonTests {
             )
             .render()
         )
-        #expect(!html.contains("data-track-content"))
-        #expect(!html.contains("data-content-name"))
-        #expect(!html.contains("data-content-piece"))
-        #expect(!html.contains("data-content-target"))
+        #expect(html.contains("data-track-content"))
+        #expect(html.contains("data-content-name"))
+        #expect(html.contains("data-content-piece"))
+        #expect(html.contains("data-content-target"))
     }
 
     @Test("renders truncation classes when hasTruncation is true")

@@ -7,7 +7,7 @@ if (!window.__darkLightModeLoaded) {
    window.__darkLightModeLoaded = true;
 
    document.addEventListener('alpine:init', () => {
-      Alpine.data('darkLightModeToggle', (isTracking = false) => ({
+      Alpine.data('darkLightModeToggle', () => ({
 
          // true when light is the active colour mode
          lightMode: true,
@@ -28,9 +28,6 @@ if (!window.__darkLightModeLoaded) {
 
          toggle() {
             this.lightMode = !this.lightMode;
-            if (isTracking && Array.isArray(window._paq)) {
-               window._paq.push(['trackEvent', 'Button', 'click', 'DarkLightMode']);
-            }
             this.setColorMode(this.lightMode ? 'light' : 'dark');
          },
 

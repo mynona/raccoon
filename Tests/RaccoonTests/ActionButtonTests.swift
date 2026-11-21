@@ -542,6 +542,6 @@ struct ActionButtonTests {
             impression: true
         )
         #expect(render(seen, .ACCEPTED).contains("data-track-impression"))
-        #expect(!render(seen, .DECLINED).contains("data-track-impression"))
+        #expect(render(seen, .DECLINED).contains("data-track-impression"))
     }
 }

@@ -138,11 +138,7 @@ public struct SearchField: TemplateRepresentable {
             .setAttribute(name: "x-show", value: showExpression)
             .class(data.size == .sm ? "p-1 mr-2" : "p-2 min-h-full h-full mr-4")
             .addClass(styles.actionButton)
-            .if(
-                data.contentTracker != nil
-                    && (data.matomoStatus == .ACCEPTED
-                        || data.matomoStatus == .BANNER)
-            ) {
+            .if(data.contentTracker != nil) {
                 guard let tracker = data.contentTracker else { return $0 }
                 return
                     $0

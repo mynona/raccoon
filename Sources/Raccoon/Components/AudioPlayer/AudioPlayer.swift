@@ -184,25 +184,19 @@ public struct AudioPlayer: TemplateRepresentable {
             .addClass("h-8 w-8 flex items-center justify-center")
             .addClass(buttonStyles.iconButton)
             // Matomo
-            .if(data.matomoStatus == .ACCEPTED || data.matomoStatus == .BANNER)
-            {
-
-                $0
-                    .flagAttribute("data-track-content")
-                    .setAttribute(
-                        name: "data-content-name",
-                        value: "content.audioplayer"
-                    )
-                    .setAttribute(
-                        name: "data-content-piece",
-                        value: "action.playpause"
-                    )
-                    .setAttribute(
-                        name: "data-content-target",
-                        value: data.linkToTheAudioFile
-                    )
-
-            }
+            .flagAttribute("data-track-content")
+            .setAttribute(
+                name: "data-content-name",
+                value: "content.audioplayer"
+            )
+            .setAttribute(
+                name: "data-content-piece",
+                value: "action.playpause"
+            )
+            .setAttribute(
+                name: "data-content-target",
+                value: data.linkToTheAudioFile
+            )
 
             showTitleInfos()
 

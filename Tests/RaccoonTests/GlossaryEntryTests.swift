@@ -101,7 +101,8 @@ struct GlossaryEntryTests {
             )
             .render()
         )
-        #expect(!htmlDeclined.contains("data-track-content"))
+        // The tracker script is the consent gate, not the markup
+        #expect(htmlDeclined.contains("data-track-content"))
     }
 
     @Test("deliberately renders label in mono font")

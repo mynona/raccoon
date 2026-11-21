@@ -15,9 +15,12 @@ if (!window.__yesNoRatingLoaded) {
       showSuccess: false,
       openedTracked: false,
 
-      // Funnel step for Matomo, only when the tracker is on the page (consent)
+      // Heard by the Matomo tracker only when it is on the page (consent)
+      track(detail) {
+        window.dispatchEvent(new CustomEvent('raccoon:track', { detail }));
+      },
       trackStep(step) {
-        if (window.RaccoonMatomo) window.RaccoonMatomo.trackFunnelStep('article-feedback', step);
+        this.track({ type: 'funnel', funnel: 'article-feedback', step });
       },
 
       init() {
@@ -127,7 +130,7 @@ if (!window.__yesNoRatingLoaded) {
           .then((res) => {
             if (res.ok) {
               this.trackStep('submitted');
-              if (window.RaccoonMatomo) window.RaccoonMatomo.trackFeedbackAnswer('article-feedback', this.choice);
+              this.track({ type: 'feedback', widget: 'article-feedback', answer: this.choice });
               this.showSuccess = true;
               const { successTitle, successText } = this.getToastStrings();
               this.triggerToast('success', successTitle, successText);

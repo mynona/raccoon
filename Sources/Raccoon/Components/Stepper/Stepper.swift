@@ -24,11 +24,7 @@ public struct Stepper: TemplateRepresentable {
     }
 
     private func shouldTrackMatomo(for step: StepperStepData) -> Bool {
-        guard step.href != nil, step.state == .enabled else { return false }
-        return step.matomoStatus == .ACCEPTED
-            || step.matomoStatus == .BANNER
-            || data.matomoStatus == .ACCEPTED
-            || data.matomoStatus == .BANNER
+        step.href != nil && step.state == .enabled
     }
 
     // MARK: - Tooltips

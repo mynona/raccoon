@@ -48,28 +48,20 @@ public struct Breadcrumb: TemplateRepresentable {
                 .localized(.ariaLabel, Self.home)
                 .addClass(styles.itemActive)
                 // Matomo
-                .if(
-                    data.matomoStatus == .ACCEPTED
-                        || data.matomoStatus == .BANNER
-                ) {
-
-                    $0
-                        .flagAttribute("data-track-content")
-                        .setAttribute(
-                            name: "data-content-name",
-                            value: "breadcrumb"
-                        )
-                        .setAttribute(
-                            name: "data-content-piece",
-                            value: "breadcrumb.home"
-                        )
-                        .setAttribute(
-                            name: "data-content-target",
-                            value: data.homeUrl.hasSuffix("/")
-                                ? String(data.homeUrl.dropLast()) : data.homeUrl
-                        )
-
-                }
+                .flagAttribute("data-track-content")
+                .setAttribute(
+                    name: "data-content-name",
+                    value: "breadcrumb"
+                )
+                .setAttribute(
+                    name: "data-content-piece",
+                    value: "breadcrumb.home"
+                )
+                .setAttribute(
+                    name: "data-content-target",
+                    value: data.homeUrl.hasSuffix("/")
+                        ? String(data.homeUrl.dropLast()) : data.homeUrl
+                )
 
                 Span {
                     Svg.icon(.chevron_right, width: 12, height: 12)
@@ -147,25 +139,19 @@ public struct Breadcrumb: TemplateRepresentable {
             }
             .class(styles.item)
             // Matomo
-            .if(data.matomoStatus == .ACCEPTED || data.matomoStatus == .BANNER)
-            {
-
-                $0
-                    .flagAttribute("data-track-content")
-                    .setAttribute(
-                        name: "data-content-name",
-                        value: "breadcrumb"
-                    )
-                    .setAttribute(
-                        name: "data-content-piece",
-                        value: "breadcrumb.pathsegment"
-                    )
-                    .setAttribute(
-                        name: "data-content-target",
-                        value: "\(path.href)"
-                    )
-
-            }
+            .flagAttribute("data-track-content")
+            .setAttribute(
+                name: "data-content-name",
+                value: "breadcrumb"
+            )
+            .setAttribute(
+                name: "data-content-piece",
+                value: "breadcrumb.pathsegment"
+            )
+            .setAttribute(
+                name: "data-content-target",
+                value: "\(path.href)"
+            )
 
         }
     }

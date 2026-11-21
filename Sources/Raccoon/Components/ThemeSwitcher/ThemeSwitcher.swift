@@ -88,7 +88,7 @@ public struct ThemeSwitcher: TemplateRepresentable {
             alpineId: "dropdown-button",
             bindOpen: "open",
             bindAlpineData:
-                "themeSwitcher('\(data.defaultTheme.rawValue)', \(data.matomoStatus == .ACCEPTED))",
+                "themeSwitcher('\(data.defaultTheme.rawValue)')",
             ariaLabel: data.ariaLabel ?? Self.selectColorTheme,
             options: options,
             align: data.align,

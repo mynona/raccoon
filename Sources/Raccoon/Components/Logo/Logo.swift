@@ -31,25 +31,19 @@ public struct Logo: TemplateRepresentable {
             .class("inline-flex")
             .addClass("focus:outline-hidden focus-visible:outline-hidden")
             // Matomo
-            .if(data.matomoStatus == .ACCEPTED || data.matomoStatus == .BANNER)
-            {
-
-                $0
-                    .flagAttribute("data-track-content")
-                    .setAttribute(
-                        name: "data-content-name",
-                        value: "logo"
-                    )
-                    .setAttribute(
-                        name: "data-content-piece",
-                        value: "button.home"
-                    )
-                    .setAttribute(
-                        name: "data-content-target",
-                        value: data.destination
-                    )
-
-            }
+            .flagAttribute("data-track-content")
+            .setAttribute(
+                name: "data-content-name",
+                value: "logo"
+            )
+            .setAttribute(
+                name: "data-content-piece",
+                value: "button.home"
+            )
+            .setAttribute(
+                name: "data-content-target",
+                value: data.destination
+            )
 
         }
         .class("inline-flex")

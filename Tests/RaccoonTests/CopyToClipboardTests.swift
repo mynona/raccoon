@@ -161,7 +161,7 @@ struct CopyToClipboardTests {
             )
             .render()
         )
-        #expect(!untracked.contains("data-track-content"))
+        #expect(untracked.contains("data-track-content"))
     }
 
     // MARK: localization

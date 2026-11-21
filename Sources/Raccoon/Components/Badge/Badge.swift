@@ -142,27 +142,19 @@ public struct Badge: TemplateRepresentable {
                 )
                 .href(buildTagUrl(urlTag: urlTag))
                 // Matomo
-                .if(
-                    data.matomoStatus == .ACCEPTED
-                        || data.matomoStatus == .BANNER
-                ) {
-
-                    $0
-                        .flagAttribute("data-track-content")
-                        .setAttribute(
-                            name: "data-content-name",
-                            value: "badge"
-                        )
-                        .setAttribute(
-                            name: "data-content-piece",
-                            value: "link.tag"
-                        )
-                        .setAttribute(
-                            name: "data-content-target",
-                            value: buildMatomoTarget(urlTag: urlTag)
-                        )
-
-                }
+                .flagAttribute("data-track-content")
+                .setAttribute(
+                    name: "data-content-name",
+                    value: "badge"
+                )
+                .setAttribute(
+                    name: "data-content-piece",
+                    value: "link.tag"
+                )
+                .setAttribute(
+                    name: "data-content-target",
+                    value: buildMatomoTarget(urlTag: urlTag)
+                )
                 .addClass(styles.cursorPointer)
                 .addClass(styles.focusDefault)
                 .addClass(styles.hoverDefault)

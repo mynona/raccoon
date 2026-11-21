@@ -194,26 +194,23 @@ public struct SimpleMenu: TemplateRepresentable {
                 value: "$id('\(data.alpineId)')"
             )
             .class(triggerClass)
-            .if(data.matomoStatus == .ACCEPTED || data.matomoStatus == .BANNER)
-            {
-                if let tracker = data.contentTracker {
-                    return
-                        $0
-                        .flagAttribute("data-track-content")
-                        .setAttribute(
-                            name: "data-content-name",
-                            value: tracker.name
-                        )
-                        .setAttribute(
-                            name: "data-content-piece",
-                            value: tracker.piece
-                        )
-                        .setAttribute(
-                            name: "data-content-target",
-                            value: tracker.target
-                        )
-                }
-                return $0
+            .if(data.contentTracker != nil) {
+                guard let tracker = data.contentTracker else { return $0 }
+                return
+                    $0
+                    .flagAttribute("data-track-content")
+                    .setAttribute(
+                        name: "data-content-name",
+                        value: tracker.name
+                    )
+                    .setAttribute(
+                        name: "data-content-piece",
+                        value: tracker.piece
+                    )
+                    .setAttribute(
+                        name: "data-content-target",
+                        value: tracker.target
+                    )
             }
 
             // Dropdown panel

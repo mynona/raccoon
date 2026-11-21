@@ -44,22 +44,16 @@ public struct Pill: TemplateRepresentable {
                 }
                 .class(styles.style(variant: data.variant, size: data.size))
                 // Matomo tracking
-                .if(
-                    data.matomoStatus == .ACCEPTED
-                        || data.matomoStatus == .BANNER
-                ) {
-                    $0
-                        .flagAttribute("data-track-content")
-                        .setAttribute(name: "data-content-name", value: "pill")
-                        .setAttribute(
-                            name: "data-content-piece",
-                            value: "pill.badge"
-                        )
-                        .setAttribute(
-                            name: "data-content-target",
-                            value: displayedText.english
-                        )
-                }
+                .flagAttribute("data-track-content")
+                .setAttribute(name: "data-content-name", value: "pill")
+                .setAttribute(
+                    name: "data-content-piece",
+                    value: "pill.badge"
+                )
+                .setAttribute(
+                    name: "data-content-target",
+                    value: displayedText.english
+                )
         }
     }
 }

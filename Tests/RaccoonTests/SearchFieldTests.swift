@@ -223,16 +223,16 @@ struct SearchFieldTests {
         let bannerHtml = renderHTML(SearchField(bannerData).render())
         #expect(bannerHtml.contains("data-content-name=\"simple-table\""))
 
-        // 3. .DECLINED status -> suppresses tracker attributes
+        // 3. .DECLINED status -> still emits tracker attributes (the tracker script is the consent gate)
         let declinedData = SearchFieldData(
             matomoStatus: .DECLINED,
             contentTracker: tracker
         )
         let declinedHtml = renderHTML(SearchField(declinedData).render())
-        #expect(!declinedHtml.contains("data-track-content"))
-        #expect(!declinedHtml.contains("data-content-name"))
+        #expect(declinedHtml.contains("data-track-content"))
+        #expect(declinedHtml.contains("data-content-name"))
 
-        // 4. .DEACTIVATED status -> suppresses tracker attributes
+        // 4. .DEACTIVATED status -> still emits tracker attributes
         let deactivatedData = SearchFieldData(
             matomoStatus: .DEACTIVATED,
             contentTracker: tracker
@@ -240,7 +240,7 @@ struct SearchFieldTests {
         let deactivatedHtml = renderHTML(
             SearchField(deactivatedData).render()
         )
-        #expect(!deactivatedHtml.contains("data-track-content"))
+        #expect(deactivatedHtml.contains("data-track-content"))
 
         // 5. No contentTracker -> no tracking attributes
         let noTrackerData = SearchFieldData(

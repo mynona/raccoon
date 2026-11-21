@@ -44,25 +44,19 @@ public struct ByMeACoffee: TemplateRepresentable {
             .addClass(styles.hoverDefault)
             .localized(.ariaLabel, bmc)
             // Matomo
-            .if(data.matomoStatus == .ACCEPTED || data.matomoStatus == .BANNER)
-            {
-
-                $0
-                    .flagAttribute("data-track-content")
-                    .setAttribute(
-                        name: "data-content-name",
-                        value: "feedback"
-                    )
-                    .setAttribute(
-                        name: "data-content-piece",
-                        value: "buymeacoffee"
-                    )
-                    .setAttribute(
-                        name: "data-content-target",
-                        value: "https://buymeacoffee.com/\(data.dataSlug)"
-                    )
-
-            }
+            .flagAttribute("data-track-content")
+            .setAttribute(
+                name: "data-content-name",
+                value: "feedback"
+            )
+            .setAttribute(
+                name: "data-content-piece",
+                value: "buymeacoffee"
+            )
+            .setAttribute(
+                name: "data-content-target",
+                value: "https://buymeacoffee.com/\(data.dataSlug)"
+            )
 
         }
         .class("flex flex-initial")

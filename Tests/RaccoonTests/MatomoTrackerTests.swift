@@ -61,8 +61,8 @@ struct MatomoTrackerTests {
         )
         #expect(!html.contains("_paq"))
         // Every script has a src
-        #expect(html.components(separatedBy: "<script").count - 1 == 2)
-        #expect(html.components(separatedBy: "<script src=").count - 1 == 2)
+        #expect(html.components(separatedBy: "<script").count - 1 == 1)
+        #expect(html.components(separatedBy: "<script src=").count - 1 == 1)
     }
 
     @Test("escapes configured values in the data attributes")
@@ -79,14 +79,14 @@ struct MatomoTrackerTests {
         #expect(html.contains("data-user-id=\"a&quot;&gt;&lt;script&gt;x"))
     }
 
-    @Test("loads the form tracking script deferred")
-    func loadsFormTrackingDeferred() async throws {
+    @Test("renders one script only, the tracker handles forms itself")
+    func rendersTrackerScriptOnly() async throws {
         let html = try await render(
             makeData(status: .ACCEPTED, pageType: .trackPageView)
         )
 
-        #expect(html.contains("src=\"/js/raccoon-form-tracking.js\""))
-        #expect(html.contains("defer"))
+        #expect(html.components(separatedBy: "<script").count == 2)
+        #expect(!html.contains("raccoon-form-tracking.js"))
     }
 
     @Test("disables cookies while the banner is still showing")

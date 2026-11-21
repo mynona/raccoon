@@ -43,24 +43,18 @@ struct DarkLightModeToggleTests {
         )
     }
 
-    @Test("passes Matomo tracking flag into the Alpine component")
-    func passesTrackingFlag() {
-
-        let tracked = renderHTML(
-            DarkLightModeToggle(
-                DarkLightModeToggleData(matomoStatus: .ACCEPTED)
+    @Test("renders the click tracking attributes regardless of the consent status")
+    func rendersTrackingAttributes() {
+        for status in [MatomoStatus.ACCEPTED, .DECLINED] {
+            let html = renderHTML(
+                DarkLightModeToggle(
+                    DarkLightModeToggleData(matomoStatus: status)
+                )
+                .render()
             )
-            .render()
-        )
-        #expect(tracked.contains("x-data=\"darkLightModeToggle(true)\""))
-
-        let untracked = renderHTML(
-            DarkLightModeToggle(
-                DarkLightModeToggleData(matomoStatus: .DECLINED)
-            )
-            .render()
-        )
-        #expect(untracked.contains("x-data=\"darkLightModeToggle(false)\""))
+            #expect(html.contains("x-data=\"darkLightModeToggle()\""))
+            #expect(html.contains("data-content-name=\"dark-lightmode\""))
+        }
     }
 
     @Test("applies the shared icon button styling")

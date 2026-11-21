@@ -87,30 +87,24 @@ public struct DarkLightModeToggle: TemplateRepresentable {
             .setAttribute(name: "@click", value: "toggle()")
             .class(styles.button)
             // Matomo
-            .if(data.matomoStatus == .ACCEPTED || data.matomoStatus == .BANNER)
-            {
-
-                $0
-                    .flagAttribute("data-track-content")
-                    .setAttribute(
-                        name: "data-content-name",
-                        value: "dark-lightmode"
-                    )
-                    .setAttribute(
-                        name: "data-content-piece",
-                        value: "toggle"
-                    )
-                    .setAttribute(
-                        name: "data-content-target",
-                        value: ""
-                    )
-
-            }
+            .flagAttribute("data-track-content")
+            .setAttribute(
+                name: "data-content-name",
+                value: "dark-lightmode"
+            )
+            .setAttribute(
+                name: "data-content-piece",
+                value: "toggle"
+            )
+            .setAttribute(
+                name: "data-content-target",
+                value: ""
+            )
 
         }
         .setAttribute(
             name: "x-data",
-            value: "darkLightModeToggle(\(data.matomoStatus == .ACCEPTED))"
+            value: "darkLightModeToggle()"
         )
         // Alt+M / Option+M: modifier combo, checked in toggleFromKeyboard via event.code so it works on macOS where Option+M emits 'µ'.
         .setAttribute(

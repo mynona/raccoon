@@ -105,24 +105,19 @@ public struct Accordion: TemplateRepresentable {
         }
         .class("group")
         // Matomo
-        .if(data.matomoStatus == .ACCEPTED || data.matomoStatus == .BANNER) {
-
-            $0
-                .flagAttribute("data-track-content")
-                .setAttribute(
-                    name: "data-content-name",
-                    value: "accordion"
-                )
-                .setAttribute(
-                    name: "data-content-piece",
-                    value: "button.toggle"
-                )
-                .setAttribute(
-                    name: "data-content-target",
-                    value: data.label.english
-                )
-
-        }
+        .flagAttribute("data-track-content")
+        .setAttribute(
+            name: "data-content-name",
+            value: "accordion"
+        )
+        .setAttribute(
+            name: "data-content-piece",
+            value: "button.toggle"
+        )
+        .setAttribute(
+            name: "data-content-target",
+            value: data.label.english
+        )
     }
 
     @Builder<Element>

@@ -174,8 +174,8 @@ struct CarouselTests {
         #expect(html.contains("data-content-target=\"\""))
     }
 
-    @Test("omits matomo tracking attributes when declined")
-    func omitsMatomoTrackingAttributes() async throws {
+    @Test("renders matomo tracking attributes whatever the consent status")
+    func rendersMatomoTrackingAttributesWhenDeclined() async throws {
 
         let data = CarouselData(
             id: "carousel-matomo-declined",
@@ -184,8 +184,8 @@ struct CarouselTests {
         )
         let html = renderHTML(Carousel(data).render())
 
-        #expect(!html.contains("data-track-content"))
-        #expect(!html.contains("data-content-name=\"carousel\""))
+        #expect(html.contains("data-track-content"))
+        #expect(html.contains("data-content-name=\"carousel\""))
     }
 
     @Test("renders picture and source elements in slides template")

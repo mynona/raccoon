@@ -154,21 +154,13 @@ public struct TabGroup: TemplateRepresentable {
                 )
         }
         // Matomo Content Tracking
-        .if(
-            tab.matomoStatus == .ACCEPTED
-                || tab.matomoStatus == .BANNER
-                || data.matomoStatus == .ACCEPTED
-                || data.matomoStatus == .BANNER
-        ) {
-            $0
-                .flagAttribute("data-track-content")
-                .setAttribute(name: "data-content-name", value: "tabgroup")
-                .setAttribute(name: "data-content-piece", value: "tab.button")
-                .setAttribute(
-                    name: "data-content-target",
-                    value: tab.label.english
-                )
-        }
+        .flagAttribute("data-track-content")
+        .setAttribute(name: "data-content-name", value: "tabgroup")
+        .setAttribute(name: "data-content-piece", value: "tab.button")
+        .setAttribute(
+            name: "data-content-target",
+            value: tab.label.english
+        )
     }
 
     @Builder<Element>

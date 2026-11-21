@@ -411,9 +411,7 @@ public struct DataTable: TemplateRepresentable {
         _ element: T,
         action: DataTableAction
     ) -> T {
-        guard let tracker = action.contentTracker,
-            data.matomoStatus == .ACCEPTED || data.matomoStatus == .BANNER
-        else { return element }
+        guard let tracker = action.contentTracker else { return element }
         return
             element
             .flagAttribute("data-track-content")

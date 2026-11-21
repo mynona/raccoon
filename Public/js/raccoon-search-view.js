@@ -62,14 +62,12 @@ if (!window.__searchViewLoaded) {
         ? rawEndpoint
         : `${rawEndpoint}/`;
       const initialSearchTerm = cfg.searchTerm ?? '';
-      const isMatomoEnabled = cfg.isMatomoEnabled ?? false;
 
       return {
         searchEndpoint,
         searchTerm: initialSearchTerm,
         isLoading: false,
         hasConnectionError: false,
-        isMatomoEnabled,
         tags: emptySearchCollection(),
         pages: emptySearchCollection(),
         images: emptySearchCollection(),
@@ -197,9 +195,10 @@ if (!window.__searchViewLoaded) {
 
               this.isLoading = false;
 
-              if (this.isMatomoEnabled === true && typeof window._paq !== 'undefined') {
-                window._paq.push(['trackSiteSearch', this.searchTerm, false, itemsFound]);
-              }
+              // Heard by the Matomo tracker only when it is on the page (consent)
+              window.dispatchEvent(new CustomEvent('raccoon:track', {
+                detail: { type: 'site-search', term: this.searchTerm, count: itemsFound }
+              }));
             })
             .catch((error) => {
               this.isLoading = false;

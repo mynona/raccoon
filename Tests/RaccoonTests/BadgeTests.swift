@@ -103,7 +103,7 @@ struct BadgeTests {
             .render()
         )
         #expect(html.contains("href=\"/tags/swift%20vapor/\""))
-        #expect(!html.contains("data-track-content"))
+        #expect(html.contains("data-track-content"))
     }
 
     @Test("supports custom tagUrlPrefix and formatHyphens false")

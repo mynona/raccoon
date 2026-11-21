@@ -7,7 +7,7 @@ if (!window.__themeSwitcherLoaded) {
    window.__themeSwitcherLoaded = true;
 
    const registerThemeSwitcher = () => {
-      Alpine.data('themeSwitcher', (defaultTheme = 'emerald-mine', isTracking = false) => {
+      Alpine.data('themeSwitcher', (defaultTheme = 'emerald-mine') => {
          const base = (window.createSimpleMenu ? window.createSimpleMenu() : {
             open: false,
             activeIndex: -1,
@@ -178,9 +178,6 @@ if (!window.__themeSwitcherLoaded) {
                      localStorage.setItem('theme', theme);
                   }
                } catch (e) {}
-               if (isTracking && Array.isArray(window._paq)) {
-                  window._paq.push(['trackEvent', 'Button', 'click', 'ThemeSwitcher', theme]);
-               }
                this.close(this.$refs.button);
             }
          };

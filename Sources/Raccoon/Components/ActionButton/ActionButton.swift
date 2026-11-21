@@ -319,11 +319,7 @@ public struct ActionButton: TemplateRepresentable {
                 return $0
             }
             // Matomo
-            .if(
-                data.contentTracker != nil
-                    && (data.matomoStatus == .ACCEPTED
-                        || data.matomoStatus == .BANNER)
-            ) {
+            .if(data.contentTracker != nil) {
                 guard let tracker = data.contentTracker else { return $0 }
                 return
                     $0
@@ -341,11 +337,7 @@ public struct ActionButton: TemplateRepresentable {
                         value: tracker.target
                     )
             }
-            .if(
-                data.contentTracker?.impression == true
-                    && (data.matomoStatus == .ACCEPTED
-                        || data.matomoStatus == .BANNER)
-            ) {
+            .if(data.contentTracker?.impression == true) {
                 $0.flagAttribute("data-track-impression")
             }
 

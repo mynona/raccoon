@@ -83,8 +83,8 @@ struct ByMeACoffeeTests {
         #expect(html.contains("flex-initial"))
     }
 
-    @Test("omits matomo tracking when declined")
-    func omitsTrackingWhenDeclined() async throws {
+    @Test("renders matomo tracking attributes whatever the consent status")
+    func rendersTrackingWhenDeclined() async throws {
 
         let data = ByMeACoffeeData(
             dataSlug: "creator",
@@ -94,10 +94,10 @@ struct ByMeACoffeeTests {
             matomoStatus: .DECLINED
         )
         let html = renderHTML(ByMeACoffee(data).render())
-        #expect(!html.contains("data-track-content"))
-        #expect(!html.contains("data-content-name"))
-        #expect(!html.contains("data-content-piece"))
-        #expect(!html.contains("data-content-target"))
+        #expect(html.contains("data-track-content"))
+        #expect(html.contains("data-content-name"))
+        #expect(html.contains("data-content-piece"))
+        #expect(html.contains("data-content-target"))
         #expect(html.contains("rel=\"noopener noreferrer\""))
         #expect(html.contains("flex-initial"))
     }

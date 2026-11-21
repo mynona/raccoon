@@ -171,22 +171,16 @@ public struct CopyToClipboard: TemplateRepresentable {
             .localized(.ariaLabel, ariaLabel)
             .localized(.title, tooltip)
             // Matomo
-            .if(data.matomoStatus == .ACCEPTED || data.matomoStatus == .BANNER)
-            {
-
-                $0
-                    .flagAttribute("data-track-content")
-                    .setAttribute(
-                        name: "data-content-name",
-                        value: "copyToClipboard"
-                    )
-                    .setAttribute(
-                        name: "data-content-piece",
-                        value: "button.copy"
-                    )
-                    .setAttribute(name: "data-content-target", value: data.key)
-
-            }
+            .flagAttribute("data-track-content")
+            .setAttribute(
+                name: "data-content-name",
+                value: "copyToClipboard"
+            )
+            .setAttribute(
+                name: "data-content-piece",
+                value: "button.copy"
+            )
+            .setAttribute(name: "data-content-target", value: data.key)
             .addClass(styles.iconButton)
         }
     }

@@ -113,32 +113,16 @@ struct ThemeSwitcherTests {
         #expect(right.contains("x-transition.origin.top.right"))
     }
 
-    @Test("passes Matomo tracking flag into the Alpine component")
-    func passesTrackingFlag() {
-
-        let tracked = renderHTML(
-            ThemeSwitcher(
-                ThemeSwitcherData(matomoStatus: .ACCEPTED)
+    @Test("renders the click tracking attributes regardless of the consent status")
+    func rendersTrackingAttributes() {
+        for status in [MatomoStatus.ACCEPTED, .DECLINED] {
+            let html = renderHTML(
+                ThemeSwitcher(ThemeSwitcherData(matomoStatus: status))
+                    .render()
             )
-            .render()
-        )
-        #expect(
-            tracked.contains(
-                "x-data=\"themeSwitcher('emerald-mine', true)\""
-            )
-        )
-
-        let untracked = renderHTML(
-            ThemeSwitcher(
-                ThemeSwitcherData(matomoStatus: .DECLINED)
-            )
-            .render()
-        )
-        #expect(
-            untracked.contains(
-                "x-data=\"themeSwitcher('emerald-mine', false)\""
-            )
-        )
+            #expect(html.contains("x-data=\"themeSwitcher('emerald-mine')\""))
+            #expect(html.contains("data-content-name=\"theme-switcher\""))
+        }
     }
 
     @Test("supports custom theme options")
@@ -155,7 +139,7 @@ struct ThemeSwitcherTests {
         )
         #expect(
             custom.contains(
-                "x-data=\"themeSwitcher('black-and-white', false)\""
+                "x-data=\"themeSwitcher('black-and-white')\""
             )
         )
         #expect(custom.contains("black and white"))
@@ -205,7 +189,7 @@ struct ThemeSwitcherTests {
             ThemeSwitcher(ThemeSwitcherData()).render()
         )
         #expect(!withoutId.contains("id=\"themeSwitcherId\""))
-        #expect(!withoutId.contains("data-track-content"))
+        #expect(withoutId.contains("data-track-content"))
     }
 
     // MARK: localization

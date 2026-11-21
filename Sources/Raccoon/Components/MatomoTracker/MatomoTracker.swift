@@ -5,8 +5,9 @@ import WebBuilders
 
 /// MatomoTracker
 ///
-/// Emits the Matomo tracker script (external, configured by `data-*` attributes)
-/// and the form-tracking script. Renders nothing unless the status is `.ACCEPTED` or `.BANNER`.
+/// Emits the Matomo tracker script (external, configured by `data-*` attributes). Renders nothing unless the
+/// status is `.ACCEPTED` or `.BANNER`. It is the only Matomo script: page views, content clicks, forms and the
+/// events of the widgets (`raccoon:track`) are all reported by it, and without it nothing is tracked.
 ///
 /// There is no `<noscript>` pixel: it was only requested by crawlers that do not run JavaScript.
 ///
@@ -103,15 +104,6 @@ public struct MatomoTracker: TemplateRepresentable {
         if isEnabled {
 
             trackerScript()
-
-            // Matomo form tracking
-            Script()
-                .src("/js/raccoon-form-tracking.js")
-                .setAttribute(
-                    name: "type",
-                    value: "text/javascript"
-                )
-                .flagAttribute("defer")
         }
     }
 }

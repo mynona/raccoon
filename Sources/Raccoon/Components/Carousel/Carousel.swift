@@ -82,15 +82,10 @@ public struct Carousel: TemplateRepresentable {
         .addClass(buttonStyles.iconButton)
         .addClass(styles.backgroundColorIcon)
         // Matomo
-        .if(data.matomoStatus == .ACCEPTED || data.matomoStatus == .BANNER) {
-
-            $0
-                .flagAttribute("data-track-content")
-                .setAttribute(name: "data-content-name", value: "carousel")
-                .setAttribute(name: "data-content-piece", value: "button.close")
-                .setAttribute(name: "data-content-target", value: "")
-
-        }
+        .flagAttribute("data-track-content")
+        .setAttribute(name: "data-content-name", value: "carousel")
+        .setAttribute(name: "data-content-piece", value: "button.close")
+        .setAttribute(name: "data-content-target", value: "")
     }
 
     @Builder<Element>
@@ -114,18 +109,13 @@ public struct Carousel: TemplateRepresentable {
         .addClass(buttonStyles.iconButton)
         .addClass(styles.backgroundColorIcon)
         // Matomo
-        .if(data.matomoStatus == .ACCEPTED || data.matomoStatus == .BANNER) {
-
-            $0
-                .flagAttribute("data-track-content")
-                .setAttribute(name: "data-content-name", value: "carousel")
-                .setAttribute(
-                    name: "data-content-piece",
-                    value: "button.previous"
-                )
-                .setAttribute(name: "data-content-target", value: "")
-
-        }
+        .flagAttribute("data-track-content")
+        .setAttribute(name: "data-content-name", value: "carousel")
+        .setAttribute(
+            name: "data-content-piece",
+            value: "button.previous"
+        )
+        .setAttribute(name: "data-content-target", value: "")
     }
 
     @Builder<Element>
@@ -147,15 +137,10 @@ public struct Carousel: TemplateRepresentable {
         .addClass(buttonStyles.iconButton)
         .addClass(styles.backgroundColorIcon)
         // Matomo
-        .if(data.matomoStatus == .ACCEPTED || data.matomoStatus == .BANNER) {
-
-            $0
-                .flagAttribute("data-track-content")
-                .setAttribute(name: "data-content-name", value: "carousel")
-                .setAttribute(name: "data-content-piece", value: "button.next")
-                .setAttribute(name: "data-content-target", value: "")
-
-        }
+        .flagAttribute("data-track-content")
+        .setAttribute(name: "data-content-name", value: "carousel")
+        .setAttribute(name: "data-content-piece", value: "button.next")
+        .setAttribute(name: "data-content-target", value: "")
     }
 
     @Builder<Element>
@@ -187,27 +172,19 @@ public struct Carousel: TemplateRepresentable {
                     .addClass(buttonStyles.focusDefault)
                     .addClass(buttonStyles.hoverDefault)
                     // Matomo
-                    .if(
-                        data.matomoStatus == .ACCEPTED
-                            || data.matomoStatus == .BANNER
-                    ) {
-
-                        $0
-                            .flagAttribute("data-track-content")
-                            .setAttribute(
-                                name: "data-content-name",
-                                value: "carousel"
-                            )
-                            .setAttribute(
-                                name: "data-content-piece",
-                                value: "button.indicator"
-                            )
-                            .setAttribute(
-                                name: "data-content-target",
-                                value: ""
-                            )
-
-                    }
+                    .flagAttribute("data-track-content")
+                    .setAttribute(
+                        name: "data-content-name",
+                        value: "carousel"
+                    )
+                    .setAttribute(
+                        name: "data-content-piece",
+                        value: "button.indicator"
+                    )
+                    .setAttribute(
+                        name: "data-content-target",
+                        value: ""
+                    )
 
             }
             .setAttribute(name: "x-for", value: "(slide, index) in slides")

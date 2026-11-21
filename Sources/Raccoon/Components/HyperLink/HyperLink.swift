@@ -152,11 +152,7 @@ public struct HyperLink: TemplateRepresentable {
 
             }
             // Matomo
-            .if(
-                data.contentTracker != nil
-                    && (data.matomoStatus == .ACCEPTED
-                        || data.matomoStatus == .BANNER)
-            ) {
+            .if(data.contentTracker != nil) {
                 guard let tracker = data.contentTracker else { return $0 }
                 return
                     $0
@@ -174,11 +170,7 @@ public struct HyperLink: TemplateRepresentable {
                         value: tracker.target
                     )
             }
-            .if(
-                data.contentTracker?.impression == true
-                    && (data.matomoStatus == .ACCEPTED
-                        || data.matomoStatus == .BANNER)
-            ) {
+            .if(data.contentTracker?.impression == true) {
                 $0.flagAttribute("data-track-impression")
             }
 
