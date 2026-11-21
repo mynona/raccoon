@@ -27,7 +27,7 @@ public struct LinkList: TemplateRepresentable {
                 contentTracker: data.contentTracker.map {
                     MatomoContentTracker(
                         name: $0.name,
-                        piece: key.english,
+                        piece: MatomoContentTracker.piece($0.piece, key.english),
                         target: value
                     )
                 }

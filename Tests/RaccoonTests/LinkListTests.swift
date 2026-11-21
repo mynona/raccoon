@@ -104,7 +104,7 @@ struct LinkListTests {
         let html = renderHTML(LinkList(data).render())
         #expect(html.contains("data-track-content"))
         #expect(html.contains("data-content-name=\"matomo\""))
-        #expect(html.contains("data-content-piece=\"Tracked\""))
+        #expect(html.contains("data-content-piece=\"piece.tracked\""))
         #expect(html.contains("data-content-target=\"/tracked\""))
     }
 
