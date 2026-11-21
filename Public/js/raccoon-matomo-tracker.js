@@ -1,4 +1,4 @@
-// V2.0
+// V2.1
 
 /* Matomo tracker. Configured by data-* attributes on its own <script> tag, so the page needs no inline script:
  * - data-tracker-url   Matomo base URL with a trailing slash
@@ -23,6 +23,7 @@
  * - { type: 'funnel', funnel, step }         event "funnel / <funnel> / <step>" for the MyFunnel plugin
  * - { type: 'feedback', widget, answer }     event "feedback / <widget> / <answer>", fixed values only
  * - { type: 'site-search', term, count }     site search with the number of results
+ * - { type: 'heatmap', payload }              heatmap data of raccoon-heatmap.js, sent as the parameter "myheatmap"
  * Funnel, step, widget and answer are lowercase keys (letters, digits, hyphen), never personal data or free text.
  *
  * Forms with data-matomo-name are tracked once per form view, never per field and never with values:
@@ -73,6 +74,10 @@
       push(['trackEvent', 'feedback', d.widget, d.answer]);
     } else if (d.type === 'site-search' && typeof d.term === 'string' && d.term && Number.isInteger(d.count)) {
       push(['trackSiteSearch', d.term, false, d.count]);
+    } else if (d.type === 'heatmap' && d.payload && typeof d.payload === 'object') {
+      // numbers and element ids only (raccoon-heatmap.js); the Matomo plugin validates it again
+      const json = JSON.stringify(d.payload);
+      if (json.length <= 6000) push(['trackRequest', 'myheatmap=' + encodeURIComponent(json)]);
     }
   });
 
@@ -277,6 +282,17 @@
   const url = config.trackerUrl;
   push(['setTrackerUrl', url + 'matomo.php']);
   push(['setSiteId', config.siteId]);
+
+  // Heatmaps (Matomo plugin MyHeatmap): only with accepted consent and never for signed-in users. The collector
+  // asks Matomo which heatmaps apply to the page and records nothing otherwise.
+  if (config.consent === 'accepted' && config.userState !== 'signed-in' && /raccoon-matomo-tracker\.js/.test(script.src)) {
+    const collector = document.createElement('script');
+    collector.async = true;
+    collector.src = script.src.replace(/raccoon-matomo-tracker\.js/, 'raccoon-heatmap.js');
+    collector.dataset.trackerUrl = url;
+    collector.dataset.siteId = config.siteId;
+    document.head.appendChild(collector);
+  }
 
   const loader = document.createElement('script');
   loader.async = true;
