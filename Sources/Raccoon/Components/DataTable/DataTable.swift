@@ -377,7 +377,7 @@ public struct DataTable: TemplateRepresentable {
                         buttonType: .primary,
                         contentTracker: MatomoContentTracker(
                             name: "data-table",
-                            piece: "filter.apply",
+                            piece: "button.apply-filter",
                             target: data.id
                         )
                     )

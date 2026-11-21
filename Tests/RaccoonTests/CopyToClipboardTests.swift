@@ -152,7 +152,7 @@ struct CopyToClipboardTests {
             .render()
         )
         #expect(tracked.contains("data-track-content"))
-        #expect(tracked.contains("data-content-target=\"secret-token\""))
+        #expect(tracked.contains("data-content-name=\"copy-to-clipboard\""))
 
         let untracked = renderHTML(
             CopyToClipboard(

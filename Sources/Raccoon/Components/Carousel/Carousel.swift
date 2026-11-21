@@ -178,8 +178,8 @@ public struct Carousel: TemplateRepresentable {
                         value: "carousel"
                     )
                     .setAttribute(
-                        name: "data-content-piece",
-                        value: "button.indicator"
+                        name: ":data-content-piece",
+                        value: "'button.indicator-' + (index + 1)"
                     )
                     .setAttribute(
                         name: "data-content-target",

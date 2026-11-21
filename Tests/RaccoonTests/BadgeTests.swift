@@ -83,7 +83,7 @@ struct BadgeTests {
         #expect(html.contains("href=\"/tags/swift%20vapor/\""))
         #expect(html.contains("data-track-content"))
         #expect(html.contains("data-content-name=\"badge\""))
-        #expect(html.contains("data-content-piece=\"link.tag\""))
+        #expect(html.contains("data-content-piece=\"tag.swift-vapor\""))
         #expect(html.contains("data-content-target=\"/tags/swift%20vapor\""))
     }
 

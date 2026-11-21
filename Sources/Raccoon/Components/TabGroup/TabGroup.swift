@@ -154,11 +154,11 @@ public struct TabGroup: TemplateRepresentable {
         // Matomo Content Tracking
         .flagAttribute("data-track-content")
         .setAttribute(name: "data-content-name", value: "tabgroup")
-        .setAttribute(name: "data-content-piece", value: "tab.button")
         .setAttribute(
-            name: "data-content-target",
-            value: tab.label.english
+            name: "data-content-piece",
+            value: MatomoContentTracker.piece("tab", tab.label.english)
         )
+        .setAttribute(name: "data-content-target", value: "")
     }
 
     @Builder<Element>

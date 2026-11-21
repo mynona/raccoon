@@ -61,7 +61,7 @@ public struct DeleteModal: TemplateRepresentable {
                     iconPosition: .left,
                     contentTracker: MatomoContentTracker(
                         name: "delete-modal",
-                        piece: "close-button",
+                        piece: "button.close",
                         target: ""
                     )
                 )

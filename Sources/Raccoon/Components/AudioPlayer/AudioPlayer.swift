@@ -187,11 +187,11 @@ public struct AudioPlayer: TemplateRepresentable {
             .flagAttribute("data-track-content")
             .setAttribute(
                 name: "data-content-name",
-                value: "content.audioplayer"
+                value: "audioplayer"
             )
             .setAttribute(
                 name: "data-content-piece",
-                value: "action.playpause"
+                value: "button.play-pause"
             )
             .setAttribute(
                 name: "data-content-target",

@@ -133,7 +133,7 @@ struct AccordionTests {
         )
         #expect(tracked.contains("data-track-content"))
         #expect(tracked.contains("data-content-name=\"accordion\""))
-        #expect(tracked.contains("data-content-target=\"Tracked item\""))
+        #expect(tracked.contains("data-content-piece=\"section.tracked-item\""))
     }
 
     @Test("renders border class when showBorder is true")

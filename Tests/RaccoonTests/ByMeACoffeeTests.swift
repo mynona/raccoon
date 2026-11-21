@@ -71,8 +71,8 @@ struct ByMeACoffeeTests {
         )
         let html = renderHTML(ByMeACoffee(data).render())
         #expect(html.contains("data-track-content"))
-        #expect(html.contains("data-content-name=\"feedback\""))
-        #expect(html.contains("data-content-piece=\"buymeacoffee\""))
+        #expect(html.contains("data-content-name=\"buy-me-a-coffee\""))
+        #expect(html.contains("data-content-piece=\"link.buy-me-a-coffee\""))
         #expect(
             html.contains(
                 "data-content-target=\"https://buymeacoffee.com/creator\""

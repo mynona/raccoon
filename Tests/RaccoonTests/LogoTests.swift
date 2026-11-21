@@ -18,7 +18,7 @@ struct LogoTests {
         #expect(html.contains("href=\"/home\""))
         #expect(html.contains("data-track-content"))
         #expect(html.contains("data-content-name=\"logo\""))
-        #expect(html.contains("data-content-piece=\"button.home\""))
+        #expect(html.contains("data-content-piece=\"link.home\""))
         #expect(html.contains("data-content-target=\"/home\""))
     }
 
@@ -29,7 +29,7 @@ struct LogoTests {
         #expect(html.contains("aria-label=\"Go to home\""))
         #expect(html.contains("data-track-content"))
         #expect(html.contains("data-content-name=\"logo\""))
-        #expect(html.contains("data-content-piece=\"button.home\""))
+        #expect(html.contains("data-content-piece=\"link.home\""))
         #expect(html.contains("data-content-target=\"/home\""))
     }
 

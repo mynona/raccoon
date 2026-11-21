@@ -242,7 +242,7 @@ struct StepperTests {
 
         #expect(html.contains("data-track-content"))
         #expect(html.contains("data-content-name=\"stepper\""))
-        #expect(html.contains("data-content-piece=\"custom-step-id\""))
+        #expect(html.contains("data-content-piece=\"step.custom-step-id\""))
         #expect(html.contains("data-content-target=\"/checkout\""))
     }
 
@@ -300,7 +300,7 @@ struct StepperTests {
 
         #expect(html.contains("data-track-content"))
         #expect(html.contains("data-content-name=\"stepper\""))
-        #expect(html.contains("data-content-piece=\"vertical-step\""))
+        #expect(html.contains("data-content-piece=\"step.vertical-step\""))
         #expect(html.contains("data-content-target=\"/vertical-step\""))
     }
 

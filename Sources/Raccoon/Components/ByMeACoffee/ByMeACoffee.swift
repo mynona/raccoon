@@ -47,11 +47,11 @@ public struct ByMeACoffee: TemplateRepresentable {
             .flagAttribute("data-track-content")
             .setAttribute(
                 name: "data-content-name",
-                value: "feedback"
+                value: "buy-me-a-coffee"
             )
             .setAttribute(
                 name: "data-content-piece",
-                value: "buymeacoffee"
+                value: "link.buy-me-a-coffee"
             )
             .setAttribute(
                 name: "data-content-target",

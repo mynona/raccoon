@@ -354,8 +354,8 @@ struct TabGroupTests {
 
         #expect(html.contains("data-track-content"))
         #expect(html.contains("data-content-name=\"tabgroup\""))
-        #expect(html.contains("data-content-piece=\"tab.button\""))
-        #expect(html.contains("data-content-target=\"Stats\""))
+        #expect(html.contains("data-content-piece=\"tab.stats\""))
+        #expect(html.contains("data-content-target=\"\""))
     }
 
     // MARK: localization

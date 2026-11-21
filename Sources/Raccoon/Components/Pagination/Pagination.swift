@@ -41,7 +41,7 @@ public struct Pagination: TemplateRepresentable {
                         hasTruncation: true,
                         contentTracker: MatomoContentTracker(
                             name: "pagination",
-                            piece: "mainLink",
+                            piece: "link.main",
                             target: data.hrefBase
                         )
                     )
@@ -83,7 +83,7 @@ public struct Pagination: TemplateRepresentable {
                     hasFullWidth: false,
                     contentTracker: MatomoContentTracker(
                         name: "pagination",
-                        piece: (direction == .first) ? "firstPage" : "lastPage",
+                        piece: (direction == .first) ? "link.first-page" : "link.last-page",
                         target: destination
                     )
                 )
@@ -136,7 +136,7 @@ public struct Pagination: TemplateRepresentable {
                     hasFullWidth: false,
                     contentTracker: MatomoContentTracker(
                         name: "pagination",
-                        piece: "page-\(pageNumber)",
+                        piece: "link.page-\(pageNumber)",
                         target: "\(data.hrefBase)/\(page.element.friendly_url)"
                     )
                 )

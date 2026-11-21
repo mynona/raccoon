@@ -120,7 +120,7 @@ public struct InputList: TemplateRepresentable {
                 icon: .trash3,
                 contentTracker: MatomoContentTracker(
                     name: "input-list",
-                    piece: "button.clearall",
+                    piece: "button.clear-all",
                     target: ""
                 )
             )

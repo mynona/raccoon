@@ -48,11 +48,11 @@ public struct Pill: TemplateRepresentable {
                 .setAttribute(name: "data-content-name", value: "pill")
                 .setAttribute(
                     name: "data-content-piece",
-                    value: "pill.badge"
+                    value: MatomoContentTracker.piece("pill", displayedText.english)
                 )
                 .setAttribute(
                     name: "data-content-target",
-                    value: displayedText.english
+                    value: ""
                 )
         }
     }

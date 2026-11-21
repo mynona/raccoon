@@ -46,7 +46,7 @@ struct BreadcrumbTests {
         #expect(html.contains("/home/"))
         #expect(!html.contains("hreflang"))
         #expect(html.contains("aria-label=\"Home\""))
-        #expect(html.contains("data-content-piece=\"breadcrumb.home\""))
+        #expect(html.contains("data-content-piece=\"link.home\""))
         #expect(html.contains("data-content-target=\"/home\""))
     }
 
@@ -109,7 +109,7 @@ struct BreadcrumbTests {
         )
         let html = renderHTML(Breadcrumb(ctx).render())
         #expect(html.contains("aria-hidden=\"true\""))
-        #expect(html.contains("data-content-piece=\"breadcrumb.pathsegment\""))
+        #expect(html.contains("data-content-piece=\"link.level-1\""))
         #expect(html.contains("data-content-target=\"/one\""))
     }
 

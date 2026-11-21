@@ -112,11 +112,11 @@ public struct Accordion: TemplateRepresentable {
         )
         .setAttribute(
             name: "data-content-piece",
-            value: "button.toggle"
+            value: MatomoContentTracker.piece("section", data.label.english)
         )
         .setAttribute(
             name: "data-content-target",
-            value: data.label.english
+            value: ""
         )
     }
 

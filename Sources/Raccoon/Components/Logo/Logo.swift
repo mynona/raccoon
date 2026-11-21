@@ -38,7 +38,7 @@ public struct Logo: TemplateRepresentable {
             )
             .setAttribute(
                 name: "data-content-piece",
-                value: "button.home"
+                value: "link.home"
             )
             .setAttribute(
                 name: "data-content-target",

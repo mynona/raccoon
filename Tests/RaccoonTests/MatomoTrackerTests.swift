@@ -205,4 +205,18 @@ struct MatomoTrackerTests {
 
         #expect(html.contains("data-reset-user=\"true\""))
     }
+
+    @Test("builds slugs and pieces as <type>.<item>")
+    func buildsSlugsAndPieces() {
+        #expect(MatomoContentTracker.slug("5. Your right to your data") == "5-your-right-to-your-data")
+        #expect(MatomoContentTracker.slug("  Größe & Ärger!  ") == "grosse-arger")
+        #expect(MatomoContentTracker.slug("---") == "")
+        #expect(MatomoContentTracker.slug(String(repeating: "ab ", count: 40)).count <= 60)
+        #expect(!MatomoContentTracker.slug(String(repeating: "ab ", count: 40)).hasSuffix("-"))
+
+        #expect(MatomoContentTracker.piece("tab", "Foundation") == "tab.foundation")
+        #expect(MatomoContentTracker.piece("button", "save.given-name") == "button.save.given-name")
+        #expect(MatomoContentTracker.piece("toggle") == "toggle")
+        #expect(MatomoContentTracker.piece("link", "!!!") == "link")
+    }
 }

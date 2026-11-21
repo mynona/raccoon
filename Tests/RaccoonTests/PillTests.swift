@@ -85,8 +85,8 @@ struct PillTests {
         )
         #expect(html.contains("data-track-content"))
         #expect(html.contains("data-content-name=\"pill\""))
-        #expect(html.contains("data-content-piece=\"pill.badge\""))
-        #expect(html.contains("data-content-target=\"99\""))
+        #expect(html.contains("data-content-piece=\"pill.99\""))
+        #expect(html.contains("data-content-target=\"\""))
     }
 
     @Test("Renders nothing when both count and text are nil or empty")

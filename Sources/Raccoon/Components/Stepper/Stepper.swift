@@ -215,8 +215,8 @@ public struct Stepper: TemplateRepresentable {
             .if(shouldTrackMatomo(for: step)) {
                 guard let tracker = step.contentTracker ?? data.contentTracker
                 else {
-                    let piece = step.id ?? "step-\(index + 1)"
-                    let target = step.href ?? step.title.english
+                    let piece = MatomoContentTracker.piece("step", step.id ?? "\(index + 1)")
+                    let target = step.href ?? ""
                     return
                         $0
                         .flagAttribute("data-track-content")
@@ -463,8 +463,8 @@ public struct Stepper: TemplateRepresentable {
                         .if(shouldTrackMatomo(for: step)) {
                             guard let tracker = step.contentTracker ?? data.contentTracker
                             else {
-                                let piece = step.id ?? "step-\(index + 1)"
-                                let target = step.href ?? step.title.english
+                                let piece = MatomoContentTracker.piece("step", step.id ?? "\(index + 1)")
+                                let target = step.href ?? ""
                                 return
                                     $0
                                     .flagAttribute("data-track-content")

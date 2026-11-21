@@ -55,7 +55,7 @@ public struct Breadcrumb: TemplateRepresentable {
                 )
                 .setAttribute(
                     name: "data-content-piece",
-                    value: "breadcrumb.home"
+                    value: "link.home"
                 )
                 .setAttribute(
                     name: "data-content-target",
@@ -146,7 +146,7 @@ public struct Breadcrumb: TemplateRepresentable {
             )
             .setAttribute(
                 name: "data-content-piece",
-                value: "breadcrumb.pathsegment"
+                value: MatomoContentTracker.piece("link", path.title.english)
             )
             .setAttribute(
                 name: "data-content-target",

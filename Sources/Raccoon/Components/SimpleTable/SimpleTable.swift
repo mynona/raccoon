@@ -93,6 +93,12 @@ enum SimpleTableTexts {
 }
 
 public struct SimpleTable: TemplateRepresentable {
+
+    /// Content name of this table in Matomo: `simple-table.<caption>`.
+    private var trackerName: String {
+        simpleTableTrackerName(caption: data.caption?.english)
+    }
+
     let data: SimpleTableData
     typealias styles = SimpleTableStyles
     typealias buttonStyles = ActionButtonStyles
@@ -183,7 +189,7 @@ public struct SimpleTable: TemplateRepresentable {
                     .flagAttribute("data-track-content")
                     .setAttribute(
                         name: "data-content-name",
-                        value: "simple-table"
+                        value: trackerName
                     )
                     .setAttribute(
                         name: "data-content-piece",
@@ -191,7 +197,7 @@ public struct SimpleTable: TemplateRepresentable {
                     )
                     .setAttribute(
                         name: "data-content-target",
-                        value: "\(data.caption?.english ?? "untitled")"
+                        value: ""
                     )
 
                     // Filter toggle
@@ -222,15 +228,15 @@ public struct SimpleTable: TemplateRepresentable {
                         .flagAttribute("data-track-content")
                         .setAttribute(
                             name: "data-content-name",
-                            value: "simple-table"
+                            value: trackerName
                         )
                         .setAttribute(
                             name: "data-content-piece",
-                            value: "search.toggle"
+                            value: "toggle.search"
                         )
                         .setAttribute(
                             name: "data-content-target",
-                            value: "\(data.caption?.english ?? "untitled")"
+                            value: ""
                         )
 
                     }
@@ -271,15 +277,15 @@ public struct SimpleTable: TemplateRepresentable {
                             .flagAttribute("data-track-content")
                             .setAttribute(
                                 name: "data-content-name",
-                                value: "simple-table"
+                                value: trackerName
                             )
                             .setAttribute(
                                 name: "data-content-piece",
-                                value: "column-configurator.toggle"
+                                value: "toggle.columns"
                             )
                             .setAttribute(
                                 name: "data-content-target",
-                                value: "\(data.caption?.english ?? "untitled")"
+                                value: ""
                             )
 
                         }
@@ -312,9 +318,9 @@ public struct SimpleTable: TemplateRepresentable {
                     clearAriaLabel: SimpleTableTexts.clearFilter,
                     hasTransparentBackground: true,
                     contentTracker: MatomoContentTracker(
-                        name: "simple-table",
-                        piece: "search.clear",
-                        target: data.caption?.english ?? "untitled"
+                        name: trackerName,
+                        piece: "button.clear-search",
+                        target: ""
                     )
                 )
             )

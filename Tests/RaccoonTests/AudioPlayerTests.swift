@@ -168,7 +168,7 @@ struct AudioPlayerTests {
         )
 
         #expect(html.contains("data-track-content"))
-        #expect(html.contains("data-content-name=\"content.audioplayer\""))
+        #expect(html.contains("data-content-name=\"audioplayer\""))
         #expect(
             html.contains(
                 "data-content-target=\"https://example.com/test.mp3\""

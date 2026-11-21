@@ -149,7 +149,7 @@ public struct Badge: TemplateRepresentable {
                 )
                 .setAttribute(
                     name: "data-content-piece",
-                    value: "link.tag"
+                    value: MatomoContentTracker.piece("tag", data.title.english)
                 )
                 .setAttribute(
                     name: "data-content-target",

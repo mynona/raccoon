@@ -3,6 +3,11 @@ import SGML
 import SVG
 import WebBuilders
 
+/// Content name of a table in Matomo: `simple-table.<caption>`.
+func simpleTableTrackerName(caption: String?) -> String {
+    "simple-table." + MatomoContentTracker.slug(caption ?? "untitled")
+}
+
 @Builder<Element>
 public func simpleTableColumnConfigurator(
     caption: String?
@@ -33,11 +38,11 @@ public func simpleTableColumnConfigurator(
             .flagAttribute("data-track-content")
             .setAttribute(
                 name: "data-content-name",
-                value: "simple-table"
+                value: simpleTableTrackerName(caption: caption)
             )
             .setAttribute(
                 name: "data-content-piece",
-                value: "column-configurator.close"
+                value: "button.close-columns"
             )
             .setAttribute(
                 name: "data-content-target",
@@ -282,22 +287,14 @@ public func simpleTableColumnConfigurator(
             .addClass(ActionButtonStyles.borderTertiary)
             .addClass(ActionButtonStyles.focusDefault)
             .addClass(ActionButtonStyles.hoverDefault)
-            .setAttribute(
-                name: "data-content-piece",
-                value: "ResetButton"
-            )
-            .setAttribute(
-                name: "data-content-target",
-                value: "reset customization"
-            )
             .flagAttribute("data-track-content")
             .setAttribute(
                 name: "data-content-name",
-                value: "simple-table"
+                value: simpleTableTrackerName(caption: caption)
             )
             .setAttribute(
                 name: "data-content-piece",
-                value: "column-configurator.reset"
+                value: "button.reset-columns"
             )
             .setAttribute(
                 name: "data-content-target",
@@ -316,8 +313,8 @@ public func simpleTableColumnConfigurator(
                     htmlType: .button,
                     buttonType: .secondary,
                     contentTracker: MatomoContentTracker(
-                        name: "simple-table",
-                        piece: "column-configurator.cancel",
+                        name: simpleTableTrackerName(caption: caption),
+                        piece: "button.cancel-columns",
                         target: ""
                     )
                 )
@@ -333,8 +330,8 @@ public func simpleTableColumnConfigurator(
                     htmlType: .button,
                     buttonType: .primary,
                     contentTracker: MatomoContentTracker(
-                        name: "simple-table",
-                        piece: "column-configurator.save",
+                        name: simpleTableTrackerName(caption: caption),
+                        piece: "button.save-columns",
                         target: ""
                     )
                 )

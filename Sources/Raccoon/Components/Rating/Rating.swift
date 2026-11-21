@@ -144,7 +144,7 @@ public struct Rating: TemplateRepresentable {
                     iconPosition: .left,
                     contentTracker: MatomoContentTracker(
                         name: "feedback-widget",
-                        piece: "btn_close",
+                        piece: "button.close",
                         target: ""
                     )
                 )
@@ -254,7 +254,7 @@ public struct Rating: TemplateRepresentable {
                         hasFullWidth: false,
                         contentTracker: MatomoContentTracker(
                             name: "feedback-widget",
-                            piece: "btn_reset",
+                            piece: "button.reset",
                             target: ""
                         )
                     )
@@ -316,7 +316,7 @@ public struct Rating: TemplateRepresentable {
                         hasFullWidth: false,
                         contentTracker: MatomoContentTracker(
                             name: "feedback-widget",
-                            piece: "btn_reset",
+                            piece: "button.reset",
                             target: ""
                         )
                     )
@@ -431,7 +431,7 @@ public struct Rating: TemplateRepresentable {
                                 hasFullWidth: true,
                                 contentTracker: MatomoContentTracker(
                                     name: "feedback-widget",
-                                    piece: "btn_submit",
+                                    piece: "button.submit",
                                     target: ""
                                 )
                             )
@@ -478,7 +478,7 @@ public struct Rating: TemplateRepresentable {
                     iconPosition: .left,
                     contentTracker: MatomoContentTracker(
                         name: "feedback-widget",
-                        piece: "btn_thank_you_close",
+                        piece: "button.thank-you-close",
                         target: ""
                     )
                 )

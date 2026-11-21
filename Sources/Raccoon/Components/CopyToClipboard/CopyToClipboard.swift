@@ -174,13 +174,13 @@ public struct CopyToClipboard: TemplateRepresentable {
             .flagAttribute("data-track-content")
             .setAttribute(
                 name: "data-content-name",
-                value: "copyToClipboard"
+                value: "copy-to-clipboard"
             )
             .setAttribute(
                 name: "data-content-piece",
                 value: "button.copy"
             )
-            .setAttribute(name: "data-content-target", value: data.key)
+            .setAttribute(name: "data-content-target", value: "")
             .addClass(styles.iconButton)
         }
     }
