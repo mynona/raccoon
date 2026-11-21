@@ -1,6 +1,38 @@
-// V1.0
+// V1.1
 
-
+/* Heatmap collector for the Matomo plugin MyHeatmap. It is loaded by raccoon-matomo-tracker.js, only with accepted
+ * consent (also for signed-in users: the data is anonymous). The recorded data goes to the tracker script as a DOM
+ * event, like every other event:
+ *
+ *   window.dispatchEvent(new CustomEvent('raccoon:track', { detail: { type: 'heatmap', payload } }))
+ *
+ * The script itself talks to Matomo for two things only: it asks which heatmaps apply to the page (index.php?module=
+ * MyHeatmap&action=config) and, when a page has no picture yet, sends the abstract page layout (action=snapshot).
+ * Configured by the data-* attributes that the tracker script copies to this tag: data-tracker-url, data-site-id.
+ *
+ * What is recorded: element ids, positions inside the element, scroll depth and the open/closed state of controls.
+ * Never recorded: text, values, attributes, URLs with query or fragment. While it records, the script does not read
+ * `value`, `textContent` or `innerText` (it only tests whether a text node is empty, to find the element that a hit
+ * belongs to, and keeps nothing of it), and registers no key, input, paste or copy listener (the change event of
+ * checkboxes and switches is read for its checked state only).
+ *
+ * The page picture is an abstract layout: boxes with a position and a kind (text block, image, control, form field),
+ * never page text. Only controls get a short name (data-heatmap-label, data-content-name + piece, aria-label, short
+ * button text). The first visitor of a page without a picture sends it; the first picture wins and is never replaced
+ * by a visitor. Form fields are boxes without a value. The server sanitises it again.
+ *
+ * Element id: 8 hex characters, a hash of the structural path (tag and child position up to <html>), the same on
+ * every visit and in the picture, which is made by window.RaccoonHeatmapKit.snapshot() from this file (the capture
+ * script of the plugin uses it too).
+ *
+ * Markup hints:
+ * - data-heatmap-ignore     the element and everything in it is neither recorded nor shown
+ * - data-heatmap-label      name of a control in the report (otherwise data-content-name, aria-label, short UI text)
+ *
+ * Positions: x and y are 0..2000 inside the element (1000 = 50 %). Scroll depth and above the fold are 0..1000
+ * (100 = 10 % of the page height).
+ * Own tests: ?myheatmap_sample=1 forces and =0 prevents the recording of a page view (and the picture).
+ */
 
 (function () {
   const script = document.currentScript;
@@ -13,7 +45,6 @@
   const FORM_FIELD = 'input, select, textarea';
   const SKIP_TAGS = /^(script|style|noscript|template|head|meta|link|title|br|wbr|source|track|option|optgroup)$/i;
   const UI_TEXT = 'button, summary, [role="button"], [role="tab"], [role="menuitem"], [role="switch"]';
-  const CHROME = 'nav, header, footer, [role="navigation"], [role="menubar"], [role="tablist"]';
 
   function fnv1a(text) {
     let hash = 0x811c9dc5;
@@ -101,13 +132,7 @@
       const text = cleanText(el.textContent, 30);
       if (text) return text;
     }
-    if (el.tagName.toLowerCase() === 'a') {
-      if (el.closest(CHROME) && el.children.length === 0) {
-        const text = cleanText(el.textContent, 40);
-        if (text) return text;
-      }
-      return 'link';
-    }
+    if (el.tagName.toLowerCase() === 'a') return 'link';
     const role = el.getAttribute('role');
     return role || el.tagName.toLowerCase();
   }
@@ -396,6 +421,94 @@
     return Math.random() * 100 < Number(heatmap.sampleRate);
   }
 
+  // ---- the page picture: sent once by the first visitor of a page, device class and state that has none ----
+  function deviceOf(heatmap) {
+    const breakpoints = heatmap.breakpoints || {};
+    const width = window.innerWidth;
+    if (width < (breakpoints.mobile || 640)) return 3;
+    return width < (breakpoints.tablet || 1024) ? 2 : 1;
+  }
+
+  const pictureSent = {};
+
+  function sendPicture(heatmap, state) {
+    const id = heatmap.key + ':' + deviceOf(heatmap) + ':' + state;
+    if (pictureSent[id]) return;
+    pictureSent[id] = true;
+    const layout = snapshot({ excludedElements: heatmap.excludedElements || [] });
+    if (layout.nodes.length < 3) return;
+    fetch(config.trackerUrl + 'index.php?module=MyHeatmap&action=snapshot', {
+      method: 'POST',
+      credentials: 'omit',
+      mode: 'cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ idsite: Number(config.siteId), heatmap: heatmap.key, path: path, w: window.innerWidth, state: state, tree: layout }),
+    }).catch(function () {
+      pictureSent[id] = false;
+    });
+  }
+
+  function wants(heatmap, state) {
+    return Array.isArray(heatmap.needsPicture) && heatmap.needsPicture.indexOf(deviceOf(heatmap) + ':' + state) !== -1;
+  }
+
+  // Positions in the picture are page positions, so the page is only measured at the top (sticky headers)
+  function whenAtTop(callback, attempts) {
+    if (window.scrollY <= 20) {
+      callback();
+    } else if (attempts > 0) {
+      setTimeout(function () {
+        whenAtTop(callback, attempts - 1);
+      }, 3000);
+    }
+  }
+
+  function offerPictures(heatmaps) {
+    const open = heatmaps.filter(function (heatmap) {
+      return Array.isArray(heatmap.needsPicture) && heatmap.needsPicture.length > 0;
+    });
+    if (!open.length) return;
+
+    function normalPage() {
+      open.forEach(function (heatmap) {
+        if (wants(heatmap, '')) sendPicture(heatmap, '');
+      });
+    }
+    function afterLoad() {
+      setTimeout(function () {
+        const ready = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+        ready.then(function () {
+          whenAtTop(normalPage, 10);
+        });
+      }, 1500);
+    }
+    if (document.readyState === 'complete') afterLoad();
+    else window.addEventListener('load', afterLoad);
+
+    // A state (menu open) is captured when a visitor opens it
+    document.addEventListener(
+      'pointerup',
+      function (event) {
+        open.forEach(function (heatmap) {
+          (heatmap.states || []).forEach(function (state) {
+            if (!wants(heatmap, state.name)) return;
+            let trigger = null;
+            try {
+              trigger = event.target instanceof Element ? event.target.closest(state.click) : null;
+            } catch (e) {
+              trigger = null;
+            }
+            if (!trigger) return;
+            setTimeout(function () {
+              if (trigger.getAttribute('aria-expanded') === 'true' && window.scrollY <= 20) sendPicture(heatmap, state.name);
+            }, 600);
+          });
+        });
+      },
+      true
+    );
+  }
+
   const settingsUrl =
     config.trackerUrl +
     'index.php?module=MyHeatmap&action=config&idsite=' +
@@ -409,6 +522,7 @@
     })
     .then(function (settings) {
       if (!settings || !Array.isArray(settings.heatmaps)) return;
+      if (!(forced && forced[1] === '0')) offerPictures(settings.heatmaps);
       const chosen = settings.heatmaps.filter(sampled);
       if (chosen.length) startRecording(chosen);
     })
