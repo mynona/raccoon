@@ -162,7 +162,6 @@ struct CarouselTests {
                     caption: "1"
                 )
             ],
-            matomoStatus: .ACCEPTED
         )
         let html = renderHTML(Carousel(data).render())
 
@@ -180,7 +179,6 @@ struct CarouselTests {
         let data = CarouselData(
             id: "carousel-matomo-declined",
             carouselItems: [],
-            matomoStatus: .DECLINED
         )
         let html = renderHTML(Carousel(data).render())
 

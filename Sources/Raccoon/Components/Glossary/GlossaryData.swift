@@ -17,7 +17,6 @@ public struct GlossaryData: Sendable {
     public let hasSearch: Bool
 
     // MARK: - 6. Analytics & Tracking
-    public let matomoStatus: MatomoStatus
 
     public var entriesSortedAlphabetically: [GlossaryEntryData] {
         entries.sorted {
@@ -35,7 +34,6 @@ public struct GlossaryData: Sendable {
     ///   - noResultsText: Text to display when no glossary entries match the search filter. Defaults to the built-in, translated text.
     ///   - entries: Array of glossary entries to present in the glossary list.
     ///   - hasSearch: Whether to render an in-page search filter bar above the entries.
-    ///   - matomoStatus: Matomo tracking consent status.
     public init(
         id: String? = nil,
         searchPlaceholder: LocalizedText? = nil,
@@ -43,7 +41,6 @@ public struct GlossaryData: Sendable {
         noResultsText: LocalizedText? = nil,
         entries: [GlossaryEntryData],
         hasSearch: Bool = true,
-        matomoStatus: MatomoStatus = .DEACTIVATED
     ) {
         self.id = id
         self.searchPlaceholder = searchPlaceholder
@@ -51,6 +48,5 @@ public struct GlossaryData: Sendable {
         self.noResultsText = noResultsText
         self.entries = entries
         self.hasSearch = hasSearch
-        self.matomoStatus = matomoStatus
     }
 }

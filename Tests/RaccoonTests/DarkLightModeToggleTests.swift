@@ -48,7 +48,7 @@ struct DarkLightModeToggleTests {
         for status in [MatomoStatus.ACCEPTED, .DECLINED] {
             let html = renderHTML(
                 DarkLightModeToggle(
-                    DarkLightModeToggleData(matomoStatus: status)
+                    DarkLightModeToggleData()
                 )
                 .render()
             )

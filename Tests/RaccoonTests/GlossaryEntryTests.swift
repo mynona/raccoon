@@ -84,7 +84,6 @@ struct GlossaryEntryTests {
                 GlossaryEntryData(
                     term: "Tracked Term",
                     definition: "Tracked definition",
-                    matomoStatus: .ACCEPTED
                 )
             )
             .render()
@@ -96,7 +95,6 @@ struct GlossaryEntryTests {
                 GlossaryEntryData(
                     term: "Untracked Term",
                     definition: "Untracked definition",
-                    matomoStatus: .DECLINED
                 )
             )
             .render()

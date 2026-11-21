@@ -62,7 +62,6 @@ struct ThemeSwitcherView: TemplateRepresentable {
             ),
             ThemeSwitcherData(
                 id: "themeSwitcher",
-                matomoStatus: .ACCEPTED
             )
         ),
         #previewVariant(

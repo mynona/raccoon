@@ -21,7 +21,6 @@ struct LinkListTests {
         let data = LinkListData(
             links: [:],
             icon: .arrow_right_circle,
-            matomoStatus: .ACCEPTED,
             contentTracker: tracker
         )
         let html = renderHTML(LinkList(data).render())
@@ -96,7 +95,6 @@ struct LinkListTests {
         let data = LinkListData(
             links: ["Tracked": "/tracked"],
             icon: .arrow_right_circle,
-            matomoStatus: .ACCEPTED,
             contentTracker: MatomoContentTracker(
                 name: "matomo",
                 piece: "piece",
@@ -162,7 +160,6 @@ func accessibilityAttributesAllLinks() async throws {
     let data = LinkListData(
         links: ["A": "/a", "B": "/b"],
         icon: .arrow_right_circle,
-        matomoStatus: .ACCEPTED,
         contentTracker: tracker
     )
     let html = renderHTML(LinkList(data).render())

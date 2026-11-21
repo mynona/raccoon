@@ -25,7 +25,6 @@ public struct HyperLinkData: Sendable {
     public let isUnderlined: Bool
 
     // MARK: - 6. Analytics & Tracking
-    public let matomoStatus: MatomoStatus
     public let contentTracker: MatomoContentTracker?
 
     /// Creates a new configuration instance for `HyperLink`.
@@ -43,7 +42,6 @@ public struct HyperLinkData: Sendable {
     ///   - align: Inline alignment (`left` or `center`).
     ///   - isFocusable: Whether the link can receive keyboard focus.
     ///   - isUnderlined: Whether the link displays an underline.
-    ///   - matomoStatus: Matomo tracking consent status.
     ///   - contentTracker: Matomo content tracking configuration.
     public init(
         // 2. Content & Accessibility
@@ -63,7 +61,6 @@ public struct HyperLinkData: Sendable {
         isUnderlined: Bool,
 
         // 6. Analytics & Tracking
-        matomoStatus: MatomoStatus = .DECLINED,
         contentTracker: MatomoContentTracker? = nil,
     ) {
         // 2. Content & Accessibility
@@ -83,7 +80,6 @@ public struct HyperLinkData: Sendable {
         self.isUnderlined = isUnderlined
 
         // 6. Analytics & Tracking
-        self.matomoStatus = matomoStatus
         self.contentTracker = contentTracker
     }
 

@@ -87,13 +87,7 @@ public struct TablePaginatorData: Sendable {
     /// Available page size options (e.g. `[5, 10, 20, 50, 100]`).
     public let pageSizeOptions: [Int]
 
-    // MARK: - 6. Analytics & Tracking
 
-    /// Matomo tracking consent status.
-    public let matomoStatus: MatomoStatus
-
-    /// Optional Matomo content tracking configuration.
-    public let contentTracker: MatomoContentTracker?
 
     /// Creates a configuration instance for `TablePaginator`.
     ///
@@ -124,8 +118,6 @@ public struct TablePaginatorData: Sendable {
     ///   - mode: Interaction mode (`.alpine` or `.link`).
     ///   - info: Static pagination information used in `.link` (SSR) mode.
     ///   - pageSizeOptions: Available page size options (e.g. `[5, 10, 20, 50, 100]`).
-    ///   - matomoStatus: Tracking consent status for Matomo analytics.
-    ///   - contentTracker: Optional Matomo content tracking configuration.
     public init(
         // 1. Identity & Alpine Bindings
         selectId: String = "itemsPerPage",
@@ -158,10 +150,6 @@ public struct TablePaginatorData: Sendable {
         mode: TablePaginatorMode = .alpine,
         info: TablePaginatorInfo? = nil,
         pageSizeOptions: [Int] = [5, 10, 20, 50, 100],
-
-        // 6. Analytics & Tracking
-        matomoStatus: MatomoStatus = .DECLINED,
-        contentTracker: MatomoContentTracker? = nil
     ) {
         // 1. Identity & Alpine Bindings
         self.selectId = selectId
@@ -199,9 +187,5 @@ public struct TablePaginatorData: Sendable {
         self.mode = mode
         self.info = info
         self.pageSizeOptions = pageSizeOptions
-
-        // 6. Analytics & Tracking
-        self.matomoStatus = matomoStatus
-        self.contentTracker = contentTracker
     }
 }

@@ -162,7 +162,6 @@ struct AudioPlayerTests {
                 AudioPlayerData(
                     title: "Test Track",
                     linkToTheAudioFile: "https://example.com/test.mp3",
-                    matomoStatus: .ACCEPTED
                 )
             )
             .render()

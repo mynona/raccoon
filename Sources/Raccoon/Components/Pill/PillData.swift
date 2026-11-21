@@ -39,12 +39,6 @@ public struct PillData: Sendable {
     /// Sizing of the pill.
     public let size: ComponentSize
 
-    // MARK: - 6. Analytics & Tracking
-    /// Matomo tracking consent status.
-    public let matomoStatus: MatomoStatus
-    /// Matomo content tracking configuration.
-    public let contentTracker: MatomoContentTracker?
-
     /// Creates a new configuration instance for `Pill`.
     ///
     /// - Parameters:
@@ -56,8 +50,6 @@ public struct PillData: Sendable {
     ///   - count: Numeric counter value displayed inside the pill.
     ///   - variant: Visual color variant of the pill.
     ///   - size: Sizing of the pill.
-    ///   - matomoStatus: Matomo tracking consent status.
-    ///   - contentTracker: Optional Matomo content tracking configuration.
     public init(
         // 1. Identity & Alpine Bindings
         id: String? = nil,
@@ -74,10 +66,6 @@ public struct PillData: Sendable {
         // 5. Presentation & State
         variant: PillVariant = .neutral,
         size: ComponentSize = .base,
-
-        // 6. Analytics & Tracking
-        matomoStatus: MatomoStatus = .DECLINED,
-        contentTracker: MatomoContentTracker? = nil
     ) {
         // 1. Identity & Alpine Bindings
         self.id = id
@@ -94,10 +82,6 @@ public struct PillData: Sendable {
         // 5. Presentation & State
         self.variant = variant
         self.size = size
-
-        // 6. Analytics & Tracking
-        self.matomoStatus = matomoStatus
-        self.contentTracker = contentTracker
     }
 
     /// Convenience initializer for a numeric counter pill.

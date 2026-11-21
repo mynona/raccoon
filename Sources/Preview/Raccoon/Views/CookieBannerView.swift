@@ -33,7 +33,7 @@ struct CookieBannerView: TemplateRepresentable {
                     "lb": "Zoustëmmungs-Banner",
                 ]
             ),
-            CookieBannerData(url: "/test-page", matomoStatus: .BANNER)
+            CookieBannerData(url: "/test-page")
         )
     ]
 

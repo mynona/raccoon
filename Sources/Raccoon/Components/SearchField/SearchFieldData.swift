@@ -79,11 +79,6 @@ public struct SearchFieldData: Sendable {
     /// which swaps the standard search icon with an animated loading icon.
     public let loadingBind: String?
 
-    // MARK: - 6. Analytics & Tracking
-
-    /// Matomo tracking consent status. Defaults to `.ACCEPTED` so components without a consent
-    /// field reproduce unconditional clear button tracking when a `contentTracker` is provided.
-    public let matomoStatus: MatomoStatus
 
     /// Optional Matomo content tracking configuration for the clear button.
     public let contentTracker: MatomoContentTracker?
@@ -112,7 +107,6 @@ public struct SearchFieldData: Sendable {
     ///   - hasClearButton: Whether to render the clear button when the search field has content.
     ///   - hasTransparentBackground: Whether the container has a transparent background.
     ///   - loadingBind: Optional Alpine.js boolean property name indicating a loading state.
-    ///   - matomoStatus: Matomo tracking consent status.
     ///   - contentTracker: Optional Matomo content tracking configuration for the clear button.
     public init(
         // 1. Identity & Alpine Bindings
@@ -147,7 +141,6 @@ public struct SearchFieldData: Sendable {
         loadingBind: String? = nil,
 
         // 6. Analytics & Tracking
-        matomoStatus: MatomoStatus = .ACCEPTED,
         contentTracker: MatomoContentTracker? = nil
     ) {
         // 1. Identity & Alpine Bindings
@@ -182,7 +175,6 @@ public struct SearchFieldData: Sendable {
         self.loadingBind = loadingBind
 
         // 6. Analytics & Tracking
-        self.matomoStatus = matomoStatus
         self.contentTracker = contentTracker
     }
 }

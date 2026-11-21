@@ -32,8 +32,6 @@ public struct DataTableAction: Sendable {
 
     /// Alpine expression deciding if the action is shown for a row, e.g. `row.actions.canEdit`.
     public let visibleWhen: String?
-
-    // MARK: - 6. Analytics & Tracking
     /// Matomo content tracking. `{field}` placeholders in the target are replaced by row values.
     public let contentTracker: MatomoContentTracker?
 

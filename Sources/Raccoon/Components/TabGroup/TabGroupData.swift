@@ -93,12 +93,6 @@ public struct TabItemData: Sendable {
     /// Optional text badge displayed inside the tab.
     public let badgeText: LocalizedText?
 
-    // MARK: - 6. Analytics & Tracking
-    /// Matomo tracking consent status.
-    public let matomoStatus: MatomoStatus
-    /// Matomo content tracking configuration.
-    public let contentTracker: MatomoContentTracker?
-
     /// Creates a new configuration instance for `TabItemData`.
     ///
     /// - Parameters:
@@ -116,8 +110,6 @@ public struct TabItemData: Sendable {
     ///   - pill: Optional pill component data displayed inside the tab.
     ///   - badgeCount: Optional numeric counter badge displayed inside the tab.
     ///   - badgeText: Optional text badge displayed inside the tab.
-    ///   - matomoStatus: Matomo tracking consent status.
-    ///   - contentTracker: Optional Matomo content tracking configuration.
     public init(
         // 1. Identity & Alpine Bindings
         id: String,
@@ -140,10 +132,6 @@ public struct TabItemData: Sendable {
         pill: PillData? = nil,
         badgeCount: Int? = nil,
         badgeText: LocalizedText? = nil,
-
-        // 6. Analytics & Tracking
-        matomoStatus: MatomoStatus = .DECLINED,
-        contentTracker: MatomoContentTracker? = nil
     ) {
         // 1. Identity & Alpine Bindings
         self.id = id
@@ -166,10 +154,6 @@ public struct TabItemData: Sendable {
         self.pill = pill
         self.badgeCount = badgeCount ?? pill?.count
         self.badgeText = badgeText ?? pill?.text
-
-        // 6. Analytics & Tracking
-        self.matomoStatus = matomoStatus
-        self.contentTracker = contentTracker
     }
 
     /// Convenience initializer using a `@Builder` element closure for panel content.
@@ -189,8 +173,6 @@ public struct TabItemData: Sendable {
     ///   - pill: Optional pill component data displayed inside the tab.
     ///   - badgeCount: Optional numeric counter badge displayed inside the tab.
     ///   - badgeText: Optional text badge displayed inside the tab.
-    ///   - matomoStatus: Matomo tracking consent status.
-    ///   - contentTracker: Optional Matomo content tracking configuration.
     public init(
         // 1. Identity & Alpine Bindings
         id: String,
@@ -213,10 +195,6 @@ public struct TabItemData: Sendable {
         pill: PillData? = nil,
         badgeCount: Int? = nil,
         badgeText: LocalizedText? = nil,
-
-        // 6. Analytics & Tracking
-        matomoStatus: MatomoStatus = .DECLINED,
-        contentTracker: MatomoContentTracker? = nil
     ) {
         self.init(
             id: id,
@@ -233,8 +211,6 @@ public struct TabItemData: Sendable {
             pill: pill,
             badgeCount: badgeCount,
             badgeText: badgeText,
-            matomoStatus: matomoStatus,
-            contentTracker: contentTracker
         )
     }
 }
@@ -280,12 +256,6 @@ public struct TabGroupData: Sendable {
     /// Whether the tab group is framed with a container border.
     public let hasBorder: Bool
 
-    // MARK: - 6. Analytics & Tracking
-    /// Matomo tracking consent status.
-    public let matomoStatus: MatomoStatus
-    /// Matomo content tracking configuration.
-    public let contentTracker: MatomoContentTracker?
-
     /// Creates a new configuration instance for `TabGroup`.
     ///
     /// - Parameters:
@@ -303,8 +273,6 @@ public struct TabGroupData: Sendable {
     ///   - variant: Visual tab styling variant (`underline`, `pills`, `bordered`).
     ///   - orientation: Tab layout orientation (`horizontal`, `vertical`).
     ///   - hasBorder: Whether the tab group is framed with a container border.
-    ///   - matomoStatus: Matomo tracking consent status.
-    ///   - contentTracker: Optional Matomo content tracking configuration.
     public init(
         // 1. Identity & Alpine Bindings
         id: String? = nil,
@@ -329,10 +297,6 @@ public struct TabGroupData: Sendable {
         variant: TabVariant = .underline,
         orientation: TabOrientation = .horizontal,
         hasBorder: Bool = false,
-
-        // 6. Analytics & Tracking
-        matomoStatus: MatomoStatus = .DECLINED,
-        contentTracker: MatomoContentTracker? = nil
     ) {
         // 1. Identity & Alpine Bindings
         self.id = id
@@ -357,9 +321,5 @@ public struct TabGroupData: Sendable {
         self.variant = variant
         self.orientation = orientation
         self.hasBorder = hasBorder
-
-        // 6. Analytics & Tracking
-        self.matomoStatus = matomoStatus
-        self.contentTracker = contentTracker
     }
 }

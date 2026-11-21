@@ -204,7 +204,7 @@ struct SearchFieldTests {
             target: "my-table"
         )
 
-        // 1. Default matomoStatus is .ACCEPTED -> emits tracker attributes unconditionally
+        // 1. Emits tracker attributes whenever a tracker is set
         let defaultData = SearchFieldData(contentTracker: tracker)
         let defaultHtml = renderHTML(SearchField(defaultData).render())
         #expect(
@@ -217,7 +217,6 @@ struct SearchFieldTests {
 
         // 2. Explicit .BANNER status -> also emits tracker attributes
         let bannerData = SearchFieldData(
-            matomoStatus: .BANNER,
             contentTracker: tracker
         )
         let bannerHtml = renderHTML(SearchField(bannerData).render())
@@ -225,7 +224,6 @@ struct SearchFieldTests {
 
         // 3. .DECLINED status -> still emits tracker attributes (the tracker script is the consent gate)
         let declinedData = SearchFieldData(
-            matomoStatus: .DECLINED,
             contentTracker: tracker
         )
         let declinedHtml = renderHTML(SearchField(declinedData).render())
@@ -234,7 +232,6 @@ struct SearchFieldTests {
 
         // 4. .DEACTIVATED status -> still emits tracker attributes
         let deactivatedData = SearchFieldData(
-            matomoStatus: .DEACTIVATED,
             contentTracker: tracker
         )
         let deactivatedHtml = renderHTML(
@@ -244,7 +241,6 @@ struct SearchFieldTests {
 
         // 5. No contentTracker -> no tracking attributes
         let noTrackerData = SearchFieldData(
-            matomoStatus: .ACCEPTED,
             contentTracker: nil
         )
         let noTrackerHtml = renderHTML(SearchField(noTrackerData).render())

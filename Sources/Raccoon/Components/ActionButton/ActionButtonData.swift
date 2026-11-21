@@ -36,7 +36,6 @@ public struct ActionButtonData: Sendable {
     public let iconPosition: IconPosition
 
     // MARK: - 6. Analytics & Tracking
-    public let matomoStatus: MatomoStatus
     public let contentTracker: MatomoContentTracker?
 
     /// Creates a new configuration instance for `ActionButton`.
@@ -64,7 +63,6 @@ public struct ActionButtonData: Sendable {
     ///   - hasFullWidth: Indicates if button should stretch full width of parent container.
     ///   - icon: Optional SVG icon to display alongside label.
     ///   - iconPosition: Position of icon (`left`).
-    ///   - matomoStatus: Matomo tracking consent status.
     ///   - contentTracker: Matomo content tracking configuration.
     public init(
         // 1. Identity & Alpine Bindings
@@ -95,7 +93,6 @@ public struct ActionButtonData: Sendable {
         iconPosition: IconPosition = .left,
 
         // 6. Analytics & Tracking
-        matomoStatus: MatomoStatus = .DEACTIVATED,
         contentTracker: MatomoContentTracker? = nil
     ) {
         // 1. Identity & Alpine Bindings
@@ -126,7 +123,6 @@ public struct ActionButtonData: Sendable {
         self.iconPosition = iconPosition
 
         // 6. Analytics & Tracking
-        self.matomoStatus = matomoStatus
         self.contentTracker = contentTracker
     }
 }

@@ -103,7 +103,6 @@ public struct Basic: TemplateRepresentable {
                             // Dark-Light-Mode
                             DarkLightModeToggle(
                                 DarkLightModeToggleData(
-                                    matomoStatus: .DEACTIVATED
                                 )
                             )
                             .render()
@@ -112,7 +111,6 @@ public struct Basic: TemplateRepresentable {
                             ThemeSwitcher(
                                 ThemeSwitcherData(
                                     align: .left,
-                                    matomoStatus: .DEACTIVATED
                                 )
                             )
                             .render()

@@ -505,7 +505,6 @@ struct ActionButtonTests {
                 ActionButtonData(
                     label: "Go",
                     buttonType: .primary,
-                    matomoStatus: .ACCEPTED
                 )
             )
             .render()
@@ -524,7 +523,6 @@ struct ActionButtonTests {
                     ActionButtonData(
                         label: "Go",
                         buttonType: .primary,
-                        matomoStatus: status,
                         contentTracker: tracker
                     )
                 )

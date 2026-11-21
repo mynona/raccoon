@@ -50,8 +50,6 @@ public struct TabGroup: TemplateRepresentable {
                     count: pill.count,
                     variant: pill.variant,
                     size: pill.size,
-                    matomoStatus: pill.matomoStatus,
-                    contentTracker: pill.contentTracker
                 )
             )
             .render()

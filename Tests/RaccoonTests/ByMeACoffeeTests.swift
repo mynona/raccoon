@@ -68,7 +68,6 @@ struct ByMeACoffeeTests {
             imageSrc: "/images/bmc-yellow.png",
             imageHeight: 60,
             imageWidth: 210,
-            matomoStatus: .ACCEPTED
         )
         let html = renderHTML(ByMeACoffee(data).render())
         #expect(html.contains("data-track-content"))
@@ -91,7 +90,6 @@ struct ByMeACoffeeTests {
             imageSrc: "/images/bmc-yellow.png",
             imageHeight: 60,
             imageWidth: 210,
-            matomoStatus: .DECLINED
         )
         let html = renderHTML(ByMeACoffee(data).render())
         #expect(html.contains("data-track-content"))

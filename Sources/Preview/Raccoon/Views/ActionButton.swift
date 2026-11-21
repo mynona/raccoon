@@ -53,7 +53,6 @@ struct ButtonView: TemplateRepresentable {
                 htmlType: .button,
                 buttonType: .primary,
                 icon: .airplane,
-                matomoStatus: .DEACTIVATED,
                 contentTracker: tracker
             )
         ),
@@ -86,7 +85,6 @@ struct ButtonView: TemplateRepresentable {
                 id: "btn-i18n-fallback",
                 htmlType: .button,
                 buttonType: .icon,
-                matomoStatus: .DEACTIVATED,
                 contentTracker: tracker
             )
         ),
@@ -147,7 +145,6 @@ struct ButtonView: TemplateRepresentable {
                 hasFullWidth: true,
                 icon: .airplane,
                 iconPosition: .left,
-                matomoStatus: .DEACTIVATED,
                 contentTracker: tracker
             )
         ),
@@ -207,7 +204,6 @@ struct ButtonView: TemplateRepresentable {
                 hasFullWidth: false,
                 icon: nil,
                 iconPosition: .left,
-                matomoStatus: .ACCEPTED,
                 contentTracker: tracker
             )
         ),
@@ -267,7 +263,6 @@ struct ButtonView: TemplateRepresentable {
                 hasFullWidth: false,
                 icon: nil,
                 iconPosition: .left,
-                matomoStatus: .DEACTIVATED,
                 contentTracker: tracker
             )
         ),
@@ -327,7 +322,6 @@ struct ButtonView: TemplateRepresentable {
                 hasFullWidth: false,
                 icon: nil,
                 iconPosition: .left,
-                matomoStatus: .DEACTIVATED,
                 contentTracker: tracker
             )
         ),
@@ -387,7 +381,6 @@ struct ButtonView: TemplateRepresentable {
                 hasFullWidth: false,
                 icon: nil,
                 iconPosition: .left,
-                matomoStatus: .DEACTIVATED,
                 contentTracker: tracker
             )
         ),
@@ -441,7 +434,6 @@ struct ButtonView: TemplateRepresentable {
                 hasFullWidth: false,
                 icon: .cake,
                 iconPosition: .left,
-                matomoStatus: .DEACTIVATED,
                 contentTracker: tracker
             )
         ),
@@ -503,7 +495,6 @@ struct ButtonView: TemplateRepresentable {
                 hasFullWidth: false,
                 icon: nil,
                 iconPosition: .left,
-                matomoStatus: .DEACTIVATED,
                 contentTracker: tracker
             )
         ),
@@ -565,7 +556,6 @@ struct ButtonView: TemplateRepresentable {
                 hasFullWidth: false,
                 icon: nil,
                 iconPosition: .left,
-                matomoStatus: .DEACTIVATED,
                 contentTracker: tracker
             )
         ),
@@ -626,7 +616,6 @@ struct ButtonView: TemplateRepresentable {
                 hasFullWidth: false,
                 icon: .airplane,
                 iconPosition: .left,
-                matomoStatus: .DEACTIVATED,
                 contentTracker: tracker
             )
         ),

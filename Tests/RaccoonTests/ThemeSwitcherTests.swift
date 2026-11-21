@@ -117,7 +117,7 @@ struct ThemeSwitcherTests {
     func rendersTrackingAttributes() {
         for status in [MatomoStatus.ACCEPTED, .DECLINED] {
             let html = renderHTML(
-                ThemeSwitcher(ThemeSwitcherData(matomoStatus: status))
+                ThemeSwitcher(ThemeSwitcherData())
                     .render()
             )
             #expect(html.contains("x-data=\"themeSwitcher('emerald-mine')\""))
@@ -176,7 +176,6 @@ struct ThemeSwitcherTests {
             ThemeSwitcher(
                 ThemeSwitcherData(
                     id: "themeSwitcherId",
-                    matomoStatus: .ACCEPTED
                 )
             )
             .render()

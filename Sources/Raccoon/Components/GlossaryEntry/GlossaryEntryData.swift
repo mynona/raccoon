@@ -12,9 +12,6 @@ public struct GlossaryEntryData: Sendable {
     public let icon: SvgIcon?
     public let hasInitial: Bool
 
-    // MARK: - 6. Analytics & Tracking
-    public let matomoStatus: MatomoStatus
-
     /// Creates a new configuration instance for `GlossaryEntry`.
     ///
     /// - Parameters:
@@ -23,20 +20,17 @@ public struct GlossaryEntryData: Sendable {
     ///   - definition: Markdown or text explanation of the term (page language, no live-switch marker).
     ///   - icon: Optional SVG icon displayed with the term.
     ///   - hasInitial: Whether to display a large initial letter heading.
-    ///   - matomoStatus: Matomo tracking consent status.
     public init(
         id: String? = nil,
         term: LocalizedText,
         definition: LocalizedText,
         icon: SvgIcon? = .question_circle,
         hasInitial: Bool = false,
-        matomoStatus: MatomoStatus = .DECLINED
     ) {
         self.id = id
         self.term = term
         self.definition = definition
         self.icon = icon
         self.hasInitial = hasInitial
-        self.matomoStatus = matomoStatus
     }
 }

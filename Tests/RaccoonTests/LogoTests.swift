@@ -11,7 +11,6 @@ struct LogoTests {
     @Test("renders default variant")
     func rendersDefaultVariant() {
         let ctx = LogoData(
-            matomoStatus: .ACCEPTED
         )
         let html = renderHTML(Logo(ctx).render())
         #expect(html.contains("svg"))
@@ -25,7 +24,7 @@ struct LogoTests {
 
     @Test("accessibility: aria-label, role, tabindex, and data attributes")
     func accessibilityAttributes() {
-        let ctx = LogoData(matomoStatus: .ACCEPTED)
+        let ctx = LogoData()
         let html = renderHTML(Logo(ctx).render())
         #expect(html.contains("aria-label=\"Go to home\""))
         #expect(html.contains("data-track-content"))
@@ -36,7 +35,7 @@ struct LogoTests {
 
     @Test("renders with all prop combinations (exhaustive)")
     func rendersAllPropCombinations() {
-        let ctx = LogoData(matomoStatus: .ACCEPTED)
+        let ctx = LogoData()
         let html = renderHTML(Logo(ctx).render())
         #expect(html.contains("svg"))
         #expect(html.contains("aria-label=\"Go to home\""))
@@ -54,7 +53,6 @@ struct LogoTests {
     func testCustomDestination() {
         let ctx = LogoData(
             destination: "/de/start",
-            matomoStatus: .ACCEPTED
         )
         let html = renderHTML(Logo(ctx).render())
         #expect(html.contains("href=\"/de/start\""))

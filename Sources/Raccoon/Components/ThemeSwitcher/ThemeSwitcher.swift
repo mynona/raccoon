@@ -94,7 +94,6 @@ public struct ThemeSwitcher: TemplateRepresentable {
             align: data.align,
             triggerIcon: .palette2,
             hasTriggerChevron: false,
-            matomoStatus: data.matomoStatus,
             contentTracker: MatomoContentTracker(
                 name: "theme-switcher",
                 piece: "toggle",

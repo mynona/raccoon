@@ -41,7 +41,6 @@ struct BreadcrumbTests {
         let ctx = BreadcrumbData(
             paths: [],
             hasHome: true,
-            matomoStatus: .ACCEPTED
         )
         let html = renderHTML(Breadcrumb(ctx).render())
         #expect(html.contains("/home/"))
@@ -107,7 +106,6 @@ struct BreadcrumbTests {
                 ),
             ],
             hasHome: true,
-            matomoStatus: .ACCEPTED
         )
         let html = renderHTML(Breadcrumb(ctx).render())
         #expect(html.contains("aria-hidden=\"true\""))

@@ -234,7 +234,6 @@ struct StepperTests {
                     title: "Checkout Step",
                     href: "/checkout",
                     status: .current,
-                    matomoStatus: .ACCEPTED
                 )
             ],
             orientation: .horizontal
@@ -258,7 +257,6 @@ struct StepperTests {
                     id: "static-step",
                     title: "Static Step",
                     status: .current,
-                    matomoStatus: .ACCEPTED
                 )
             ],
             orientation: .horizontal
@@ -274,7 +272,6 @@ struct StepperTests {
                     href: "/disabled",
                     status: .current,
                     state: .disabled,
-                    matomoStatus: .ACCEPTED
                 )
             ],
             orientation: .horizontal
@@ -295,7 +292,6 @@ struct StepperTests {
                     title: "Vertical Step",
                     href: "/vertical-step",
                     status: .current,
-                    matomoStatus: .ACCEPTED
                 )
             ],
             orientation: .vertical

@@ -42,7 +42,6 @@ public struct GlossaryEntry: TemplateRepresentable {
                     isLabelMonospaced: true,
                     isContentSansSerif: true,
                     hasBorder: false,
-                    matomoStatus: data.matomoStatus
                 )
             )
             .render()

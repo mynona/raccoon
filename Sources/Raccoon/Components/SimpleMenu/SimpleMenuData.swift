@@ -72,10 +72,6 @@ public struct SimpleMenuData: Sendable {
     /// Whether the trigger button also acts as an Alpine Sort drag handle (`x-sort:handle`).
     public let isSortHandle: Bool
 
-    // MARK: - 6. Analytics & Tracking
-
-    /// Matomo tracking consent status.
-    public let matomoStatus: MatomoStatus
 
     /// Optional Matomo content tracking configuration.
     public let contentTracker: MatomoContentTracker?
@@ -102,7 +98,6 @@ public struct SimpleMenuData: Sendable {
     ///   - triggerIcon: Optional SVG icon rendered in the trigger button.
     ///   - hasTriggerChevron: Whether to render a trailing chevron icon on the trigger button.
     ///   - triggerClass: Optional custom CSS class override for the trigger button.
-    ///   - matomoStatus: Tracking consent status for Matomo analytics.
     ///   - contentTracker: Optional Matomo content tracking configuration.
     public init(
         // 1. Identity & Alpine Bindings
@@ -134,7 +129,6 @@ public struct SimpleMenuData: Sendable {
         isSortHandle: Bool = false,
 
         // 6. Analytics & Tracking
-        matomoStatus: MatomoStatus = .DECLINED,
         contentTracker: MatomoContentTracker? = nil
     ) {
         // 1. Identity & Alpine Bindings
@@ -166,7 +160,6 @@ public struct SimpleMenuData: Sendable {
         self.isSortHandle = isSortHandle
 
         // 6. Analytics & Tracking
-        self.matomoStatus = matomoStatus
         self.contentTracker = contentTracker
     }
 }

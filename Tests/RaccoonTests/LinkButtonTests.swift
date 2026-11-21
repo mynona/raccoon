@@ -136,7 +136,6 @@ struct LinkButtonTests {
                     ariaLabel: "aria-label",
                     href: "/a11y/",
                     buttonType: .primary,
-                    matomoStatus: .ACCEPTED,
                     contentTracker: tracker
                 )
             )
@@ -274,7 +273,6 @@ struct LinkButtonTests {
                     ariaLabel: "Tracked",
                     href: "/tracked/",
                     buttonType: .primary,
-                    matomoStatus: .DECLINED,
                     contentTracker: tracker
                 )
             )
@@ -505,7 +503,6 @@ struct LinkButtonTests {
                         label: "Label",
                         href: "/test/",
                         buttonType: .primary,
-                        matomoStatus: .ACCEPTED,
                         contentTracker: tracker
                     )
                 )

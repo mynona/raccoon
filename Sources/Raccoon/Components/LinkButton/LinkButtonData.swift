@@ -40,7 +40,6 @@ public struct LinkButtonData: Sendable {
     public let hasFullWidth: Bool
     /// If `true`, the button label text is truncated with an ellipsis.
     public let hasTruncation: Bool
-    public let matomoStatus: MatomoStatus
     public let contentTracker: MatomoContentTracker?
     public let tooltip: LocalizedText?
     public let tooltipPosition: ComponentPosition?
@@ -62,7 +61,6 @@ public struct LinkButtonData: Sendable {
     ///   - iconSize: Optional icon size in pixels.
     ///   - hasFullWidth: If `true`, the button spans the full width of its container.
     ///   - hasTruncation: If `true`, the button label text is truncated with an ellipsis.
-    ///   - matomoStatus: Matomo tracking consent status.
     ///   - contentTracker: Matomo content tracking configuration.
     public init(
         label: LocalizedText? = nil,
@@ -76,7 +74,6 @@ public struct LinkButtonData: Sendable {
         iconSize: Int? = 16,
         hasFullWidth: Bool = false,
         hasTruncation: Bool = false,
-        matomoStatus: MatomoStatus = .DECLINED,
         contentTracker: MatomoContentTracker? = nil
     ) {
         self.label = label
@@ -90,7 +87,6 @@ public struct LinkButtonData: Sendable {
         self.buttonType = buttonType
         self.hasFullWidth = hasFullWidth
         self.hasTruncation = hasTruncation
-        self.matomoStatus = matomoStatus
         self.contentTracker = contentTracker
     }
 

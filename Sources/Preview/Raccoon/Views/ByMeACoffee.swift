@@ -70,7 +70,6 @@ struct ByMeACoffeeView: TemplateRepresentable {
                 imageSrc: "/images/bmc-yellow.png",
                 imageHeight: 60,
                 imageWidth: 210,
-                matomoStatus: .ACCEPTED
             )
         ),
     ]

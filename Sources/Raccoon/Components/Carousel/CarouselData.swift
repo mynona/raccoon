@@ -33,7 +33,6 @@ public struct CarouselItem: Sendable {
 public struct CarouselData: Sendable {
     public let id: String
     public let carouselItems: [CarouselItem]
-    public let matomoStatus: MatomoStatus
 
     var jsonSlides: String {
         struct CarouselSlidePayload: Encodable {
@@ -76,14 +75,11 @@ public struct CarouselData: Sendable {
     /// - Parameters:
     ///   - id: Unique identifier for the carousel container.
     ///   - carouselItems: Array of slides to display.
-    ///   - matomoStatus: Matomo tracking consent status.
     public init(
         id: String,
         carouselItems: [CarouselItem],
-        matomoStatus: MatomoStatus = .DECLINED
     ) {
         self.id = id
         self.carouselItems = carouselItems
-        self.matomoStatus = matomoStatus
     }
 }

@@ -24,7 +24,6 @@ public struct LinkList: TemplateRepresentable {
                 icon: data.icon,
                 iconSize: 20,
                 hasFullWidth: false,
-                matomoStatus: data.matomoStatus,
                 contentTracker: data.contentTracker.map {
                     MatomoContentTracker(
                         name: $0.name,

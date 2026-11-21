@@ -64,10 +64,6 @@ public struct CopyToClipboardData: Sendable {
         responseType == .inlineVertical
     }
 
-    // MARK: - 6. Analytics & Tracking
-    /// The Matomo tracking consent status.
-    public let matomoStatus: MatomoStatus
-
     /// Creates a new `CopyToClipboardData` instance.
     ///
     /// - Parameters:
@@ -79,7 +75,6 @@ public struct CopyToClipboardData: Sendable {
     ///   - icon: The icon displayed in the default un-copied state. Defaults to `.copy`.
     ///   - copiedIcon: The icon displayed temporarily when copied. Defaults to `.check_circle`.
     ///   - responseType: The feedback response mechanism and layout (`.inlineHorizontal`, `.inlineVertical`, or `.toast`). Defaults to `.inlineHorizontal`.
-    ///   - matomoStatus: The Matomo tracking consent status. Defaults to `.DECLINED`.
     public init(
         // 1. Identity & Alpine Bindings
         key: String? = nil,
@@ -96,9 +91,6 @@ public struct CopyToClipboardData: Sendable {
         icon: SvgIcon = .copy,
         copiedIcon: SvgIcon = .check_circle,
         responseType: ResponseType = .inlineHorizontal,
-
-        // 6. Analytics & Tracking
-        matomoStatus: MatomoStatus = .DECLINED
     ) {
         // 1. Identity & Alpine Bindings
         self.key = key ?? "copy-\(StableIdentifier.hash(value))"
@@ -115,8 +107,5 @@ public struct CopyToClipboardData: Sendable {
         self.icon = icon
         self.copiedIcon = copiedIcon
         self.responseType = responseType
-
-        // 6. Analytics & Tracking
-        self.matomoStatus = matomoStatus
     }
 }

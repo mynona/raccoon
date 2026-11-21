@@ -4,7 +4,6 @@ public struct AudioPlayerData: Sendable {
     public let disclaimer: LocalizedText?
     public let linkToTheAudioFile: String
     public let hasProgressBar: Bool
-    public let matomoStatus: MatomoStatus
 
     /// Creates a new configuration instance for `AudioPlayer`.
     ///
@@ -13,18 +12,15 @@ public struct AudioPlayerData: Sendable {
     ///   - disclaimer: Optional disclaimer text shown with the player.
     ///   - linkToTheAudioFile: URL of the audio file to play.
     ///   - hasProgressBar: Whether to display a playback progress bar.
-    ///   - matomoStatus: Matomo analytics tracking consent status.
     public init(
         title: LocalizedText? = nil,
         disclaimer: LocalizedText? = nil,
         linkToTheAudioFile: String,
         hasProgressBar: Bool = true,
-        matomoStatus: MatomoStatus = .DECLINED
     ) {
         self.title = title
         self.disclaimer = disclaimer
         self.linkToTheAudioFile = linkToTheAudioFile
         self.hasProgressBar = hasProgressBar
-        self.matomoStatus = matomoStatus
     }
 }

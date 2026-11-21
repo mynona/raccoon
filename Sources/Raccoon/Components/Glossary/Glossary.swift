@@ -129,7 +129,6 @@ public struct Glossary: TemplateRepresentable {
                                                 definition: entry.definition,
                                                 icon: nil,  // forced override
                                                 hasInitial: false,  // no icon/key in accordion since H2 letter is introduced
-                                                matomoStatus: entry.matomoStatus
                                             )
                                         )
                                         .render()
@@ -152,7 +151,6 @@ public struct Glossary: TemplateRepresentable {
                                             definition: entry.definition,
                                             icon: nil,  // forced override
                                             hasInitial: false,  // no icon/key in accordion since H2 letter is introduced
-                                            matomoStatus: entry.matomoStatus
                                         )
                                     )
                                     .render()

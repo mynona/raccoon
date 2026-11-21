@@ -65,7 +65,6 @@ struct BreadcrumbView: TemplateRepresentable {
             BreadcrumbData(
                 paths: DemoData.breadcrumbPaths,
                 hasHome: true,
-                matomoStatus: .ACCEPTED
             )
         ),
     ]

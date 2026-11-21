@@ -26,7 +26,6 @@ public struct BreadcrumbData: Sendable {
     public let paths: [BreadcrumbPath]?
     public let hasHome: Bool
     public let homeUrl: String
-    public let matomoStatus: MatomoStatus
 
     /// Creates a new configuration instance for `Breadcrumb`.
     ///
@@ -34,16 +33,13 @@ public struct BreadcrumbData: Sendable {
     ///   - paths: Array of breadcrumb path segments.
     ///   - homeUrl: Destination URL for the root/home link.
     ///   - hasHome: Whether to prepend a home link to the breadcrumb trail.
-    ///   - matomoStatus: Matomo tracking consent status.
     public init(
         paths: [BreadcrumbPath]?,
         homeUrl: String = "/home/",
         hasHome: Bool = false,
-        matomoStatus: MatomoStatus = .DECLINED
     ) {
         self.paths = paths
         self.hasHome = hasHome
         self.homeUrl = homeUrl
-        self.matomoStatus = matomoStatus
     }
 }

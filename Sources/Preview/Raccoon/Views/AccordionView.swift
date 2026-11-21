@@ -58,7 +58,6 @@ struct AccordionView: TemplateRepresentable {
                     icon: .journal_text,
                     isLabelMonospaced: true,
                     hasBorder: true,
-                    matomoStatus: .DECLINED
                 )
             ),
             #previewVariant(
@@ -104,7 +103,6 @@ struct AccordionView: TemplateRepresentable {
                         )
                     ),
                     hasBorder: false,
-                    matomoStatus: .ACCEPTED
                 )
             ),
             #previewVariant(

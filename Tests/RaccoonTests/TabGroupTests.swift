@@ -347,7 +347,6 @@ struct TabGroupTests {
                             content: .html("<p>Data</p>")
                         )
                     ],
-                    matomoStatus: .ACCEPTED
                 )
             )
             .render()

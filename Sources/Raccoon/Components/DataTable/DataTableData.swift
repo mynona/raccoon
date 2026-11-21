@@ -63,10 +63,6 @@ public struct DataTableData: Sendable {
     /// When filter changes are sent to the backend.
     public let filterTrigger: DataTableFilterTrigger
 
-    // MARK: - 6. Analytics & Tracking
-    /// Tracking consent for row action buttons.
-    public let matomoStatus: MatomoStatus
-
     /// Creates a configuration for `DataTable`.
     ///
     /// - Parameters:
@@ -86,7 +82,6 @@ public struct DataTableData: Sendable {
     ///   - hasFilterMode: Whether users can choose between "all filters" and "any filter".
     ///   - hasUrlState: Whether page, size, sort and filters are mirrored in the URL.
     ///   - filterTrigger: When filter changes are sent to the backend.
-    ///   - matomoStatus: Tracking consent for row action buttons.
     public init(
         // 1. Identity & Alpine Bindings
         id: String,
@@ -111,9 +106,6 @@ public struct DataTableData: Sendable {
         hasFilterMode: Bool = false,
         hasUrlState: Bool = true,
         filterTrigger: DataTableFilterTrigger = .mixed,
-
-        // 6. Analytics & Tracking
-        matomoStatus: MatomoStatus = .DECLINED
     ) {
         // 1. Identity & Alpine Bindings
         self.id = id
@@ -138,8 +130,5 @@ public struct DataTableData: Sendable {
         self.hasFilterMode = hasFilterMode
         self.hasUrlState = hasUrlState
         self.filterTrigger = filterTrigger
-
-        // 6. Analytics & Tracking
-        self.matomoStatus = matomoStatus
     }
 }

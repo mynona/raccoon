@@ -78,13 +78,7 @@ public struct RatingData: Sendable {
     /// Whether widget reveals upon user scrolling down (defaults to `false`).
     public let isShownOnScroll: Bool
 
-    // MARK: - 6. Analytics & Tracking
 
-    /// Tracking consent status for Matomo analytics.
-    public let matomoStatus: MatomoStatus
-
-    /// Matomo content tracking configuration.
-    public let contentTracker: MatomoContentTracker?
 
     /// Creates a new configuration instance for `Rating`.
     ///
@@ -106,8 +100,6 @@ public struct RatingData: Sendable {
     ///   - isFloating: Whether widget floats fixed in page viewport.
     ///   - floatingPlacement: Anchor of the floating trigger (viewport or enclosing content block).
     ///   - isShownOnScroll: Whether widget reveals upon user scrolling down.
-    ///   - matomoStatus: Tracking consent status for Matomo analytics.
-    ///   - contentTracker: Matomo content tracking configuration.
     public init(
         // 1. Identity & Alpine Bindings
         id: String,
@@ -135,10 +127,6 @@ public struct RatingData: Sendable {
         isFloating: Bool = true,
         floatingPlacement: FloatingPlacement = .viewport,
         isShownOnScroll: Bool = false,
-
-        // 6. Analytics & Tracking
-        matomoStatus: MatomoStatus = .DECLINED,
-        contentTracker: MatomoContentTracker? = nil
     ) {
         // 1. Identity & Alpine Bindings
         self.id = id
@@ -166,10 +154,6 @@ public struct RatingData: Sendable {
         self.isFloating = isFloating
         self.floatingPlacement = floatingPlacement
         self.isShownOnScroll = isShownOnScroll
-
-        // 6. Analytics & Tracking
-        self.matomoStatus = matomoStatus
-        self.contentTracker = contentTracker
     }
 
     public func sanitizedId() -> String {
@@ -203,8 +187,6 @@ public struct RatingData: Sendable {
             isFloating: f,
             floatingPlacement: self.floatingPlacement,
             isShownOnScroll: self.isShownOnScroll,
-            matomoStatus: self.matomoStatus,
-            contentTracker: self.contentTracker
         )
     }
 }

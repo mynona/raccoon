@@ -26,7 +26,6 @@ public struct BadgeData: Sendable {
     public let ariaLabel: LocalizedText?
     public let bindTitle: String?
     public let bindAriaLabel: String?
-    public let matomoStatus: MatomoStatus
 
     /// Creates a new configuration instance for `Badge`.
     ///
@@ -42,7 +41,6 @@ public struct BadgeData: Sendable {
     ///   - ariaLabel: Accessible name of the group. Defaults to the "Articles tagged as" text of tag badges.
     ///   - bindTitle: Alpine expression that sets the title at runtime, for example `row['tag']` in a table cell. `title` is then only the server-side fallback.
     ///   - bindAriaLabel: Alpine expression that sets the accessible name of the group at runtime.
-    ///   - matomoStatus: Matomo tracking consent status.
     public init(
         id: String? = nil,
         title: LocalizedText,
@@ -55,7 +53,6 @@ public struct BadgeData: Sendable {
         ariaLabel: LocalizedText? = nil,
         bindTitle: String? = nil,
         bindAriaLabel: String? = nil,
-        matomoStatus: MatomoStatus = .DECLINED
     ) {
         self.id = id
         self.title = title
@@ -68,6 +65,5 @@ public struct BadgeData: Sendable {
         self.ariaLabel = ariaLabel
         self.bindTitle = bindTitle
         self.bindAriaLabel = bindAriaLabel
-        self.matomoStatus = matomoStatus
     }
 }

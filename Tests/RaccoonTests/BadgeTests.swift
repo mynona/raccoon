@@ -76,7 +76,6 @@ struct BadgeTests {
                     title: "Swift Vapor",
                     counter: 3,
                     isLink: true,
-                    matomoStatus: .ACCEPTED
                 )
             )
             .render()
@@ -88,7 +87,7 @@ struct BadgeTests {
         #expect(html.contains("data-content-target=\"/tags/swift%20vapor\""))
     }
 
-    @Test("omits tracking when matomoStatus is declined")
+    @Test("renders tracking attributes whatever the consent status")
     func omitsTrackingWhenDeclined() async throws {
 
         let html = renderHTML(
@@ -97,7 +96,6 @@ struct BadgeTests {
                     id: "badge-6b",
                     title: "Swift Vapor",
                     isLink: true,
-                    matomoStatus: .DECLINED
                 )
             )
             .render()

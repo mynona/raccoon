@@ -60,10 +60,6 @@ public struct StepperStepData: Sendable {
     /// Interaction state of the step (`enabled` or `disabled`).
     public let state: ComponentState
 
-    // MARK: - 6. Analytics & Tracking
-
-    /// Matomo tracking consent status.
-    public let matomoStatus: MatomoStatus
 
     /// Optional Matomo content tracking configuration.
     public let contentTracker: MatomoContentTracker?
@@ -87,7 +83,6 @@ public struct StepperStepData: Sendable {
     ///   - icon: Optional SVG icon displayed when current or upcoming. Once complete, the tick is always shown.
     ///   - stepNumber: Optional step number displayed inside the indicator when current or upcoming.
     ///   - state: Interaction state of the step.
-    ///   - matomoStatus: Matomo tracking consent status.
     ///   - contentTracker: Optional Matomo content tracking configuration.
     public init(
         // 1. Identity & Alpine Bindings
@@ -113,7 +108,6 @@ public struct StepperStepData: Sendable {
         state: ComponentState = .enabled,
 
         // 6. Analytics & Tracking
-        matomoStatus: MatomoStatus = .DECLINED,
         contentTracker: MatomoContentTracker? = nil
     ) {
         // 1. Identity & Alpine Bindings
@@ -139,7 +133,6 @@ public struct StepperStepData: Sendable {
         self.state = state
 
         // 6. Analytics & Tracking
-        self.matomoStatus = matomoStatus
         self.contentTracker = contentTracker
     }
 }

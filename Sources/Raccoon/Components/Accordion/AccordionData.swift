@@ -44,9 +44,6 @@ public struct AccordionData: Sendable {
     public let isContentSansSerif: Bool
     public let hasBorder: Bool
 
-    // MARK: - 6. Analytics & Tracking
-    public let matomoStatus: MatomoStatus
-
     /// Creates a new configuration instance for `Accordion` with an `AccordionContent` payload.
     ///
     /// - Parameters:
@@ -58,7 +55,6 @@ public struct AccordionData: Sendable {
     ///   - isLabelMonospaced: Whether the label uses a monospaced font.
     ///   - isContentSansSerif: Whether the body content uses sans-serif typography.
     ///   - hasBorder: Whether a border is rendered around the accordion.
-    ///   - matomoStatus: Matomo analytics tracking consent status.
     public init(
         id: String? = nil,
         label: LocalizedText,
@@ -68,7 +64,6 @@ public struct AccordionData: Sendable {
         isLabelMonospaced: Bool = false,
         isContentSansSerif: Bool = false,
         hasBorder: Bool = true,
-        matomoStatus: MatomoStatus = .DECLINED
     ) {
         self.id = id
         self.label = label
@@ -78,7 +73,6 @@ public struct AccordionData: Sendable {
         self.isLabelMonospaced = isLabelMonospaced
         self.isContentSansSerif = isContentSansSerif
         self.hasBorder = hasBorder
-        self.matomoStatus = matomoStatus
     }
 
     /// Creates a new configuration instance for `Accordion` using a `@Builder` element closure.
@@ -92,7 +86,6 @@ public struct AccordionData: Sendable {
     ///   - isLabelMonospaced: Whether the label uses a monospaced font.
     ///   - isContentSansSerif: Whether the body content uses sans-serif typography.
     ///   - hasBorder: Whether a border is rendered around the accordion.
-    ///   - matomoStatus: Matomo analytics tracking consent status.
     public init(
         id: String? = nil,
         label: LocalizedText,
@@ -102,7 +95,6 @@ public struct AccordionData: Sendable {
         isLabelMonospaced: Bool = false,
         isContentSansSerif: Bool = false,
         hasBorder: Bool = true,
-        matomoStatus: MatomoStatus = .DECLINED
     ) {
         self.id = id
         self.label = label
@@ -112,6 +104,5 @@ public struct AccordionData: Sendable {
         self.isLabelMonospaced = isLabelMonospaced
         self.isContentSansSerif = isContentSansSerif
         self.hasBorder = hasBorder
-        self.matomoStatus = matomoStatus
     }
 }

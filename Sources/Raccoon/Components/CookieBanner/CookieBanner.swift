@@ -133,7 +133,6 @@ public struct CookieBanner: TemplateRepresentable {
                             label: Self.acceptAll,
                             buttonType: .primary,
                             hasFullWidth: true,
-                            matomoStatus: data.matomoStatus,
                             contentTracker:
                                 MatomoContentTracker(
                                     name: "cookie-banner",
@@ -151,7 +150,6 @@ public struct CookieBanner: TemplateRepresentable {
                             label: Self.decline,
                             buttonType: .tertiary,
                             hasFullWidth: true,
-                            matomoStatus: data.matomoStatus,
                             contentTracker:
                                 MatomoContentTracker(
                                     name: "cookie-banner",

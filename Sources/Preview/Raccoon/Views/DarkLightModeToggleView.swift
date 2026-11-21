@@ -62,7 +62,6 @@ struct DarkLightModeToggleView: TemplateRepresentable {
             ),
             DarkLightModeToggleData(
                 id: "darkLightModeToggle",
-                matomoStatus: .ACCEPTED
             )
         ),
     ]

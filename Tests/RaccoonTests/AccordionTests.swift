@@ -127,7 +127,6 @@ struct AccordionTests {
                 AccordionData(
                     label: "Tracked item",
                     content: .html("Tracked content"),
-                    matomoStatus: .ACCEPTED
                 )
             )
             .render()

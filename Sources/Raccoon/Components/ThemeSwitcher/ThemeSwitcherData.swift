@@ -55,10 +55,6 @@ public struct ThemeSwitcherData: Sendable {
     /// Alignment of the dropdown menu panel relative to the trigger button.
     public let align: ComponentPosition
 
-    // MARK: - 6. Analytics & Tracking
-
-    /// Matomo tracking consent status.
-    public let matomoStatus: MatomoStatus
 
     /// Creates a new configuration instance for `ThemeSwitcher`.
     ///
@@ -68,20 +64,17 @@ public struct ThemeSwitcherData: Sendable {
     ///   - defaultTheme: The default theme when none is stored.
     ///   - themes: The list of available themes to display in the dropdown.
     ///   - align: Alignment of the dropdown menu panel relative to the trigger button.
-    ///   - matomoStatus: Matomo tracking consent status.
     public init(
         id: String? = nil,
         ariaLabel: LocalizedText? = nil,
         defaultTheme: AppTheme = .emeraldMine,
         themes: [AppTheme] = AppTheme.allCases,
         align: ComponentPosition = .left,
-        matomoStatus: MatomoStatus = .DECLINED
     ) {
         self.id = id
         self.ariaLabel = ariaLabel
         self.defaultTheme = defaultTheme
         self.themes = themes
         self.align = align
-        self.matomoStatus = matomoStatus
     }
 }

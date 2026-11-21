@@ -36,12 +36,6 @@ public struct ToastData: Sendable {
     /// Whether the auto-dismiss timer automatically pauses when keyboard focus enters the toast.
     public let hasPauseOnFocus: Bool
 
-    // MARK: - 6. Analytics & Tracking
-    /// Consent tracking status for Matomo analytics.
-    public let matomoStatus: MatomoStatus
-    /// Optional Matomo content tracking configuration.
-    public let contentTracker: MatomoContentTracker?
-
     /// Creates a new configuration instance for `Toast`.
     ///
     /// - Parameters:
@@ -57,8 +51,6 @@ public struct ToastData: Sendable {
     ///   - hasIcon: Whether toast cards display a severity icon.
     ///   - hasPauseOnHover: Whether the auto-dismiss timer automatically pauses when hovered with a mouse pointer.
     ///   - hasPauseOnFocus: Whether the auto-dismiss timer automatically pauses when keyboard focus enters the toast.
-    ///   - matomoStatus: Consent tracking status for Matomo analytics.
-    ///   - contentTracker: Optional Matomo content tracking configuration.
     public init(
         // 1. Identity & Alpine Bindings
         id: String? = nil,
@@ -81,10 +73,6 @@ public struct ToastData: Sendable {
         hasIcon: Bool = true,
         hasPauseOnHover: Bool = true,
         hasPauseOnFocus: Bool = true,
-
-        // 6. Analytics & Tracking
-        matomoStatus: MatomoStatus = .DECLINED,
-        contentTracker: MatomoContentTracker? = nil
     ) {
         // 1. Identity & Alpine Bindings
         self.id = id
@@ -107,9 +95,5 @@ public struct ToastData: Sendable {
         self.hasIcon = hasIcon
         self.hasPauseOnHover = hasPauseOnHover
         self.hasPauseOnFocus = hasPauseOnFocus
-
-        // 6. Analytics & Tracking
-        self.matomoStatus = matomoStatus
-        self.contentTracker = contentTracker
     }
 }

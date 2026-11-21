@@ -164,7 +164,6 @@ struct HyperLinkTests {
                     href: "/docs/",
                     isFocusable: true,
                     isUnderlined: true,
-                    matomoStatus: .ACCEPTED,
                     contentTracker: tracker
                 )
             )
@@ -306,7 +305,6 @@ struct HyperLinkTests {
                         href: "/blog/",
                         isFocusable: true,
                         isUnderlined: true,
-                        matomoStatus: .ACCEPTED,
                         contentTracker: tracker
                     )
                 )

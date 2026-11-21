@@ -13,14 +13,14 @@ struct CookieBannerTests {
 
     @Test("renders cookie banner")
     func testCookieBannerRenders() {
-        let ctx = CookieBannerData(url: "/test-url", matomoStatus: .BANNER)
+        let ctx = CookieBannerData(url: "/test-url")
         let html = renderHTML(CookieBanner(ctx).render())
         #expect(html.contains("cookie"))
     }
 
     @Test("renders accept and decline buttons")
     func testButtonsRender() {
-        let ctx = CookieBannerData(url: "/test-url", matomoStatus: .BANNER)
+        let ctx = CookieBannerData(url: "/test-url")
         let html = renderHTML(CookieBanner(ctx).render())
         #expect(html.contains("Accept all"))
         #expect(html.contains("Decline statistics"))
@@ -30,7 +30,6 @@ struct CookieBannerTests {
     func testActionURLs() {
         let ctx = CookieBannerData(
             url: "/blog/post-1",
-            matomoStatus: .BANNER
         )
         let html = renderHTML(CookieBanner(ctx).render())
         #expect(html.contains("formaction=\"/opt-in/blog/post-1\""))
@@ -39,7 +38,7 @@ struct CookieBannerTests {
 
     @Test("renders dialog role and accessibility label")
     func testAccessibilityDialog() {
-        let ctx = CookieBannerData(url: "/home", matomoStatus: .BANNER)
+        let ctx = CookieBannerData(url: "/home")
         let html = renderHTML(CookieBanner(ctx).render())
         #expect(html.contains("role=\"dialog\""))
         #expect(html.contains("aria-label=\"Cookie consent\""))
@@ -49,7 +48,7 @@ struct CookieBannerTests {
 
     @Test("renders edge cases")
     func testEdgeCases() {
-        let ctx = CookieBannerData(url: "", matomoStatus: .BANNER)
+        let ctx = CookieBannerData(url: "")
         let html = renderHTML(CookieBanner(ctx).render())
         #expect(html.contains("formaction=\"/opt-in\""))
         #expect(html.contains("formaction=\"/opt-out\""))
@@ -57,7 +56,7 @@ struct CookieBannerTests {
 
     @Test("validates form configuration and button action behavior")
     func testFormConfigurationAndActions() {
-        let ctx = CookieBannerData(url: "/articles/test", matomoStatus: .BANNER)
+        let ctx = CookieBannerData(url: "/articles/test")
         let html = renderHTML(CookieBanner(ctx).render())
 
         #expect(html.contains("<form"))
@@ -74,7 +73,7 @@ struct CookieBannerTests {
         "all texts are built in and translated; the sentence around the link is split into three keys"
     )
     func localizedTexts() {
-        let data = CookieBannerData(url: "/x", matomoStatus: .BANNER)
+        let data = CookieBannerData(url: "/x")
         let english = renderHTML(CookieBanner(data).render())
         for key in [
             "title", "statistics", "statisticsText", "necessary",
@@ -100,7 +99,7 @@ struct CookieBannerTests {
 
     @Test("reports an impression once, for the accept button")
     func impressionOnlyOnAccept() {
-        let ctx = CookieBannerData(url: "/test-url", matomoStatus: .BANNER)
+        let ctx = CookieBannerData(url: "/test-url")
         let html = renderHTML(CookieBanner(ctx).render())
         #expect(html.components(separatedBy: "data-track-impression").count == 2)
         let tags = html.components(separatedBy: "<button")

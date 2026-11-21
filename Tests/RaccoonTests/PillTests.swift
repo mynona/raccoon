@@ -79,7 +79,6 @@ struct PillTests {
             Pill(
                 PillData(
                     count: 99,
-                    matomoStatus: .ACCEPTED
                 )
             )
             .render()

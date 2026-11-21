@@ -37,10 +37,6 @@ public struct StepperData: Sendable {
     /// Whether to display 1-based step numbers on steps that have no custom icon.
     public let hasStepNumbers: Bool
 
-    // MARK: - 6. Analytics & Tracking
-
-    /// Matomo tracking consent status.
-    public let matomoStatus: MatomoStatus
 
     /// Optional Matomo content tracking configuration.
     public let contentTracker: MatomoContentTracker?
@@ -57,7 +53,6 @@ public struct StepperData: Sendable {
     ///   - hasFullWidth: Whether the stepper expands to fill its parent container width.
     ///   - hasTooltip: Whether tooltips are displayed on step icons on hover and focus.
     ///   - hasStepNumbers: Whether to display 1-based step numbers on steps that have no custom icon.
-    ///   - matomoStatus: Matomo tracking consent status.
     ///   - contentTracker: Optional Matomo content tracking configuration.
     public init(
         // 1. Identity & Alpine Bindings
@@ -78,7 +73,6 @@ public struct StepperData: Sendable {
         hasStepNumbers: Bool = false,
 
         // 6. Analytics & Tracking
-        matomoStatus: MatomoStatus = .DECLINED,
         contentTracker: MatomoContentTracker? = nil
     ) {
         // 1. Identity & Alpine Bindings
@@ -99,7 +93,6 @@ public struct StepperData: Sendable {
         self.hasStepNumbers = hasStepNumbers
 
         // 6. Analytics & Tracking
-        self.matomoStatus = matomoStatus
         self.contentTracker = contentTracker
     }
 }

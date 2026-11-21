@@ -147,7 +147,6 @@ struct CopyToClipboardTests {
                 CopyToClipboardData(
                     key: "secret-token",
                     value: "token123",
-                    matomoStatus: .ACCEPTED
                 )
             )
             .render()
@@ -157,7 +156,7 @@ struct CopyToClipboardTests {
 
         let untracked = renderHTML(
             CopyToClipboard(
-                CopyToClipboardData(value: "token123", matomoStatus: .DECLINED)
+                CopyToClipboardData(value: "token123")
             )
             .render()
         )
