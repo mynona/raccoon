@@ -1,7 +1,8 @@
-// V1.1
+// V1.2
 
 /* Heatmap collector for the Matomo plugin MyHeatmap. It is loaded by raccoon-matomo-tracker.js, only with accepted
- * consent (also for signed-in users: the data is anonymous). The recorded data goes to the tracker script as a DOM
+ * consent (also for signed-in users: the data is anonymous; like the rest of the tracking it does not look at Do Not
+ * Track, the visitor decides with the cookie banner). The recorded data goes to the tracker script as a DOM
  * event, like every other event:
  *
  *   window.dispatchEvent(new CustomEvent('raccoon:track', { detail: { type: 'heatmap', payload } }))
@@ -202,7 +203,6 @@
   // ---- recording: only with the settings of the tracker script ----
   if (!config.trackerUrl || !config.siteId) return;
   if (typeof PointerEvent !== 'function' || typeof fetch !== 'function') return;
-  if (navigator.doNotTrack === '1' || window.doNotTrack === '1') return;
 
   const path = location.pathname;
   // ?myheatmap_sample=1 forces and =0 prevents the recording of this page view (own tests); automated browsers
