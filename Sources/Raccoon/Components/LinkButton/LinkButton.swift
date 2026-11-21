@@ -178,24 +178,34 @@ public struct LinkButton: TemplateRepresentable {
 
             }
             // Matomo
-            .if(data.matomoStatus == .ACCEPTED || data.matomoStatus == .BANNER)
-            {
-
-                $0
+            .if(
+                data.contentTracker != nil
+                    && (data.matomoStatus == .ACCEPTED
+                        || data.matomoStatus == .BANNER)
+            ) {
+                guard let tracker = data.contentTracker else { return $0 }
+                return
+                    $0
                     .flagAttribute("data-track-content")
                     .setAttribute(
                         name: "data-content-name",
-                        value: data.contentTracker.name
+                        value: tracker.name
                     )
                     .setAttribute(
                         name: "data-content-piece",
-                        value: data.contentTracker.piece
+                        value: tracker.piece
                     )
                     .setAttribute(
                         name: "data-content-target",
-                        value: data.contentTracker.target
+                        value: tracker.target
                     )
-
+            }
+            .if(
+                data.contentTracker?.impression == true
+                    && (data.matomoStatus == .ACCEPTED
+                        || data.matomoStatus == .BANNER)
+            ) {
+                $0.flagAttribute("data-track-impression")
             }
             .setAttribute(
                 name: "x-data",

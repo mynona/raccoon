@@ -497,4 +497,51 @@ struct ActionButtonTests {
         #expect(html.contains(">Home</span>"))
         #expect(!html.contains("data-i18n"))
     }
+
+    @Test("renders no content attributes without a tracker")
+    func rendersNoContentAttributesWithoutTracker() {
+        let html = renderHTML(
+            ActionButton(
+                ActionButtonData(
+                    label: "Go",
+                    buttonType: .primary,
+                    matomoStatus: .ACCEPTED
+                )
+            )
+            .render()
+        )
+        #expect(!html.contains("data-track-content"))
+        #expect(!html.contains("data-content-name"))
+    }
+
+    @Test("reports clicks only, unless an impression is requested")
+    func impressionIsOptIn() {
+        func render(_ tracker: MatomoContentTracker, _ status: MatomoStatus)
+            -> String
+        {
+            renderHTML(
+                ActionButton(
+                    ActionButtonData(
+                        label: "Go",
+                        buttonType: .primary,
+                        matomoStatus: status,
+                        contentTracker: tracker
+                    )
+                )
+                .render()
+            )
+        }
+        let clickOnly = render(tracker, .BANNER)
+        #expect(clickOnly.contains("data-track-content"))
+        #expect(!clickOnly.contains("data-track-impression"))
+
+        let seen = MatomoContentTracker(
+            name: "test",
+            piece: "button",
+            target: "#",
+            impression: true
+        )
+        #expect(render(seen, .ACCEPTED).contains("data-track-impression"))
+        #expect(!render(seen, .DECLINED).contains("data-track-impression"))
+    }
 }

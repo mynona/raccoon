@@ -138,7 +138,8 @@ public struct CookieBanner: TemplateRepresentable {
                                 MatomoContentTracker(
                                     name: "cookie-banner",
                                     piece: "button.accept",
-                                    target: "/opt-in"
+                                    target: "/opt-in",
+                                    impression: true
                                 )
                         )
                     ),

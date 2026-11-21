@@ -41,7 +41,7 @@ public struct LinkButtonData: Sendable {
     /// If `true`, the button label text is truncated with an ellipsis.
     public let hasTruncation: Bool
     public let matomoStatus: MatomoStatus
-    public let contentTracker: MatomoContentTracker
+    public let contentTracker: MatomoContentTracker?
     public let tooltip: LocalizedText?
     public let tooltipPosition: ComponentPosition?
 
@@ -77,7 +77,7 @@ public struct LinkButtonData: Sendable {
         hasFullWidth: Bool = false,
         hasTruncation: Bool = false,
         matomoStatus: MatomoStatus = .DECLINED,
-        contentTracker: MatomoContentTracker
+        contentTracker: MatomoContentTracker? = nil
     ) {
         self.label = label
         self.ariaLabel = ariaLabel

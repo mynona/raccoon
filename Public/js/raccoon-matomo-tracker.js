@@ -1,4 +1,4 @@
-// V1.3
+// V1.4
 
 /* Matomo tracker. Configured by data-* attributes on its own <script> tag, so the page needs no inline script:
  * - data-tracker-url   Matomo base URL with a trailing slash
@@ -10,6 +10,12 @@
  * - data-dimensions    optional: JSON object, custom dimension ID to value, e.g. {"4":"google"}
  * - data-events        optional: JSON array of [category, action, name?], reported with the page view
  * - data-reset-user    optional: "true" to forget the user ID and start a new visit (page shown after a sign out)
+ *
+ * Content tracking (elements with data-track-content, data-content-name, data-content-piece, data-content-target):
+ * - every click on such an element is reported as content interaction "click"
+ * - an impression is only reported for elements that also carry data-track-impression, once per page view,
+ *   when at least half of the element is visible
+ * - data-content-ignoreinteraction on an element switches its click reporting off
  *
  * Helpers for widgets, only present while this script is on the page (not with declined consent):
  * - window.RaccoonMatomo.trackFunnelStep(funnel, step)     event "funnel / <funnel> / <step>" for the MyFunnel plugin
@@ -135,7 +141,59 @@
     });
   }
 
-  _paq.push(['trackVisibleContentImpressions']);
+  // trackVisibleContentImpressions is not used: it reports every visible element on every page view, and Matomo
+  // only wires its own click tracking while it collects impressions. Both are reported here, explicitly.
+  function contentOf(node) {
+    const name = node.dataset.contentName;
+    const piece = node.dataset.contentPiece;
+    if (!name || !piece) return null;
+    return [name, piece, node.dataset.contentTarget || undefined];
+  }
+
+  // Capture phase: also reported when a component stops the propagation of its click
+  document.addEventListener(
+    'click',
+    function (event) {
+      const node = event.target instanceof Element ? event.target.closest('[data-track-content]') : null;
+      if (!node || node.hasAttribute('data-content-ignoreinteraction')) return;
+      const content = contentOf(node);
+      if (content) _paq.push(['trackContentInteraction', 'click'].concat(content));
+    },
+    true
+  );
+
+  function reportImpression(node) {
+    const content = contentOf(node);
+    if (content) _paq.push(['trackContentImpression'].concat(content));
+  }
+
+  function trackImpressions() {
+    const nodes = document.querySelectorAll('[data-track-impression]');
+    if (!nodes.length) return;
+    if (typeof IntersectionObserver !== 'function') {
+      nodes.forEach(reportImpression);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          observer.unobserve(entry.target);
+          reportImpression(entry.target);
+        });
+      },
+      { threshold: 0.5 }
+    );
+    nodes.forEach(function (node) {
+      observer.observe(node);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', trackImpressions);
+  } else {
+    trackImpressions();
+  }
   _paq.push(['enableLinkTracking']);
 
   const url = config.trackerUrl;

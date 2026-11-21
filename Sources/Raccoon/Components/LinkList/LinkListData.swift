@@ -6,7 +6,7 @@ public struct LinkListData: Sendable {
     public let icon: SvgIcon?
     public let links: [LocalizedText: String?]
     public let matomoStatus: MatomoStatus
-    public let contentTracker: MatomoContentTracker
+    public let contentTracker: MatomoContentTracker?
 
     /// Creates a new configuration instance for `LinkList`.
     ///
@@ -19,7 +19,7 @@ public struct LinkListData: Sendable {
         links: [LocalizedText: String?],
         icon: SvgIcon? = .arrow_right_circle,
         matomoStatus: MatomoStatus = .DECLINED,
-        contentTracker: MatomoContentTracker
+        contentTracker: MatomoContentTracker? = nil
     ) {
         self.icon = icon
         self.links = links

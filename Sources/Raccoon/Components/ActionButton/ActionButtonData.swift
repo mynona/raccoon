@@ -37,7 +37,7 @@ public struct ActionButtonData: Sendable {
 
     // MARK: - 6. Analytics & Tracking
     public let matomoStatus: MatomoStatus
-    public let contentTracker: MatomoContentTracker
+    public let contentTracker: MatomoContentTracker?
 
     /// Creates a new configuration instance for `ActionButton`.
     ///
@@ -96,7 +96,7 @@ public struct ActionButtonData: Sendable {
 
         // 6. Analytics & Tracking
         matomoStatus: MatomoStatus = .DEACTIVATED,
-        contentTracker: MatomoContentTracker
+        contentTracker: MatomoContentTracker? = nil
     ) {
         // 1. Identity & Alpine Bindings
         self.id = id

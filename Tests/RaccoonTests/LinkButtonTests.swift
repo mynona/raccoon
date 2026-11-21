@@ -495,4 +495,36 @@ struct LinkButtonTests {
         #expect(tooltipIdPrefix(english) != nil)
         #expect(tooltipIdPrefix(english) == tooltipIdPrefix(german))
     }
+
+    @Test("renders content attributes only with a tracker, impression only on request")
+    func contentAttributes() {
+        func render(_ tracker: MatomoContentTracker?) -> String {
+            renderHTML(
+                LinkButton(
+                    LinkButtonData(
+                        label: "Label",
+                        href: "/test/",
+                        buttonType: .primary,
+                        matomoStatus: .ACCEPTED,
+                        contentTracker: tracker
+                    )
+                )
+                .render()
+            )
+        }
+        #expect(!render(nil).contains("data-track-content"))
+        let clickOnly = render(tracker)
+        #expect(clickOnly.contains("data-track-content"))
+        #expect(!clickOnly.contains("data-track-impression"))
+        #expect(
+            render(
+                MatomoContentTracker(
+                    name: "test",
+                    piece: "link-button",
+                    target: "#",
+                    impression: true
+                )
+            ).contains("data-track-impression")
+        )
+    }
 }

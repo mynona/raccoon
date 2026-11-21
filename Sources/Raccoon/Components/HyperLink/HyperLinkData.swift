@@ -26,7 +26,7 @@ public struct HyperLinkData: Sendable {
 
     // MARK: - 6. Analytics & Tracking
     public let matomoStatus: MatomoStatus
-    public let contentTracker: MatomoContentTracker
+    public let contentTracker: MatomoContentTracker?
 
     /// Creates a new configuration instance for `HyperLink`.
     ///
@@ -64,7 +64,7 @@ public struct HyperLinkData: Sendable {
 
         // 6. Analytics & Tracking
         matomoStatus: MatomoStatus = .DECLINED,
-        contentTracker: MatomoContentTracker,
+        contentTracker: MatomoContentTracker? = nil,
     ) {
         // 2. Content & Accessibility
         self.label = label

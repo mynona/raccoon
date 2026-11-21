@@ -97,4 +97,16 @@ struct CookieBannerTests {
         #expect(german.contains("Alle akzeptieren"))
         #expect(german.contains("aria-label=\"Cookie-Einwilligung\""))
     }
+
+    @Test("reports an impression once, for the accept button")
+    func impressionOnlyOnAccept() {
+        let ctx = CookieBannerData(url: "/test-url", matomoStatus: .BANNER)
+        let html = renderHTML(CookieBanner(ctx).render())
+        #expect(html.components(separatedBy: "data-track-impression").count == 2)
+        let tags = html.components(separatedBy: "<button")
+        let accept = tags.first { $0.contains("button.accept") } ?? ""
+        let decline = tags.first { $0.contains("button.decline") } ?? ""
+        #expect(accept.contains("data-track-impression"))
+        #expect(!decline.isEmpty && !decline.contains("data-track-impression"))
+    }
 }

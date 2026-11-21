@@ -295,4 +295,37 @@ struct HyperLinkTests {
         #expect(plain.contains(">Plain</span>"))
         #expect(!plain.contains("data-i18n"))
     }
+
+    @Test("renders content attributes without impression by default and without a tracker none")
+    func contentAttributes() {
+        func render(_ tracker: MatomoContentTracker?) -> String {
+            renderHTML(
+                HyperLink(
+                    HyperLinkData(
+                        label: "Read more",
+                        href: "/blog/",
+                        isFocusable: true,
+                        isUnderlined: true,
+                        matomoStatus: .ACCEPTED,
+                        contentTracker: tracker
+                    )
+                )
+                .render()
+            )
+        }
+        #expect(!render(nil).contains("data-track-content"))
+        let clickOnly = render(tracker)
+        #expect(clickOnly.contains("data-track-content"))
+        #expect(!clickOnly.contains("data-track-impression"))
+        #expect(
+            render(
+                MatomoContentTracker(
+                    name: "test",
+                    piece: "link",
+                    target: "#",
+                    impression: true
+                )
+            ).contains("data-track-impression")
+        )
+    }
 }
