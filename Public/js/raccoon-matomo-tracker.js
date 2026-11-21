@@ -283,9 +283,9 @@
   push(['setTrackerUrl', url + 'matomo.php']);
   push(['setSiteId', config.siteId]);
 
-  // Heatmaps (Matomo plugin MyHeatmap): only with accepted consent and never for signed-in users. The collector
+  // Heatmaps (Matomo plugin MyHeatmap): only with accepted consent. The data is anonymous (element ids and numbers), so it is recorded for signed-in users too. The collector
   // asks Matomo which heatmaps apply to the page and records nothing otherwise.
-  if (config.consent === 'accepted' && config.userState !== 'signed-in' && /raccoon-matomo-tracker\.js/.test(script.src)) {
+  if (config.consent === 'accepted' && /raccoon-matomo-tracker\.js/.test(script.src)) {
     const collector = document.createElement('script');
     collector.async = true;
     collector.src = script.src.replace(/raccoon-matomo-tracker\.js/, 'raccoon-heatmap.js');

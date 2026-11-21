@@ -1,30 +1,6 @@
 // V1.0
 
-/* Heatmap collector for the Matomo plugin MyHeatmap. It is loaded by raccoon-matomo-tracker.js, only with accepted
- * consent and never for signed-in users, and it never talks to Matomo itself (except one anonymous request for the
- * settings): the data goes to the tracker script as a DOM event, like every other event.
- *
- *   window.dispatchEvent(new CustomEvent('raccoon:track', { detail: { type: 'heatmap', payload } }))
- *
- * Configured by the data-* attributes that the tracker script copies to this tag: data-tracker-url, data-site-id.
- *
- * What is collected: element ids, positions inside the element, scroll depth and the open/closed state of controls.
- * Never collected: text, values, attributes, URLs with query or fragment. While it records, the script does not read
- * `value`, `textContent` or `innerText` (it only tests whether a text node is empty, to find the element that a hit
- * belongs to, and keeps nothing of it), and registers no key, input, paste or copy listener (the change event of
- * checkboxes and switches is read for its checked state only). Text is only read by the snapshot function of the
- * capture script, and only for short names of controls.
- *
- * Element id: 8 hex characters, a hash of the structural path (tag and child position up to <html>), the same on
- * every visit and in the snapshot made by the capture script, which uses window.RaccoonHeatmapKit from this file.
- *
- * Markup hints:
- * - data-heatmap-ignore     the element and everything in it is neither recorded nor shown
- * - data-heatmap-label      name of a control in the report (otherwise data-content-name, aria-label, short UI text)
- *
- * Positions: x and y are 0..2000 inside the element (1000 = 50 %). Scroll depth and above the fold are 0..1000
- * (100 = 10 % of the page height).
- */
+
 
 (function () {
   const script = document.currentScript;
