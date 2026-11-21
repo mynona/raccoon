@@ -5,9 +5,10 @@ import WebBuilders
 
 /// MatomoTracker
 ///
-/// Emits the Matomo tracker script (external, configured by `data-*` attributes),
-/// the form-tracking script and the no-JavaScript
-/// fallback pixel. Renders nothing unless the status is `.ACCEPTED` or `.BANNER`.
+/// Emits the Matomo tracker script (external, configured by `data-*` attributes)
+/// and the form-tracking script. Renders nothing unless the status is `.ACCEPTED` or `.BANNER`.
+///
+/// There is no `<noscript>` pixel: it was only requested by crawlers that do not run JavaScript.
 ///
 public struct MatomoTracker: TemplateRepresentable {
     let data: MatomoTrackerData
@@ -96,23 +97,6 @@ public struct MatomoTracker: TemplateRepresentable {
         return script
     }
 
-    func noScriptPixelUrl() -> String {
-        let signInState: String
-        if case .signedIn = data.userState {
-            signInState = "signed-in"
-        } else {
-            signInState = "not-signed-in"
-        }
-        let base =
-            "\(data.trackerUrl)matomo.php?idsite=\(data.siteId)&amp;rec=1"
-        guard let canonicalPath = data.canonicalPath else {
-            return
-                "\(base)&dimension1=\(signInState)&dimension3=noscript&url=\(data.siteBaseUrl)"
-        }
-        return
-            "\(base)&recMode=2&dimension1=\(signInState)&dimension3=noscript&url=\(data.siteBaseUrl)\(canonicalPath)"
-    }
-
     @Builder<Element>
     public func render() -> [Element] {
 
@@ -128,18 +112,6 @@ public struct MatomoTracker: TemplateRepresentable {
                     value: "text/javascript"
                 )
                 .flagAttribute("defer")
-
-            // Track user with deactivated JavaScript
-            Noscript {
-                P {
-                    Img(src: noScriptPixelUrl(), alt: "")
-                        .style("border:0;")
-                        .setAttribute(
-                            name: "referrerpolicy",
-                            value: "no-referrer-when-downgrade"
-                        )
-                }
-            }
         }
     }
 }

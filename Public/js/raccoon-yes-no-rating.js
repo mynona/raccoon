@@ -13,6 +13,12 @@ if (!window.__yesNoRatingLoaded) {
       comment: '',
       submitting: false,
       showSuccess: false,
+      openedTracked: false,
+
+      // Funnel step for Matomo, only when the tracker is on the page (consent)
+      trackStep(step) {
+        if (window.RaccoonMatomo) window.RaccoonMatomo.trackFunnelStep('article-feedback', step);
+      },
 
       init() {
         if (!this.uuid || typeof window === 'undefined' || !window.localStorage) {
@@ -25,6 +31,10 @@ if (!window.__yesNoRatingLoaded) {
 
       selectChoice(val) {
         if (this.submitting) return;
+        if (!this.openedTracked) {
+          this.openedTracked = true;
+          this.trackStep('opened');
+        }
         this.choice = val;
         this.selectedOption = null;
         this.comment = '';
@@ -116,6 +126,8 @@ if (!window.__yesNoRatingLoaded) {
         fetch(targetUrl, { method: 'POST', body: formData })
           .then((res) => {
             if (res.ok) {
+              this.trackStep('submitted');
+              if (window.RaccoonMatomo) window.RaccoonMatomo.trackFeedbackAnswer('article-feedback', this.choice);
               this.showSuccess = true;
               const { successTitle, successText } = this.getToastStrings();
               this.triggerToast('success', successTitle, successText);

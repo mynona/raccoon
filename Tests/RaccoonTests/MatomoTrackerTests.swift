@@ -14,22 +14,18 @@ struct MatomoTrackerTests {
     private func makeData(
         status: MatomoStatus = .BANNER,
         pageType: MatomoPageType = .trackPageView,
-        canonicalPath: String? = nil,
         userState: MatomoUserState? = nil,
         customDimensions: [Int: String] = [:],
         events: [MatomoEvent] = [],
         resetsUser: Bool = false,
         siteId: String = "1",
-        trackerUrl: String = "https://statistics.raumnebenan.de/",
-        siteBaseUrl: String = "https://www.raumnebenan.de"
+        trackerUrl: String = "https://statistics.raumnebenan.de/"
     ) -> MatomoTrackerData {
         MatomoTrackerData(
             siteId: siteId,
             trackerUrl: trackerUrl,
-            siteBaseUrl: siteBaseUrl,
             status: status,
             pageType: pageType,
-            canonicalPath: canonicalPath,
             userState: userState,
             customDimensions: customDimensions,
             events: events,
@@ -158,45 +154,12 @@ struct MatomoTrackerTests {
         #expect(html.contains("data-page-type=\"site-search\""))
     }
 
-    @Test("points the fallback pixel at the canonical path")
-    func fallbackPixelUsesCanonicalPath() async throws {
-        let html = try await render(
-            makeData(
-                status: .ACCEPTED,
-                pageType: .trackPageView,
-                canonicalPath: "/artikel/test"
-            )
-        )
+    @Test("renders no noscript pixel")
+    func rendersNoNoscriptPixel() async throws {
+        let html = try await render(makeData(status: .ACCEPTED))
 
-        #expect(html.contains("<noscript>"))
-        #expect(
-            html.contains(
-                "url=https://www.raumnebenan.de/artikel/test"
-            )
-        )
-        #expect(html.contains("dimension3=noscript"))
-    }
-
-    @Test("falls back to the site root without a canonical path")
-    func fallbackPixelUsesSiteRoot() async throws {
-        let html = try await render(
-            makeData(status: .ACCEPTED, pageType: .trackPageView)
-        )
-
-        #expect(html.contains("url=https://www.raumnebenan.de\""))
-    }
-
-    @Test("reports the sign-in state in the fallback pixel")
-    func fallbackPixelReportsSignInState() async throws {
-        let signedIn = try await render(
-            makeData(status: .ACCEPTED, userState: .signedIn(userID: "user-42"))
-        )
-        let signedOut = try await render(
-            makeData(status: .ACCEPTED, userState: .signedOut)
-        )
-
-        #expect(signedIn.contains("dimension1=signed-in"))
-        #expect(signedOut.contains("dimension1=not-signed-in"))
+        #expect(!html.contains("<noscript>"))
+        #expect(!html.contains("dimension3=noscript"))
     }
 
     @Test("passes custom dimensions and events as JSON data attributes")

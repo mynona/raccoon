@@ -1,4 +1,4 @@
-// v2.0
+// v2.1
 
 /* Alpine component: floating rating widget with modal feedback dialog, dismissal memory, and page metadata. */
 
@@ -31,11 +31,21 @@ if (!window.__ratingLoaded) {
     error: '',
     showSuccess: false,
     showError: false,
+    openedTracked: false,
     // Set when the server answered 429: the submission limit is enforced server side
     limitReached: false,
 
+    // Funnel step for Matomo, only when the tracker is on the page (consent)
+    trackStep(step) {
+      if (window.RaccoonMatomo) window.RaccoonMatomo.trackFunnelStep('page-feedback', step);
+    },
+
     openModal() {
       this.open = true;
+      if (!this.openedTracked) {
+        this.openedTracked = true;
+        this.trackStep('opened');
+      }
       this.$nextTick(() => {
         this.validateFeedback();
         const panel = document.getElementById(`rating-floating-panel-${this.uuid}`) || this.widgetEl;
@@ -269,6 +279,9 @@ if (!window.__ratingLoaded) {
       fetch(url, { method: 'POST', body: formData })
         .then((res) => {
           if (res.ok) {
+            this.trackStep('submitted');
+            const answer = this.thumb || formData.get('category');
+            if (answer && window.RaccoonMatomo) window.RaccoonMatomo.trackFeedbackAnswer('page-feedback', String(answer));
             this.showSuccess = true;
             setTimeout(() => this.closeModal(), 2500);
           } else {

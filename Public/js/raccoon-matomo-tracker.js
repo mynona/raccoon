@@ -1,4 +1,4 @@
-// V1.2
+// V1.3
 
 /* Matomo tracker. Configured by data-* attributes on its own <script> tag, so the page needs no inline script:
  * - data-tracker-url   Matomo base URL with a trailing slash
@@ -10,6 +10,10 @@
  * - data-dimensions    optional: JSON object, custom dimension ID to value, e.g. {"4":"google"}
  * - data-events        optional: JSON array of [category, action, name?], reported with the page view
  * - data-reset-user    optional: "true" to forget the user ID and start a new visit (page shown after a sign out)
+ *
+ * Helpers for widgets, only present while this script is on the page (not with declined consent):
+ * - window.RaccoonMatomo.trackFunnelStep(funnel, step)     event "funnel / <funnel> / <step>" for the MyFunnel plugin
+ * - window.RaccoonMatomo.trackFeedbackAnswer(widget, answer) event "feedback / <widget> / <answer>", fixed values only
  *
  * After a sign out, Matomo would keep attributing the visitor to the previous user. With accepted consent
  * (Matomo cookies are allowed then) the script therefore remembers in localStorage that this browser was signed in
@@ -35,6 +39,18 @@
   }
 
   _paq.push(['setCustomDimension', 3, 'js']);
+
+  // Keys are lowercase and never carry personal data or free text
+  const eventKey = /^[a-z][a-z0-9-]{0,39}$/;
+  window.RaccoonMatomo = window.RaccoonMatomo || {};
+  window.RaccoonMatomo.trackFunnelStep = function (funnel, step) {
+    if (!eventKey.test(funnel) || !eventKey.test(step)) return;
+    _paq.push(['trackEvent', 'funnel', funnel, step]);
+  };
+  window.RaccoonMatomo.trackFeedbackAnswer = function (widget, answer) {
+    if (!eventKey.test(widget) || !eventKey.test(answer)) return;
+    _paq.push(['trackEvent', 'feedback', widget, answer]);
+  };
 
   function parseJson(value) {
     try {
